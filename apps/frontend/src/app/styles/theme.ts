@@ -1,9 +1,12 @@
 import { createTheme } from '@mantine/core';
-import { myColor } from 'shared/constants/myColor';
+import { myOrange, myBlue, myBlack, myState } from 'shared/constants/myColors';
 
 export const theme = createTheme({
   fontFamily: 'Factora, sans-serif',
   colors: {
-    myColor,
+    myOrange,
+    myBlue,
+    myBlack,
+    myState,
   },
 });
