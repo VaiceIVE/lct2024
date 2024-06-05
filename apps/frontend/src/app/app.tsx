@@ -1,8 +1,24 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+import { withProviders } from './providers';
+import './index.scss';
+import '@mantine/core/styles.css';
+import { Routing } from '../pages';
+import { Context } from 'main';
+import { useContext, useEffect } from 'react';
 
-export function App() {
-  return <div>123</div>;
-}
+const App = () => {
+  const { UStore } = useContext(Context);
 
-export default App;
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      UStore.checkAuth();
+    }
+  }, []);
+
+  return (
+    <div className="app">
+      <Routing />
+    </div>
+  );
+};
+
+export default withProviders(App);
