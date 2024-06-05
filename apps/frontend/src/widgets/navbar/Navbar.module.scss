@@ -1,3 +1,5 @@
+@import '@styles/__defines.scss';
+
 .navbar {
   position: sticky;
   top: 0;
@@ -12,17 +14,13 @@
   display: flex;
   flex-direction: column;
 
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 22px;
-  color: #212529;
-
   background: white;
 
   svg {
     color: #adb5bd;
   }
+
+  border-right: 1px solid #cad5dd;
 
   &__header {
     margin-bottom: 72px;
@@ -37,15 +35,23 @@
     flex-direction: column;
     gap: 8px;
 
-    font-weight: 500;
-    transition: all 0.2s;
+    div {
+      font-weight: 500;
+      color: $secondary-color;
+    }
+
+    svg {
+      color: $secondary-color;
+    }
 
     &:hover {
-      background: #ffe7f7;
-      color: #fb0878;
-      border-radius: 12px;
+      div {
+        color: $main-black-color;
+        font-weight: 700;
+      }
+
       svg {
-        color: #fb0878;
+        color: $main-orange-color;
       }
     }
   }

@@ -1,4 +1,5 @@
 /* Reset and base styles  */
+@import '@styles/__defines.scss';
 
 * {
   padding: 0px;
@@ -114,16 +115,6 @@ legend {
   display: block;
 }
 
-#nav a.active,
-a.hover div {
-  background: #ffe7f7;
-  color: #fb0878;
-  border-radius: 12px;
-  svg {
-    color: #fb0878;
-  }
-}
-
 body {
   filter: expression(document.execCommand('BackgroundImageCache', false, true));
 }
@@ -138,7 +129,6 @@ html {
   &::-webkit-scrollbar {
     display: none;
   }
-  background: #f8f9fa;
 }
 
 .wrapper {
@@ -146,56 +136,19 @@ html {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #f8f9fa;
 }
 
 .text {
-  color: #495057;
+  color: $text-color;
   font-size: 16px;
-  font-weight: 500;
-  line-height: 22px;
-  &.bold {
-    color: #212529;
-    font-weight: 700;
+  font-weight: 400;
+  line-height: 21px;
+  &.medium {
+    color: $main-black-color;
+    font-weight: 500;
   }
-  &.black {
-    color: #212529;
-  }
-  &.pink {
-    color: #fa1d80;
-  }
-  &.gray {
-    color: #adb5bd;
-  }
-  &.white {
-    color: white;
-  }
-  &.red {
-    color: #eb5757;
-  }
-  &.orange {
-    color: #f2994a;
-  }
-}
 
-.h1 {
-  color: #212529;
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 43px;
-}
-
-.h2 {
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 24px;
-  color: #212529;
-}
-
-.h3 {
-  color: #495057;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 24px;
+  &.secondary {
+    color: $secondary-color;
+  }
 }

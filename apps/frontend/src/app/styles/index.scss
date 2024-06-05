@@ -1,2 +1,14 @@
 @import './normalize.scss';
 @import '@styles/__defines.scss';
+
+#nav a.active,
+a.hover div {
+  div {
+    font-weight: 700;
+    color: $main-black-color;
+  }
+
+  svg {
+    color: $main-orange-color;
+  }
+}
