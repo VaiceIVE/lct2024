@@ -7,7 +7,7 @@ import AuthServices from 'shared/services/AuthServices';
 
 export default class UserStore {
   user = {} as IUser;
-  isAuth = false;
+  isAuth = true;
   isLoading = false;
   error = '';
 
@@ -80,32 +80,32 @@ export default class UserStore {
     }
   }
 
-  async checkAuth() {
-    this.setLoading(true);
-    try {
-      const response = await axios.get<AuthResponse>(
-        `${API_URL}/auth/refresh`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('rtoken')}`,
-          },
-        }
-      );
-      localStorage.setItem('token', response.data.accessToken);
-      localStorage.setItem('rtoken', response.data.refreshToken);
-      this.setAuth(true);
-      this.setUser(response.data.user);
-    } catch (e: any) {
-      console.log(e);
-      if (e.name === 403) {
-      } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('rtoken');
-        this.setAuth(false);
-        this.setUser({} as IUser);
-      }
-    } finally {
-      this.setLoading(false);
-    }
-  }
+  // async checkAuth() {
+  //   this.setLoading(true);
+  //   try {
+  //     const response = await axios.get<AuthResponse>(
+  //       `${API_URL}/auth/refresh`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem('rtoken')}`,
+  //         },
+  //       }
+  //     );
+  //     localStorage.setItem('token', response.data.accessToken);
+  //     localStorage.setItem('rtoken', response.data.refreshToken);
+  //     this.setAuth(true);
+  //     this.setUser(response.data.user);
+  //   } catch (e: any) {
+  //     console.log(e);
+  //     if (e.name === 403) {
+  //     } else {
+  //       localStorage.removeItem('token');
+  //       localStorage.removeItem('rtoken');
+  //       this.setAuth(false);
+  //       this.setUser({} as IUser);
+  //     }
+  //   } finally {
+  //     this.setLoading(false);
+  //   }
+  // }
 }

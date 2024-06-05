@@ -1,16 +1,7 @@
 export const HOME_ROUTE = '/';
+
 export const LOGIN_ROUTE = '/login';
 export const REGISTRATION_ROUTE = '/registration';
-export const MY_PATH_ROUTE = '/my_path';
-export const COMMUNITY_ROUTE = '/community';
-export const EDUCATIONS_ROUTE = '/educations';
-export const TRAINING_ROUTE = '/training';
-export const PROFILE_ROUTE = '/profile';
-export const MY_SOCIALS_ROUTE = '/my_socials';
-export const MAGE_ROUTE = '/mage';
-export const NO_PAGE_ROUTE = '/no_page';
-export const CONNECT_NO_PAGE_ROUTE = '/connect_no_page';
-export const STAT_ROUTE = '/stat';
-export const PROF_DB_ROUTE = '/prof_db';
-export const PATH_DB_ROUTE = '/path_db';
-export const ONBOARDING_ROUTE = '/onboarding';
+
+export const STORAGE_ROUTE = '/storage';
+export const RESPONSE_ROUTE = '/response';

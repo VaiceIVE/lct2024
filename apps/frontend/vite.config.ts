@@ -22,6 +22,7 @@ export default defineConfig({
   resolve: {
     alias: {
       src: path.resolve('./src'),
+      '@styles': path.resolve('src/app/styles'),
     },
   },
 
