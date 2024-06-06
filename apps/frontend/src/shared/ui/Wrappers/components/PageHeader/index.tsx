@@ -22,7 +22,7 @@ export const PageHeader = () => {
     >
       <Title level={2} title={defaultTitle} />
       <Button
-        title="Новый прогноз"
+        label="Новый прогноз"
         icon={<IconPlus width={18} height={18} />}
       />
     </Flex>

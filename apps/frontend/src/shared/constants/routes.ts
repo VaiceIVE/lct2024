@@ -12,6 +12,8 @@ import {
 
 //User
 const forecast = lazy(() => import('pages/forecast'));
+const response = lazy(() => import('pages/response'));
+const storage = lazy(() => import('pages/storage'));
 
 export const publicRoutes = [
   {
@@ -31,16 +33,16 @@ export const authRoutes = [
   },
   {
     path: RESPONSE_ROUTE,
-    Component: forecast,
+    Component: response,
     navbarTitle: 'Реагирование',
-    pageTitle: 'Ближайшие спрогнозированные события',
+    pageTitle: '1',
     icon: IconTransitionRight,
   },
   {
     path: STORAGE_ROUTE,
-    Component: forecast,
+    Component: storage,
     navbarTitle: 'Хранилище',
-    pageTitle: 'Ближайшие спрогнозированные события',
+    pageTitle: '2',
     icon: IconDatabase,
   },
 ];

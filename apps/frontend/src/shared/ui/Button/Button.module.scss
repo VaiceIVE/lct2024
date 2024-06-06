@@ -19,6 +19,17 @@
     }
   }
 
+  &.light {
+    background-color: #eef6fc;
+    color: $main-blue-color;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: #d9efff;
+      }
+    }
+  }
+
   &.outline {
     background: transparent;
     border: 1.5px solid #bebebe;
