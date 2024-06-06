@@ -1,0 +1,63 @@
+@import '@styles/__defines.scss';
+
+.button {
+  height: 57px;
+  width: fit-content;
+  padding: 18px 32px;
+  background: $main-blue-color;
+  border-radius: 12px;
+  color: $white-color;
+  transition: all 0.2s ease;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: $link-hover-color;
+    }
+  }
+
+  &.outline {
+    background: transparent;
+    border: 1.5px solid #bebebe;
+
+    @media (hover: hover) {
+      &:hover {
+      }
+    }
+
+    svg {
+    }
+  }
+
+  &.white {
+    @media (hover: hover) {
+      &:hover {
+        svg {
+        }
+      }
+    }
+
+    svg {
+    }
+  }
+}
+
+.button-wrapper {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  &.solo {
+    column-gap: 0;
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

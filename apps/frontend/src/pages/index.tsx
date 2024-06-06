@@ -17,7 +17,7 @@ export const Routing = observer(() => {
             <Navbar />
           </div>
         )}
-        <Stack w={'100%'} align="center">
+        <Stack w={'100%'}>
           <Routes>
             {authRoutes.map(({ path, Component }) => (
               <Route key={path} path={path} element={<Component />} />

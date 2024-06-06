@@ -13,6 +13,7 @@
     "@nx/nest": "^19.1.0",
     "@tabler/icons-react": "^3.5.0",
     "axios": "^1.7.2",
+    "classnames": "^2.5.1",
     "compose-function": "^3.0.3",
     "dayjs": "^1.11.11",
     "mobx": "^6.12.3",
