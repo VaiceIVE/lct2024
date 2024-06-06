@@ -12,3 +12,23 @@ a.hover div {
     color: $main-orange-color;
   }
 }
+
+.mantine-Popover-dropdown {
+  &.mantine-Select-dropdown {
+    border-radius: 8px;
+
+    .mantine-Select-option {
+      padding: 14px 24px;
+      color: $text-color;
+      font-size: 16px;
+      line-height: 21px;
+
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+
+      &:hover {
+        background-color: #eef6fc;
+      }
+    }
+  }
+}

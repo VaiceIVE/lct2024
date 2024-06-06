@@ -2,7 +2,7 @@ import { IconArrowsMaximize } from '@tabler/icons-react';
 import { Button } from 'shared/ui/Button';
 import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
-export const ForecastMap = () => {
+export const EventsMap = () => {
   return (
     <WidgetWrapper
       button={

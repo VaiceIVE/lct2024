@@ -4,9 +4,9 @@ import { debounce } from 'lodash';
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
 import { ForecastCards } from 'widgets/forecast-cards';
 import { ForecastDatePicker } from 'widgets/forecast-date-picker';
-import { ForecastList } from 'widgets/forecast-list';
-import { ForecastMap } from 'widgets/forecast-map';
+import { EventsList } from 'widgets/events-list';
 import { months } from 'shared/constants/months';
+import { EventsMap } from 'widgets/events-map';
 
 const ForecastPage = () => {
   const [monthsIndex, setMonthsIndex] = useState(0);
@@ -32,8 +32,8 @@ const ForecastPage = () => {
         setMonthsIndex={setMonthsIndex}
       />
       <ForecastCards />
-      <ForecastMap />
-      <ForecastList />
+      <EventsMap />
+      <EventsList />
     </PageWrapper>
   );
 };
