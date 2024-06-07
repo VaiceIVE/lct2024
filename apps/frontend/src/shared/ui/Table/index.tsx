@@ -119,6 +119,12 @@ export const Table = ({ data }: Props) => {
     enableSorting: true,
     enablePagination: true,
     positionPagination: 'bottom',
+    renderEmptyRowsFallback: () => (
+      <div className={styles.empty}>Ничего не найдено</div>
+    ),
+    mantineTableHeadCellProps: {
+      p: 20,
+    },
     mantinePaperProps: {
       shadow: 'none',
       withBorder: false,

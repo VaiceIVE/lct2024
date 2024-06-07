@@ -145,7 +145,7 @@ export const EventsList = () => {
     },
   ];
 
-  const { control } = useForm();
+  const { control, watch } = useForm();
 
   return (
     <WidgetWrapper
@@ -163,7 +163,7 @@ export const EventsList = () => {
           <Grid.Col span={8}>
             <Controller
               control={control}
-              name="name"
+              name="address"
               render={({ field }) => (
                 <Input
                   field={field}
@@ -177,6 +177,7 @@ export const EventsList = () => {
             <Controller
               control={control}
               name="priority"
+              defaultValue={'1'}
               render={({ field }) => (
                 <Select
                   field={field}
@@ -191,7 +192,13 @@ export const EventsList = () => {
             />
           </Grid.Col>
         </Grid>
-        <Table data={data} />
+        <Table
+          data={data.filter((item) =>
+            item.address
+              .toLowerCase()
+              .includes(watch('address')?.toLowerCase() || '')
+          )}
+        />
       </Stack>
     </WidgetWrapper>
   );
