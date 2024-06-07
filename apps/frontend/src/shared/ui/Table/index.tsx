@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { useMantineTheme } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 
 import 'mantine-react-table/styles.css';
 import {
@@ -9,8 +10,11 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table';
 
+import { Drawer } from '../Drawer';
+import { IconBlock } from '../IconBlock';
+
 import styles from './Table.module.scss';
-import { IconHome } from '@tabler/icons-react';
+import { ObjectCard } from './components/ObjectCard';
 
 type test = {
   type: string;
@@ -25,12 +29,24 @@ interface Props {
   data: test[];
 }
 
-const typeIcons: { [key: string]: JSX.Element } = {
-  '1': <IconHome width={24} height={24} className={styles.orange} />,
-};
-
 export const Table = ({ data }: Props) => {
   const theme = useMantineTheme();
+
+  const [opened, { open, close }] = useDisclosure(false);
+
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (selectedId || selectedId === 0) {
+      open();
+    }
+  }, [selectedId, open]);
+
+  useEffect(() => {
+    if (!opened) {
+      setSelectedId(null);
+    }
+  }, [opened]);
 
   const columns = useMemo<MRT_ColumnDef<test>[]>(
     () => [
@@ -41,7 +57,7 @@ export const Table = ({ data }: Props) => {
         grow: false,
         enableSorting: false,
         Cell: ({ renderedCellValue }) => (
-          <div className={styles.type}>{typeIcons[`${renderedCellValue}`]}</div>
+          <IconBlock iconType={`${renderedCellValue}`} />
         ),
       },
       {
@@ -119,6 +135,7 @@ export const Table = ({ data }: Props) => {
     enableSorting: true,
     enablePagination: true,
     positionPagination: 'bottom',
+    paginationDisplayMode: 'pages',
     renderEmptyRowsFallback: () => (
       <div className={styles.empty}>Ничего не найдено</div>
     ),
@@ -133,14 +150,14 @@ export const Table = ({ data }: Props) => {
       className: styles.table,
       highlightOnHover: false,
       striped: 'even',
-      stripedColor: '#FAFAFA',
+      stripedColor: '#F6F6F6',
       withColumnBorders: false,
       withRowBorders: false,
-      withTableBorder: false,
+      withTableBorder: true,
       style: {
         background: theme.colors.myBlack[4],
         borderRadius: '12px',
-        outline: '1px solid #FAFAFA',
+        border: '1px solid #F6F6F6',
       },
     },
     mantinePaginationProps: {
@@ -154,11 +171,21 @@ export const Table = ({ data }: Props) => {
         border: 'none',
       },
     },
-    paginationDisplayMode: 'pages',
+    mantineTableBodyRowProps: ({ row }) => ({
+      onClick: () => {
+        setSelectedId(+row.id);
+      },
+      style: {
+        cursor: 'pointer',
+      },
+    }),
   });
 
   return (
     <div className={styles.wrapper}>
+      <Drawer title="Карточка объекта" opened={opened} close={close}>
+        <ObjectCard selectedId={selectedId} />
+      </Drawer>
       <MantineReactTable table={table} />
     </div>
   );

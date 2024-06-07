@@ -27,7 +27,7 @@ export const myBlue: MantineColorsTuple = [
 ];
 
 export const myBlack: MantineColorsTuple = [
-  '#FAFAFA',
+  '#F6F6F6',
   '#929292',
   '#003B65',
   '#676767',

@@ -1,4 +1,6 @@
 import { Stack } from '@mantine/core';
+import classNames from 'classnames';
+
 import style from './Card.module.scss';
 
 interface Props {
@@ -11,28 +13,25 @@ interface Props {
   mb?: number;
   bg?: string;
   radius?: number | string;
-  outline?: boolean;
+  type?: 'outline' | 'dark' | 'default';
 }
 
 export const Card = ({
   p = '32px',
   gap = 16,
   children,
-  bg = '#EEF6FC',
   radius = '12px',
-  outline,
+  type = 'default',
   ...props
 }: Props) => {
   return (
     <Stack
       p={p}
       gap={gap}
-      bg={bg}
       style={{
         borderRadius: `${radius}`,
-        border: outline ? '2px solid #DEE2E6' : 'none',
       }}
-      className={style.card}
+      className={classNames(style.card, style[type])}
       {...props}
     >
       {children}
