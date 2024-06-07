@@ -1,9 +1,9 @@
-import { Input as MantineInput } from '@mantine/core';
+import { CloseButton, Input as MantineInput } from '@mantine/core';
 import style from './Input.module.scss';
 import { ControllerRenderProps, FieldValues } from 'react-hook-form';
 
 interface Props {
-  field: ControllerRenderProps<FieldValues, never>;
+  field: ControllerRenderProps<FieldValues, any>;
   w?: number;
   size?: string;
   h?: number;
@@ -12,6 +12,7 @@ interface Props {
   label?: string;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   type?: string;
+  allowClear?: boolean;
 }
 
 export const Input = ({
@@ -20,17 +21,33 @@ export const Input = ({
   label,
   onFocus,
   type,
+  allowClear,
   ...props
 }: Props) => {
   return (
     <MantineInput.Wrapper className={style.input} label={label}>
       <MantineInput
         type={type}
+        defaultValue={''}
         onFocus={onFocus}
         {...props}
         size={size}
-        {...field}
+        onChange={field.onChange}
+        value={field.value}
         className={style.input}
+        rightSectionPointerEvents="all"
+        rightSection={
+          allowClear ? (
+            <CloseButton
+              aria-label="Clear input"
+              onClick={() => field.onChange('')}
+              style={{
+                display: field?.value ? undefined : 'none',
+                marginRight: '24px',
+              }}
+            />
+          ) : null
+        }
       />
     </MantineInput.Wrapper>
   );

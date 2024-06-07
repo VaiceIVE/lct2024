@@ -5,7 +5,7 @@ import style from './Select.module.scss';
 
 interface Props {
   data: { label: string; value: string }[];
-  field: ControllerRenderProps<FieldValues, never>;
+  field: ControllerRenderProps<FieldValues, any>;
   custom?: boolean;
   label?: string;
   placeholder?: string;

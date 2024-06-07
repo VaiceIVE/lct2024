@@ -14,7 +14,7 @@ export const PageWrapper = ({ children }: Props) => {
   return (
     <Stack gap={0}>
       <PageHeader />
-      <Stack p={'24px 64px'} gap={44}>
+      <Stack p={'24px 64px 96px'} gap={44}>
         {Children.map(children, (child) => (
           <div>{child}</div>
         ))}
