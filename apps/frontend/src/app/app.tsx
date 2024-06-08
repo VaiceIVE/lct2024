@@ -1,8 +1,15 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+import { withProviders } from './providers';
+import './index.scss';
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import { Routing } from '../pages';
 
-export function App() {
-  return <div>123</div>;
-}
+const App = () => {
+  return (
+    <div className="app">
+      <Routing />
+    </div>
+  );
+};
 
-export default App;
+export default withProviders(App);

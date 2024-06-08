@@ -1,0 +1,63 @@
+@import '@styles/__defines.scss';
+
+.navbar {
+  position: sticky;
+  top: 0;
+
+  border-right: none;
+  padding: 32px 16px;
+
+  height: 100vh;
+  width: 142px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: white;
+
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  border-right: 1px solid #cad5dd;
+
+  &__header {
+    margin-bottom: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__modal-link {
+    cursor: pointer;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    div {
+      font-weight: 500;
+      color: $secondary-color;
+    }
+
+    svg {
+      color: $secondary-color;
+    }
+
+    &:hover {
+      div {
+        color: $main-black-color;
+        font-weight: 700;
+      }
+
+      svg {
+        color: $main-orange-color;
+      }
+    }
+  }
+}

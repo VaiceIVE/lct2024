@@ -1,0 +1,28 @@
+@import '@styles/__defines.scss';
+
+.icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  &.orange {
+    background-color: $orange-bg-color;
+  }
+
+  &.gray {
+    background-color: $border-color;
+  }
+}
+
+.orange {
+  color: $main-orange-color;
+}
+
+.black {
+  color: $text-color;
+}
