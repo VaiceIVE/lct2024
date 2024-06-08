@@ -11,7 +11,7 @@
 
   font-weight: 500;
   font-size: 16px;
-  line-height: 21px;
+  line-height: 18px;
 
   &.full {
     width: unset;
@@ -37,9 +37,17 @@
 
   &.outline {
     background: transparent;
-    border: 1.5px solid #bebebe;
+    border: 1px solid $divider-color;
+    color: $text-color;
+
+    svg {
+      color: $main-blue-color;
+    }
 
     @media (hover: hover) {
+      &:hover {
+        border-color: $link-hover-color;
+      }
     }
   }
 
@@ -53,7 +61,7 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: #d9efff;
+        background-color: $gray-color;
       }
     }
   }

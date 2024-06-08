@@ -6,6 +6,7 @@ import { theme } from 'app/styles/theme';
 import UserStore from 'shared/store/user';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
+import { DatesProvider } from '@mantine/dates';
 dayjs.locale('ru');
 
 interface State {
@@ -27,7 +28,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
     root.render(
       <Context.Provider value={{ UStore }}>
         <MantineProvider theme={theme}>
-          <App />
+          <DatesProvider settings={{ locale: 'ru' }}>
+            <App />
+          </DatesProvider>
         </MantineProvider>
       </Context.Provider>
     );

@@ -1,0 +1,61 @@
+@import '@styles/__defines.scss';
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 14px 16px;
+  border-radius: 10px;
+
+  border: 1px solid $divider-color;
+
+  transition: all 0.3s;
+
+  &[data-checked='true'] {
+    background-color: #eef6fc;
+
+    border-color: #eef6fc;
+
+    label {
+      color: $main-blue-color;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: #eef6fc;
+        background-color: #d9efff;
+      }
+    }
+  }
+
+  label {
+    padding-left: 0;
+
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+
+    color: $text-color;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: $link-hover-color;
+    }
+  }
+
+  > div {
+    width: 20px;
+    height: 20px;
+
+    &[data-checked='true'] {
+      background-color: $main-blue-color;
+      border: none;
+
+      svg {
+        width: 8px;
+      }
+    }
+  }
+}

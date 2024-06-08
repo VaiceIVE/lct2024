@@ -9,9 +9,16 @@ interface DraweProps {
   close: () => void;
   title: string;
   children?: React.ReactNode;
+  isBlur?: boolean;
 }
 
-export const Drawer = ({ opened, close, title, children }: DraweProps) => {
+export const Drawer = ({
+  opened,
+  close,
+  title,
+  children,
+  isBlur,
+}: DraweProps) => {
   useEffect(() => {
     if (opened) {
       document.body.style.overflow = 'hidden';
@@ -27,9 +34,8 @@ export const Drawer = ({ opened, close, title, children }: DraweProps) => {
       title={<Title level={2} title={title} />}
       opened={opened}
       onClose={close}
-      //lockScroll={false}
       size={600}
-      overlayProps={{ blur: 3 }}
+      overlayProps={isBlur ? { blur: 3 } : undefined}
       returnFocus={false}
     >
       {children}

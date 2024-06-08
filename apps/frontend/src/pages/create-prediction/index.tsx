@@ -1,13 +1,17 @@
 import { Flex } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconAnalyze, IconChevronLeft } from '@tabler/icons-react';
+import { useState } from 'react';
+import { ITemperatureConditions } from 'shared/models/ITemperatureConditions';
 import { Breadcrumbs } from 'shared/ui/Breadcrumbs';
 import { Button } from 'shared/ui/Button';
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
+import { PredictionCreate } from 'widgets/prediction-create';
 import { PredictionLeaveModal } from 'widgets/prediction-leave-modal';
 
 const CreatePredictionPage = () => {
   const [opened, { open, close }] = useDisclosure(false);
+  const [conditions, setConditions] = useState<ITemperatureConditions[]>([]);
 
   return (
     <PageWrapper
@@ -27,7 +31,6 @@ const CreatePredictionPage = () => {
         </Flex>
       }
     >
-      <PredictionLeaveModal opened={opened} close={close} />
       <Breadcrumbs
         onClick={open}
         path={[
@@ -35,7 +38,8 @@ const CreatePredictionPage = () => {
           { title: 'Новый прогноз', href: '/create-prediction' },
         ]}
       />
-      <div>1312</div>
+      <PredictionCreate setConditions={setConditions} conditions={conditions} />
+      <PredictionLeaveModal opened={opened} close={close} />
     </PageWrapper>
   );
 };

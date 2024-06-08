@@ -1,6 +1,7 @@
 import { withProviders } from './providers';
 import './index.scss';
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 import { Routing } from '../pages';
 
 const App = () => {

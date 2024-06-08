@@ -39,7 +39,7 @@ export const ObjectCard = ({ selectedId }: ObjectCardProps) => {
             <Title level={4} title="Характеристики" />
             <Stack gap={12}>
               {Object.keys(data).map((key) => (
-                <Flex align={'center'} gap={24}>
+                <Flex key={key} align={'center'} gap={24}>
                   <p className="text medium placeholder">{key}</p>
                   <Divider color="#CAD5DD" style={{ flex: 1 }} />
                   <p className="text medium">{data[key]}</p>

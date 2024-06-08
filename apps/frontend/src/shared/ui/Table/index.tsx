@@ -183,7 +183,7 @@ export const Table = ({ data }: Props) => {
 
   return (
     <div className={styles.wrapper}>
-      <Drawer title="Карточка объекта" opened={opened} close={close}>
+      <Drawer isBlur title="Карточка объекта" opened={opened} close={close}>
         <ObjectCard selectedId={selectedId} />
       </Drawer>
       <MantineReactTable table={table} />
