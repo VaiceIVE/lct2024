@@ -2,7 +2,7 @@ import { Drawer as MantineDrawer } from '@mantine/core';
 import { useEffect } from 'react';
 
 import styles from './Drawer.module.scss';
-import { Title } from '../Title';
+import classNames from 'classnames';
 
 interface DraweProps {
   opened: boolean;
@@ -10,6 +10,7 @@ interface DraweProps {
   title: string;
   children?: React.ReactNode;
   isBlur?: boolean;
+  footer?: React.ReactNode;
 }
 
 export const Drawer = ({
@@ -18,6 +19,7 @@ export const Drawer = ({
   title,
   children,
   isBlur,
+  footer,
 }: DraweProps) => {
   useEffect(() => {
     if (opened) {
@@ -28,17 +30,27 @@ export const Drawer = ({
   }, [opened]);
 
   return (
-    <MantineDrawer
+    <MantineDrawer.Root
       className={styles.drawer}
       position="right"
-      title={<Title level={2} title={title} />}
       opened={opened}
       onClose={close}
       size={600}
-      overlayProps={isBlur ? { blur: 3 } : undefined}
       returnFocus={false}
     >
-      {children}
-    </MantineDrawer>
+      <MantineDrawer.Overlay blur={isBlur ? 3 : 0} />
+      <MantineDrawer.Content>
+        <MantineDrawer.Header>
+          <MantineDrawer.Title>
+            <div className={styles.title}>{title}</div>
+          </MantineDrawer.Title>
+          <MantineDrawer.CloseButton />
+        </MantineDrawer.Header>
+        <MantineDrawer.Body className={classNames(footer && styles.body)}>
+          {children}
+        </MantineDrawer.Body>
+        {footer ? <footer className={styles.footer}>{footer}</footer> : null}
+      </MantineDrawer.Content>
+    </MantineDrawer.Root>
   );
 };

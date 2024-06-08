@@ -145,6 +145,11 @@ html {
   font-size: 16px;
   font-weight: 400;
   line-height: 18px;
+  &.small {
+    font-size: 14px;
+    line-height: 15.39px;
+  }
+
   &.medium {
     color: $main-black-color;
     font-weight: 500;

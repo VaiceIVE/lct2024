@@ -27,6 +27,7 @@ const CreatePredictionPage = () => {
           <Button
             label="Анализировать данные"
             icon={<IconAnalyze width={18} height={18} />}
+            disabled={!conditions.length}
           />
         </Flex>
       }

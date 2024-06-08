@@ -1,5 +1,5 @@
-import { Grid, Stack } from '@mantine/core';
-import { IconFileUpload } from '@tabler/icons-react';
+import { Flex, Grid, Stack } from '@mantine/core';
+import { IconCircleCheckFilled, IconFileUpload } from '@tabler/icons-react';
 import { Button } from 'shared/ui/Button';
 import { Card } from 'shared/ui/Card';
 import { Title } from 'shared/ui/Title';
@@ -20,7 +20,10 @@ export const PredictionCreate = ({
       <Grid.Col span={9}>
         <Card type="outline">
           <Stack gap={28}>
-            <Title level={3} title="Территория прогноза" />
+            <Flex align={'center'} gap={12}>
+              <Title level={3} title="Территория прогноза" />
+              {conditions.length ? <IconCircleCheckFilled size={24} /> : null}
+            </Flex>
             <Stack w={679} gap={18}>
               <p className="text medium secondary">
                 Вы можете загрузить новый файл с информацией по домам. Наш

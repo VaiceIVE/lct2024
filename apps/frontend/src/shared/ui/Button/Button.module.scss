@@ -18,10 +18,17 @@
     flex: 1;
   }
 
-  @media (hover: hover) {
-    &:hover {
-      background-color: $link-hover-color;
+  &:not(.disabled) {
+    @media (hover: hover) {
+      &:hover {
+        background-color: $link-hover-color;
+      }
     }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    color: white;
   }
 
   &.light {
@@ -47,6 +54,7 @@
     @media (hover: hover) {
       &:hover {
         border-color: $link-hover-color;
+        background-color: transparent;
       }
     }
   }

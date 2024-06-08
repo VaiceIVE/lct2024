@@ -34,7 +34,8 @@ export const Button = ({
         className && className,
         styles.button,
         type && styles[type],
-        fullWidth && styles.full
+        fullWidth && styles.full,
+        disabled && styles.disabled
       )}
       style={
         icon && !label

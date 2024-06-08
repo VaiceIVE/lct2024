@@ -4,7 +4,7 @@ import {
   Stack,
   useMantineTheme,
 } from '@mantine/core';
-import { IconCalendarPlus, IconTrash } from '@tabler/icons-react';
+import { IconCalendarPlus, IconTrashX } from '@tabler/icons-react';
 import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import { anomalies } from 'shared/constants/anomalies';
@@ -17,20 +17,21 @@ import { Title } from 'shared/ui/Title';
 
 interface TemperatureDrawerProps {
   conditions: ITemperatureConditions[];
-  setConditions: React.Dispatch<React.SetStateAction<ITemperatureConditions[]>>;
   opened: boolean;
+  tempConditions: ITemperatureConditions[];
+  setTempConditions: React.Dispatch<
+    React.SetStateAction<ITemperatureConditions[]>
+  >;
 }
 
 export const TemperatureDrawer = ({
   conditions,
-  setConditions,
   opened,
+  tempConditions,
+  setTempConditions,
 }: TemperatureDrawerProps) => {
   const theme = useMantineTheme();
 
-  const [tempConditions, setTempConditions] = useState<
-    ITemperatureConditions[]
-  >([]);
   const [isAdded, setAdded] = useState<boolean>(false);
 
   const handleDateDelete = (id: string) => {
@@ -46,17 +47,13 @@ export const TemperatureDrawer = ({
       ]);
       setAdded(true);
     }
-  }, [opened, tempConditions, isAdded]);
+  }, [opened, tempConditions, isAdded, setTempConditions]);
 
   useEffect(() => {
     if (opened && conditions.length) {
       setTempConditions(conditions);
     }
-  }, [conditions, opened]);
-
-  useEffect(() => {
-    console.log(tempConditions);
-  }, [tempConditions]);
+  }, [conditions, opened, setTempConditions]);
 
   return (
     <Stack gap={40}>
@@ -83,7 +80,7 @@ export const TemperatureDrawer = ({
         <Stack key={c.id} gap={18}>
           <Flex align={'center'} gap={8}>
             <Title level={4} title={`Дата ${tempConditions.length - index}`} />
-            <IconTrash
+            <IconTrashX
               onClick={() => handleDateDelete(c.id)}
               style={{ cursor: 'pointer' }}
               size={20}

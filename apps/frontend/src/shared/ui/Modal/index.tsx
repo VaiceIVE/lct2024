@@ -2,7 +2,6 @@ import { Modal as MantineModal } from '@mantine/core';
 import { useEffect } from 'react';
 
 import styles from './Modal.module.scss';
-import { Title } from '../Title';
 
 interface ModalProps {
   opened: boolean;
@@ -28,7 +27,7 @@ export const Modal = ({ opened, close, title, children, w }: ModalProps) => {
       className={styles.modal}
       opened={opened}
       onClose={close}
-      title={<Title level={3} title={title} />}
+      title={title}
       centered
     >
       {children}
