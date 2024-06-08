@@ -2,13 +2,27 @@ import { Image } from '@mantine/core';
 import logo from 'shared/assets/logo.svg';
 import style from './Navbar.module.scss';
 import NavbarLinksGroup from './NavbarLinksGroup';
-import { NavLink } from 'react-router-dom';
-import { HOME_ROUTE } from 'shared/constants/const';
-import { useContext } from 'react';
-import { Context } from 'main';
+import { NavLink, useLocation } from 'react-router-dom';
+import { CREATE_PREDICTION_ROUTE, HOME_ROUTE } from 'shared/constants/const';
+import { PredictionLeaveModal } from 'widgets/prediction-leave-modal';
+import { useDisclosure } from '@mantine/hooks';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
-  const { UStore } = useContext(Context);
+  const location = useLocation();
+  const [opened, { open, close }] = useDisclosure(false);
+  const [link, setLink] = useState<string>('');
+
+  useEffect(() => {
+    if (location.pathname !== CREATE_PREDICTION_ROUTE && opened) {
+      close();
+    }
+  }, [location, close, opened]);
+
+  const onOpen = (path: string) => {
+    setLink(path);
+    open();
+  };
 
   return (
     <div className={style.navbar}>
@@ -17,7 +31,11 @@ const Navbar = () => {
           <Image src={logo} />
         </NavLink>
       </div>
-      <NavbarLinksGroup role={UStore.user.role} />
+      <NavbarLinksGroup
+        isPrediction={location.pathname === CREATE_PREDICTION_ROUTE}
+        open={onOpen}
+      />
+      <PredictionLeaveModal opened={opened} link={link} close={close} />
     </div>
   );
 };

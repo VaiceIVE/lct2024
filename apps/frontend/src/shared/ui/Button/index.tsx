@@ -6,25 +6,25 @@ import { Button as MantineButton } from '@mantine/core';
 interface ButtonProps {
   label?: string;
   icon?: ReactNode;
-  outline?: boolean;
-  isWhite?: boolean;
+  isIconLeft?: boolean;
   w?: number;
   className?: string;
   onClick?: () => void;
   disabled?: boolean;
-  type?: 'light' | 'outline';
+  type?: 'light' | 'outline' | 'white';
+  fullWidth?: boolean;
 }
 
 export const Button = ({
   label,
   icon,
-  outline,
-  isWhite,
+  isIconLeft,
   w,
   className,
   onClick,
   disabled,
   type,
+  fullWidth,
 }: ButtonProps) => {
   return (
     <MantineButton
@@ -34,7 +34,7 @@ export const Button = ({
         className && className,
         styles.button,
         type && styles[type],
-        isWhite && styles.white
+        fullWidth && styles.full
       )}
       style={
         icon && !label
@@ -48,6 +48,7 @@ export const Button = ({
         <div
           className={classNames(
             styles['button-wrapper'],
+            isIconLeft && styles.reverse,
             !label && styles.solo
           )}
         >

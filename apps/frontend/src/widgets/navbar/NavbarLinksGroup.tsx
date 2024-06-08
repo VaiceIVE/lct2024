@@ -4,33 +4,56 @@ import { NavLink } from 'react-router-dom';
 import { authRoutes } from 'shared/constants/routes';
 
 import style from './Navbar.module.scss';
-import { IconProps } from '@tabler/icons-react';
+import { Icon, IconProps } from '@tabler/icons-react';
 
 interface LinksProps {
-  icon?: FC<IconProps>;
+  icon?: React.ForwardRefExoticComponent<
+    IconProps & React.RefAttributes<Icon>
+  > | null;
   path: string;
-  navbarTitle: string;
-  Component: FC;
+  navbarTitle?: string | null;
+  Component?: FC;
+  pageTitle?: string;
+  isPrediction?: boolean;
+  open: (path: string) => void;
 }
 
-interface NavbarLinksGroupProps {
-  role: string;
-}
+const NavbarLink = ({
+  icon: Icon,
+  path,
+  navbarTitle,
+  isPrediction,
+  open,
+}: LinksProps) => {
+  const icon = (
+    <Flex className={style['navbar__link']} align="center" gap={8}>
+      {Icon && <Icon stroke={2} />}
+      <div>{navbarTitle}</div>
+    </Flex>
+  );
 
-const NavbarLink = ({ icon: Icon, path, navbarTitle }: LinksProps) => {
-  return (
-    <NavLink to={path}>
-      <Flex className={style['navbar__link']} align="center" gap={8}>
-        {Icon && <Icon stroke={2} />}
-        <div>{navbarTitle}</div>
-      </Flex>
-    </NavLink>
+  return isPrediction ? (
+    <div className={style['navbar__modal-link']} onClick={() => open(path)}>
+      {icon}
+    </div>
+  ) : (
+    <NavLink to={path}>{icon}</NavLink>
   );
 };
 
-const NavbarLinksGroup = ({ role }: NavbarLinksGroupProps) => {
+interface NavbarLinksGroupProps {
+  isPrediction: boolean;
+  open: (path: string) => void;
+}
+
+const NavbarLinksGroup = ({ isPrediction, open }: NavbarLinksGroupProps) => {
   const links = authRoutes.map((link) => (
-    <NavbarLink {...link} key={link.pageTitle} />
+    <NavbarLink
+      {...link}
+      key={link.pageTitle}
+      isPrediction={isPrediction}
+      open={open}
+    />
   ));
 
   return (

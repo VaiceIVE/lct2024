@@ -13,6 +13,11 @@
   font-size: 16px;
   line-height: 21px;
 
+  &.full {
+    width: unset;
+    flex: 1;
+  }
+
   @media (hover: hover) {
     &:hover {
       background-color: $link-hover-color;
@@ -35,23 +40,21 @@
     border: 1.5px solid #bebebe;
 
     @media (hover: hover) {
-      &:hover {
-      }
-    }
-
-    svg {
     }
   }
 
   &.white {
-    @media (hover: hover) {
-      &:hover {
-        svg {
-        }
-      }
-    }
+    background-color: white;
+    color: $text-color;
 
     svg {
+      color: $main-blue-color;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: #d9efff;
+      }
     }
   }
 }
@@ -64,6 +67,10 @@
 
   &.solo {
     column-gap: 0;
+  }
+
+  &.reverse {
+    flex-direction: row-reverse;
   }
 }
 
