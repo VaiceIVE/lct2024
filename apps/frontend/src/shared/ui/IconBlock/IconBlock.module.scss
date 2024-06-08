@@ -10,9 +10,19 @@
 
   border-radius: 8px;
 
-  background-color: $orange-bg-color;
+  &.orange {
+    background-color: $orange-bg-color;
+  }
+
+  &.gray {
+    background-color: $border-color;
+  }
 }
 
 .orange {
   color: $main-orange-color;
+}
+
+.black {
+  color: $text-color;
 }

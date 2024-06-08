@@ -1,4 +1,5 @@
-import { IconHome } from '@tabler/icons-react';
+import classNames from 'classnames';
+import { IconBuildingFactory, IconHome } from '@tabler/icons-react';
 
 import styles from './IconBlock.module.scss';
 
@@ -8,9 +9,31 @@ interface IconBlockProps {
 }
 
 export const IconBlock = ({ iconType, color }: IconBlockProps) => {
-  const typeIcons: { [key: string]: JSX.Element } = {
-    '1': <IconHome width={24} height={24} className={styles.orange} />,
+  const sizes = {
+    width: 24,
+    height: 24,
   };
 
-  return <div className={styles.icon}>{typeIcons[`${iconType}`]}</div>;
+  const typeIcons: { [key: string]: { icon: JSX.Element; color: string } } = {
+    '1': {
+      icon: <IconHome {...sizes} className={styles.orange} />,
+      color: 'orange',
+    },
+
+    '3': {
+      icon: <IconBuildingFactory {...sizes} className={styles.black} />,
+      color: 'gray',
+    },
+  };
+
+  return (
+    <div
+      className={classNames(
+        styles.icon,
+        styles[typeIcons[`${iconType}`].color]
+      )}
+    >
+      {typeIcons[`${iconType}`].icon}
+    </div>
+  );
 };

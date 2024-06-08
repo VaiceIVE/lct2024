@@ -7,6 +7,8 @@ import { ForecastDatePicker } from 'widgets/forecast-date-picker';
 import { EventsList } from 'widgets/events-list';
 import { months } from 'shared/constants/months';
 import { EventsMap } from 'widgets/events-map';
+import { Button } from 'shared/ui/Button';
+import { IconPlus } from '@tabler/icons-react';
 
 const ForecastPage = () => {
   const [monthsIndex, setMonthsIndex] = useState(0);
@@ -26,7 +28,14 @@ const ForecastPage = () => {
   }, [debounceMonthsIndex, monthsIndex]);
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      button={
+        <Button
+          label="Создать новый прогноз"
+          icon={<IconPlus width={18} height={18} />}
+        />
+      }
+    >
       <ForecastDatePicker
         monthsIndex={monthsIndex}
         setMonthsIndex={setMonthsIndex}

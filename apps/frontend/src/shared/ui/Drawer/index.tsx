@@ -12,18 +12,12 @@ interface DraweProps {
 }
 
 export const Drawer = ({ opened, close, title, children }: DraweProps) => {
-  const onWheel = (e: WheelEvent) => {
-    e.preventDefault();
-  };
-
   useEffect(() => {
     if (opened) {
-      window.addEventListener('wheel', onWheel, {
-        passive: false,
-      });
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
     }
-
-    return () => window.removeEventListener('wheel', onWheel);
   }, [opened]);
 
   return (
@@ -33,7 +27,7 @@ export const Drawer = ({ opened, close, title, children }: DraweProps) => {
       title={<Title level={2} title={title} />}
       opened={opened}
       onClose={close}
-      lockScroll={false}
+      //lockScroll={false}
       size={600}
       overlayProps={{ blur: 3 }}
       returnFocus={false}

@@ -116,6 +116,7 @@ legend {
 }
 
 body {
+  scrollbar-gutter: stable;
   filter: expression(document.execCommand('BackgroundImageCache', false, true));
 }
 
@@ -126,6 +127,7 @@ html {
   -ms-overflow-style: none; /* IE и Edge */
   scrollbar-width: none;
   font-family: 'Factora', sans-serif;
+  scrollbar-gutter: stable;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -150,5 +152,9 @@ html {
 
   &.secondary {
     color: $secondary-color;
+  }
+
+  &.placeholder {
+    color: $placeholder-color;
   }
 }
