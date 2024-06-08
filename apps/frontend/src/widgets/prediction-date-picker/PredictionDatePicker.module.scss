@@ -1,0 +1,23 @@
+@import '@styles/__defines.scss';
+
+.wrapper {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.date {
+  width: 68px;
+  text-align: center;
+}
+
+.icon {
+  cursor: pointer;
+  color: $text-color;
+
+  &.disabled {
+    color: $placeholder-color;
+  }
+}

@@ -1,0 +1,97 @@
+@import '@styles/__defines.scss';
+
+.button {
+  height: 57px;
+  width: fit-content;
+  padding: 18px 32px;
+  background: $main-blue-color;
+  border-radius: 12px;
+  color: $white-color;
+  transition: all 0.2s ease;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+
+  &.full {
+    width: unset;
+    flex: 1;
+  }
+
+  &:not(.disabled) {
+    @media (hover: hover) {
+      &:hover {
+        background-color: $link-hover-color;
+      }
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    color: white;
+  }
+
+  &.light {
+    background-color: #eef6fc;
+    color: $main-blue-color;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: #d9efff;
+      }
+    }
+  }
+
+  &.outline {
+    background: transparent;
+    border: 1px solid $divider-color;
+    color: $text-color;
+
+    svg {
+      color: $main-blue-color;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: $link-hover-color;
+        background-color: transparent;
+      }
+    }
+  }
+
+  &.white {
+    background-color: white;
+    color: $text-color;
+
+    svg {
+      color: $main-blue-color;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: $gray-color;
+      }
+    }
+  }
+}
+
+.button-wrapper {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  &.solo {
+    column-gap: 0;
+  }
+
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,43 @@
+@import '@styles/__defines.scss';
+
+.select {
+  input {
+    background: transparent;
+    border-radius: 12px;
+
+    padding: 20px 24px;
+    color: $text-color;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+
+    border: 1px solid $border-color;
+
+    height: 61px;
+
+    &:focus-within {
+      border-color: $link-hover-color;
+    }
+
+    &::placeholder {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 18px;
+      color: $placeholder-color;
+    }
+
+    &:disabled {
+      background: #adb5bd;
+      color: white;
+    }
+  }
+
+  label {
+    margin-bottom: 8px;
+    color: $text-color;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+  }
+}

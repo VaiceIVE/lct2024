@@ -1,0 +1,49 @@
+@import '@styles/__defines.scss';
+
+.drawer {
+  header {
+    padding: 32px 40px 20px;
+
+    button {
+      height: 32px;
+      width: 32px;
+
+      svg {
+        color: $text-color;
+      }
+    }
+  }
+
+  section {
+    scrollbar-gutter: stable;
+    display: flex;
+    flex-direction: column;
+    > div {
+      padding: 16px 40px;
+    }
+  }
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 10000;
+
+  border-top: 1px solid $border-color;
+
+  padding: 12px 40px;
+}
+
+.body {
+  flex: 1;
+}
+
+.title {
+  font-size: 32px;
+  line-height: 35.19px;
+  color: $main-black-color;
+  font-style: normal;
+  font-weight: 700;
+}

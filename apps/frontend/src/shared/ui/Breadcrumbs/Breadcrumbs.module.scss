@@ -1,0 +1,41 @@
+@import '@styles/__defines.scss';
+
+.breadcrumbs {
+  color: $secondary-color;
+
+  .crumb {
+    &:not(.mantine-Breadcrumbs-separator, .current) {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.wrapper {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  svg {
+    cursor: pointer;
+    color: $secondary-color;
+  }
+}
+
+.current {
+  color: $main-black-color;
+
+  cursor: default;
+
+  @media (hover: hover) {
+    &:hover {
+      color: $main-black-color;
+      text-decoration: none;
+    }
+  }
+}

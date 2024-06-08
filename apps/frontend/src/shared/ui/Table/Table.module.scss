@@ -1,0 +1,109 @@
+@import '@styles/__defines.scss';
+
+.table {
+  //border: 1px solid $gray-color;
+
+  th {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 17.59px;
+
+    color: $main-black-color;
+
+    &[data-index='0'] {
+      & > div {
+        visibility: hidden;
+      }
+
+      &::before {
+        content: '№';
+        position: absolute;
+      }
+    }
+  }
+
+  tr {
+    &:hover {
+      background: #eef6fc !important;
+    }
+  }
+
+  td {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+
+    color: $text-color;
+
+    &[data-index='0'] {
+      font-weight: 700;
+    }
+  }
+
+  .chance {
+    display: flex;
+    justify-content: center;
+    color: $placeholder-color;
+    font-weight: 500;
+
+    &.orange {
+      color: $main-orange-color;
+    }
+
+    &.blue {
+      color: $main-blue-color;
+    }
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .empty {
+    padding: 12px 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-color;
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  margin-right: 10px;
+}
+
+.address {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toolbar {
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    button {
+      color: #353535;
+      border: 1px solid #eaeaea;
+      width: 42px;
+      height: 42px;
+      &[data-active='true'] {
+        background-color: #f5f5f5;
+        border: none;
+      }
+    }
+  }
+}

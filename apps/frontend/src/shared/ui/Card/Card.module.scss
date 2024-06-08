@@ -1,0 +1,18 @@
+@import '@styles/__defines.scss';
+
+.card {
+  position: relative;
+
+  &.default {
+    background-color: #eef6fc;
+  }
+
+  &.outline {
+    background-color: transparent;
+    border: 1px solid $border-color;
+  }
+
+  &.dark {
+    background-color: $gray-color;
+  }
+}
