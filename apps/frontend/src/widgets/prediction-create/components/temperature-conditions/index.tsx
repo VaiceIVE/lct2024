@@ -16,6 +16,7 @@ import { Drawer } from 'shared/ui/Drawer';
 import { Title } from 'shared/ui/Title';
 import { TemperatureDrawer } from '../temperature-drawer';
 import { ITemperatureConditions } from 'shared/models/ITemperatureConditions';
+import { Notice } from 'shared/ui/Notice';
 
 interface TemperatureConditionsProps {
   conditions: ITemperatureConditions[];
@@ -27,6 +28,7 @@ export const TemperatureConditions = ({
   conditions,
 }: TemperatureConditionsProps) => {
   const [opened, { open, close }] = useDisclosure(false);
+  const [isNoticeShow, setNoticeShow] = useState(false);
 
   const theme = useMantineTheme();
 
@@ -42,6 +44,8 @@ export const TemperatureConditions = ({
     ) {
       setConditions(tempConditions);
       close();
+    } else {
+      setNoticeShow(true);
     }
   };
 
@@ -53,6 +57,7 @@ export const TemperatureConditions = ({
   useEffect(() => {
     if (!opened && tempConditions.length) {
       setTempConditions([]);
+      setNoticeShow(false);
     }
   }, [opened, tempConditions.length]);
 
@@ -60,7 +65,14 @@ export const TemperatureConditions = ({
     <>
       <Drawer
         footer={
-          <Flex gap={12}>
+          <Flex style={{ position: 'relative' }} gap={12}>
+            {isNoticeShow ? (
+              <Notice
+                type="error"
+                message="Добавьте и заполните как минимум одну дату"
+                close={() => setNoticeShow(false)}
+              />
+            ) : null}
             <Button
               fullWidth
               label="Отменить"

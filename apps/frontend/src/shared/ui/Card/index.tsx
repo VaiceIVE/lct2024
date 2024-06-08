@@ -14,6 +14,7 @@ interface Props {
   bg?: string;
   radius?: number | string;
   type?: 'outline' | 'dark' | 'default';
+  className?: string;
 }
 
 export const Card = ({
@@ -22,6 +23,7 @@ export const Card = ({
   children,
   radius = '12px',
   type = 'default',
+  className,
   ...props
 }: Props) => {
   return (
@@ -31,7 +33,7 @@ export const Card = ({
       style={{
         borderRadius: `${radius}`,
       }}
-      className={classNames(style.card, style[type])}
+      className={classNames(style.card, style[type], className)}
       {...props}
     >
       {children}
