@@ -1,19 +1,19 @@
 import { Flex } from '@mantine/core';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 
-import styles from './ForecastDatePicker.module.scss';
+import styles from './PredictionDatePicker.module.scss';
 import { months } from 'shared/constants/months';
 import classNames from 'classnames';
 
-interface ForecastDatePickerProps {
+interface PredictionDatePickerProps {
   monthsIndex: number;
   setMonthsIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const ForecastDatePicker = ({
+export const PredictionDatePicker = ({
   monthsIndex,
   setMonthsIndex,
-}: ForecastDatePickerProps) => {
+}: PredictionDatePickerProps) => {
   const isLeft = monthsIndex > 0;
   const isRight = monthsIndex < months.length - 1;
 

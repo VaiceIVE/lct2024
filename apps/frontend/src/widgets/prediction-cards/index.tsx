@@ -2,7 +2,7 @@ import { Grid, Stack } from '@mantine/core';
 import { Card } from 'shared/ui/Card';
 import { Title } from 'shared/ui/Title';
 
-export const ForecastCards = () => {
+export const PredictionCards = () => {
   const data = ['Событий', 'Задействованные районы'];
 
   return (

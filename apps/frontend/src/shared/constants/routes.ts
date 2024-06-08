@@ -11,14 +11,14 @@ import {
 } from '@tabler/icons-react';
 
 //User
-const forecast = lazy(() => import('pages/forecast'));
+const prediction = lazy(() => import('pages/prediction'));
 const response = lazy(() => import('pages/response'));
 const storage = lazy(() => import('pages/storage'));
 
 export const publicRoutes = [
   {
     path: HOME_ROUTE,
-    Component: forecast,
+    Component: prediction,
     title: 'login',
   },
 ];
@@ -26,7 +26,7 @@ export const publicRoutes = [
 export const authRoutes = [
   {
     path: HOME_ROUTE,
-    Component: forecast,
+    Component: prediction,
     navbarTitle: 'Прогнозы',
     pageTitle: 'Ближайшие спрогнозированные события',
     icon: IconChartArcs,
