@@ -6,7 +6,7 @@ import { ITemperatureConditions } from 'shared/models/ITemperatureConditions';
 import { Breadcrumbs } from 'shared/ui/Breadcrumbs';
 import { Button } from 'shared/ui/Button';
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
-import { PredictionCreate } from 'widgets/prediction-create';
+import { PredictionCreateCards } from 'widgets/prediction-create-cards';
 import { PredictionLeaveModal } from 'widgets/prediction-leave-modal';
 
 const CreatePredictionPage = () => {
@@ -45,7 +45,7 @@ const CreatePredictionPage = () => {
           { title: 'Новый прогноз', href: '/create-prediction' },
         ]}
       />
-      <PredictionCreate
+      <PredictionCreateCards
         setFiles={setFiles}
         files={files}
         setConditions={setConditions}

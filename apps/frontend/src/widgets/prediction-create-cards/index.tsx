@@ -12,7 +12,7 @@ import { ITemperatureConditions } from 'shared/models/ITemperatureConditions';
 import { Upload } from 'shared/ui/Upload';
 import { useRef } from 'react';
 
-interface PredictionCreateProps {
+interface PredictionCreateCardProps {
   conditions: ITemperatureConditions[];
   setConditions: React.Dispatch<React.SetStateAction<ITemperatureConditions[]>>;
   files: File[];
@@ -20,13 +20,13 @@ interface PredictionCreateProps {
   handleDeleteFile: (deletedIndex: number) => void;
 }
 
-export const PredictionCreate = ({
+export const PredictionCreateCards = ({
   setConditions,
   conditions,
   files,
   setFiles,
   handleDeleteFile,
-}: PredictionCreateProps) => {
+}: PredictionCreateCardProps) => {
   const theme = useMantineTheme();
 
   const resetRef = useRef<() => void>(null);
