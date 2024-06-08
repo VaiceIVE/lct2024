@@ -12,6 +12,7 @@ import { PredictionLeaveModal } from 'widgets/prediction-leave-modal';
 const CreatePredictionPage = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [conditions, setConditions] = useState<ITemperatureConditions[]>([]);
+  const [file, setFile] = useState<File | null>(null);
 
   return (
     <PageWrapper
@@ -27,7 +28,7 @@ const CreatePredictionPage = () => {
           <Button
             label="Анализировать данные"
             icon={<IconAnalyze width={18} height={18} />}
-            disabled={!conditions.length}
+            disabled={!conditions.length && !file}
           />
         </Flex>
       }
@@ -39,7 +40,12 @@ const CreatePredictionPage = () => {
           { title: 'Новый прогноз', href: '/create-prediction' },
         ]}
       />
-      <PredictionCreate setConditions={setConditions} conditions={conditions} />
+      <PredictionCreate
+        setFile={setFile}
+        file={file}
+        setConditions={setConditions}
+        conditions={conditions}
+      />
       <PredictionLeaveModal opened={opened} close={close} />
     </PageWrapper>
   );

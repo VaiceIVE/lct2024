@@ -3,7 +3,7 @@ import styles from './Button.module.scss';
 import classNames from 'classnames';
 import { Button as MantineButton } from '@mantine/core';
 
-interface ButtonProps {
+export interface ButtonProps {
   label?: string;
   icon?: ReactNode;
   isIconLeft?: boolean;
