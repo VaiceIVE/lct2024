@@ -8,7 +8,7 @@ export const withRouter = (component: () => React.ReactNode) => () =>
       <Suspense
         fallback={
           <Stack h={'100vh'} bg={'gray.0'} align="center" justify="center">
-            <Loader size="xl" color="myOrange.1" />
+            <Loader size="xl" color="myBlue.2" />
           </Stack>
         }
       >
