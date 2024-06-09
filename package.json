@@ -3,20 +3,34 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "nginx": "docker compose -f ./docker-compose-nginx-only.yaml up"
+    "nginx": "docker compose -f ./docker-compose-nginx-only.yaml up",
+    "create-entities-index": "ts-node --pretty apps/backend/src/tools/create-entities-index.ts"
   },
+  "type": "commonjs",
   "private": true,
   "dependencies": {
+    "@fastify/cookie": "^9.3.1",
     "@nestjs/common": "^10.0.2",
+    "@nestjs/config": "^3.2.2",
     "@nestjs/core": "^10.0.2",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/mapped-types": "*",
+    "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.2",
+    "@nestjs/typeorm": "^10.0.2",
     "@nx/nest": "^19.1.0",
+    "argon2": "^0.40.3",
     "axios": "^1.6.0",
+    "cookie-parser": "^1.4.6",
+    "fastify": "^4.27.0",
+    "passport-jwt": "^4.0.1",
+    "pg": "^8.12.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@nestjs/schematics": "^10.0.1",
@@ -36,6 +50,7 @@
     "@swc/core": "~1.3.85",
     "@swc/helpers": "~0.5.2",
     "@testing-library/react": "15.0.6",
+    "@types/cookie-parser": "^1.4.7",
     "@types/jest": "^29.4.0",
     "@types/node": "18.16.9",
     "@types/react": "18.3.1",
