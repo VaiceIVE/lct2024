@@ -23,6 +23,7 @@ interface CookieOptions {
 const cookieSettings: CookieOptions = {
     httpOnly: true,
     domain: "adera-team.ru",
+    secure: true,
     maxAge: 7200
 }
 
