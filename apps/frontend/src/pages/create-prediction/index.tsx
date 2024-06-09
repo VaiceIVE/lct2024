@@ -1,4 +1,4 @@
-import { Flex } from '@mantine/core';
+import { Flex, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconAnalyze, IconChevronLeft } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -13,6 +13,7 @@ import { CreatePredictionCards } from 'widgets/create-prediction-cards';
 import { PredictionLeaveModal } from 'widgets/prediction-leave-modal';
 
 import PredictionServices from 'shared/services/PredictionServices';
+import { CreatePredictionLoader } from 'widgets/create-prediction-loader';
 
 const CreatePredictionPage = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -42,6 +43,7 @@ const CreatePredictionPage = () => {
 
   return (
     <PageWrapper
+      fullWidth={isLoading}
       button={
         <Flex gap={12}>
           <Button
@@ -61,20 +63,26 @@ const CreatePredictionPage = () => {
         </Flex>
       }
     >
-      <Breadcrumbs
-        onClick={open}
-        path={[
-          { title: 'Базовый прогноз', href: '/' },
-          { title: 'Новый прогноз', href: '/create-prediction' },
-        ]}
-      />
-      <CreatePredictionCards
-        setFiles={setFiles}
-        files={files}
-        setConditions={setConditions}
-        conditions={conditions}
-        handleDeleteFile={handleDeleteFile}
-      />
+      {!isLoading ? (
+        <Stack gap={40}>
+          <Breadcrumbs
+            onClick={open}
+            path={[
+              { title: 'Базовый прогноз', href: '/' },
+              { title: 'Новый прогноз', href: '/create-prediction' },
+            ]}
+          />
+          <CreatePredictionCards
+            setFiles={setFiles}
+            files={files}
+            setConditions={setConditions}
+            conditions={conditions}
+            handleDeleteFile={handleDeleteFile}
+          />
+        </Stack>
+      ) : (
+        <CreatePredictionLoader />
+      )}
       <PredictionLeaveModal opened={opened} close={close} />
     </PageWrapper>
   );
