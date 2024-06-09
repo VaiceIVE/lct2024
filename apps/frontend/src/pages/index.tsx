@@ -42,7 +42,7 @@ const Routing = observer(() => {
 
   if (isLoading) {
     return (
-      <Stack h={'100vh'} bg={'gray.0'} align="center" justify="center">
+      <Stack h={'100vh'} bg={'white'} align="center" justify="center">
         <Loader size="xl" color="myBlue.2" />
       </Stack>
     );

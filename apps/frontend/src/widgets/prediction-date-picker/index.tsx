@@ -2,15 +2,16 @@ import { Flex } from '@mantine/core';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 
 import styles from './PredictionDatePicker.module.scss';
-import { months } from 'shared/constants/months';
 import classNames from 'classnames';
 
 interface PredictionDatePickerProps {
   monthsIndex: number;
   setMonthsIndex: React.Dispatch<React.SetStateAction<number>>;
+  months: { label: string; value: number }[];
 }
 
 export const PredictionDatePicker = ({
+  months,
   monthsIndex,
   setMonthsIndex,
 }: PredictionDatePickerProps) => {

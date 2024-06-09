@@ -2,6 +2,7 @@
 
 .card {
   position: relative;
+  overflow: hidden;
 
   &.default {
     background-color: #eef6fc;

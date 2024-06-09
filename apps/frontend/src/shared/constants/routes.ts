@@ -2,6 +2,7 @@ import {
   CREATE_PREDICTION_ROUTE,
   HOME_ROUTE,
   LOGIN_ROUTE,
+  PREDICTION_ROUTE,
   RESPONSE_ROUTE,
   STORAGE_ROUTE,
 } from 'shared/constants/const';
@@ -53,6 +54,13 @@ export const authRoutes = [
   {
     path: CREATE_PREDICTION_ROUTE,
     Component: createPrediction,
+    navbarTitle: null,
+    pageTitle: 'Новый прогноз',
+    icon: null,
+  },
+  {
+    path: PREDICTION_ROUTE,
+    Component: prediction,
     navbarTitle: null,
     pageTitle: 'Новый прогноз',
     icon: null,

@@ -41,9 +41,10 @@ export const PredictTerritory = ({
           </p>
           <Upload
             type="light"
+            multiple
             label="Загрузить файл .xlsx, .xls"
             icon={<IconFileUpload size={18} />}
-            onChange={setFiles}
+            onChangeArray={setFiles}
             resetRef={resetRef}
           />
           {files.length ? (

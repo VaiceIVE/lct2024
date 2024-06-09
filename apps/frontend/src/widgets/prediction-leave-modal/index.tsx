@@ -8,20 +8,19 @@ interface PredictionLeaveModalProps {
   opened: boolean;
   close: () => void;
   link?: string;
+  title: string;
+  customButtonRow?: React.ReactNode;
 }
 
 export const PredictionLeaveModal = ({
   opened,
   close,
   link,
+  title,
+  customButtonRow,
 }: PredictionLeaveModalProps) => {
   return (
-    <Modal
-      opened={opened}
-      close={close}
-      title="Вы уверены, что хотите отменить создание прогноза?"
-      w={557}
-    >
+    <Modal opened={opened} close={close} title={title} w={557}>
       <Stack gap={18}>
         <p className="text">
           Все введенные данные не сохранятся. Это действие нельзя будет
@@ -29,10 +28,16 @@ export const PredictionLeaveModal = ({
         </p>
 
         <Flex gap={7}>
-          <Button onClick={close} fullWidth label="Отмена" />
-          <NavLink to={link ? link : HOME_ROUTE}>
-            <Button fullWidth label="Подтвердить действие" type="white" />
-          </NavLink>
+          {customButtonRow ? (
+            customButtonRow
+          ) : (
+            <>
+              <Button onClick={close} fullWidth label="Отмена" />
+              <NavLink to={link ? link : HOME_ROUTE}>
+                <Button fullWidth label="Подтвердить действие" type="white" />
+              </NavLink>
+            </>
+          )}
         </Flex>
       </Stack>
     </Modal>

@@ -47,13 +47,8 @@ interface NavbarLinksGroupProps {
 }
 
 const NavbarLinksGroup = ({ isPrediction, open }: NavbarLinksGroupProps) => {
-  const links = authRoutes.map((link) => (
-    <NavbarLink
-      {...link}
-      key={link.pageTitle}
-      isPrediction={isPrediction}
-      open={open}
-    />
+  const links = authRoutes.map((link, index) => (
+    <NavbarLink {...link} key={index} isPrediction={isPrediction} open={open} />
   ));
 
   return (
