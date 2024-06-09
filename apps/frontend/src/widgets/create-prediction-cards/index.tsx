@@ -3,7 +3,7 @@ import { TemperatureConditions } from './components/temperature-conditions';
 import { ITemperatureConditions } from 'shared/models/ITemperatureConditions';
 import { PredictTerritory } from './components/prediction-territory';
 
-interface PredictionCreateCardProps {
+interface CreatePredictionCardsProps {
   conditions: ITemperatureConditions[];
   setConditions: React.Dispatch<React.SetStateAction<ITemperatureConditions[]>>;
   files: File[];
@@ -11,13 +11,13 @@ interface PredictionCreateCardProps {
   handleDeleteFile: (deletedIndex: number) => void;
 }
 
-export const PredictionCreateCards = ({
+export const CreatePredictionCards = ({
   setConditions,
   conditions,
   files,
   setFiles,
   handleDeleteFile,
-}: PredictionCreateCardProps) => {
+}: CreatePredictionCardsProps) => {
   return (
     <Grid gutter={16}>
       <Grid.Col span={9}>

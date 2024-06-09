@@ -1,33 +1,25 @@
 import { AxiosResponse } from 'axios';
 import $api from 'shared/api';
-import { AuthResponse } from '../models/response/AuthResponse';
+import { IUser } from '../models/IUser';
 
 export default class AuthServices {
   static async login(
-    nickname: string,
-    password: string,
-    role: string
-  ): Promise<AxiosResponse<AuthResponse>> {
-    return $api.post<AuthResponse>('/auth/signin', {
-      nickname,
+    username: string,
+    password: string
+  ): Promise<AxiosResponse<IUser>> {
+    return $api.post<IUser>('/auth/signin', {
+      username,
       password,
-      role,
     });
   }
 
   static async registration(
     username: string,
-    nickname: string,
-    password: string,
-    grade: string,
-    role: string
-  ): Promise<AxiosResponse<AuthResponse>> {
-    return $api.post<AuthResponse>('/auth', {
+    password: string
+  ): Promise<AxiosResponse<IUser>> {
+    return $api.post<IUser>('/auth', {
       username,
-      nickname,
       password,
-      grade,
-      role,
     });
   }
 }

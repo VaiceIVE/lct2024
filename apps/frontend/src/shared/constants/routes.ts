@@ -1,6 +1,7 @@
 import {
   CREATE_PREDICTION_ROUTE,
   HOME_ROUTE,
+  LOGIN_ROUTE,
   RESPONSE_ROUTE,
   STORAGE_ROUTE,
 } from 'shared/constants/const';
@@ -11,17 +12,18 @@ import {
   IconTransitionRight,
 } from '@tabler/icons-react';
 
-//User
 const prediction = lazy(() => import('pages/prediction'));
 const response = lazy(() => import('pages/response'));
 const storage = lazy(() => import('pages/storage'));
 
 const createPrediction = lazy(() => import('pages/create-prediction'));
 
+const login = lazy(() => import('pages/login'));
+
 export const publicRoutes = [
   {
-    path: HOME_ROUTE,
-    Component: prediction,
+    path: LOGIN_ROUTE,
+    Component: login,
     title: 'login',
   },
 ];
