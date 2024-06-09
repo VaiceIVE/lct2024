@@ -94,7 +94,6 @@ export class AuthService {
   }
   
   async refreshTokens(userId: number, refreshToken: string) {
-    console.log(userId)
     const user = await this.usersService.findOne(userId, userSelectOptions.withRefresh);
     if (!user || !user.refreshToken)
       throw new ForbiddenException('Access Denied');

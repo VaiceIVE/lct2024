@@ -22,8 +22,6 @@ interface CookieOptions {
 
 const cookieSettings: CookieOptions = {
     httpOnly: true,
-    //secure: true,
-    //sameSite: "none",
     domain: "adera-team.ru"
 }
 
@@ -54,13 +52,11 @@ export class AuthController {
     @UseGuards(RefreshTokenGuard)
     @Get('refresh')
     async refreshTokens(@Req() req: Request,  @Res({ passthrough: true }) response: Response) {
-        console.log(req.cookies)
         const userId = req['user']['sub'];
         const refreshToken = req.cookies['jwt-refresh'];
         const result =  await this.authService.refreshTokens(userId, refreshToken);
         response.cookie('jwt', result.accessToken,  cookieSettings)
         response.cookie('jwt-refresh', result.refreshToken,  cookieSettings)
-        console.log(result)
         return result.user
     }
 }
