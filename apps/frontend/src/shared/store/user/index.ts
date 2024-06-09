@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { makeAutoObservable } from 'mobx';
-import { API_URL } from 'shared/api';
+import $api, { API_URL } from 'shared/api';
 import { IUser } from 'shared/models/IUser';
-import { AuthResponse } from 'shared/models/response/AuthResponse';
 import AuthServices from 'shared/services/AuthServices';
 
 export default class UserStore {
   user = {} as IUser;
-  isAuth = true;
+  isAuth = false;
   isLoading = false;
   error = '';
 
@@ -31,48 +30,32 @@ export default class UserStore {
     this.isLoading = bool;
   }
 
-  async login(nickname: string, password: string, role: string) {
+  async login(username: string, password: string) {
     try {
-      const response = await AuthServices.login(nickname, password, role);
-      localStorage.setItem('token', response.data.accessToken);
-      localStorage.setItem('rtoken', response.data.refreshToken);
-      this.setAuth(true);
-      this.setUser(response.data.user);
+      const response = await AuthServices.login(username, password);
+      if (response) {
+        this.setAuth(true);
+        this.setUser(response.data);
+      }
     } catch (e: any) {
       this.setError('Ошибка');
-      console.log(e.response?.data?.message);
+      console.error(e.response?.data?.message);
     }
   }
 
-  async registration(
-    username: string,
-    nickname: string,
-    password: string,
-    grade: string,
-    role: string
-  ) {
+  async registration(username: string, password: string) {
     try {
-      const response = await AuthServices.registration(
-        username,
-        nickname,
-        password,
-        grade,
-        role
-      );
-      localStorage.setItem('token', response.data.accessToken);
-      localStorage.setItem('rtoken', response.data.refreshToken);
+      const response = await AuthServices.registration(username, password);
       this.setAuth(true);
-      this.setUser(response.data.user);
+      this.setUser(response.data);
     } catch (e: any) {
       this.setError('Ошибка');
-      console.log(e.response?.data?.message);
+      console.error(e.response?.data?.message);
     }
   }
 
   async logout() {
     try {
-      localStorage.removeItem('token');
-      localStorage.removeItem('rtoken');
       this.setAuth(false);
       this.setUser({} as IUser);
     } catch (e: any) {
@@ -80,32 +63,24 @@ export default class UserStore {
     }
   }
 
-  // async checkAuth() {
-  //   this.setLoading(true);
-  //   try {
-  //     const response = await axios.get<AuthResponse>(
-  //       `${API_URL}/auth/refresh`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem('rtoken')}`,
-  //         },
-  //       }
-  //     );
-  //     localStorage.setItem('token', response.data.accessToken);
-  //     localStorage.setItem('rtoken', response.data.refreshToken);
-  //     this.setAuth(true);
-  //     this.setUser(response.data.user);
-  //   } catch (e: any) {
-  //     console.log(e);
-  //     if (e.name === 403) {
-  //     } else {
-  //       localStorage.removeItem('token');
-  //       localStorage.removeItem('rtoken');
-  //       this.setAuth(false);
-  //       this.setUser({} as IUser);
-  //     }
-  //   } finally {
-  //     this.setLoading(false);
-  //   }
-  // }
+  async checkAuth() {
+    this.setLoading(true);
+    try {
+      const response = await axios.get<IUser>(`${API_URL}/auth/refresh`, {
+        withCredentials: true,
+      });
+
+      if (response) {
+        this.setAuth(true);
+        this.setUser(response.data);
+      }
+    } catch (e: any) {
+      console.info(e);
+
+      this.setAuth(false);
+      this.setUser({} as IUser);
+    } finally {
+      this.setLoading(false);
+    }
+  }
 }

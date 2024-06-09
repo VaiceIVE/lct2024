@@ -1,16 +1,13 @@
 import axios from 'axios';
-import { AuthResponse } from 'shared/models/response/AuthResponse';
+import { IUser } from 'shared/models/IUser';
 
 export const API_URL = `https://api.adera-team.ru`;
+
+axios.defaults.withCredentials = true;
 
 const $api = axios.create({
   withCredentials: true,
   baseURL: API_URL,
-});
-
-$api.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
-  return config;
 });
 
 $api.interceptors.response.use(
@@ -26,16 +23,9 @@ $api.interceptors.response.use(
     ) {
       originalRequest._isRetry = true;
       try {
-        const response = await axios.get<AuthResponse>(
-          `${API_URL}/auth/refresh`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('rtoken')}`,
-            },
-          }
-        );
-        localStorage.setItem('token', response.data.accessToken);
-        localStorage.setItem('rtoken', response.data.refreshToken);
+        await axios.get<IUser>(`${API_URL}/auth/refresh`, {
+          withCredentials: true,
+        });
         return $api.request(originalRequest);
       } catch (e) {
         console.log('Пользователь не авторизован', e);

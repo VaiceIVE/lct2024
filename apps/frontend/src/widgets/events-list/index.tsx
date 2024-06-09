@@ -164,11 +164,13 @@ export const EventsList = () => {
             <Controller
               control={control}
               name="address"
+              defaultValue={''}
               render={({ field }) => (
                 <Input
                   field={field}
                   label="Поиск"
                   placeholder="Искать по таблице"
+                  allowClear
                 />
               )}
             />

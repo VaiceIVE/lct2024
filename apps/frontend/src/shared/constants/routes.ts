@@ -12,17 +12,18 @@ import {
   IconTransitionRight,
 } from '@tabler/icons-react';
 
-//User
 const prediction = lazy(() => import('pages/prediction'));
 const response = lazy(() => import('pages/response'));
 const storage = lazy(() => import('pages/storage'));
 
 const createPrediction = lazy(() => import('pages/create-prediction'));
 
+const login = lazy(() => import('pages/login'));
+
 export const publicRoutes = [
   {
     path: LOGIN_ROUTE,
-    Component: prediction,
+    Component: login,
     title: 'login',
   },
 ];
