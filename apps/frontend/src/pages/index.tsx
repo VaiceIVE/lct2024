@@ -35,7 +35,7 @@ export const Routing = observer(() => {
 
   useEffect(() => {
     setLoading(true);
-    UStore.checkAuth().then(() => {
+    UStore.checkAuth().finally(() => {
       setLoading(false);
     });
   }, [UStore]);
