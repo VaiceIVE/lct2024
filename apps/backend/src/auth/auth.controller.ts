@@ -22,7 +22,8 @@ interface CookieOptions {
 
 const cookieSettings: CookieOptions = {
     httpOnly: true,
-    domain: "adera-team.ru"
+    domain: "adera-team.ru",
+    maxAge: 7200
 }
 
 @Controller('auth')
