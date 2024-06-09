@@ -11,6 +11,9 @@ interface DraweProps {
   children?: React.ReactNode;
   isBlur?: boolean;
   footer?: React.ReactNode;
+  backgroundOpacity?: number;
+  withCloseButton?: boolean;
+  isFooterBorder?: boolean;
 }
 
 export const Drawer = ({
@@ -20,6 +23,9 @@ export const Drawer = ({
   children,
   isBlur,
   footer,
+  backgroundOpacity,
+  withCloseButton = true,
+  isFooterBorder = true,
 }: DraweProps) => {
   useEffect(() => {
     if (opened) {
@@ -37,19 +43,34 @@ export const Drawer = ({
       onClose={close}
       size={600}
       returnFocus={false}
+      autoFocus={false}
     >
-      <MantineDrawer.Overlay blur={isBlur ? 3 : 0} />
+      <MantineDrawer.Overlay
+        blur={isBlur ? 3 : 0}
+        backgroundOpacity={backgroundOpacity}
+      />
       <MantineDrawer.Content>
         <MantineDrawer.Header>
           <MantineDrawer.Title>
             <div className={styles.title}>{title}</div>
           </MantineDrawer.Title>
-          <MantineDrawer.CloseButton />
+          {withCloseButton ? (
+            <MantineDrawer.CloseButton autoFocus={false} />
+          ) : null}
         </MantineDrawer.Header>
         <MantineDrawer.Body className={classNames(footer && styles.body)}>
           {children}
         </MantineDrawer.Body>
-        {footer ? <footer className={styles.footer}>{footer}</footer> : null}
+        {footer ? (
+          <footer
+            className={classNames(
+              styles.footer,
+              isFooterBorder && styles.border
+            )}
+          >
+            {footer}
+          </footer>
+        ) : null}
       </MantineDrawer.Content>
     </MantineDrawer.Root>
   );

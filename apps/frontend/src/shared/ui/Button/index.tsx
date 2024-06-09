@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import styles from './Button.module.scss';
 import classNames from 'classnames';
-import { Button as MantineButton } from '@mantine/core';
+import { Loader, Button as MantineButton } from '@mantine/core';
 
 export interface ButtonProps {
   label?: string;
@@ -13,6 +13,7 @@ export interface ButtonProps {
   disabled?: boolean;
   type?: 'light' | 'outline' | 'white';
   fullWidth?: boolean;
+  isLoading?: boolean;
 }
 
 export const Button = ({
@@ -25,6 +26,7 @@ export const Button = ({
   disabled,
   type,
   fullWidth,
+  isLoading,
 }: ButtonProps) => {
   return (
     <MantineButton
@@ -50,11 +52,15 @@ export const Button = ({
           className={classNames(
             styles['button-wrapper'],
             isIconLeft && styles.reverse,
-            !label && styles.solo
+            !label && styles.solo,
+            isLoading && styles.loading
           )}
         >
-          <div>{label}</div>
+          <div className={styles.label}>{label}</div>
           <div className={styles.icon}>{icon}</div>
+          {isLoading ? (
+            <Loader className={styles.loader} color="white" type="dots" />
+          ) : null}
         </div>
       )}
     </MantineButton>

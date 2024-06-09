@@ -28,8 +28,9 @@ export const Input = ({
     <MantineInput.Wrapper className={style.input} label={label}>
       <MantineInput
         type={type}
-        defaultValue={''}
+        autoFocus={false}
         onFocus={onFocus}
+        autoComplete="on"
         {...props}
         size={size}
         onChange={field.onChange}

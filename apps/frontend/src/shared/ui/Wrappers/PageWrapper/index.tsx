@@ -1,5 +1,6 @@
-import { Stack } from '@mantine/core';
 import { Children } from 'react';
+
+import { Stack } from '@mantine/core';
 import { PageHeader } from '../components/PageHeader';
 
 type Props = {
@@ -11,14 +12,12 @@ type Props = {
   button?: React.ReactNode;
 };
 
-export const PageWrapper = ({ children, button }: Props) => {
+export const PageWrapper = ({ children, button, fullWidth }: Props) => {
   return (
-    <Stack gap={0}>
+    <Stack flex={fullWidth ? 1 : undefined} gap={0}>
       <PageHeader button={button} />
-      <Stack p={'24px 64px 96px'} gap={44}>
-        {Children.map(children, (child) => (
-          <div>{child}</div>
-        ))}
+      <Stack flex={fullWidth ? 1 : undefined} p={'24px 64px 96px'} gap={44}>
+        {Children.map(children, (child) => child)}
       </Stack>
     </Stack>
   );
