@@ -17,21 +17,21 @@ const Routing = observer(() => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (
-      UStore.isAuth &&
-      !authRoutes.find((item) => item.path.includes(location.pathname))
-    ) {
-      navigate(HOME_ROUTE);
-    }
+  // useEffect(() => {
+  //   if (
+  //     UStore.isAuth &&
+  //     !authRoutes.find((item) => item.path.includes(location.pathname))
+  //   ) {
+  //     navigate(HOME_ROUTE);
+  //   }
 
-    if (
-      !UStore.isAuth &&
-      !publicRoutes.find((item) => item.path.includes(location.pathname))
-    ) {
-      return navigate(LOGIN_ROUTE);
-    }
-  }, [UStore.isAuth, location.pathname, navigate]);
+  //   if (
+  //     !UStore.isAuth &&
+  //     !publicRoutes.find((item) => item.path.includes(location.pathname))
+  //   ) {
+  //     return navigate(LOGIN_ROUTE);
+  //   }
+  // }, [UStore.isAuth, location.pathname, navigate]);
 
   useEffect(() => {
     setLoading(true);
