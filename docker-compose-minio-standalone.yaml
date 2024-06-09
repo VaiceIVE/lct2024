@@ -8,5 +8,7 @@ services:
       - MINIO_ROOT_USER=minio-adera-user
       - MINIO_ROOT_PASSWORD=minio-adera-password
       - MINIO_DATA_DIR=/data
+#      - MINIO_SERVER_URL=https://minio.adera-team.ru
+      - MINIO_PROTOCOL=https
     volumes:
-      - ./minio/minio-data:/data:consistent
+      - ./minio/minio-data:/data
