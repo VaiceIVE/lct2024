@@ -24,7 +24,7 @@ const cookieSettings: CookieOptions = {
     httpOnly: true,
     //secure: true,
     //sameSite: "none",
-    domain: "localhost"
+    domain: "adera-team.ru"
 }
 
 @Controller('auth')
