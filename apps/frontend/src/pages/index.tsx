@@ -10,7 +10,7 @@ import Navbar from 'widgets/navbar';
 const LoginPage = lazy(() => import('pages/login'));
 const PredictionPage = lazy(() => import('pages/prediction'));
 
-export const Routing = observer(() => {
+const Routing = observer(() => {
   const { UStore } = useContext(Context);
   const [isLoading, setLoading] = useState(false);
 
@@ -76,3 +76,5 @@ export const Routing = observer(() => {
     </Flex>
   );
 });
+
+export default Routing;
