@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import { makeAutoObservable } from 'mobx';
-import $api, { API_URL } from 'shared/api';
+import { API_URL } from 'shared/api';
 import { IUser } from 'shared/models/IUser';
 import AuthServices from 'shared/services/AuthServices';
 
@@ -70,14 +71,12 @@ export default class UserStore {
         withCredentials: true,
       });
 
-      if (response) {
-        this.setAuth(true);
-        this.setUser(response.data);
-      }
+      this.setAuth(true);
+      this.setUser(response.data);
     } catch (e: any) {
       console.info(e);
 
-      this.setAuth(false);
+      //this.setAuth(false);
       this.setUser({} as IUser);
     } finally {
       this.setLoading(false);

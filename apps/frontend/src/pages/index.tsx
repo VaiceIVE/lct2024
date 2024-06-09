@@ -1,7 +1,7 @@
-import { Flex, Stack } from '@mantine/core';
+import { Flex, Loader, Stack } from '@mantine/core';
 import { Context } from 'main';
 import { observer } from 'mobx-react-lite';
-import { lazy, useContext, useEffect } from 'react';
+import { lazy, useContext, useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { HOME_ROUTE, LOGIN_ROUTE } from 'shared/constants/const';
 import { authRoutes, publicRoutes } from 'shared/constants/routes';
@@ -12,6 +12,7 @@ const PredictionPage = lazy(() => import('pages/prediction'));
 
 export const Routing = observer(() => {
   const { UStore } = useContext(Context);
+  const [isLoading, setLoading] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,34 +34,43 @@ export const Routing = observer(() => {
   }, [UStore.isAuth, location.pathname, navigate]);
 
   useEffect(() => {
-    UStore.checkAuth();
+    setLoading(true);
+    UStore.checkAuth().finally(() => {
+      setLoading(false);
+    });
   }, [UStore]);
 
   return (
     <Flex className="wrapper" style={{ height: '100vh' }}>
-      <Flex>
-        {UStore.isAuth && (
-          <div style={{ width: 'fit-content' }} className="wrapper">
-            <Navbar />
-          </div>
-        )}
-        <Stack w={'100%'}>
-          <Routes>
-            {UStore.isAuth &&
-              authRoutes.map(({ path, Component }) => (
-                <Route key={path} path={path} element={<Component />} />
-              ))}
-            {!UStore.isAuth &&
-              publicRoutes.map(({ path, Component }) => (
-                <Route key={path} path={path} element={<Component />} />
-              ))}
-            <Route
-              path="*"
-              element={UStore.isAuth ? <PredictionPage /> : <LoginPage />}
-            />
-          </Routes>
+      {isLoading ? (
+        <Stack h={'100vh'} bg={'gray.0'} align="center" justify="center">
+          <Loader size="xl" color="myOrange.1" />
         </Stack>
-      </Flex>
+      ) : (
+        <Flex>
+          {UStore.isAuth && (
+            <div style={{ width: 'fit-content' }} className="wrapper">
+              <Navbar />
+            </div>
+          )}
+          <Stack w={'100%'}>
+            <Routes>
+              {UStore.isAuth &&
+                authRoutes.map(({ path, Component }) => (
+                  <Route key={path} path={path} element={<Component />} />
+                ))}
+              {!UStore.isAuth &&
+                publicRoutes.map(({ path, Component }) => (
+                  <Route key={path} path={path} element={<Component />} />
+                ))}
+              <Route
+                path="*"
+                element={UStore.isAuth ? <PredictionPage /> : <LoginPage />}
+              />
+            </Routes>
+          </Stack>
+        </Flex>
+      )}
     </Flex>
   );
 });
