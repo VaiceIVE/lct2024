@@ -35,42 +35,44 @@ export const Routing = observer(() => {
 
   useEffect(() => {
     setLoading(true);
-    UStore.checkAuth().finally(() => {
+    UStore.checkAuth().then(() => {
       setLoading(false);
     });
   }, [UStore]);
 
+  if (isLoading) {
+    return (
+      <Stack h={'100vh'} bg={'gray.0'} align="center" justify="center">
+        <Loader size="xl" color="myBlue.2" />
+      </Stack>
+    );
+  }
+
   return (
     <Flex className="wrapper" style={{ height: '100vh' }}>
-      {isLoading ? (
-        <Stack h={'100vh'} bg={'gray.0'} align="center" justify="center">
-          <Loader size="xl" color="myOrange.1" />
+      <Flex>
+        {UStore.isAuth && (
+          <div style={{ width: 'fit-content' }} className="wrapper">
+            <Navbar />
+          </div>
+        )}
+        <Stack w={'100%'}>
+          <Routes>
+            {UStore.isAuth &&
+              authRoutes.map(({ path, Component }) => (
+                <Route key={path} path={path} element={<Component />} />
+              ))}
+            {!UStore.isAuth &&
+              publicRoutes.map(({ path, Component }) => (
+                <Route key={path} path={path} element={<Component />} />
+              ))}
+            <Route
+              path="*"
+              element={UStore.isAuth ? <PredictionPage /> : <LoginPage />}
+            />
+          </Routes>
         </Stack>
-      ) : (
-        <Flex>
-          {UStore.isAuth && (
-            <div style={{ width: 'fit-content' }} className="wrapper">
-              <Navbar />
-            </div>
-          )}
-          <Stack w={'100%'}>
-            <Routes>
-              {UStore.isAuth &&
-                authRoutes.map(({ path, Component }) => (
-                  <Route key={path} path={path} element={<Component />} />
-                ))}
-              {!UStore.isAuth &&
-                publicRoutes.map(({ path, Component }) => (
-                  <Route key={path} path={path} element={<Component />} />
-                ))}
-              <Route
-                path="*"
-                element={UStore.isAuth ? <PredictionPage /> : <LoginPage />}
-              />
-            </Routes>
-          </Stack>
-        </Flex>
-      )}
+      </Flex>
     </Flex>
   );
 });
