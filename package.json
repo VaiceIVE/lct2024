@@ -3,16 +3,24 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "nginx": "docker compose -f ./docker-compose-nginx-only.yaml up"
+    "nginx": "docker compose -f ./docker-compose-nginx-only.yaml up",
+    "create-entities-index": "ts-node --pretty apps/backend/src/tools/create-entities-index.ts"
   },
+  "type": "commonjs",
   "private": true,
   "dependencies": {
     "@mantine/core": "^7.10.1",
     "@mantine/dates": "^7.10.1",
     "@mantine/hooks": "^7.10.1",
+    "@fastify/cookie": "^9.3.1",
     "@nestjs/common": "^10.0.2",
+    "@nestjs/config": "^3.2.2",
     "@nestjs/core": "^10.0.2",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/mapped-types": "*",
+    "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.2",
+    "@nestjs/typeorm": "^10.0.2",
     "@nx/nest": "^19.1.0",
     "@tabler/icons-react": "^3.5.0",
     "axios": "^1.7.2",
@@ -25,6 +33,11 @@
     "mobx": "^6.12.3",
     "mobx-react-lite": "^4.0.7",
     "nanoid": "^5.0.7",
+    "argon2": "^0.40.3",
+    "cookie-parser": "^1.4.6",
+    "fastify": "^4.27.0",
+    "passport-jwt": "^4.0.1",
+    "pg": "^8.12.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.51.5",
@@ -32,7 +45,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "vite-tsconfig-paths": "^4.3.2"
+    "vite-tsconfig-paths": "^4.3.2",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@nestjs/schematics": "^10.0.1",
@@ -53,6 +67,7 @@
     "@swc/helpers": "~0.5.2",
     "@testing-library/react": "15.0.6",
     "@types/compose-function": "^0.0.33",
+    "@types/cookie-parser": "^1.4.7",
     "@types/jest": "^29.4.0",
     "@types/lodash": "^4.17.4",
     "@types/node": "18.16.9",
