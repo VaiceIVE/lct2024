@@ -28,7 +28,7 @@ services:
     ports:
       - 8000:8000
     working_dir: /nest-app/
-    entrypoint: bash -c "npm run create-entities-index && npx nx serve backend"
+    entrypoint: bash -c "npm run create-entities-index && npx nx serve backend --skip-nx-cache"
     links:
       - "postgres:database"
 networks:
