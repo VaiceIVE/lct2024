@@ -1,6 +1,7 @@
 import {
   CREATE_PREDICTION_ROUTE,
   HOME_ROUTE,
+  LOGIN_ROUTE,
   RESPONSE_ROUTE,
   STORAGE_ROUTE,
 } from 'shared/constants/const';
@@ -20,7 +21,7 @@ const createPrediction = lazy(() => import('pages/create-prediction'));
 
 export const publicRoutes = [
   {
-    path: HOME_ROUTE,
+    path: LOGIN_ROUTE,
     Component: prediction,
     title: 'login',
   },
