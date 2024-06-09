@@ -9,6 +9,8 @@
   color: $white-color;
   transition: all 0.2s ease;
 
+  position: relative;
+
   font-weight: 500;
   font-size: 16px;
   line-height: 18px;
@@ -29,6 +31,10 @@
   &.disabled {
     opacity: 0.5;
     color: white;
+  }
+
+  &.loading {
+    opacity: 0.5;
   }
 
   &.light {
@@ -87,6 +93,20 @@
 
   &.reverse {
     flex-direction: row-reverse;
+  }
+
+  &.loading {
+    .label,
+    .icon {
+      visibility: hidden;
+    }
+  }
+
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
