@@ -7,6 +7,7 @@ export default
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DB,
     host: process.env.POSTGRES_HOST,
+    port: 5432,
     entities: Object.values(entities),
     synchronize: true,
 }
