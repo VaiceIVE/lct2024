@@ -1,5 +1,11 @@
+import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
+
 const StoragePage = () => {
-  return <div>storage</div>;
+  return (
+    <PageWrapper>
+      <div></div> <div></div>
+    </PageWrapper>
+  );
 };
 
 export default StoragePage;

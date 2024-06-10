@@ -4,26 +4,34 @@
   font-family: 'Factora';
   font-style: normal;
   font-weight: 300;
-  src: url('../shared/assets/fonts/FACTORA-LIGHT.TTF') format('truetype');
+  src: url('../shared/assets/fonts/FactorA-Light.woff2') format('woff2'),
+    url('../shared/assets/fonts/FACTORA-LIGHT.TTF') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Factora';
   font-style: normal;
   font-weight: 400;
-  src: url('../shared/assets/fonts/FACTORA-REGULAR.TTF') format('truetype');
+  src: url('../shared/assets/fonts/FactorA-Regular.woff2') format('woff2'),
+    url('../shared/assets/fonts/FACTORA-REGULAR.TTF') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Factora';
   font-style: normal;
   font-weight: 500;
-  src: url('../shared/assets/fonts/FACTORA-MEDIUM.TTF') format('truetype');
+  src: url('../shared/assets/fonts/FactorA-Medium.woff2') format('woff2'),
+    url('../shared/assets/fonts/FACTORA-MEDIUM.TTF') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Factora';
   font-style: normal;
   font-weight: 700;
-  src: url('../shared/assets/fonts/FACTORA-BOLD.TTF') format('truetype');
+  src: url('../shared/assets/fonts/FactorA-Bold.woff2') format('woff2'),
+    url('../shared/assets/fonts/FACTORA-BOLD.TTF') format('truetype');
+  font-display: swap;
 }

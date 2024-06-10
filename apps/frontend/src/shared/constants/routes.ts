@@ -40,14 +40,14 @@ export const authRoutes = [
     path: RESPONSE_ROUTE,
     Component: response,
     navbarTitle: 'Реагирование',
-    pageTitle: '1',
+    pageTitle: 'Реагирование',
     icon: IconTransitionRight,
   },
   {
     path: STORAGE_ROUTE,
     Component: storage,
     navbarTitle: 'Хранилище',
-    pageTitle: '2',
+    pageTitle: 'Хранилище',
     icon: IconDatabase,
   },
   {

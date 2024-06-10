@@ -1,7 +1,7 @@
-import { Flex, Stack } from '@mantine/core';
+import { Flex, Loader, Stack } from '@mantine/core';
 import { Context } from 'main';
 import { observer } from 'mobx-react-lite';
-import { lazy, useContext, useEffect } from 'react';
+import { lazy, useContext, useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { HOME_ROUTE, LOGIN_ROUTE } from 'shared/constants/const';
 import { authRoutes, publicRoutes } from 'shared/constants/routes';
@@ -10,8 +10,9 @@ import Navbar from 'widgets/navbar';
 const LoginPage = lazy(() => import('pages/login'));
 const PredictionPage = lazy(() => import('pages/prediction'));
 
-export const Routing = observer(() => {
+const Routing = observer(() => {
   const { UStore } = useContext(Context);
+  const [isLoading, setLoading] = useState(true);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,8 +34,19 @@ export const Routing = observer(() => {
   }, [UStore.isAuth, location.pathname, navigate]);
 
   useEffect(() => {
-    UStore.checkAuth();
+    setLoading(true);
+    UStore.checkAuth().finally(() => {
+      setLoading(false);
+    });
   }, [UStore]);
+
+  if (isLoading) {
+    return (
+      <Stack h={'100vh'} bg={'gray.0'} align="center" justify="center">
+        <Loader size="xl" color="myBlue.2" />
+      </Stack>
+    );
+  }
 
   return (
     <Flex className="wrapper" style={{ height: '100vh' }}>
@@ -64,3 +76,5 @@ export const Routing = observer(() => {
     </Flex>
   );
 });
+
+export default Routing;
