@@ -8,7 +8,7 @@ interface PredictionLeaveModalProps {
   opened: boolean;
   close: () => void;
   path?: string;
-  title: string;
+  title?: string;
   customButtonRow?: React.ReactNode;
 }
 
@@ -20,7 +20,7 @@ export const PredictionLeaveModal = ({
   customButtonRow,
 }: PredictionLeaveModalProps) => {
   return (
-    <Modal opened={opened} close={close} title={title} w={557}>
+    <Modal opened={opened} close={close} title={title || ''} w={557}>
       <Stack gap={18}>
         <p className="text">
           Все введенные данные не сохранятся. Это действие нельзя будет

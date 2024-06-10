@@ -14,7 +14,7 @@ interface LinksProps {
   navbarTitle?: string | null;
   Component?: FC;
   pageTitle?: string;
-  isPrediction?: boolean;
+  isModal?: boolean;
   open: (path: string) => void;
 }
 
@@ -22,7 +22,7 @@ const NavbarLink = ({
   icon: Icon,
   path,
   navbarTitle,
-  isPrediction,
+  isModal,
   open,
 }: LinksProps) => {
   const icon = (
@@ -32,7 +32,7 @@ const NavbarLink = ({
     </Flex>
   );
 
-  return isPrediction ? (
+  return isModal ? (
     <div className={style['navbar__modal-link']} onClick={() => open(path)}>
       {icon}
     </div>
@@ -42,13 +42,13 @@ const NavbarLink = ({
 };
 
 interface NavbarLinksGroupProps {
-  isPrediction: boolean;
+  isModal: boolean;
   open: (path: string) => void;
 }
 
-const NavbarLinksGroup = ({ isPrediction, open }: NavbarLinksGroupProps) => {
+const NavbarLinksGroup = ({ isModal, open }: NavbarLinksGroupProps) => {
   const links = authRoutes.map((link, index) => (
-    <NavbarLink {...link} key={index} isPrediction={isPrediction} open={open} />
+    <NavbarLink {...link} key={index} isModal={isModal} open={open} />
   ));
 
   return (

@@ -53,7 +53,7 @@ const PredictionPageContainer = () => {
     }
   }
 
-  const handleSavePrediction = (isSave?: boolean) => {
+  const handleSavePrediction = (isSave: boolean) => {
     if (id) {
       PredictionServices.savePrediction(+id).then(() => {
         navigate(
@@ -94,7 +94,7 @@ const PredictionPageContainer = () => {
             <Button fullWidth onClick={close} type="white" label="Отмена" />
             <Button
               fullWidth
-              onClick={handleSavePrediction}
+              onClick={() => handleSavePrediction(false)}
               label="Сохранить и выйти"
             />
           </>
