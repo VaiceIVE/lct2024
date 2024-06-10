@@ -6,6 +6,10 @@
   font-weight: 700;
 
   z-index: 2;
+
+  &.gray {
+    color: $placeholder-color;
+  }
 }
 
 .h1 {

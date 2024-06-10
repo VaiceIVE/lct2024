@@ -7,7 +7,7 @@ import { Modal } from 'shared/ui/Modal';
 interface PredictionLeaveModalProps {
   opened: boolean;
   close: () => void;
-  link?: string;
+  path?: string;
   title: string;
   customButtonRow?: React.ReactNode;
 }
@@ -15,7 +15,7 @@ interface PredictionLeaveModalProps {
 export const PredictionLeaveModal = ({
   opened,
   close,
-  link,
+  path,
   title,
   customButtonRow,
 }: PredictionLeaveModalProps) => {
@@ -33,7 +33,7 @@ export const PredictionLeaveModal = ({
           ) : (
             <>
               <Button onClick={close} fullWidth label="Отмена" />
-              <NavLink to={link ? link : HOME_ROUTE}>
+              <NavLink to={path ? path : HOME_ROUTE}>
                 <Button fullWidth label="Подтвердить действие" type="white" />
               </NavLink>
             </>

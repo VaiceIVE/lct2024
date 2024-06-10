@@ -18,15 +18,15 @@ export default class PredictionServices {
 
   static async getDefaultPrediction(
     month: number
-  ): Promise<AxiosResponse<IPrediction[]>> {
-    return $api.get<IPrediction[]>(`/prediction`);
+  ): Promise<AxiosResponse<IPrediction>> {
+    return $api.get<IPrediction>(`/prediction`);
   }
 
   static async getPredictionById(
     id: number,
     month: number
-  ): Promise<AxiosResponse<IPrediction[]>> {
-    return $api.get<IPrediction[]>(`/prediction/${id}`);
+  ): Promise<AxiosResponse<IPrediction>> {
+    return $api.get<IPrediction>(`/prediction/${id}`);
   }
 
   static async savePrediction(id: number) {

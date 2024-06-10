@@ -20,10 +20,10 @@ import PredictionServices from 'shared/services/PredictionServices';
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { id } = qs.parse(location.search);
+  const { id, isSaved } = qs.parse(location.search);
 
   const [opened, { open, close }] = useDisclosure(false);
-  const [link, setLink] = useState<string>('');
+  const [path, setPath] = useState<string>('');
 
   useEffect(() => {
     if (
@@ -36,14 +36,14 @@ const Navbar = () => {
   }, [location, close, opened]);
 
   const onOpen = (path: string) => {
-    setLink(path);
+    setPath(path);
     open();
   };
 
   const handleSavePrediction = () => {
     if (id) {
       PredictionServices.savePrediction(+id).then(() => {
-        navigate(link);
+        navigate(path);
         close();
       });
     }
@@ -61,7 +61,9 @@ const Navbar = () => {
           location.pathname === CREATE_PREDICTION_ROUTE ||
           location.pathname === PREDICTION_ROUTE
         }
-        open={onOpen}
+        open={
+          isSaved ? (path) => navigate(path) : (path: string) => onOpen(path)
+        }
       />
       <PredictionLeaveModal
         title={
@@ -82,7 +84,7 @@ const Navbar = () => {
           )
         }
         opened={opened}
-        link={link}
+        path={path}
         close={close}
       />
     </div>

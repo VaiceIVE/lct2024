@@ -41,7 +41,7 @@ export const Button = ({
       )}
       style={
         icon && !label
-          ? { width: `${w}px`, padding: '14px' }
+          ? { width: `${w}px`, padding: '18px 16px' }
           : { width: `${w}px` }
       }
     >

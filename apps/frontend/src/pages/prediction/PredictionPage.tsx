@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { IPrediction } from 'shared/models/IPrediction';
 import { Breadcrumbs } from 'shared/ui/Breadcrumbs';
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
@@ -12,12 +13,14 @@ interface PredictionPageProps {
   setMonthsIndex: React.Dispatch<React.SetStateAction<number>>;
   months: { label: string; value: number }[];
   isDefault: boolean;
-  open: () => void;
+  open: (path: string) => void;
   opened: boolean;
   close: () => void;
   headerActions: React.ReactNode;
   customButtonRow: React.ReactNode | null;
-  prediction: IPrediction[];
+  prediction: IPrediction | null;
+  isSaved?: boolean;
+  returnPage?: { title: string; href: string };
 }
 
 export const PredictionPage = ({
@@ -30,15 +33,27 @@ export const PredictionPage = ({
   close,
   headerActions,
   customButtonRow,
+  isSaved,
+  returnPage,
+  prediction,
 }: PredictionPageProps) => {
+  const navigate = useNavigate();
+
   return (
-    <PageWrapper button={headerActions}>
+    <PageWrapper
+      title={isSaved && prediction?.id ? `Анализ от ${1}` : ''}
+      button={headerActions}
+    >
       {isDefault ? null : (
         <Breadcrumbs
-          onClick={open}
+          onClick={isSaved ? (path) => navigate(path) : open}
           path={[
-            { title: 'Базовый прогноз', href: '/' },
-            { title: 'Новый прогноз', href: '/create-prediction' },
+            returnPage ? returnPage : { title: 'Базовый прогноз', href: '/' },
+            {
+              title:
+                isSaved && prediction?.id ? `Анализ от ${1}` : 'Новый прогноз',
+              href: '/prediction',
+            },
           ]}
         />
       )}
