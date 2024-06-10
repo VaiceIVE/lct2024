@@ -11,4 +11,4 @@ services:
 #      - MINIO_SERVER_URL=https://minio.adera-team.ru
       - MINIO_PROTOCOL=https
     volumes:
-      - ./minio/minio-data:/data
+      - ../minio/minio-data:/data
