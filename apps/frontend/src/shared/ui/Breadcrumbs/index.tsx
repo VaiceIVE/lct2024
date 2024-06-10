@@ -19,10 +19,9 @@ export const Breadcrumbs = ({ path, onClick }: BreadcrumbsProps) => {
         location.pathname === item.href ? undefined : () => onClick(item.href)
       }
       key={index}
-      className={classNames(
-        styles.crumb,
-        location.pathname === item.href && styles.current
-      )}
+      className={classNames(styles.crumb, {
+        [styles.current]: location.pathname === item.href,
+      })}
     >
       {item.title}
     </div>

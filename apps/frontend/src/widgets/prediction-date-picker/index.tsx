@@ -24,7 +24,7 @@ export const PredictionDatePicker = ({
         onClick={
           isLeft ? () => setMonthsIndex((prev: number) => prev - 1) : undefined
         }
-        className={classNames(styles.icon, !isLeft && styles.disabled)}
+        className={classNames(styles.icon, { [styles.disabled]: !isLeft })}
         width={24}
         height={24}
       />
@@ -35,7 +35,7 @@ export const PredictionDatePicker = ({
         onClick={
           isRight ? () => setMonthsIndex((prev: number) => prev + 1) : undefined
         }
-        className={classNames(styles.icon, !isRight && styles.disabled)}
+        className={classNames(styles.icon, { [styles.disabled]: !isRight })}
         width={24}
         height={24}
       />

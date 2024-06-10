@@ -58,15 +58,14 @@ export const Drawer = ({
             <MantineDrawer.CloseButton autoFocus={false} />
           ) : null}
         </MantineDrawer.Header>
-        <MantineDrawer.Body className={classNames(footer && styles.body)}>
+        <MantineDrawer.Body className={classNames({ [styles.body]: footer })}>
           {children}
         </MantineDrawer.Body>
         {footer ? (
           <footer
-            className={classNames(
-              styles.footer,
-              isFooterBorder && styles.border
-            )}
+            className={classNames(styles.footer, {
+              [styles.border]: isFooterBorder,
+            })}
           >
             {footer}
           </footer>
