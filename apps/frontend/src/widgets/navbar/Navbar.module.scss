@@ -40,6 +40,17 @@
     flex-direction: column;
     gap: 8px;
 
+    &.active {
+      div {
+        color: $main-black-color;
+        font-weight: 700;
+      }
+
+      svg {
+        color: $main-orange-color;
+      }
+    }
+
     div {
       font-weight: 500;
       color: $secondary-color;

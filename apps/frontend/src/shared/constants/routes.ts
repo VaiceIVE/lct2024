@@ -36,6 +36,7 @@ export const authRoutes = [
     navbarTitle: 'Прогнозы',
     pageTitle: 'Базовый прогноз',
     icon: IconChartArcs,
+    activePaths: [CREATE_PREDICTION_ROUTE, PREDICTION_ROUTE],
   },
   {
     path: RESPONSE_ROUTE,

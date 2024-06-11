@@ -81,6 +81,7 @@ const Navbar = () => {
         </NavLink>
       </div>
       <NavbarLinksGroup
+        currentPath={location.pathname}
         isModal={pagesWithModal.map((p) => p.path).includes(location.pathname)}
         open={
           isSaved ? (path) => navigate(path) : (path: string) => onOpen(path)

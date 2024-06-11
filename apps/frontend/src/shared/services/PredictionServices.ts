@@ -13,7 +13,7 @@ export default class PredictionServices {
       formData.append(`file${index}`, file);
     });
 
-    return $api.post('/prediction', { formData, conditions });
+    return $api.post('/prediction1', { formData, conditions });
   }
 
   static async getDefaultPrediction(
