@@ -17,9 +17,6 @@ export class Obj {
     address: string
 
     @Column()
-    ctpnum: string
-
-    @Column()
     wallMaterial: string
 
     @Column()
@@ -44,7 +41,7 @@ export class Obj {
     btuwear: number
     // po 7 all TP 
     @Column()
-    geodata: number[]
+    geodata: string
 
     @ManyToOne(() => HeatPoint, (heatPoint) => heatPoint.objects)
     heatPoint: HeatPoint

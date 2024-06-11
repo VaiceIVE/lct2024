@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { Obj } from "./obj.entity";
+import { Event } from "../../database/entities-index";
 
 @Entity()
 export class HeatPoint {
@@ -26,11 +27,20 @@ export class HeatPoint {
     //balansoderjatel
     @Column()
     authority: string
+
+    @Column()
+    geodata: string
     
     @OneToMany(() => Obj, (obj) => obj.heatPoint, {
         onDelete: "SET NULL",
         cascade: true
     })
     objects: Obj
+
+    @OneToMany(() => Event, (event) => event.heatPoint,{
+        onDelete: "CASCADE",
+        cascade: true
+    })
+    events: Event[]
 
 }

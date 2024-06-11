@@ -9,6 +9,15 @@ export class StorageService {
 
     public async uploadToS3(file: Express.Multer.File)
     {
+        const names: string[] = await this.getNames()
+        console.log(file.originalname)
+        console.log(names)
+        if(names.includes(file.originalname))
+            {
+                file.originalname = file.originalname + `(${(new Date).toDateString()})`
+            }
+
+        console.log(file.originalname)
         return this.minioService.client.putObject('tables', file.originalname, file.buffer)
     }
 
@@ -24,7 +33,7 @@ export class StorageService {
             }
         console.log(names)
         console.log(etags)
-        return this.minioService.client.getObject('tables', names[2])
+        return this.minioService.client.getObject('tables', names[0])
     }
 
     public async clearBucket()
