@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AnalysisService } from './analysis.service';
-import { AnalysisController } from './analysis.controller';
-import { MinioModule, MinioService } from 'nestjs-minio-client'
+import { StorageService } from './storage.service';
+import { StorageController } from './storage.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MinioModule } from 'nestjs-minio-client';
+
 @Module({
   imports: [
     ConfigModule,
@@ -19,7 +20,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     inject: [ConfigService]
   })
   ],
-  controllers: [AnalysisController],
-  providers: [AnalysisService],
+  controllers: [StorageController],
+  providers: [StorageService],
+  exports: [StorageService]
 })
-export class AnalysisModule {}
+export class StorageModule {}
