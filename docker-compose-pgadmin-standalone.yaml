@@ -10,9 +10,9 @@ services:
         - PGADMIN_DEFAULT_EMAIL=post@gres.com
         - PGADMIN_DEFAULT_PASSWORD=postgres
       networks:
-        - sql_network
+        - backend_network
 networks:
-  sql_network:
+  backend_network:
     external: true
 
 

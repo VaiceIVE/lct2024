@@ -9,6 +9,8 @@ services:
     restart: "always"
     env_file:
       - .env
+    networks:
+      - network
     volumes:
       - ./../../../postgres/postgres-data:/var/lib/postgresql/data
     healthcheck:
@@ -27,10 +29,13 @@ services:
       - ../../:/nest-app/
     ports:
       - 8000:8000
+    networks:
+      - network
     working_dir: /nest-app/
     entrypoint: bash -c "npm run create-entities-index && npx nx serve backend --skip-nx-cache"
     links:
-      - "postgres:database"
+      - "postgres:postgres"
 networks:
   network:
     driver: bridge
+
