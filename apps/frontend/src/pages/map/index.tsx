@@ -70,23 +70,24 @@ const MapPage = () => {
         opened={opened}
         backgroundOpacity={0}
         isFooterBorder={false}
-        closeIcon={
-          <IconChevronsLeft color={theme.colors.myBlack[3]} size={24} />
-        }
         closeOnClickOutside={false}
         overlayZIndex={1}
       ></Drawer>
-      <Flex h={'100%'} gap={0}>
-        <Flex
-          align={'flex-start'}
-          className={classNames(styles.drawer, {
-            [styles.hide]: !opened,
-            [styles.show]: opened,
-          })}
-          p={'32px 40px'}
-        >
-          <IconChevronsRight onClick={open} cursor={'pointer'} size={24} />
-        </Flex>
+      <Flex
+        align={'flex-start'}
+        className={classNames(styles.drawer, {
+          [styles.hide]: !opened,
+          [styles.show]: opened,
+        })}
+        p={16}
+      >
+        <IconChevronsRight
+          onClick={opened ? close : open}
+          cursor={'pointer'}
+          size={24}
+        />
+      </Flex>
+      <Flex h={'100%'}>
         <Map fullWidth />
       </Flex>
       <MapFilters setTypeFilters={setTypeFilters} typeFilters={typeFilters} />

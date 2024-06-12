@@ -1,8 +1,14 @@
-import { Grid, Stack } from '@mantine/core';
-import { IconDownload } from '@tabler/icons-react';
+import { Flex, Grid, Stack } from '@mantine/core';
+import {
+  IconDownload,
+  IconFilterMinus,
+  IconFilterPlus,
+} from '@tabler/icons-react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Button } from 'shared/ui/Button';
+import { Filters } from 'shared/ui/Filters';
 import { Input } from 'shared/ui/Input';
 import { Select } from 'shared/ui/Select';
 import { Table } from 'shared/ui/Table';
@@ -145,6 +151,8 @@ export const EventsList = () => {
     },
   ];
 
+  const [isOpen, setOpen] = useState(false);
+
   const { control, watch } = useForm();
 
   return (
@@ -159,8 +167,8 @@ export const EventsList = () => {
       title="Список событий"
     >
       <Stack gap={24}>
-        <Grid gutter={16}>
-          <Grid.Col span={8}>
+        <Grid align="flex-end" gutter={16}>
+          <Grid.Col span={6}>
             <Controller
               control={control}
               name="address"
@@ -193,7 +201,29 @@ export const EventsList = () => {
               )}
             />
           </Grid.Col>
+          <Grid.Col span={2}>
+            <Flex>
+              <Button
+                fullWidth
+                type="light"
+                label="Фильтры"
+                onClick={() => setOpen((prev) => !prev)}
+                icon={
+                  isOpen ? (
+                    <IconFilterMinus size={18} />
+                  ) : (
+                    <IconFilterPlus size={18} />
+                  )
+                }
+              />
+            </Flex>
+          </Grid.Col>
         </Grid>
+        <Filters opened={isOpen}>
+          <Grid gutter={16}>
+            <Grid.Col span={6}></Grid.Col>
+          </Grid>
+        </Filters>
         <Table
           data={data.filter((item) =>
             item.address

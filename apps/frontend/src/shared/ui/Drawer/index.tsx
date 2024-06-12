@@ -55,6 +55,7 @@ export const Drawer = ({
       returnFocus={false}
       autoFocus={false}
       closeOnClickOutside={closeOnClickOutside}
+      transitionProps={{ duration: 250 }}
     >
       <MantineDrawer.Overlay
         zIndex={overlayZIndex}
@@ -72,9 +73,7 @@ export const Drawer = ({
               <div className={styles.title}>{title}</div>
             </MantineDrawer.Title>
           </Flex>
-          {returnIcon ? (
-            <MantineDrawer.CloseButton icon={closeIcon} autoFocus={false} />
-          ) : null}
+          <MantineDrawer.CloseButton icon={closeIcon} autoFocus={false} />
         </MantineDrawer.Header>
         <MantineDrawer.Body className={classNames({ [styles.body]: footer })}>
           {children}

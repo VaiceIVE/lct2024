@@ -5,16 +5,15 @@
   width: 100%;
   z-index: 11;
 
-  canvas {
-    border-radius: 12px;
-    border: 1px solid $border-color;
-  }
+  border-radius: 12px;
+  border: 1px solid $border-color;
+
+  overflow: hidden;
 
   &.full {
     height: 100%;
-    canvas {
-      border-radius: unset;
-      border: none;
-    }
+
+    border-radius: unset;
+    border: none;
   }
 }
