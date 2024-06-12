@@ -46,7 +46,7 @@ const data: IBuilding[] = [
       { eventName: 'P1 <= 0', chance: 20, date: '12.06' },
     ],
     socialType: 'Здравоохранение',
-    coords: [55.717482785, 37.828189394],
+    coords: [55.803579031, 37.513482336],
     coolingRate: 5,
     consumersCount: null,
   },
@@ -91,6 +91,26 @@ const MapPage = () => {
     [id, isDefault]
   );
 
+  const getFilteredBuildings = () => {
+    return prediction?.buildings?.filter((b) => {
+      if (typeFilters.includes(b.socialType)) {
+        return true;
+      }
+      if (
+        typeFilters.includes('Социальные объекты') &&
+        socialTypes.includes(b.socialType)
+      ) {
+        return true;
+      }
+      return false;
+    });
+  };
+
+  const onPlacemarkClick = (building: IBuilding) => {
+    setSelectedBuilding(building);
+    open();
+  };
+
   useEffect(() => {
     if (month) {
       getPredictionResult(`${month}`);
@@ -126,18 +146,7 @@ const MapPage = () => {
           ) : (
             <MapList
               setSelectedBuilding={setSelectedBuilding}
-              buildings={prediction?.buildings?.filter((b) => {
-                if (typeFilters.includes(b.socialType)) {
-                  return true;
-                }
-                if (
-                  typeFilters.includes('Социальные объекты') &&
-                  socialTypes.includes(b.socialType)
-                ) {
-                  return true;
-                }
-                return false;
-              })}
+              buildings={getFilteredBuildings()}
             />
           )}
         </Drawer>
@@ -153,7 +162,11 @@ const MapPage = () => {
           <IconChevronsRight size={24} />
         </Flex>
         <Flex h={'100%'}>
-          <Map fullWidth />
+          <Map
+            fullWidth
+            buildings={getFilteredBuildings()}
+            onPlacemarkClick={onPlacemarkClick}
+          />
         </Flex>
         <MapFilters setTypeFilters={setTypeFilters} typeFilters={typeFilters} />
       </FormProvider>
