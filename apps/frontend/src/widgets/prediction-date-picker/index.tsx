@@ -2,15 +2,16 @@ import { Flex } from '@mantine/core';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 
 import styles from './PredictionDatePicker.module.scss';
-import { months } from 'shared/constants/months';
 import classNames from 'classnames';
 
 interface PredictionDatePickerProps {
   monthsIndex: number;
   setMonthsIndex: React.Dispatch<React.SetStateAction<number>>;
+  months: { label: string; value: number }[];
 }
 
 export const PredictionDatePicker = ({
+  months,
   monthsIndex,
   setMonthsIndex,
 }: PredictionDatePickerProps) => {
@@ -23,7 +24,7 @@ export const PredictionDatePicker = ({
         onClick={
           isLeft ? () => setMonthsIndex((prev: number) => prev - 1) : undefined
         }
-        className={classNames(styles.icon, !isLeft && styles.disabled)}
+        className={classNames(styles.icon, { [styles.disabled]: !isLeft })}
         width={24}
         height={24}
       />
@@ -34,7 +35,7 @@ export const PredictionDatePicker = ({
         onClick={
           isRight ? () => setMonthsIndex((prev: number) => prev + 1) : undefined
         }
-        className={classNames(styles.icon, !isRight && styles.disabled)}
+        className={classNames(styles.icon, { [styles.disabled]: !isRight })}
         width={24}
         height={24}
       />

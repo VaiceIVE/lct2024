@@ -1,0 +1,46 @@
+@import '@styles/__defines.scss';
+
+.wrapper {
+  width: 100vw;
+  height: 100dvh;
+
+  position: relative;
+}
+
+.drawer {
+  width: fit-content;
+  height: 100svh;
+  box-shadow: 0px 4px 32px 0px #003b650a;
+
+  svg {
+    color: $link-hover-color;
+  }
+
+  &.hide {
+    svg {
+      animation: hide 0.3s ease-in-out forwards;
+    }
+  }
+
+  &.show {
+    animation: show 0.1s ease-in-out forwards;
+  }
+}
+
+@keyframes show {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(50px);
+  }
+}
+
+@keyframes hide {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

@@ -12,10 +12,10 @@ type Props = {
   button?: React.ReactNode;
 };
 
-export const PageWrapper = ({ children, button, fullWidth }: Props) => {
+export const PageWrapper = ({ children, button, fullWidth, title }: Props) => {
   return (
     <Stack flex={fullWidth ? 1 : undefined} gap={0}>
-      <PageHeader button={button} />
+      <PageHeader title={title} button={button} />
       <Stack flex={fullWidth ? 1 : undefined} p={'24px 64px 96px'} gap={44}>
         {Children.map(children, (child) => child)}
       </Stack>

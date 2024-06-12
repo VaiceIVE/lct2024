@@ -41,11 +41,9 @@ export const Notice = ({ message, type, close }: NoticeProps) => {
 
   return (
     <Card
-      className={classNames(
-        styles.notice,
-        styles[types[type].color],
-        isFade && styles.fade
-      )}
+      className={classNames(styles.notice, styles[types[type].color], {
+        [styles.fade]: isFade,
+      })}
       bg={types[type].bg}
       p="16px 18px"
     >

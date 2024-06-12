@@ -7,6 +7,7 @@ import UserStore from 'shared/store/user';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import { DatesProvider } from '@mantine/dates';
+import { YMapComponentsProvider } from 'ymap3-components';
 dayjs.locale('ru');
 
 interface State {
@@ -29,7 +30,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
       <Context.Provider value={{ UStore }}>
         <MantineProvider theme={theme}>
           <DatesProvider settings={{ locale: 'ru' }}>
-            <App />
+            <YMapComponentsProvider
+              apiKey={import.meta.env.VITE_REACT_APP_YMAP_KEY}
+            >
+              <App />
+            </YMapComponentsProvider>
           </DatesProvider>
         </MantineProvider>
       </Context.Provider>
