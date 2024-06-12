@@ -1,4 +1,4 @@
-import { Drawer as MantineDrawer } from '@mantine/core';
+import { Flex, Drawer as MantineDrawer } from '@mantine/core';
 import { useEffect } from 'react';
 
 import styles from './Drawer.module.scss';
@@ -14,6 +14,11 @@ interface DraweProps {
   backgroundOpacity?: number;
   withCloseButton?: boolean;
   isFooterBorder?: boolean;
+  position?: 'left' | 'right';
+  closeIcon?: React.ReactNode;
+  closeOnClickOutside?: boolean;
+  overlayZIndex?: number;
+  returnIcon?: React.ReactNode;
 }
 
 export const Drawer = ({
@@ -26,6 +31,11 @@ export const Drawer = ({
   backgroundOpacity,
   withCloseButton = true,
   isFooterBorder = true,
+  position = 'right',
+  closeIcon,
+  closeOnClickOutside = true,
+  overlayZIndex,
+  returnIcon,
 }: DraweProps) => {
   useEffect(() => {
     if (opened) {
@@ -38,35 +48,42 @@ export const Drawer = ({
   return (
     <MantineDrawer.Root
       className={styles.drawer}
-      position="right"
+      position={position}
       opened={opened}
       onClose={close}
       size={600}
       returnFocus={false}
       autoFocus={false}
+      closeOnClickOutside={closeOnClickOutside}
     >
       <MantineDrawer.Overlay
+        zIndex={overlayZIndex}
         blur={isBlur ? 3 : 0}
         backgroundOpacity={backgroundOpacity}
       />
       <MantineDrawer.Content>
         <MantineDrawer.Header>
-          <MantineDrawer.Title>
-            <div className={styles.title}>{title}</div>
-          </MantineDrawer.Title>
-          {withCloseButton ? (
-            <MantineDrawer.CloseButton autoFocus={false} />
+          <Flex gap={12}>
+            {withCloseButton && !returnIcon ? (
+              <MantineDrawer.CloseButton icon={closeIcon} autoFocus={false} />
+            ) : null}
+            {returnIcon ? returnIcon : null}
+            <MantineDrawer.Title>
+              <div className={styles.title}>{title}</div>
+            </MantineDrawer.Title>
+          </Flex>
+          {returnIcon ? (
+            <MantineDrawer.CloseButton icon={closeIcon} autoFocus={false} />
           ) : null}
         </MantineDrawer.Header>
-        <MantineDrawer.Body className={classNames(footer && styles.body)}>
+        <MantineDrawer.Body className={classNames({ [styles.body]: footer })}>
           {children}
         </MantineDrawer.Body>
         {footer ? (
           <footer
-            className={classNames(
-              styles.footer,
-              isFooterBorder && styles.border
-            )}
+            className={classNames(styles.footer, {
+              [styles.border]: isFooterBorder,
+            })}
           >
             {footer}
           </footer>

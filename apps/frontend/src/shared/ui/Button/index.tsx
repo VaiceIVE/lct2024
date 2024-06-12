@@ -33,15 +33,14 @@ export const Button = ({
       onClick={onClick}
       disabled={disabled}
       className={classNames(
-        className && className,
         styles.button,
-        type && styles[type],
-        fullWidth && styles.full,
-        disabled && styles.disabled
+        { [styles.full]: fullWidth, [styles.disabled]: disabled },
+        className && className,
+        type && styles[type]
       )}
       style={
         icon && !label
-          ? { width: `${w}px`, padding: '14px' }
+          ? { width: `${w}px`, padding: '18px 16px' }
           : { width: `${w}px` }
       }
     >
@@ -49,12 +48,11 @@ export const Button = ({
         label
       ) : (
         <div
-          className={classNames(
-            styles['button-wrapper'],
-            isIconLeft && styles.reverse,
-            !label && styles.solo,
-            isLoading && styles.loading
-          )}
+          className={classNames(styles['button-wrapper'], {
+            [styles.reverse]: isIconLeft,
+            [styles.solo]: !label,
+            [styles.loading]: isLoading,
+          })}
         >
           <div className={styles.label}>{label}</div>
           <div className={styles.icon}>{icon}</div>

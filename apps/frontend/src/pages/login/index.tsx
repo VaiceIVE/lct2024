@@ -17,7 +17,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLogin = handleSubmit(({ username, password }) => {
-    UStore.login(username, password);
+    UStore.login(username, password).then(() => navigate(HOME_ROUTE));
   });
 
   return (
