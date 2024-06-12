@@ -3,12 +3,14 @@ import { Context } from 'main';
 import { observer } from 'mobx-react-lite';
 import { lazy, useContext, useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { HOME_ROUTE, LOGIN_ROUTE } from 'shared/constants/const';
+import { HOME_ROUTE, LOGIN_ROUTE, MAP_ROUTE } from 'shared/constants/const';
 import { authRoutes, publicRoutes } from 'shared/constants/routes';
 import Navbar from 'widgets/navbar';
 
 const LoginPage = lazy(() => import('pages/login'));
 const PredictionPage = lazy(() => import('pages/prediction'));
+
+const pagesWithoutNavbar = [MAP_ROUTE];
 
 const Routing = observer(() => {
   const { UStore } = useContext(Context);
@@ -51,7 +53,7 @@ const Routing = observer(() => {
   return (
     <Flex className="wrapper" style={{ height: '100vh' }}>
       <Flex>
-        {UStore.isAuth && (
+        {!pagesWithoutNavbar.includes(location.pathname) && UStore.isAuth && (
           <div style={{ width: 'fit-content' }} className="wrapper">
             <Navbar />
           </div>

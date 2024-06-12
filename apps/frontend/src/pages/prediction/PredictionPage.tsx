@@ -21,6 +21,7 @@ interface PredictionPageProps {
   prediction: IPrediction | null;
   isSaved?: boolean;
   returnPage?: { title: string; href: string };
+  id: string | (string | null)[] | null;
 }
 
 export const PredictionPage = ({
@@ -36,6 +37,7 @@ export const PredictionPage = ({
   isSaved,
   returnPage,
   prediction,
+  id,
 }: PredictionPageProps) => {
   const navigate = useNavigate();
 
@@ -63,7 +65,7 @@ export const PredictionPage = ({
         months={months}
       />
       <PredictionCards />
-      <EventsMap />
+      <EventsMap id={id} months={months} monthsIndex={monthsIndex} />
       <EventsList />
       <PredictionLeaveModal
         customButtonRow={customButtonRow}

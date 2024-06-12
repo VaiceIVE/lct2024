@@ -81,6 +81,7 @@ const PredictionPageContainer = () => {
       setMonthsIndex={setMonthsIndex}
       months={months}
       monthsIndex={monthsIndex}
+      id={id}
       isDefault={isDefault}
       open={onOpen}
       returnPage={returnPage}
