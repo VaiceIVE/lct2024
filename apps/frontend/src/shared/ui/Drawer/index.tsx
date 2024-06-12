@@ -65,9 +65,6 @@ export const Drawer = ({
       <MantineDrawer.Content>
         <MantineDrawer.Header>
           <Flex gap={12}>
-            {withCloseButton && !returnIcon ? (
-              <MantineDrawer.CloseButton icon={closeIcon} autoFocus={false} />
-            ) : null}
             {returnIcon ? returnIcon : null}
             <MantineDrawer.Title>
               <div className={styles.title}>{title}</div>

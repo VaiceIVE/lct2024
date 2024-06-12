@@ -15,6 +15,7 @@ interface Props {
   radius?: number | string;
   type?: 'outline' | 'dark' | 'default';
   className?: string;
+  overflow?: string;
 }
 
 export const Card = ({
@@ -23,6 +24,7 @@ export const Card = ({
   children,
   radius = '12px',
   type = 'default',
+  overflow,
   className,
   ...props
 }: Props) => {
@@ -32,6 +34,7 @@ export const Card = ({
       gap={gap}
       style={{
         borderRadius: `${radius}`,
+        overflow: overflow,
       }}
       className={classNames(style.card, style[type], className)}
       {...props}

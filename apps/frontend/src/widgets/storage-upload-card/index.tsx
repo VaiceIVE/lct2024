@@ -14,7 +14,7 @@ interface StorageUploadCardProps {
 
 export const StorageUploadCard = ({ setFile }: StorageUploadCardProps) => {
   return (
-    <Card>
+    <Card overflow="hidden">
       <Flex pos={'relative'} w={'100%'}>
         <Stack gap={24}>
           <Stack className={styles.content} w={525} gap={12}>

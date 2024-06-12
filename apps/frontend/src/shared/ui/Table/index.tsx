@@ -57,7 +57,10 @@ export const Table = ({ data }: Props) => {
         grow: false,
         enableSorting: false,
         Cell: ({ renderedCellValue }) => (
-          <IconBlock iconType={`${renderedCellValue}`} />
+          <IconBlock
+            tooltip={`${renderedCellValue}`}
+            iconType={`${renderedCellValue}`}
+          />
         ),
       },
       {

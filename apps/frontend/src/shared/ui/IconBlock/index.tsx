@@ -2,13 +2,15 @@ import classNames from 'classnames';
 import { IconBuildingFactory, IconHome } from '@tabler/icons-react';
 
 import styles from './IconBlock.module.scss';
+import { Tooltip } from '@mantine/core';
 
 interface IconBlockProps {
   iconType: string;
   color?: string;
+  tooltip?: string;
 }
 
-export const IconBlock = ({ iconType, color }: IconBlockProps) => {
+export const IconBlock = ({ iconType, tooltip, color }: IconBlockProps) => {
   const sizes = {
     width: 24,
     height: 24,
@@ -26,7 +28,7 @@ export const IconBlock = ({ iconType, color }: IconBlockProps) => {
     },
   };
 
-  return (
+  const element = (
     <div
       className={classNames(
         styles.icon,
@@ -35,5 +37,20 @@ export const IconBlock = ({ iconType, color }: IconBlockProps) => {
     >
       {typeIcons[`${iconType}`].icon}
     </div>
+  );
+
+  return tooltip ? (
+    <Tooltip
+      className={styles.tooltip}
+      arrowOffset={100}
+      arrowPosition="center"
+      arrowSize={8}
+      withArrow
+      label={tooltip}
+    >
+      {element}
+    </Tooltip>
+  ) : (
+    element
   );
 };

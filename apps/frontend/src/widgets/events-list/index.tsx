@@ -5,7 +5,7 @@ import {
   IconFilterPlus,
 } from '@tabler/icons-react';
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import { Button } from 'shared/ui/Button';
 import { Filters } from 'shared/ui/Filters';
@@ -34,7 +34,7 @@ export const EventsList = () => {
       cooling: '2',
     },
     {
-      type: '1',
+      type: '3',
       address: '123123 ул., 24Б, Москва',
       chance: 20,
       date: '12.10',
@@ -59,7 +59,7 @@ export const EventsList = () => {
       cooling: '2123',
     },
     {
-      type: '1',
+      type: '3',
       address: 'Новокосинская ул., 24Б, Москва',
       chance: 97,
       date: '12.06',
@@ -153,7 +153,7 @@ export const EventsList = () => {
 
   const [isOpen, setOpen] = useState(false);
 
-  const { control, watch } = useForm();
+  const { control, watch } = useFormContext();
 
   return (
     <WidgetWrapper
@@ -195,7 +195,7 @@ export const EventsList = () => {
                     { value: '1', label: 'От высокого приоритета к низкому' },
                     { value: '2', label: 'От низкого приоритета к высокому' },
                   ]}
-                  label="Поиск"
+                  label="Сортировать"
                   placeholder=""
                 />
               )}
@@ -219,11 +219,7 @@ export const EventsList = () => {
             </Flex>
           </Grid.Col>
         </Grid>
-        <Filters opened={isOpen}>
-          <Grid gutter={16}>
-            <Grid.Col span={6}></Grid.Col>
-          </Grid>
-        </Filters>
+        <Filters opened={isOpen} span={6} />
         <Table
           data={data.filter((item) =>
             item.address
