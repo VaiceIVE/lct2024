@@ -51,7 +51,7 @@ const CreatePredictionPage = () => {
             type="white"
             isIconLeft
             onClick={open}
-            label="Отменить создание прогноза"
+            label="Выйти из создания прогнозаа"
             icon={<IconChevronLeft width={18} height={18} />}
           />
           <Button

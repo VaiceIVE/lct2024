@@ -6,6 +6,7 @@ import {
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import { IBuilding } from 'shared/models/IBuilding';
 
 import { Button } from 'shared/ui/Button';
 import { Filters } from 'shared/ui/Filters';
@@ -14,140 +15,37 @@ import { Select } from 'shared/ui/Select';
 import { Table } from 'shared/ui/Table';
 import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
-type test = {
-  type: string;
-  address: string;
-  chance: number;
-  date: string;
-  event: string;
-  cooling: string;
-};
-
 export const EventsList = () => {
-  const data: test[] = [
+  const data: IBuilding[] = [
     {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 97,
-      date: '12.06',
-      event: 'Прорыв трубы',
-      cooling: '2',
+      address: 'Новокосинская улица, 32, Москва, 111672',
+      events: [
+        {
+          eventName: 'Сильная течь в системе отопления',
+          chance: 20,
+          date: '12.06',
+        },
+        { eventName: 'P1 <= 0', chance: 30, date: '12.06' },
+      ],
+      socialType: 'МКД',
+      coords: [55.717482785, 37.828189394],
+      coolingRate: 3,
+      consumersCount: null,
     },
     {
-      type: '3',
-      address: '123123 ул., 24Б, Москва',
-      chance: 20,
-      date: '12.10',
-      event: 'Прор2323ыв трубы',
-      cooling: '221',
-    },
-    {
-      type: '1',
-      address:
-        'Новокос12312инская ул., 24Б, Москваул., 24Б, Москва Новокос12312инская ул., 24Б, Москваул., 24Б, Москва',
-      chance: 65,
-      date: '12.12',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 18,
-      date: '12.06',
-      event: '123 трубы',
-      cooling: '2123',
-    },
-    {
-      type: '3',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 97,
-      date: '12.06',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: '123123 ул., 24Б, Москва',
-      chance: 20,
-      date: '12.10',
-      event: 'Прор2323ыв трубы',
-      cooling: '221',
-    },
-    {
-      type: '1',
-      address:
-        'Новокос12312инская ул., 24Б, Москваул., 24Б, Москва Новокос12312инская ул., 24Б, Москваул., 24Б, Москва',
-      chance: 65,
-      date: '12.12',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 18,
-      date: '12.06',
-      event: '123 трубы',
-      cooling: '2123',
-    },
-    {
-      type: '1',
-      address: '123123 ул., 24Б, Москва',
-      chance: 20,
-      date: '12.10',
-      event: 'Прор2323ыв трубы',
-      cooling: '221',
-    },
-    {
-      type: '1',
-      address:
-        'Новокос12312инская ул., 24Б, Москваул., 24Б, Москва Новокос12312инская ул., 24Б, Москваул., 24Б, Москва',
-      chance: 65,
-      date: '12.12',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 18,
-      date: '12.06',
-      event: '123 трубы',
-      cooling: '2123',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 97,
-      date: '12.06',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: '123123 ул., 24Б, Москва',
-      chance: 20,
-      date: '12.10',
-      event: 'Прор2323ыв трубы',
-      cooling: '221',
-    },
-    {
-      type: '1',
-      address:
-        'Новокос12312инская ул., 24Б, Москваул., 24Б, Москва Новокос12312инская ул., 24Б, Москваул., 24Б, Москва',
-      chance: 65,
-      date: '12.12',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 18,
-      date: '12.06',
-      event: '123 трубы',
-      cooling: '2123',
+      address: 'Новокосинская улица, 32, Москва, 111673',
+      events: [
+        {
+          eventName: 'Сильная течь в системе отопления',
+          chance: 80,
+          date: '12.06',
+        },
+        { eventName: 'P1 <= 0', chance: 60, date: '12.06' },
+      ],
+      socialType: 'Здравоохранение',
+      coords: [55.717482785, 37.828189394],
+      coolingRate: 5,
+      consumersCount: null,
     },
   ];
 

@@ -17,6 +17,10 @@
   &.gray {
     background-color: $border-color;
   }
+
+  &.blue {
+    background-color: #d9efff;
+  }
 }
 
 .orange {
@@ -25,6 +29,10 @@
 
 .black {
   color: $text-color;
+}
+
+.blue {
+  color: $main-blue-color;
 }
 
 .tooltip {

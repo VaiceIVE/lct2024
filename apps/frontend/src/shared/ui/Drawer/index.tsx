@@ -19,6 +19,7 @@ interface DraweProps {
   closeOnClickOutside?: boolean;
   overlayZIndex?: number;
   returnIcon?: React.ReactNode;
+  onCloseIconClick?: () => void;
 }
 
 export const Drawer = ({
@@ -36,6 +37,7 @@ export const Drawer = ({
   closeOnClickOutside = true,
   overlayZIndex,
   returnIcon,
+  onCloseIconClick,
 }: DraweProps) => {
   useEffect(() => {
     if (opened) {
@@ -70,7 +72,11 @@ export const Drawer = ({
               <div className={styles.title}>{title}</div>
             </MantineDrawer.Title>
           </Flex>
-          <MantineDrawer.CloseButton icon={closeIcon} autoFocus={false} />
+          <MantineDrawer.CloseButton
+            onClick={onCloseIconClick}
+            icon={closeIcon}
+            autoFocus={false}
+          />
         </MantineDrawer.Header>
         <MantineDrawer.Body className={classNames({ [styles.body]: footer })}>
           {children}

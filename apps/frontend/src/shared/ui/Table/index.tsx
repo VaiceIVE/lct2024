@@ -14,19 +14,11 @@ import { Drawer } from '../Drawer';
 import { IconBlock } from '../IconBlock';
 
 import styles from './Table.module.scss';
-import { ObjectCard } from './components/ObjectCard';
-
-type test = {
-  type: string;
-  address: string;
-  chance: number;
-  date: string;
-  event: string;
-  cooling: string;
-};
+import { IBuilding } from 'shared/models/IBuilding';
+import { ObjectInfo } from 'widgets/object-info';
 
 interface Props {
-  data: test[];
+  data: IBuilding[];
 }
 
 export const Table = ({ data }: Props) => {
@@ -34,24 +26,26 @@ export const Table = ({ data }: Props) => {
 
   const [opened, { open, close }] = useDisclosure(false);
 
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
+    null
+  );
 
   useEffect(() => {
-    if (selectedId || selectedId === 0) {
+    if (selectedBuilding) {
       open();
     }
-  }, [selectedId, open]);
+  }, [selectedBuilding, open]);
 
   useEffect(() => {
     if (!opened) {
-      setSelectedId(null);
+      setSelectedBuilding(null);
     }
   }, [opened]);
 
-  const columns = useMemo<MRT_ColumnDef<test>[]>(
+  const columns = useMemo<MRT_ColumnDef<IBuilding>[]>(
     () => [
       {
-        accessorKey: 'type',
+        accessorKey: 'socialType',
         header: 'Тип',
         size: 64,
         grow: false,
@@ -78,35 +72,38 @@ export const Table = ({ data }: Props) => {
         },
       },
       {
-        accessorKey: 'chance',
+        accessorKey: 'events.chance',
         header: 'Вероятность',
         size: 172,
-        Cell: ({ renderedCellValue }) => (
+        Cell: ({ row }) => (
           <div
             className={classNames(
               styles.chance,
-              renderedCellValue && +renderedCellValue < 80
-                ? +renderedCellValue < 50
+              row.original.events.length && row.original.events[0].chance < 80
+                ? row.original.events[0].chance < 50
                   ? styles.gray
                   : styles.blue
                 : styles.orange
             )}
           >
-            {renderedCellValue}%
+            {row.original.events.length && row.original.events[0].chance}%
           </div>
         ),
+
         Header: () => <div className={styles.header}>Вероятность</div>,
         mantineTableHeadCellProps: {
           align: 'center',
         },
       },
       {
-        accessorKey: 'date',
+        accessorKey: 'events.date',
         header: 'Дата',
         size: 110,
         grow: false,
-        Cell: ({ renderedCellValue }) => (
-          <div className={styles.center}>{renderedCellValue}</div>
+        Cell: ({ row }) => (
+          <div className={styles.center}>
+            {row.original.events.length && row.original.events[0].date}
+          </div>
         ),
         mantineTableHeadCellProps: {
           align: 'center',
@@ -114,16 +111,29 @@ export const Table = ({ data }: Props) => {
         Header: () => <div className={styles.header}>Дата</div>,
       },
       {
-        accessorKey: 'event',
+        accessorKey: 'events.eventName',
         header: 'Событие',
         Header: () => <div className={styles.header}>Событие</div>,
         size: 200,
+        Cell: ({ row }) => (
+          <div className={styles.center}>
+            {row.original.events.length && row.original.events[0].eventName}
+          </div>
+        ),
+        mantineTableHeadCellProps: {
+          align: 'center',
+        },
       },
       {
-        accessorKey: 'cooling',
-        header: 'Остывание',
-        Header: () => <div className={styles.header}>Остывание</div>,
+        accessorKey: 'consumersCount',
+        header: 'Потребители',
+        Header: () => <div className={styles.header}>Потребители</div>,
         size: 159,
+        Cell: ({ renderedCellValue }) => (
+          <div className={styles.center}>
+            {renderedCellValue ? renderedCellValue : 1}
+          </div>
+        ),
       },
     ],
     []
@@ -176,7 +186,7 @@ export const Table = ({ data }: Props) => {
     },
     mantineTableBodyRowProps: ({ row }) => ({
       onClick: () => {
-        setSelectedId(+row.id);
+        setSelectedBuilding(row?.original);
       },
       style: {
         cursor: 'pointer',
@@ -187,7 +197,9 @@ export const Table = ({ data }: Props) => {
   return (
     <div className={styles.wrapper}>
       <Drawer isBlur title="Карточка объекта" opened={opened} close={close}>
-        <ObjectCard selectedId={selectedId} />
+        {selectedBuilding ? (
+          <ObjectInfo selectedBuilding={selectedBuilding} />
+        ) : null}
       </Drawer>
       <MantineReactTable table={table} />
     </div>

@@ -1,5 +1,9 @@
 import classNames from 'classnames';
-import { IconBuildingFactory, IconHome } from '@tabler/icons-react';
+import {
+  IconAmbulance,
+  IconBuildingFactory,
+  IconHome,
+} from '@tabler/icons-react';
 
 import styles from './IconBlock.module.scss';
 import { Tooltip } from '@mantine/core';
@@ -17,11 +21,14 @@ export const IconBlock = ({ iconType, tooltip, color }: IconBlockProps) => {
   };
 
   const typeIcons: { [key: string]: { icon: JSX.Element; color: string } } = {
-    '1': {
+    МКД: {
       icon: <IconHome {...sizes} className={styles.orange} />,
       color: 'orange',
     },
-
+    Здравоохранение: {
+      icon: <IconAmbulance {...sizes} className={styles.blue} />,
+      color: 'blue',
+    },
     '3': {
       icon: <IconBuildingFactory {...sizes} className={styles.black} />,
       color: 'gray',

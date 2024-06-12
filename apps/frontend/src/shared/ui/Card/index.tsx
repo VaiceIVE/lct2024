@@ -16,6 +16,7 @@ interface Props {
   type?: 'outline' | 'dark' | 'default';
   className?: string;
   overflow?: string;
+  onClick?: () => void;
 }
 
 export const Card = ({
@@ -26,10 +27,12 @@ export const Card = ({
   type = 'default',
   overflow,
   className,
+  onClick,
   ...props
 }: Props) => {
   return (
     <Stack
+      onClick={onClick}
       p={p}
       gap={gap}
       style={{
