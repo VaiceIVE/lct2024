@@ -87,8 +87,8 @@ const MapPage = () => {
         >
           <IconChevronsRight onClick={open} cursor={'pointer'} size={24} />
         </Flex>
+        <Map fullWidth />
       </Flex>
-      <Map fullWidth />
       <MapFilters setTypeFilters={setTypeFilters} typeFilters={typeFilters} />
     </div>
   );

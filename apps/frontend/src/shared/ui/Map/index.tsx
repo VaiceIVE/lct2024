@@ -22,7 +22,7 @@ import * as YMaps from '@yandex/ymaps3-types';
 import { features, location as LOCATION } from './helpers';
 
 import styles from './Map.module.scss';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 interface MapProps {
   fullWidth?: boolean;

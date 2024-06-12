@@ -28,6 +28,8 @@ export const EventsMap = ({ id, months, monthsIndex }: EventsMapProps) => {
         </NavLink>
       }
       title="События на карте"
-    ></WidgetWrapper>
+    >
+      <Map />
+    </WidgetWrapper>
   );
 };
