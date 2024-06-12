@@ -3,8 +3,9 @@ import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { authRoutes } from 'shared/constants/routes';
 
-import style from './Navbar.module.scss';
+import styles from './Navbar.module.scss';
 import { Icon, IconProps } from '@tabler/icons-react';
+import classNames from 'classnames';
 
 interface LinksProps {
   icon?: React.ForwardRefExoticComponent<
@@ -14,26 +15,36 @@ interface LinksProps {
   navbarTitle?: string | null;
   Component?: FC;
   pageTitle?: string;
-  isPrediction?: boolean;
+  isModal?: boolean;
   open: (path: string) => void;
+  activePaths?: string[];
+  currentPath: string;
 }
 
 const NavbarLink = ({
   icon: Icon,
   path,
   navbarTitle,
-  isPrediction,
+  isModal,
+  currentPath,
+  activePaths,
   open,
 }: LinksProps) => {
   const icon = (
-    <Flex className={style['navbar__link']} align="center" gap={8}>
+    <Flex
+      className={classNames(styles['navbar__link'], {
+        [styles.active]: activePaths?.includes(currentPath),
+      })}
+      align="center"
+      gap={8}
+    >
       {Icon && <Icon stroke={2} />}
       <div>{navbarTitle}</div>
     </Flex>
   );
 
-  return isPrediction ? (
-    <div className={style['navbar__modal-link']} onClick={() => open(path)}>
+  return isModal ? (
+    <div className={styles['navbar__modal-link']} onClick={() => open(path)}>
       {icon}
     </div>
   ) : (
@@ -42,16 +53,22 @@ const NavbarLink = ({
 };
 
 interface NavbarLinksGroupProps {
-  isPrediction: boolean;
+  isModal: boolean;
   open: (path: string) => void;
+  currentPath: string;
 }
 
-const NavbarLinksGroup = ({ isPrediction, open }: NavbarLinksGroupProps) => {
-  const links = authRoutes.map((link) => (
+const NavbarLinksGroup = ({
+  isModal,
+  open,
+  currentPath,
+}: NavbarLinksGroupProps) => {
+  const links = authRoutes.map((link, index) => (
     <NavbarLink
       {...link}
-      key={link.pageTitle}
-      isPrediction={isPrediction}
+      key={index}
+      currentPath={currentPath}
+      isModal={isModal}
       open={open}
     />
   ));

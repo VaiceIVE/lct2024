@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
+import classNames from 'classnames';
 
 import styles from './Title.module.scss';
 
@@ -15,7 +16,10 @@ export const Title = ({ title, level, color }: TitleProps) => {
     case 1:
       content = (
         <h1
-          className={`${styles.title} ${styles.h1}`}
+          className={classNames(
+            `${styles.title} ${styles.h1}`,
+            color && styles[color]
+          )}
           style={color ? { color } : {}}
         >
           {title}
@@ -25,7 +29,10 @@ export const Title = ({ title, level, color }: TitleProps) => {
     case 2:
       content = (
         <h2
-          className={`${styles.title} ${styles.h2}`}
+          className={classNames(
+            `${styles.title} ${styles.h2}`,
+            color && styles[color]
+          )}
           style={color ? { color: color } : {}}
         >
           {title}
@@ -35,7 +42,10 @@ export const Title = ({ title, level, color }: TitleProps) => {
     case 3:
       content = (
         <h3
-          className={`${styles.title} ${styles.h3}`}
+          className={classNames(
+            `${styles.title} ${styles.h3}`,
+            color && styles[color]
+          )}
           style={color ? { color: color } : {}}
         >
           {title}
@@ -45,7 +55,10 @@ export const Title = ({ title, level, color }: TitleProps) => {
     case 4:
       content = (
         <h4
-          className={`${styles.title} ${styles.h4}`}
+          className={classNames(
+            `${styles.title} ${styles.h4}`,
+            color && styles[color]
+          )}
           style={color ? { color } : {}}
         >
           {title}
@@ -55,7 +68,10 @@ export const Title = ({ title, level, color }: TitleProps) => {
     case 5:
       content = (
         <h5
-          className={`${styles.title} ${styles.h5}`}
+          className={classNames(
+            `${styles.title} ${styles.h5}`,
+            color && styles[color]
+          )}
           style={color ? { color } : {}}
         >
           {title}

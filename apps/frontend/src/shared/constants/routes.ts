@@ -2,6 +2,8 @@ import {
   CREATE_PREDICTION_ROUTE,
   HOME_ROUTE,
   LOGIN_ROUTE,
+  MAP_ROUTE,
+  PREDICTION_ROUTE,
   RESPONSE_ROUTE,
   STORAGE_ROUTE,
 } from 'shared/constants/const';
@@ -17,6 +19,7 @@ const response = lazy(() => import('pages/response'));
 const storage = lazy(() => import('pages/storage'));
 
 const createPrediction = lazy(() => import('pages/create-prediction'));
+const map = lazy(() => import('pages/map'));
 
 const login = lazy(() => import('pages/login'));
 
@@ -35,6 +38,7 @@ export const authRoutes = [
     navbarTitle: 'Прогнозы',
     pageTitle: 'Базовый прогноз',
     icon: IconChartArcs,
+    activePaths: [CREATE_PREDICTION_ROUTE, PREDICTION_ROUTE],
   },
   {
     path: RESPONSE_ROUTE,
@@ -55,6 +59,20 @@ export const authRoutes = [
     Component: createPrediction,
     navbarTitle: null,
     pageTitle: 'Новый прогноз',
+    icon: null,
+  },
+  {
+    path: PREDICTION_ROUTE,
+    Component: prediction,
+    navbarTitle: null,
+    pageTitle: 'Новый прогноз',
+    icon: null,
+  },
+  {
+    path: MAP_ROUTE,
+    Component: map,
+    navbarTitle: null,
+    pageTitle: '',
     icon: null,
   },
 ];

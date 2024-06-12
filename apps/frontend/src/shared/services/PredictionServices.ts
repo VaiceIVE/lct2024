@@ -13,12 +13,23 @@ export default class PredictionServices {
       formData.append(`file${index}`, file);
     });
 
-    return $api.post('/prediction', { formData, conditions });
+    return $api.post('/prediction1', { formData, conditions });
+  }
+
+  static async getDefaultPrediction(
+    month: number
+  ): Promise<AxiosResponse<IPrediction>> {
+    return $api.get<IPrediction>(`/prediction`);
   }
 
   static async getPredictionById(
-    id: number
+    id: number,
+    month: number
   ): Promise<AxiosResponse<IPrediction>> {
     return $api.get<IPrediction>(`/prediction/${id}`);
+  }
+
+  static async savePrediction(id: number) {
+    return $api.get(`/prediction/${id}/save`);
   }
 }

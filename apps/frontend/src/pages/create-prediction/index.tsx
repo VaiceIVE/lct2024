@@ -34,8 +34,9 @@ const CreatePredictionPage = () => {
     setLoading(true);
     try {
       const id = await PredictionServices.createPrediction(files, conditions);
+      console.log(id);
 
-      navigate(`/prediction/${id}`);
+      navigate(`/prediction?id=${3}`);
     } catch (error) {
       console.error('Ошибка сети:', error);
     }
@@ -83,7 +84,11 @@ const CreatePredictionPage = () => {
       ) : (
         <CreatePredictionLoader />
       )}
-      <PredictionLeaveModal opened={opened} close={close} />
+      <PredictionLeaveModal
+        title={'Вы уверены, что хотите отменить создание прогноза?'}
+        opened={opened}
+        close={close}
+      />
     </PageWrapper>
   );
 };
