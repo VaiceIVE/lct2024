@@ -4,7 +4,7 @@ import { Drawer } from 'shared/ui/Drawer';
 import { Input } from 'shared/ui/Input';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from 'shared/ui/Button';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Context } from 'main';
 import { useNavigate } from 'react-router-dom';
 import { HOME_ROUTE } from 'shared/constants/const';
@@ -14,11 +14,20 @@ const LoginPage = () => {
 
   const { control, watch, handleSubmit } = useForm();
 
+  const username = watch('username') || '';
+  const password = watch('password') || '';
+
   const navigate = useNavigate();
 
   const handleLogin = handleSubmit(({ username, password }) => {
     UStore.login(username, password).then(() => navigate(HOME_ROUTE));
   });
+
+  useEffect(() => {
+    if (UStore.error) {
+      UStore.setError('');
+    }
+  }, [UStore, username, password]);
 
   return (
     <div className={styles.wrapper}>
@@ -48,6 +57,7 @@ const LoginPage = () => {
               name="username"
               render={({ field }) => (
                 <Input
+                  error={UStore.error}
                   label="Логин"
                   placeholder="Введите логин"
                   field={field}
@@ -60,6 +70,7 @@ const LoginPage = () => {
               defaultValue={''}
               render={({ field }) => (
                 <Input
+                  error={UStore.error}
                   type="password"
                   label="Пароль"
                   placeholder="Введите пароль"

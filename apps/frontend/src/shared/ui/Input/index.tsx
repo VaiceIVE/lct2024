@@ -1,6 +1,7 @@
 import { CloseButton, Input as MantineInput } from '@mantine/core';
 import style from './Input.module.scss';
 import { ControllerRenderProps, FieldValues } from 'react-hook-form';
+import classNames from 'classnames';
 
 interface Props {
   field: ControllerRenderProps<FieldValues, any>;
@@ -13,6 +14,7 @@ interface Props {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   type?: string;
   allowClear?: boolean;
+  error?: string;
 }
 
 export const Input = ({
@@ -22,6 +24,7 @@ export const Input = ({
   onFocus,
   type,
   allowClear,
+  error,
   ...props
 }: Props) => {
   return (
@@ -35,7 +38,7 @@ export const Input = ({
         size={size}
         onChange={field.onChange}
         value={field.value}
-        className={style.input}
+        className={classNames(style.input, { [style.error]: error })}
         rightSectionPointerEvents="all"
         rightSection={
           allowClear ? (
@@ -50,6 +53,7 @@ export const Input = ({
           ) : null
         }
       />
+      {error ? <p className="text small error">{error}</p> : null}
     </MantineInput.Wrapper>
   );
 };
