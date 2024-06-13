@@ -69,7 +69,11 @@ export const TemperatureConditions = ({
             {isNoticeShow ? (
               <Notice
                 type="error"
-                message="Добавьте и заполните как минимум одну дату"
+                message={
+                  !tempConditions.length
+                    ? 'Добавьте и заполните как минимум одну дату'
+                    : 'Все даты должны быть заполнены'
+                }
                 close={() => setNoticeShow(false)}
               />
             ) : null}

@@ -20,7 +20,6 @@ export const Title = ({ title, level, color }: TitleProps) => {
             `${styles.title} ${styles.h1}`,
             color && styles[color]
           )}
-          style={color ? { color } : {}}
         >
           {title}
         </h1>
@@ -33,7 +32,6 @@ export const Title = ({ title, level, color }: TitleProps) => {
             `${styles.title} ${styles.h2}`,
             color && styles[color]
           )}
-          style={color ? { color: color } : {}}
         >
           {title}
         </h2>
@@ -46,7 +44,6 @@ export const Title = ({ title, level, color }: TitleProps) => {
             `${styles.title} ${styles.h3}`,
             color && styles[color]
           )}
-          style={color ? { color: color } : {}}
         >
           {title}
         </h3>
@@ -59,7 +56,6 @@ export const Title = ({ title, level, color }: TitleProps) => {
             `${styles.title} ${styles.h4}`,
             color && styles[color]
           )}
-          style={color ? { color } : {}}
         >
           {title}
         </h4>
@@ -72,7 +68,6 @@ export const Title = ({ title, level, color }: TitleProps) => {
             `${styles.title} ${styles.h5}`,
             color && styles[color]
           )}
-          style={color ? { color } : {}}
         >
           {title}
         </h5>

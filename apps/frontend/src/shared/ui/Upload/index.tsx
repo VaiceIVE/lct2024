@@ -20,7 +20,11 @@ export const Upload = ({
     return (
       <FileButton
         resetRef={resetRef}
-        onChange={onChangeArray!}
+        onChange={
+          onChangeArray
+            ? (payload) => onChangeArray((prev) => [...prev, ...payload])
+            : () => null
+        }
         accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         multiple
       >

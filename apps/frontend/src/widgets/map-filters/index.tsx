@@ -7,6 +7,7 @@ import {
 import classNames from 'classnames';
 
 import styles from './MapFilters.module.scss';
+import { Checkbox } from 'shared/ui/Checkbox';
 
 const filters = [
   { icon: <IconHome size={20} />, label: 'МКД', color: 'orange', type: 'МКД' },
@@ -27,11 +28,15 @@ const filters = [
 interface MapFiltersProps {
   setTypeFilters: React.Dispatch<React.SetStateAction<string[]>>;
   typeFilters: string[];
+  isShowConnected: boolean;
+  setShowConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const MapFilters = ({
   setTypeFilters,
   typeFilters,
+  isShowConnected,
+  setShowConnected,
 }: MapFiltersProps) => {
   return (
     <Stack className={styles.wrapper} gap={18} align="flex-end">
@@ -54,6 +59,13 @@ export const MapFilters = ({
           <div className={classNames(styles.circle, styles[f.color])}></div>
         </Flex>
       ))}
+      <Checkbox
+        checked={isShowConnected}
+        onChange={setShowConnected}
+        className={styles['custom-checkbox']}
+        value="1"
+        label="Показать связанные объекты"
+      />
     </Stack>
   );
 };

@@ -6,8 +6,9 @@ import {
   IconLayoutGridAdd,
   IconPlus,
 } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { months } from 'shared/constants/months';
+import ResponseServices from 'shared/services/ResponseServices';
 
 import { Button } from 'shared/ui/Button';
 import { Drawer } from 'shared/ui/Drawer';
@@ -18,8 +19,24 @@ import { ResponseDrawer } from 'widgets/response-drawer';
 import { ResponseList } from 'widgets/response-list';
 
 const ResponsePage = () => {
-  const [date, setDate] = useState<DateValue>();
   const [opened, { open, close }] = useDisclosure(false);
+
+  const [date, setDate] = useState<DateValue>();
+  const [response, setResponse] = useState([]);
+
+  const getResponse = () => {
+    setResponse([]);
+  };
+
+  const handleAddObject = () => {
+    ResponseServices.addObject().then(() => {
+      getResponse();
+    });
+  };
+
+  useEffect(() => {
+    getResponse();
+  }, []);
 
   return (
     <PageWrapper
@@ -58,7 +75,7 @@ const ResponsePage = () => {
           </Flex>
         }
       >
-        <ResponseDrawer />
+        <ResponseDrawer handleAddObject={handleAddObject} />
       </Drawer>
     </PageWrapper>
   );

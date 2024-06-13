@@ -1,0 +1,34 @@
+@import '@styles/__defines.scss';
+
+.radio {
+  padding: 14px 16px;
+  border-radius: 1px solid $divider-color;
+  border-radius: 10px;
+
+  transition: all 0.3s;
+
+  &[data-checked='true'] {
+    border-color: #eef6fc;
+    background-color: #eef6fc;
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: #eef6fc;
+        background-color: #eef6fc;
+      }
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: $link-hover-color;
+    }
+  }
+
+  div {
+    &[data-checked='true'] {
+      background-color: $main-blue-color;
+      border-color: $main-blue-color;
+    }
+  }
+}

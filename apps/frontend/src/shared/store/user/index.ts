@@ -37,9 +37,10 @@ export default class UserStore {
       if (response) {
         this.setAuth(true);
         this.setUser(response.data);
+      } else {
+        this.setError('Неправильный логин или пароль');
       }
     } catch (e: any) {
-      this.setError('Ошибка');
       console.error(e.response?.data?.message);
     }
   }
@@ -50,7 +51,7 @@ export default class UserStore {
       this.setAuth(true);
       this.setUser(response.data);
     } catch (e: any) {
-      this.setError('Ошибка');
+      this.setError('Неправильный логин или пароль');
       console.error(e.response?.data?.message);
     }
   }

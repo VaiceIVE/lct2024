@@ -34,6 +34,7 @@ const data: IBuilding[] = [
     coords: [55.717482785, 37.828189394],
     coolingRate: 3,
     consumersCount: null,
+    priority: 1,
   },
   {
     address: 'Новокосинская улица, 32, Москва, 111673',
@@ -49,6 +50,7 @@ const data: IBuilding[] = [
     coords: [55.803579031, 37.513482336],
     coolingRate: 5,
     consumersCount: null,
+    priority: 2,
   },
   {
     address: 'Новокосинская улица, 32, Москва, 123',
@@ -64,6 +66,7 @@ const data: IBuilding[] = [
     coords: [55.720046086, 37.797663794],
     coolingRate: 5,
     consumersCount: null,
+    priority: 3,
   },
 ];
 
@@ -77,9 +80,12 @@ const MapPage = () => {
     'Социальные объекты',
     '2',
   ]);
+  const [isPriority, setPriority] = useState<boolean>(true);
   const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
     null
   );
+
+  const [isShowConnected, setShowConnected] = useState(false);
 
   const filtersFields = useForm();
 
@@ -106,19 +112,24 @@ const MapPage = () => {
     [id, isDefault]
   );
 
+  //TODO: sort isPriority
   const getFilteredBuildings = () => {
-    return prediction?.buildings?.filter((b) => {
-      if (typeFilters.includes(b.socialType)) {
-        return true;
-      }
-      if (
-        typeFilters.includes('Социальные объекты') &&
-        socialTypes.includes(b.socialType)
-      ) {
-        return true;
-      }
-      return false;
-    });
+    return prediction?.buildings
+      ?.sort((a, b) =>
+        isPriority ? a.priority - b.priority : b.priority - a.priority
+      )
+      .filter((b) => {
+        if (typeFilters.includes(b.socialType)) {
+          return true;
+        }
+        if (
+          typeFilters.includes('Социальные объекты') &&
+          socialTypes.includes(b.socialType)
+        ) {
+          return true;
+        }
+        return false;
+      });
   };
 
   const onPlacemarkClick = (building: IBuilding) => {
@@ -160,8 +171,11 @@ const MapPage = () => {
             <ObjectInfo selectedBuilding={selectedBuilding} />
           ) : (
             <MapList
+              buildingsCount={prediction?.buildings.length}
               setSelectedBuilding={setSelectedBuilding}
               buildings={getFilteredBuildings()}
+              setPriority={setPriority}
+              isPriority={isPriority}
             />
           )}
         </Drawer>
@@ -179,11 +193,18 @@ const MapPage = () => {
         <Flex h={'100%'}>
           <Map
             fullWidth
-            buildings={getFilteredBuildings()}
+            buildings={
+              selectedBuilding ? [selectedBuilding] : getFilteredBuildings()
+            }
             onPlacemarkClick={onPlacemarkClick}
           />
         </Flex>
-        <MapFilters setTypeFilters={setTypeFilters} typeFilters={typeFilters} />
+        <MapFilters
+          setShowConnected={setShowConnected}
+          isShowConnected={isShowConnected}
+          setTypeFilters={setTypeFilters}
+          typeFilters={typeFilters}
+        />
       </FormProvider>
     </div>
   );

@@ -31,6 +31,7 @@ export const EventsList = () => {
       coords: [55.717482785, 37.828189394],
       coolingRate: 3,
       consumersCount: null,
+      priority: 1,
     },
     {
       address: 'Новокосинская улица, 32, Москва, 111673',
@@ -46,6 +47,7 @@ export const EventsList = () => {
       coords: [55.717482785, 37.828189394],
       coolingRate: 5,
       consumersCount: null,
+      priority: 2,
     },
   ];
 

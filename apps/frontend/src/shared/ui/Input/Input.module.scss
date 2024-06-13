@@ -1,6 +1,14 @@
 @import '@styles/__defines.scss';
 
 .input {
+  &.error {
+    input {
+      border: 1px solid $error-color;
+
+      margin-bottom: 8px;
+    }
+  }
+
   input {
     background: transparent;
     border-radius: 12px;
