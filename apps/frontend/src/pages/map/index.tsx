@@ -50,6 +50,21 @@ const data: IBuilding[] = [
     coolingRate: 5,
     consumersCount: null,
   },
+  {
+    address: 'Новокосинская улица, 32, Москва, 123',
+    events: [
+      {
+        eventName: 'Сильная течь в системе отопления',
+        chance: 50,
+        date: '12.06',
+      },
+      { eventName: 'P1 <= 0', chance: 20, date: '12.06' },
+    ],
+    socialType: 'Здравоохранение',
+    coords: [55.720046086, 37.797663794],
+    coolingRate: 5,
+    consumersCount: null,
+  },
 ];
 
 const MapPage = () => {

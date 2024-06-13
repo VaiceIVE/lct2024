@@ -130,9 +130,7 @@ export const Table = ({ data }: Props) => {
         Header: () => <div className={styles.header}>Потребители</div>,
         size: 159,
         Cell: ({ renderedCellValue }) => (
-          <div className={styles.center}>
-            {renderedCellValue ? renderedCellValue : 1}
-          </div>
+          <div>{renderedCellValue ? renderedCellValue : 1}</div>
         ),
       },
     ],

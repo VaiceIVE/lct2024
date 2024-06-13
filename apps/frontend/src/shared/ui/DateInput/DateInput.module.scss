@@ -2,7 +2,7 @@
 
 .input {
   input {
-    background: transparent;
+    background: white;
     border-radius: 12px;
 
     padding: 20px 24px;
@@ -33,6 +33,10 @@
         color: white;
       }
     }
+  }
+
+  [data-position='right'] {
+    width: unset;
   }
 
   label {

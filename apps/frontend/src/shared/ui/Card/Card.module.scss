@@ -17,4 +17,8 @@
   &.dark {
     background-color: $gray-color;
   }
+
+  &.error {
+    background-color: #fff1ee;
+  }
 }

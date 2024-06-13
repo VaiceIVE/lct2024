@@ -32,6 +32,11 @@ interface MapProps {
 }
 
 export const Map = ({ fullWidth, buildings, onPlacemarkClick }: MapProps) => {
+  const iconsTypes: { [key: string]: string } = {
+    МКД: mkd,
+    Здравоохранение: social,
+  };
+
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
       <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
@@ -53,10 +58,10 @@ export const Map = ({ fullWidth, buildings, onPlacemarkClick }: MapProps) => {
               modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
               options={{
                 iconLayout: 'default#image',
-                iconContentLayout: social,
-                iconImageHref: social,
+                iconContentLayout: iconsTypes[building.socialType],
+                iconImageHref: iconsTypes[building.socialType],
                 iconImageSize: [80, 80],
-                iconOffset: [-20, -5],
+                iconOffset: [-23, 0],
               }}
             />
           ))}

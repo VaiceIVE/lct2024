@@ -35,6 +35,10 @@
     }
   }
 
+  [data-position='right'] {
+    width: unset;
+  }
+
   label {
     margin-bottom: 8px;
     color: $text-color;
