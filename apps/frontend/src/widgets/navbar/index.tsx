@@ -15,7 +15,6 @@ import {
 import { PredictionLeaveModal } from 'widgets/prediction-leave-modal';
 
 import { Button } from 'shared/ui/Button';
-import PredictionServices from 'shared/services/PredictionServices';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -25,12 +24,10 @@ const Navbar = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [path, setPath] = useState<string>('');
 
-  const handleSavePrediction = useCallback(() => {
+  const handleLeave = useCallback(() => {
     if (id) {
-      PredictionServices.savePrediction(+id).then(() => {
-        navigate(path);
-        close();
-      });
+      navigate(path);
+      close();
     }
   }, [close, id, navigate, path]);
 
@@ -38,25 +35,28 @@ const Navbar = () => {
     () => [
       {
         path: CREATE_PREDICTION_ROUTE,
-        title: 'Вы уверены, что хотите отменить создание прогноза?',
+        title: 'Вы уверены, что хотите выйти из создания прогноза?',
         customButtonRow: null,
+        text: `Вы не дождались результатов анализа. Введенные \n данные не сохранятся. Это действие нельзя будет отменить.`,
       },
       {
         path: PREDICTION_ROUTE,
-        title: 'Вы пытаетесь выйти без сохранения',
+        title: 'Вы уверены, что хотите выйти \n без сохранения прогноза?',
+        text: 'Все введенные данные не сохранятся. Это действие нельзя будет отменить.',
         customButtonRow: (
           <>
-            <Button fullWidth onClick={close} type="white" label="Отмена" />
+            <Button fullWidth onClick={close} label="Отмена" />
             <Button
               fullWidth
-              onClick={handleSavePrediction}
-              label="Сохранить и выйти"
+              type="white"
+              onClick={handleLeave}
+              label="Выйти без сохранения"
             />
           </>
         ),
       },
     ],
-    [close, handleSavePrediction]
+    [close, handleLeave]
   );
 
   const onOpen = (path: string) => {
@@ -93,6 +93,7 @@ const Navbar = () => {
           pagesWithModal.find((p) => p.path === location.pathname)
             ?.customButtonRow
         }
+        text={pagesWithModal.find((p) => p.path === location.pathname)?.text}
         opened={opened}
         path={path}
         close={close}

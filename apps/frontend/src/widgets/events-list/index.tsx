@@ -1,151 +1,57 @@
-import { Grid, Stack } from '@mantine/core';
-import { IconDownload } from '@tabler/icons-react';
-import { Controller, useForm } from 'react-hook-form';
+import { Flex, Grid, Stack } from '@mantine/core';
+import {
+  IconDownload,
+  IconFilterMinus,
+  IconFilterPlus,
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { IBuilding } from 'shared/models/IBuilding';
 
 import { Button } from 'shared/ui/Button';
+import { Filters } from 'shared/ui/Filters';
 import { Input } from 'shared/ui/Input';
 import { Select } from 'shared/ui/Select';
 import { Table } from 'shared/ui/Table';
 import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
-type test = {
-  type: string;
-  address: string;
-  chance: number;
-  date: string;
-  event: string;
-  cooling: string;
-};
-
 export const EventsList = () => {
-  const data: test[] = [
+  const data: IBuilding[] = [
     {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 97,
-      date: '12.06',
-      event: 'Прорыв трубы',
-      cooling: '2',
+      address: 'Новокосинская улица, 32, Москва, 111672',
+      events: [
+        {
+          eventName: 'Сильная течь в системе отопления',
+          chance: 20,
+          date: '12.06',
+        },
+        { eventName: 'P1 <= 0', chance: 30, date: '12.06' },
+      ],
+      socialType: 'МКД',
+      coords: [55.717482785, 37.828189394],
+      coolingRate: 3,
+      consumersCount: null,
     },
     {
-      type: '1',
-      address: '123123 ул., 24Б, Москва',
-      chance: 20,
-      date: '12.10',
-      event: 'Прор2323ыв трубы',
-      cooling: '221',
-    },
-    {
-      type: '1',
-      address:
-        'Новокос12312инская ул., 24Б, Москваул., 24Б, Москва Новокос12312инская ул., 24Б, Москваул., 24Б, Москва',
-      chance: 65,
-      date: '12.12',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 18,
-      date: '12.06',
-      event: '123 трубы',
-      cooling: '2123',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 97,
-      date: '12.06',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: '123123 ул., 24Б, Москва',
-      chance: 20,
-      date: '12.10',
-      event: 'Прор2323ыв трубы',
-      cooling: '221',
-    },
-    {
-      type: '1',
-      address:
-        'Новокос12312инская ул., 24Б, Москваул., 24Б, Москва Новокос12312инская ул., 24Б, Москваул., 24Б, Москва',
-      chance: 65,
-      date: '12.12',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 18,
-      date: '12.06',
-      event: '123 трубы',
-      cooling: '2123',
-    },
-    {
-      type: '1',
-      address: '123123 ул., 24Б, Москва',
-      chance: 20,
-      date: '12.10',
-      event: 'Прор2323ыв трубы',
-      cooling: '221',
-    },
-    {
-      type: '1',
-      address:
-        'Новокос12312инская ул., 24Б, Москваул., 24Б, Москва Новокос12312инская ул., 24Б, Москваул., 24Б, Москва',
-      chance: 65,
-      date: '12.12',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 18,
-      date: '12.06',
-      event: '123 трубы',
-      cooling: '2123',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 97,
-      date: '12.06',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: '123123 ул., 24Б, Москва',
-      chance: 20,
-      date: '12.10',
-      event: 'Прор2323ыв трубы',
-      cooling: '221',
-    },
-    {
-      type: '1',
-      address:
-        'Новокос12312инская ул., 24Б, Москваул., 24Б, Москва Новокос12312инская ул., 24Б, Москваул., 24Б, Москва',
-      chance: 65,
-      date: '12.12',
-      event: 'Прорыв трубы',
-      cooling: '2',
-    },
-    {
-      type: '1',
-      address: 'Новокосинская ул., 24Б, Москва',
-      chance: 18,
-      date: '12.06',
-      event: '123 трубы',
-      cooling: '2123',
+      address: 'Новокосинская улица, 32, Москва, 111673',
+      events: [
+        {
+          eventName: 'Сильная течь в системе отопления',
+          chance: 80,
+          date: '12.06',
+        },
+        { eventName: 'P1 <= 0', chance: 60, date: '12.06' },
+      ],
+      socialType: 'Здравоохранение',
+      coords: [55.717482785, 37.828189394],
+      coolingRate: 5,
+      consumersCount: null,
     },
   ];
 
-  const { control, watch } = useForm();
+  const [isOpen, setOpen] = useState(false);
+
+  const { control, watch } = useFormContext();
 
   return (
     <WidgetWrapper
@@ -159,8 +65,8 @@ export const EventsList = () => {
       title="Список событий"
     >
       <Stack gap={24}>
-        <Grid gutter={16}>
-          <Grid.Col span={8}>
+        <Grid align="flex-end" gutter={16}>
+          <Grid.Col span={6}>
             <Controller
               control={control}
               name="address"
@@ -187,13 +93,31 @@ export const EventsList = () => {
                     { value: '1', label: 'От высокого приоритета к низкому' },
                     { value: '2', label: 'От низкого приоритета к высокому' },
                   ]}
-                  label="Поиск"
+                  label="Сортировать"
                   placeholder=""
                 />
               )}
             />
           </Grid.Col>
+          <Grid.Col span={2}>
+            <Flex>
+              <Button
+                fullWidth
+                type="light"
+                label="Фильтры"
+                onClick={() => setOpen((prev) => !prev)}
+                icon={
+                  isOpen ? (
+                    <IconFilterMinus size={18} />
+                  ) : (
+                    <IconFilterPlus size={18} />
+                  )
+                }
+              />
+            </Flex>
+          </Grid.Col>
         </Grid>
+        <Filters opened={isOpen} span={6} />
         <Table
           data={data.filter((item) =>
             item.address

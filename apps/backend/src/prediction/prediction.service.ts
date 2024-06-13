@@ -9,15 +9,11 @@ export class PredictionService {
 
     public async createPrediction(files: Express.Multer.File[])
     {
-        const names = await this.storageService.getNames()
         for(let file of files)
         {
-            if(file.originalname in names)
-                {
-                    file.originalname = file.originalname + Date.now()
-                }
             this.storageService.uploadToS3(file)
         }
+
         //call to analysis python api with files data
         
         

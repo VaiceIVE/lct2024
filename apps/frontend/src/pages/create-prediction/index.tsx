@@ -51,7 +51,7 @@ const CreatePredictionPage = () => {
             type="white"
             isIconLeft
             onClick={open}
-            label="Отменить создание прогноза"
+            label="Выйти из создания прогнозаа"
             icon={<IconChevronLeft width={18} height={18} />}
           />
           <Button
@@ -85,7 +85,10 @@ const CreatePredictionPage = () => {
         <CreatePredictionLoader />
       )}
       <PredictionLeaveModal
-        title={'Вы уверены, что хотите отменить создание прогноза?'}
+        title={'Вы уверены, что хотите выйти из создания прогноза?'}
+        text={
+          'Вы не дождались результатов анализа. Введенные \n данные не сохранятся. Это действие нельзя будет отменить.'
+        }
         opened={opened}
         close={close}
       />

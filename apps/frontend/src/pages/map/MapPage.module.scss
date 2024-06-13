@@ -9,38 +9,78 @@
 
 .drawer {
   width: fit-content;
-  height: 100svh;
+  height: fit-content;
   box-shadow: 0px 4px 32px 0px #003b650a;
 
+  cursor: pointer;
+
+  background-color: $main-blue-color;
+
+  position: absolute;
+  z-index: 12;
+
+  left: 0;
+  top: 22px;
+
   svg {
-    color: $link-hover-color;
+    color: white;
   }
 
   &.hide {
+    animation: hide 0.15s ease-in-out forwards;
+
     svg {
-      animation: hide 0.3s ease-in-out forwards;
+      animation: hideSvg 0.3s ease-in-out forwards;
     }
   }
 
   &.show {
-    animation: show 0.1s ease-in-out forwards;
+    animation: show 0.25s ease-in-out forwards;
+
+    svg {
+      animation: shovSvg 0.5s ease-in-out forwards;
+    }
+  }
+}
+
+@keyframes shovSvg {
+  0% {
+    color: white;
+    transform: rotate(0deg);
+  }
+  100% {
+    color: $secondary-color;
+    transform: rotate(180deg);
   }
 }
 
 @keyframes show {
   0% {
+    background-color: $main-blue-color;
     transform: translateX(0);
   }
   100% {
-    transform: translateX(50px);
+    background-color: white;
+    transform: translateX(600px);
   }
 }
 
-@keyframes hide {
+@keyframes hideSvg {
   0% {
     transform: rotate(180deg);
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+@keyframes hide {
+  0% {
+    transform: translateX(600px);
+    background-color: white;
+  }
+  100% {
+    background-color: $main-blue-color;
+    transform: translateX(0);
   }
 }

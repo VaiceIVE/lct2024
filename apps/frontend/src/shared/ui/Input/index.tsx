@@ -4,7 +4,7 @@ import { ControllerRenderProps, FieldValues } from 'react-hook-form';
 
 interface Props {
   field: ControllerRenderProps<FieldValues, any>;
-  w?: number;
+  w?: number | string;
   size?: string;
   h?: number;
   placeholder?: string;
@@ -25,7 +25,7 @@ export const Input = ({
   ...props
 }: Props) => {
   return (
-    <MantineInput.Wrapper className={style.input} label={label}>
+    <MantineInput.Wrapper {...props} className={style.input} label={label}>
       <MantineInput
         type={type}
         autoFocus={false}

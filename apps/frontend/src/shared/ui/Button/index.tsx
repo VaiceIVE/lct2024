@@ -11,7 +11,7 @@ export interface ButtonProps {
   className?: string;
   onClick?: () => void;
   disabled?: boolean;
-  type?: 'light' | 'outline' | 'white';
+  type?: 'light' | 'outline' | 'white' | 'orange';
   fullWidth?: boolean;
   isLoading?: boolean;
 }

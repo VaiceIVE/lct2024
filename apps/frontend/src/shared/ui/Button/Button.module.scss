@@ -49,6 +49,18 @@
     }
   }
 
+  &.orange {
+    color: white;
+
+    background-color: $main-orange-color;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: #ed5a39;
+      }
+    }
+  }
+
   &.outline {
     background: transparent;
     border: 1px solid $divider-color;

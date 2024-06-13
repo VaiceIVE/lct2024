@@ -1,6 +1,6 @@
-import { Controller, Delete, Get, Post, Res, StreamableFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Res, StreamableFile, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { StorageService } from './storage.service';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Multer } from 'multer'
 import { Response } from 'express';
 @Controller('storage')
@@ -9,8 +9,8 @@ export class StorageController {
 
 
   @Post('table')
-  @UseInterceptors(FilesInterceptor('file'))
-  public async setFilesToS3(@UploadedFiles() file: Express.Multer.File)
+  @UseInterceptors(FileInterceptor('file'))
+  public async setFilesToS3(@UploadedFile() file: Express.Multer.File)
   {
     return await this.storageService.uploadToS3(file)
   }

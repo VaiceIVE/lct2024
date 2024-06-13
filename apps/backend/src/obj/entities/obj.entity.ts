@@ -17,9 +17,6 @@ export class Obj {
     address: string
 
     @Column()
-    ctpnum: string
-
-    @Column()
     wallMaterial: string
 
     @Column()

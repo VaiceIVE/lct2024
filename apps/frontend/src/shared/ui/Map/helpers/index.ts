@@ -1,7 +1,6 @@
-import { YMapLocation } from '@yandex/ymaps3-types/imperative/YMap';
-import * as YMaps from '@yandex/ymaps3-types';
+import ymaps from 'yandex-maps';
 
-export const location: YMapLocation = { center: [37.63, 55.75], zoom: 10 };
+export const location: ymaps.IMapState = { center: [55.75, 37.63], zoom: 10 };
 
 export const features: YMaps.YMapFeatureProps[] = [
   {

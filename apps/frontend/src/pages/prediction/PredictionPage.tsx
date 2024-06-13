@@ -69,7 +69,8 @@ export const PredictionPage = ({
       <EventsList />
       <PredictionLeaveModal
         customButtonRow={customButtonRow}
-        title={'Вы пытаетесь выйти без сохранения'}
+        title={'Вы уверены, что хотите выйти \n без сохранения прогноза?'}
+        text="Все введенные данные не сохранятся. Это действие нельзя будет отменить."
         opened={opened}
         close={close}
       />
