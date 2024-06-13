@@ -16,9 +16,14 @@ import styles from './MapList.module.scss';
 interface MapListProps {
   buildings: IBuilding[] | undefined;
   setSelectedBuilding: React.Dispatch<React.SetStateAction<IBuilding | null>>;
+  buildingsCount: number | undefined;
 }
 
-export const MapList = ({ buildings, setSelectedBuilding }: MapListProps) => {
+export const MapList = ({
+  buildings,
+  setSelectedBuilding,
+  buildingsCount,
+}: MapListProps) => {
   const [isOpen, setOpen] = useState(false);
 
   const { control } = useFormContext();
@@ -55,12 +60,12 @@ export const MapList = ({ buildings, setSelectedBuilding }: MapListProps) => {
         </Flex>
         <Filters opened={isOpen} span={12} />
       </Stack>
-
       <Stack gap={24}>
-        <Flex>
+        <Flex gap={3}>
           <Title level={4} title="События" />
+          <Title color="gray" level={4} title={`(${buildingsCount})`} />
         </Flex>
-        <p className="text">Найдено</p>
+        <p className="text">Найдено {buildings?.length}</p>
         <Stack gap={8}>
           {buildings &&
             buildings.map((b) => (

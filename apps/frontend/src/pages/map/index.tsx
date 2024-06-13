@@ -80,6 +80,7 @@ const MapPage = () => {
   const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
     null
   );
+  const [isShowConnected, setShowConnected] = useState(false);
 
   const filtersFields = useForm();
 
@@ -160,6 +161,7 @@ const MapPage = () => {
             <ObjectInfo selectedBuilding={selectedBuilding} />
           ) : (
             <MapList
+              buildingsCount={prediction?.buildings.length}
               setSelectedBuilding={setSelectedBuilding}
               buildings={getFilteredBuildings()}
             />
@@ -179,11 +181,18 @@ const MapPage = () => {
         <Flex h={'100%'}>
           <Map
             fullWidth
-            buildings={getFilteredBuildings()}
+            buildings={
+              selectedBuilding ? [selectedBuilding] : getFilteredBuildings()
+            }
             onPlacemarkClick={onPlacemarkClick}
           />
         </Flex>
-        <MapFilters setTypeFilters={setTypeFilters} typeFilters={typeFilters} />
+        <MapFilters
+          setShowConnected={setShowConnected}
+          isShowConnected={isShowConnected}
+          setTypeFilters={setTypeFilters}
+          typeFilters={typeFilters}
+        />
       </FormProvider>
     </div>
   );
