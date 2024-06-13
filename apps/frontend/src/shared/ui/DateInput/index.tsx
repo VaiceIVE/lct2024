@@ -15,6 +15,7 @@ interface Props {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   type?: string;
   allowClear?: boolean;
+  icon?: React.ReactNode;
 }
 
 export const DateInput = ({
@@ -25,6 +26,7 @@ export const DateInput = ({
   onFocus,
   type,
   allowClear,
+  icon,
   ...props
 }: Props) => {
   return (
@@ -46,6 +48,8 @@ export const DateInput = ({
               marginRight: '24px',
             }}
           />
+        ) : icon ? (
+          icon
         ) : null
       }
     />

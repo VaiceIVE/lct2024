@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import styles from './MapFilters.module.scss';
 
 const filters = [
-  { icon: <IconHome size={20} />, label: 'МКД', color: 'orange', type: '1' },
+  { icon: <IconHome size={20} />, label: 'МКД', color: 'orange', type: 'МКД' },
   {
     icon: <IconBuildingFactory size={20} />,
     label: 'Пункты отопления',
@@ -20,7 +20,7 @@ const filters = [
     icon: <IconBuildingHospital size={20} />,
     label: 'Социальные объекты',
     color: 'blue',
-    type: '3',
+    type: 'Социальные объекты',
   },
 ];
 

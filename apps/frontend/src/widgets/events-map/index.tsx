@@ -29,7 +29,7 @@ export const EventsMap = ({ id, months, monthsIndex }: EventsMapProps) => {
       }
       title="События на карте"
     >
-      <Map />
+      <Map onPlacemarkClick={() => console.log('here')} buildings={[]} />
     </WidgetWrapper>
   );
 };

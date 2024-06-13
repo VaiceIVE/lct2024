@@ -1,60 +1,71 @@
-import {
-  YMap,
-  YMapDefaultSchemeLayer,
-  YMapDefaultFeaturesLayer,
-  YMapComponentsProvider,
-  YMapCollection,
-  YMapFeature,
-  YMapListener,
-  YMapDefaultMarker,
-  YMapGeolocationControl,
-  YMapHint,
-  YMapZoomControl,
-  YMapFeatureDataSource,
-  YMapControls,
-  YMapControlButton,
-  YMapContainer,
-  YMapHintContext,
-} from 'ymap3-components';
 import classNames from 'classnames';
-import * as YMaps from '@yandex/ymaps3-types';
+import {
+  Map as MapComponent,
+  GeoObject,
+  Placemark,
+} from '@pbe/react-yandex-maps';
 
-import { features, location as LOCATION } from './helpers';
+import { IBuilding } from 'shared/models/IBuilding';
+import { location as LOCATION } from './helpers';
+import mkd from 'shared/assets/mkd.svg';
+import social from 'shared/assets/social.svg';
 
 import styles from './Map.module.scss';
-import React, { useState } from 'react';
+
+const geoJsonData = {
+  type: 'Polygon',
+  coordinates: [
+    [
+      [55.717482785, 37.828189394],
+      [55.766228272, 37.668013072],
+      [55.815345188, 37.514882646],
+      [55.803579031, 37.513482336],
+      [55.720046086, 37.797663794],
+    ],
+  ],
+};
 
 interface MapProps {
   fullWidth?: boolean;
+  buildings: IBuilding[] | undefined;
+  onPlacemarkClick: (building: IBuilding) => void;
 }
 
-export const Map = ({ fullWidth }: MapProps) => {
-  const [location, setLocation] = useState(LOCATION);
-  const [ymap, setYmap] = useState<YMaps.YMap>();
+export const Map = ({ fullWidth, buildings, onPlacemarkClick }: MapProps) => {
+  const iconsTypes: { [key: string]: string } = {
+    МКД: mkd,
+    Здравоохранение: social,
+  };
 
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
-      <YMap
-        key="map"
-        // ref={(ymap: YMaps.YMap) => setYmap(ymap)}
-        location={LOCATION}
-        mode="vector"
-      >
-        <YMapDefaultSchemeLayer />
-        <YMapDefaultFeaturesLayer />
-        {/* <YMapListener onUpdate={onUpdate} /> */}
-
-        <YMapDefaultMarker coordinates={LOCATION.center} />
-
-        <YMapControls position="bottom">
-          <YMapZoomControl />
-        </YMapControls>
-        <YMapCollection>
-          {features.map((feature) => (
-            <YMapFeature key={feature.id} {...feature} />
+      <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
+        <GeoObject
+          geometry={geoJsonData}
+          options={{
+            fillColor: '#00FF00',
+            strokeColor: '#0000FF',
+            opacity: 0.5,
+            strokeWidth: 2,
+          }}
+        />
+        {buildings &&
+          buildings.map((building) => (
+            <Placemark
+              onClick={() => onPlacemarkClick(building)}
+              key={building.address}
+              geometry={building.coords}
+              modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
+              options={{
+                iconLayout: 'default#image',
+                iconContentLayout: iconsTypes[building.socialType],
+                iconImageHref: iconsTypes[building.socialType],
+                iconImageSize: [80, 80],
+                iconOffset: [-23, 0],
+              }}
+            />
           ))}
-        </YMapCollection>
-      </YMap>
+      </MapComponent>
     </div>
   );
 };

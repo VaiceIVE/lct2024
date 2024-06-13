@@ -13,8 +13,10 @@ interface Props {
   mb?: number;
   bg?: string;
   radius?: number | string;
-  type?: 'outline' | 'dark' | 'default';
+  type?: 'outline' | 'dark' | 'default' | 'error';
   className?: string;
+  overflow?: string;
+  onClick?: () => void;
 }
 
 export const Card = ({
@@ -23,15 +25,19 @@ export const Card = ({
   children,
   radius = '12px',
   type = 'default',
+  overflow,
   className,
+  onClick,
   ...props
 }: Props) => {
   return (
     <Stack
+      onClick={onClick}
       p={p}
       gap={gap}
       style={{
         borderRadius: `${radius}`,
+        overflow: overflow,
       }}
       className={classNames(style.card, style[type], className)}
       {...props}

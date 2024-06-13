@@ -1,13 +1,14 @@
 import { Divider, Flex, Stack } from '@mantine/core';
+import { IBuilding } from 'shared/models/IBuilding';
 import { Card } from 'shared/ui/Card';
 import { IconBlock } from 'shared/ui/IconBlock';
 import { Title } from 'shared/ui/Title';
 
 interface ObjectCardProps {
-  selectedId: number | null;
+  selectedBuilding: IBuilding;
 }
 
-export const ObjectCard = ({ selectedId }: ObjectCardProps) => {
+export const ObjectInfo = ({ selectedBuilding }: ObjectCardProps) => {
   const data: { [key: string]: string | number } = {
     'Год постройки': 1967,
     'Материал стен': 'Кирпич',
@@ -24,12 +25,9 @@ export const ObjectCard = ({ selectedId }: ObjectCardProps) => {
       <Stack gap={16}>
         <Card type="dark">
           <Stack gap={26}>
-            <IconBlock iconType="1" />
+            <IconBlock iconType={selectedBuilding?.socialType} />
             <Stack gap={12}>
-              <Title
-                level={3}
-                title="Новокосинская улица, 32, Москва, 111672"
-              />
+              <Title level={3} title={selectedBuilding?.address} />
               <p className="text medium">Многоквартирный дом</p>
             </Stack>
           </Stack>

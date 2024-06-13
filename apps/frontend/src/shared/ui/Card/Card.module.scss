@@ -2,7 +2,8 @@
 
 .card {
   position: relative;
-  overflow: hidden;
+
+  height: fit-content;
 
   &.default {
     background-color: #eef6fc;
@@ -15,5 +16,9 @@
 
   &.dark {
     background-color: $gray-color;
+  }
+
+  &.error {
+    background-color: #fff1ee;
   }
 }
