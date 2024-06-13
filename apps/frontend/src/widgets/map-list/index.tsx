@@ -1,5 +1,10 @@
-import { Stack, Flex } from '@mantine/core';
-import { IconFilterMinus, IconFilterPlus } from '@tabler/icons-react';
+import { Stack, Flex, useMantineTheme } from '@mantine/core';
+import {
+  IconFilterMinus,
+  IconFilterPlus,
+  IconSortAscending,
+  IconSortDescending,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { IBuilding } from 'shared/models/IBuilding';
@@ -17,15 +22,20 @@ interface MapListProps {
   buildings: IBuilding[] | undefined;
   setSelectedBuilding: React.Dispatch<React.SetStateAction<IBuilding | null>>;
   buildingsCount: number | undefined;
+  isPriority: boolean;
+  setPriority: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const MapList = ({
   buildings,
   setSelectedBuilding,
   buildingsCount,
+  setPriority,
+  isPriority,
 }: MapListProps) => {
   const [isOpen, setOpen] = useState(false);
 
+  const theme = useMantineTheme();
   const { control } = useFormContext();
 
   return (
@@ -61,9 +71,26 @@ export const MapList = ({
         <Filters opened={isOpen} span={12} />
       </Stack>
       <Stack gap={24}>
-        <Flex gap={3}>
-          <Title level={4} title="События" />
-          <Title color="gray" level={4} title={`(${buildingsCount})`} />
+        <Flex justify={'space-between'} align={'center'}>
+          <Flex gap={5}>
+            <Title level={4} title="События" />
+            <Title color="gray" level={4} title={`(${buildingsCount})`} />
+          </Flex>
+          <Flex
+            className={styles.priority}
+            align={'center'}
+            onClick={() => setPriority((prev) => !prev)}
+            gap={8}
+          >
+            <p className="text">
+              {isPriority ? 'От высокого приоритета' : 'От низкого приоритета'}
+            </p>
+            {isPriority ? (
+              <IconSortDescending size={20} color={theme.colors.myBlue[1]} />
+            ) : (
+              <IconSortAscending size={20} color={theme.colors.myBlue[1]} />
+            )}
+          </Flex>
         </Flex>
         <p className="text">Найдено {buildings?.length}</p>
         <Stack gap={8}>

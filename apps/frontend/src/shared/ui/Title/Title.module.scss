@@ -10,6 +10,10 @@
   &.gray {
     color: $placeholder-color;
   }
+
+  &.error {
+    color: $error-color;
+  }
 }
 
 .h1 {

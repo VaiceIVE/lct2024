@@ -1,3 +1,5 @@
+@import '@styles/__defines.scss';
+
 .building {
   cursor: pointer;
   transition: all 0.3s;
@@ -5,6 +7,18 @@
   @media (hover: hover) {
     &:hover {
       background-color: #eef6fc;
+    }
+  }
+}
+
+.priority {
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      p {
+        color: $link-hover-color;
+      }
     }
   }
 }

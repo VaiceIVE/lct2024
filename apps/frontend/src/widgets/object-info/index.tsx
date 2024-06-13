@@ -32,6 +32,31 @@ export const ObjectInfo = ({ selectedBuilding }: ObjectCardProps) => {
             </Stack>
           </Stack>
         </Card>
+        <Card type="error">
+          <Stack gap={14}>
+            <Flex align={'center'} gap={24}>
+              <p className="text medium secondary">Сокорость остывания</p>
+              <Divider color="#CAD5DD" style={{ flex: 1 }} />
+              <Title
+                color="error"
+                level={4}
+                title={`${selectedBuilding.coolingRate} гр./час`}
+              />
+            </Flex>
+            <Flex align={'center'} gap={24}>
+              <p className="text medium secondary">Количество потребителей</p>
+              <Divider color="#CAD5DD" style={{ flex: 1 }} />
+              <Title
+                level={4}
+                title={
+                  selectedBuilding.consumersCount
+                    ? selectedBuilding.consumersCount
+                    : 1
+                }
+              />
+            </Flex>
+          </Stack>
+        </Card>
         <Card type="outline">
           <Stack gap={26}>
             <Title level={4} title="Характеристики" />
