@@ -6,8 +6,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button } from 'shared/ui/Button';
 import { useContext, useEffect } from 'react';
 import { Context } from 'main';
-import { useNavigate } from 'react-router-dom';
-import { HOME_ROUTE } from 'shared/constants/const';
 
 const LoginPage = () => {
   const { UStore } = useContext(Context);
@@ -17,10 +15,8 @@ const LoginPage = () => {
   const username = watch('username') || '';
   const password = watch('password') || '';
 
-  const navigate = useNavigate();
-
   const handleLogin = handleSubmit(({ username, password }) => {
-    UStore.login(username, password).then(() => navigate(HOME_ROUTE));
+    UStore.login(username, password);
   });
 
   useEffect(() => {
