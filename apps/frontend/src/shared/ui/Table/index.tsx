@@ -16,19 +16,23 @@ import { IconBlock } from '../IconBlock';
 import styles from './Table.module.scss';
 import { IBuilding } from 'shared/models/IBuilding';
 import { ObjectInfo } from 'widgets/object-info';
+import { Chance } from '../Chance';
+import { IconChevronRight } from '@tabler/icons-react';
 
 interface Props {
   data: IBuilding[];
+  setSelectedBuilding: React.Dispatch<React.SetStateAction<IBuilding | null>>;
+  selectedBuilding: IBuilding | null;
 }
 
-export const Table = ({ data }: Props) => {
+export const Table = ({
+  data,
+  setSelectedBuilding,
+  selectedBuilding,
+}: Props) => {
   const theme = useMantineTheme();
 
   const [opened, { open, close }] = useDisclosure(false);
-
-  const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
-    null
-  );
 
   useEffect(() => {
     if (selectedBuilding) {
@@ -63,7 +67,10 @@ export const Table = ({ data }: Props) => {
         size: 361,
         enableSorting: false,
         Cell: ({ renderedCellValue }) => (
-          <div className={styles.address}>{renderedCellValue}</div>
+          <div className={styles.address}>
+            {renderedCellValue}{' '}
+            <IconChevronRight size={20} color={theme.colors.myBlue[1]} />
+          </div>
         ),
         mantineTableBodyCellProps: {
           style: {
@@ -72,21 +79,14 @@ export const Table = ({ data }: Props) => {
         },
       },
       {
-        accessorKey: 'events.chance',
+        accessorKey: 'chance',
         header: 'Вероятность',
         size: 172,
         Cell: ({ row }) => (
-          <div
-            className={classNames(
-              styles.chance,
-              row.original.events.length && row.original.events[0].chance < 80
-                ? row.original.events[0].chance < 50
-                  ? styles.gray
-                  : styles.blue
-                : styles.orange
+          <div className={classNames(styles.chance)}>
+            {row.original.events.length && (
+              <Chance value={row.original.events[0].chance} />
             )}
-          >
-            {row.original.events.length && row.original.events[0].chance}%
           </div>
         ),
 
@@ -96,7 +96,7 @@ export const Table = ({ data }: Props) => {
         },
       },
       {
-        accessorKey: 'events.date',
+        accessorKey: 'date',
         header: 'Дата',
         size: 110,
         grow: false,
@@ -111,7 +111,7 @@ export const Table = ({ data }: Props) => {
         Header: () => <div className={styles.header}>Дата</div>,
       },
       {
-        accessorKey: 'events.eventName',
+        accessorKey: 'eventName',
         header: 'Событие',
         Header: () => <div className={styles.header}>Событие</div>,
         size: 200,
@@ -134,7 +134,7 @@ export const Table = ({ data }: Props) => {
         ),
       },
     ],
-    []
+    [theme.colors.myBlue]
   );
 
   const table = useMantineReactTable({

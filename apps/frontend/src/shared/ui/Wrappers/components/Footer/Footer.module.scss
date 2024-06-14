@@ -1,0 +1,19 @@
+@import '@styles/__defines.scss';
+
+.links {
+  a {
+    color: $link-hover-color;
+    cursor: pointer;
+
+    border-bottom: 1px solid $link-hover-color;
+
+    transition: all 0.3s;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $main-blue-color;
+        border-color: $main-blue-color;
+      }
+    }
+  }
+}

@@ -60,8 +60,8 @@ export const Map = ({ fullWidth, buildings, onPlacemarkClick }: MapProps) => {
                 iconLayout: 'default#image',
                 iconContentLayout: iconsTypes[building.socialType],
                 iconImageHref: iconsTypes[building.socialType],
-                iconImageSize: [80, 80],
-                iconOffset: [-23, 0],
+                iconImageSize: [30, 30],
+                iconOffset: [1, 21],
               }}
             />
           ))}

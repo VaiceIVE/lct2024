@@ -7,6 +7,7 @@ import {
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { IBuilding } from 'shared/models/IBuilding';
+import FileServices from 'shared/services/FilesServices';
 
 import { Button } from 'shared/ui/Button';
 import { Filters } from 'shared/ui/Filters';
@@ -15,45 +16,44 @@ import { Select } from 'shared/ui/Select';
 import { Table } from 'shared/ui/Table';
 import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
-export const EventsList = () => {
-  const data: IBuilding[] = [
-    {
-      address: 'Новокосинская улица, 32, Москва, 111672',
-      events: [
-        {
-          eventName: 'Сильная течь в системе отопления',
-          chance: 20,
-          date: '12.06',
-        },
-        { eventName: 'P1 <= 0', chance: 30, date: '12.06' },
-      ],
-      socialType: 'МКД',
-      coords: [55.717482785, 37.828189394],
-      coolingRate: 3,
-      consumersCount: null,
-      priority: 1,
-    },
-    {
-      address: 'Новокосинская улица, 32, Москва, 111673',
-      events: [
-        {
-          eventName: 'Сильная течь в системе отопления',
-          chance: 80,
-          date: '12.06',
-        },
-        { eventName: 'P1 <= 0', chance: 60, date: '12.06' },
-      ],
-      socialType: 'Здравоохранение',
-      coords: [55.717482785, 37.828189394],
-      coolingRate: 5,
-      consumersCount: null,
-      priority: 2,
-    },
-  ];
+interface EventsListProps {
+  id: string | (string | null)[] | null;
+  month: number;
+  data: IBuilding[];
+  setSelectedBuilding: React.Dispatch<React.SetStateAction<IBuilding | null>>;
+  selectedBuilding: IBuilding | null;
+}
 
+export const EventsList = ({
+  id,
+  month,
+  data,
+  selectedBuilding,
+  setSelectedBuilding,
+}: EventsListProps) => {
   const [isOpen, setOpen] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const { control, watch } = useFormContext();
+
+  const isPriority = watch('priority') || '1';
+
+  const getDataByFilters = () => {
+    return data
+      .sort((a, b) =>
+        isPriority === '1' ? a.priority - b.priority : b.priority - a.priority
+      )
+      .filter((item) =>
+        item.address
+          .toLowerCase()
+          .includes(watch('address')?.toLowerCase() || '')
+      );
+  };
+
+  const handleDownloadTable = () => {
+    setLoading(true);
+    FileServices.downloadTable(`${id}`, month).then(() => setLoading(false));
+  };
 
   return (
     <WidgetWrapper
@@ -62,6 +62,8 @@ export const EventsList = () => {
           label="Скачать таблицу"
           icon={<IconDownload width={18} height={18} />}
           type="light"
+          onClick={handleDownloadTable}
+          disabled={isLoading}
         />
       }
       title="Список событий"
@@ -96,7 +98,7 @@ export const EventsList = () => {
                     { value: '2', label: 'От низкого приоритета к высокому' },
                   ]}
                   label="Сортировать"
-                  placeholder=""
+                  placeholder="Выберите приоритет"
                 />
               )}
             />
@@ -120,13 +122,16 @@ export const EventsList = () => {
           </Grid.Col>
         </Grid>
         <Filters opened={isOpen} span={6} />
-        <Table
-          data={data.filter((item) =>
-            item.address
-              .toLowerCase()
-              .includes(watch('address')?.toLowerCase() || '')
-          )}
-        />
+        <Stack gap={16}>
+          <p className="text medium placeholder">
+            Найдено результатов: {getDataByFilters().length}
+          </p>
+          <Table
+            selectedBuilding={selectedBuilding}
+            setSelectedBuilding={setSelectedBuilding}
+            data={getDataByFilters()}
+          />
+        </Stack>
       </Stack>
     </WidgetWrapper>
   );

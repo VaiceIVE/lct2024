@@ -112,7 +112,6 @@ const MapPage = () => {
     [id, isDefault]
   );
 
-  //TODO: sort isPriority
   const getFilteredBuildings = () => {
     return prediction?.buildings
       ?.sort((a, b) =>

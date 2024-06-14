@@ -9,11 +9,15 @@ export default class PredictionServices {
     conditions: ITemperatureConditions[]
   ) {
     const formData = new FormData();
-    files.forEach((file, index) => {
-      formData.append(`file${index}`, file);
+    files.forEach((file) => {
+      formData.append(`files`, file);
     });
 
-    return $api.post('/prediction1', { formData, conditions });
+    return $api.post('/prediction', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   }
 
   static async getDefaultPrediction(

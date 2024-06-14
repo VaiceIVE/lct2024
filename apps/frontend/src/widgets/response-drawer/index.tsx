@@ -1,16 +1,14 @@
 import { Stack } from '@mantine/core';
 import { Radio as MantineRadio } from '@mantine/core';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { IObj } from 'shared/models/IResponse';
+import ResponseServices from 'shared/services/ResponseServices';
 
 import { Card } from 'shared/ui/Card';
 import { Radio } from 'shared/ui/Radio';
 import { Select } from 'shared/ui/Select';
 import { Title } from 'shared/ui/Title';
-
-interface ResponseDrawerProps {
-  handleAddObject: () => void;
-}
 
 const radios = [
   {
@@ -23,25 +21,68 @@ const radios = [
   },
   {
     label: 'T1 < min — Температура теплоносителя ',
-    value: '3',
+    value: 'Прорыв трубы',
   },
 ];
 
-export const ResponseDrawer = ({ handleAddObject }: ResponseDrawerProps) => {
-  const [event, setEvent] = useState('');
+interface ResponseDrawerProps {
+  selectedObj: IObj | null;
+  event: string;
+  setEvent: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const { control } = useForm();
+export const ResponseDrawer = ({
+  selectedObj,
+  event,
+  setEvent,
+}: ResponseDrawerProps) => {
+  const { control, watch, setValue } = useFormContext();
+  const [addresses, setAddresses] = useState<
+    { label: string; value: string }[]
+  >([]);
+  const [isLoading, setLoading] = useState(false);
+
+  const socialType = watch('socialType') || 'mkd';
+
+  useEffect(() => {
+    if (socialType) {
+      setLoading(true);
+      ResponseServices.getAddresses(socialType)
+        .then((response) => {
+          setAddresses(
+            response.data.map((a) => ({ value: a.address, label: a.address }))
+          );
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [socialType]);
+
+  useEffect(() => {
+    if (selectedObj) {
+      setValue('socialType', selectedObj.socialType);
+      setValue('address', selectedObj.address);
+      setEvent(selectedObj.event);
+    }
+  }, [selectedObj, setEvent, setValue]);
 
   return (
     <Stack gap={32}>
       <Stack gap={16}>
         <Controller
           control={control}
-          name="type"
+          name="socialType"
+          defaultValue={'mkd'}
           render={({ field }) => (
             <Select
+              defaultValue={'mkd'}
               field={field}
-              data={[]}
+              data={[
+                { value: 'mkd', label: 'МКД' },
+                { value: 'education', label: 'Оброзовательное учереждение' },
+                { value: 'medicine', label: 'Объект здравоохранения' },
+                { value: 'tp', label: 'Тепловой пункт' },
+                { value: 'prom', label: 'Прочее' },
+              ]}
               label="Тип потребителя"
               placeholder="Выберите тип потребителя"
             />
@@ -49,11 +90,13 @@ export const ResponseDrawer = ({ handleAddObject }: ResponseDrawerProps) => {
         />
         <Controller
           control={control}
-          name="type"
+          name="address"
           render={({ field }) => (
             <Select
               field={field}
-              data={[]}
+              data={addresses}
+              searchable
+              disabled={isLoading || !addresses.length}
               label="Объект"
               placeholder="Начните вводить адрес"
             />

@@ -10,15 +10,3 @@
     }
   }
 }
-
-.priority {
-  cursor: pointer;
-
-  @media (hover: hover) {
-    &:hover {
-      p {
-        color: $link-hover-color;
-      }
-    }
-  }
-}

@@ -25,6 +25,12 @@
   tr {
     &:hover {
       background: #eef6fc !important;
+
+      td {
+        svg {
+          opacity: 1;
+        }
+      }
     }
   }
 
@@ -87,6 +93,15 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  svg {
+    transition: all 0.3s;
+    opacity: 0;
+  }
 }
 
 .toolbar {

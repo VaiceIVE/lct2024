@@ -18,4 +18,8 @@ export default class FileServices {
   static async getUploadedFiles(): Promise<AxiosResponse<IFile[]>> {
     return $api.get<IFile[]>('/files');
   }
+
+  static async downloadTable(id: string | null, month: number) {
+    return $api.get(id ? `/table/${id}` : `/table`);
+  }
 }

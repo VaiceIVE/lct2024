@@ -29,7 +29,7 @@ export const IconBlock = ({ iconType, tooltip, color }: IconBlockProps) => {
       icon: <IconAmbulance {...sizes} className={styles.blue} />,
       color: 'blue',
     },
-    '3': {
+    ТЭЦ: {
       icon: <IconBuildingFactory {...sizes} className={styles.black} />,
       color: 'gray',
     },
