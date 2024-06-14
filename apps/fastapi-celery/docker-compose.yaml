@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  py:
+    container_name: fastapi
+    build: .
+    volumes: 
+      - ./:/app/
+    working_dir: /app/src
+    networks:
+      - hack_network
+    command:
+      bash -c "
+      poetry env use 3.10 &&
+      poetry update &&
+      poetry run gunicorn -k uvicorn.workers.UvicornWorker --log-level trace main:app -b :80 -t 100000"
+    ports:
+      - 8001:80
+networks:
+  hack_network:
+    external: true
+  backend_network:
+    external: true
+

@@ -1,0 +1,1139 @@
+[2024-06-11 13:28:24,381: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 13:28:24,862: WARNING/MainProcess] /root/.cache/pipx/bdcff410e519039/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 13:28:24,868: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 13:28:26,871: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 13:28:30,876: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 13:28:36,883: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 13:29:07,782: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 13:29:08,260: WARNING/MainProcess] /root/.cache/pipx/bdcff410e519039/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 13:29:08,266: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 13:29:10,269: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 13:29:14,272: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 13:29:20,280: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 13:29:38,896: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 13:29:39,404: WARNING/MainProcess] /root/.cache/pipx/bdcff410e519039/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 13:29:39,410: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 13:29:41,412: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 13:56:41,152: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 13:56:41,698: WARNING/MainProcess] /root/.cache/pipx/bdcff410e519039/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 13:56:41,704: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 13:56:43,707: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 13:56:47,711: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 13:56:53,719: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 14:03:12,220: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 14:03:12,733: WARNING/MainProcess] /root/.cache/pipx/bdcff410e519039/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 14:03:12,738: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 14:03:14,741: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 14:03:18,746: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 14:03:24,753: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 14:03:32,762: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 14:03:42,773: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 14:03:54,786: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 14:04:08,800: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 14:04:24,816: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 14:04:42,832: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 14:05:02,850: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 14:05:24,870: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 18:00:47,467: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 18:00:48,572: WARNING/MainProcess] /root/.cache/pipx/bdcff410e519039/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:00:48,625: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:00:50,807: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:00:55,037: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:01:01,171: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:01:09,193: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:01:19,208: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:01:31,331: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:01:46,499: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:02:04,767: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:02:23,871: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:02:44,830: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:05:59,001: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 18:05:59,559: WARNING/MainProcess] /root/.cache/pipx/bdcff410e519039/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:05:59,565: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:06:01,568: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:06:05,573: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:06:11,580: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:06:19,589: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:06:29,599: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:06:41,613: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:06:54,525: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 18:06:55,026: WARNING/MainProcess] /root/.cache/pipx/bdcff410e519039/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:06:55,032: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:06:57,035: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:07:01,038: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:07:07,045: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:07:15,054: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:07:25,063: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:07:37,076: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:10:12,940: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 18:10:13,455: WARNING/MainProcess] /root/.cache/pipx/bdcff410e519039/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:10:13,460: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:10:15,463: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:10:19,467: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:10:25,474: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:10:33,483: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:10:43,494: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:10:55,505: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:11:09,521: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:11:25,538: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:11:43,556: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:12:03,577: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:12:25,599: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 18:12:49,622: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 26.00 seconds... (13/100)
+
+[2024-06-11 18:13:15,650: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 28.00 seconds... (14/100)
+
+[2024-06-11 18:13:43,678: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 30.00 seconds... (15/100)
+
+[2024-06-11 18:14:13,707: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:14:45,739: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:15:17,771: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:15:49,802: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:16:21,834: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:16:53,862: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:17:25,892: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:17:57,926: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:18:29,955: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:19:01,989: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:19:34,019: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:20:06,052: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:24:51,724: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 18:24:52,876: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:24:52,882: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:24:54,884: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:24:58,887: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:25:04,894: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:25:12,904: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:25:22,914: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:25:34,926: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:25:48,939: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:26:04,957: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:26:22,975: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:26:42,994: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:27:05,014: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 18:27:29,037: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 26.00 seconds... (13/100)
+
+[2024-06-11 18:27:55,062: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 28.00 seconds... (14/100)
+
+[2024-06-11 18:28:23,091: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 30.00 seconds... (15/100)
+
+[2024-06-11 18:28:53,121: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:29:25,153: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:29:57,184: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:30:29,215: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:31:01,247: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:31:29,949: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2024-06-11 18:31:30,878: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:31:30,883: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:31:32,886: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:31:36,891: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:31:42,897: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:31:50,907: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:32:00,918: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:32:12,929: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:32:26,943: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:32:42,959: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:33:00,977: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:33:20,998: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:33:43,019: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 18:34:07,043: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 26.00 seconds... (13/100)
+
+[2024-06-11 18:38:36,485: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:38:36,493: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:38:38,497: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:38:42,503: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:38:48,512: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:38:56,522: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:39:06,534: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:39:18,547: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:39:32,561: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:39:48,578: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:40:06,598: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:40:26,620: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:40:48,643: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 18:41:12,668: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 26.00 seconds... (13/100)
+
+[2024-06-11 18:41:38,695: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 28.00 seconds... (14/100)
+
+[2024-06-11 18:42:06,722: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 30.00 seconds... (15/100)
+
+[2024-06-11 18:42:36,754: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 18:43:00,911: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:43:00,919: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:43:02,923: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:43:06,929: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:43:12,936: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:43:20,947: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:43:30,959: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:43:42,971: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:43:56,987: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:44:13,005: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:44:31,023: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:44:51,045: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:45:13,068: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 18:45:43,285: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:45:43,294: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:45:45,297: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:45:49,304: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:45:55,312: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:46:03,320: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:46:13,331: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:46:25,345: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:46:39,360: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:46:55,378: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:47:13,399: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:47:33,419: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:47:55,441: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 18:48:19,466: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 26.00 seconds... (13/100)
+
+[2024-06-11 18:48:45,491: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 28.00 seconds... (14/100)
+
+[2024-06-11 18:49:13,580: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 30.00 seconds... (15/100)
+
+[2024-06-11 18:49:39,416: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:49:39,423: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:49:41,428: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:49:45,434: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:49:51,443: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:49:59,452: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:50:09,464: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:50:21,477: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:50:35,493: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:50:51,511: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:51:09,529: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:51:29,551: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:51:53,625: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:51:53,633: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:51:55,636: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:51:59,641: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:52:05,649: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:52:13,659: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:52:23,670: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:52:35,684: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:52:49,700: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:53:05,716: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:53:23,735: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:53:43,755: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:54:05,777: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 18:54:29,803: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 26.00 seconds... (13/100)
+
+[2024-06-11 18:54:55,833: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 28.00 seconds... (14/100)
+
+[2024-06-11 18:55:23,861: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 30.00 seconds... (15/100)
+
+[2024-06-11 18:56:00,057: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 18:56:00,065: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 18:56:02,069: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 18:56:06,076: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 18:56:12,084: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 18:56:20,095: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 18:56:30,107: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 18:56:42,121: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 18:56:56,135: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 18:57:12,153: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 18:57:30,172: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 18:57:50,189: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 18:58:12,214: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 18:58:36,240: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 26.00 seconds... (13/100)
+
+[2024-06-11 18:59:02,264: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 28.00 seconds... (14/100)
+
+[2024-06-11 18:59:30,292: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 30.00 seconds... (15/100)
+
+[2024-06-11 19:00:00,322: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 19:00:32,356: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 19:01:04,388: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 19:01:36,420: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 19:02:08,454: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379/0: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 19:03:19,390: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 19:03:19,400: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 19:03:21,404: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 19:03:25,411: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 19:03:31,419: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 19:03:39,429: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 19:03:49,442: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 19:04:01,455: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 19:04:15,469: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 19:04:31,486: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 19:04:49,505: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 19:05:09,526: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 19:05:31,550: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 19:05:55,574: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 26.00 seconds... (13/100)
+
+[2024-06-11 19:06:28,644: CRITICAL/MainProcess] Unrecoverable error: ValueError("invalid literal for int() with base 10: 'celres'")
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/worker.py", line 202, in start
+    self.blueprint.start(self)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/bootsteps.py", line 112, in start
+    self.on_start()
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/apps/worker.py", line 135, in on_start
+    self.emit_banner()
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/apps/worker.py", line 169, in emit_banner
+    ' \n', self.startup_info(artlines=not use_image))),
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/apps/worker.py", line 231, in startup_info
+    results=self.app.backend.as_uri(),
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/base.py", line 1303, in backend
+    self._backend = self._get_backend()
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/base.py", line 971, in _get_backend
+    return backend(app=self, url=url)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/backends/redis.py", line 272, in __init__
+    self.connparams = self._params_from_url(url, self.connparams)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/backends/redis.py", line 350, in _params_from_url
+    connparams['db'] = int(db)
+ValueError: invalid literal for int() with base 10: 'celres'
+[2024-06-11 19:07:02,906: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 19:07:02,914: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 19:07:04,918: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 4.00 seconds... (2/100)
+
+[2024-06-11 19:07:08,925: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 6.00 seconds... (3/100)
+
+[2024-06-11 19:07:14,933: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 8.00 seconds... (4/100)
+
+[2024-06-11 19:07:22,942: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 10.00 seconds... (5/100)
+
+[2024-06-11 19:07:32,953: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 12.00 seconds... (6/100)
+
+[2024-06-11 19:07:44,967: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 14.00 seconds... (7/100)
+
+[2024-06-11 19:07:58,982: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 16.00 seconds... (8/100)
+
+[2024-06-11 19:08:14,998: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 18.00 seconds... (9/100)
+
+[2024-06-11 19:08:33,017: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 20.00 seconds... (10/100)
+
+[2024-06-11 19:08:53,037: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 22.00 seconds... (11/100)
+
+[2024-06-11 19:09:15,057: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 24.00 seconds... (12/100)
+
+[2024-06-11 19:09:39,083: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 26.00 seconds... (13/100)
+
+[2024-06-11 19:10:05,111: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 28.00 seconds... (14/100)
+
+[2024-06-11 19:10:33,141: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 30.00 seconds... (15/100)
+
+[2024-06-11 19:11:03,172: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 19:11:35,203: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 19:12:07,233: ERROR/MainProcess] consumer: Cannot connect to redis://localhost:6379//: Error 99 connecting to localhost:6379. Cannot assign requested address..
+Trying again in 32.00 seconds... (16/100)
+
+[2024-06-11 19:12:56,699: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 19:15:07,039: ERROR/MainProcess] consumer: Cannot connect to redis://92.124.163.7:6379/0: Timeout connecting to server.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 19:16:04,644: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 19:18:15,456: ERROR/MainProcess] consumer: Cannot connect to redis://92.124.163.7:6379/0: Timeout connecting to server.
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-11 19:23:53,287: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 19:23:53,315: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-06-11 19:23:53,316: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-11 19:23:53,320: INFO/MainProcess] mingle: searching for neighbors
+[2024-06-11 19:23:54,340: INFO/MainProcess] mingle: all alone
+[2024-06-11 19:23:54,367: INFO/MainProcess] celery@9b1c0c8351e7 ready.
+[2024-06-11 19:24:13,607: INFO/MainProcess] Task pandas_handling[966fe1d4-8a8f-4cfd-948a-77cb149adaf9] received
+[2024-06-11 19:24:13,755: ERROR/ForkPoolWorker-15] Task pandas_handling[966fe1d4-8a8f-4cfd-948a-77cb149adaf9] raised unexpected: TypeError("argument of type 'function' is not iterable")
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/app/src/worker.py", line 17, in pandas_handling
+    df = pd.read_json(df)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 791, in read_json
+    json_reader = JsonReader(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 904, in __init__
+    data = self._get_data_from_filepath(filepath_or_buffer)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 944, in _get_data_from_filepath
+    self.handles = get_handle(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 719, in get_handle
+    if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 1181, in _is_binary_mode
+    return isinstance(handle, _get_binary_io_classes()) or "b" in getattr(
+TypeError: argument of type 'function' is not iterable
+[2024-06-12 05:43:47,730: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 05:43:47,747: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-06-12 05:43:47,748: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 05:43:47,752: INFO/MainProcess] mingle: searching for neighbors
+[2024-06-12 05:43:48,766: INFO/MainProcess] mingle: all alone
+[2024-06-12 05:43:48,789: INFO/MainProcess] celery@9b1c0c8351e7 ready.
+[2024-06-12 05:51:44,234: INFO/MainProcess] Task pandas_handling[771c2f13-cce0-4564-a205-67935cd16a0b] received
+[2024-06-12 05:51:46,713: ERROR/ForkPoolWorker-15] Task pandas_handling[771c2f13-cce0-4564-a205-67935cd16a0b] raised unexpected: TypeError("argument of type 'function' is not iterable")
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/app/src/worker.py", line 17, in pandas_handling
+    df = pd.read_json(df)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 791, in read_json
+    json_reader = JsonReader(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 904, in __init__
+    data = self._get_data_from_filepath(filepath_or_buffer)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 944, in _get_data_from_filepath
+    self.handles = get_handle(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 719, in get_handle
+    if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 1181, in _is_binary_mode
+    return isinstance(handle, _get_binary_io_classes()) or "b" in getattr(
+TypeError: argument of type 'function' is not iterable
+[2024-06-12 05:53:55,247: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py", line 340, in start
+    blueprint.start(self)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py", line 746, in start
+    c.loop(*c.loop_args())
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/loops.py", line 97, in asynloop
+    next(loop)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/kombu/asynchronous/hub.py", line 373, in create_loop
+    cb(*cbargs)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/kombu/transport/redis.py", line 1344, in on_readable
+    self.cycle.on_readable(fileno)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/kombu/transport/redis.py", line 569, in on_readable
+    chan.handlers[type]()
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/kombu/transport/redis.py", line 913, in _receive
+    ret.append(self._receive_one(c))
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/kombu/transport/redis.py", line 923, in _receive_one
+    response = c.parse_response()
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/client.py", line 837, in parse_response
+    response = self._execute(conn, try_read)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/client.py", line 813, in _execute
+    return conn.retry.call_with_retry(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/retry.py", line 49, in call_with_retry
+    fail(error)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/client.py", line 815, in <lambda>
+    lambda error: self._disconnect_raise_connect(conn, error),
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/client.py", line 802, in _disconnect_raise_connect
+    raise error
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/retry.py", line 46, in call_with_retry
+    return do()
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/client.py", line 814, in <lambda>
+    lambda: command(*args, **kwargs),
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/client.py", line 835, in try_read
+    return conn.read_response(disconnect_on_error=False, push_request=True)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/connection.py", line 512, in read_response
+    response = self._parser.read_response(disable_decoding=disable_decoding)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/_parsers/resp2.py", line 15, in read_response
+    result = self._read_response(disable_decoding=disable_decoding)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/_parsers/resp2.py", line 25, in _read_response
+    raw = self._buffer.readline()
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/_parsers/socket.py", line 115, in readline
+    self._read_from_socket()
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/redis/_parsers/socket.py", line 68, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+[2024-06-12 05:53:55,256: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:391: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  warnings.warn(CANCEL_TASKS_BY_DEFAULT, CPendingDeprecationWarning)
+
+[2024-06-12 05:53:55,261: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 05:53:55,264: ERROR/MainProcess] consumer: Cannot connect to redis://redis:6379/0: Error 111 connecting to redis:6379. Connection refused..
+Trying again in 2.00 seconds... (1/100)
+
+[2024-06-12 05:53:58,290: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-06-12 05:53:58,291: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 05:53:58,298: INFO/MainProcess] mingle: searching for neighbors
+[2024-06-12 05:53:59,308: INFO/MainProcess] mingle: all alone
+[2024-06-12 05:54:30,378: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 05:54:30,397: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-06-12 05:54:30,398: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 05:54:30,401: INFO/MainProcess] mingle: searching for neighbors
+[2024-06-12 05:54:31,418: INFO/MainProcess] mingle: all alone
+[2024-06-12 05:54:31,442: INFO/MainProcess] celery@9b1c0c8351e7 ready.
+[2024-06-12 06:17:32,677: INFO/MainProcess] Task pandas_handling[ea36e52a-6a15-4651-9a22-c51b8ddb7d8b] received
+[2024-06-12 06:17:32,782: ERROR/ForkPoolWorker-15] Task pandas_handling[ea36e52a-6a15-4651-9a22-c51b8ddb7d8b] raised unexpected: TypeError("argument of type 'method' is not iterable")
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/app/src/worker.py", line 17, in pandas_handling
+    df = pd.read_json(df)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 791, in read_json
+    json_reader = JsonReader(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 904, in __init__
+    data = self._get_data_from_filepath(filepath_or_buffer)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 944, in _get_data_from_filepath
+    self.handles = get_handle(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 719, in get_handle
+    if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 1181, in _is_binary_mode
+    return isinstance(handle, _get_binary_io_classes()) or "b" in getattr(
+TypeError: argument of type 'method' is not iterable
+[2024-06-12 06:19:21,217: INFO/MainProcess] Task pandas_handling[7aabaf63-158c-450e-b0ff-a24e208358b6] received
+[2024-06-12 06:19:21,221: ERROR/ForkPoolWorker-15] Task pandas_handling[7aabaf63-158c-450e-b0ff-a24e208358b6] raised unexpected: TypeError("argument of type 'method' is not iterable")
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/app/src/worker.py", line 17, in pandas_handling
+    df = pd.read_json(df)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 791, in read_json
+    json_reader = JsonReader(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 904, in __init__
+    data = self._get_data_from_filepath(filepath_or_buffer)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 944, in _get_data_from_filepath
+    self.handles = get_handle(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 719, in get_handle
+    if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 1181, in _is_binary_mode
+    return isinstance(handle, _get_binary_io_classes()) or "b" in getattr(
+TypeError: argument of type 'method' is not iterable
+[2024-06-12 06:23:47,019: INFO/MainProcess] Task pandas_handling[7f007e54-d954-46a1-a5e4-c52b429b2659] received
+[2024-06-12 06:23:47,026: ERROR/ForkPoolWorker-15] Task pandas_handling[7f007e54-d954-46a1-a5e4-c52b429b2659] raised unexpected: TypeError("argument of type 'method' is not iterable")
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/app/src/worker.py", line 17, in pandas_handling
+    df = pd.read_json(df)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 791, in read_json
+    json_reader = JsonReader(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 904, in __init__
+    data = self._get_data_from_filepath(filepath_or_buffer)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 944, in _get_data_from_filepath
+    self.handles = get_handle(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 719, in get_handle
+    if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 1181, in _is_binary_mode
+    return isinstance(handle, _get_binary_io_classes()) or "b" in getattr(
+TypeError: argument of type 'method' is not iterable
+[2024-06-12 06:25:15,314: INFO/MainProcess] Task pandas_handling[8e107ba6-1bf1-4b78-a3a8-24f59b5f4835] received
+[2024-06-12 06:25:15,318: ERROR/ForkPoolWorker-15] Task pandas_handling[8e107ba6-1bf1-4b78-a3a8-24f59b5f4835] raised unexpected: TypeError("argument of type 'method' is not iterable")
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/app/src/worker.py", line 17, in pandas_handling
+    df = pd.read_json(df)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 791, in read_json
+    json_reader = JsonReader(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 904, in __init__
+    data = self._get_data_from_filepath(filepath_or_buffer)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/json/_json.py", line 944, in _get_data_from_filepath
+    self.handles = get_handle(
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 719, in get_handle
+    if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/pandas/io/common.py", line 1181, in _is_binary_mode
+    return isinstance(handle, _get_binary_io_classes()) or "b" in getattr(
+TypeError: argument of type 'method' is not iterable
+[2024-06-12 06:34:06,740: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 06:34:06,755: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-06-12 06:34:06,755: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 06:34:06,759: INFO/MainProcess] mingle: searching for neighbors
+[2024-06-12 06:34:07,776: INFO/MainProcess] mingle: all alone
+[2024-06-12 06:34:07,803: INFO/MainProcess] celery@9b1c0c8351e7 ready.
+[2024-06-12 06:35:31,037: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 06:35:31,049: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-06-12 06:35:31,050: WARNING/MainProcess] /root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-06-12 06:35:31,054: INFO/MainProcess] mingle: searching for neighbors
+[2024-06-12 06:35:32,070: INFO/MainProcess] mingle: all alone
+[2024-06-12 06:35:32,095: INFO/MainProcess] celery@9b1c0c8351e7 ready.
+[2024-06-12 06:38:13,781: INFO/MainProcess] Task pandas_handling[f7aa5908-878d-4c95-b20f-a7bd0ec2e636] received
+[2024-06-12 06:38:13,795: ERROR/ForkPoolWorker-15] Task pandas_handling[f7aa5908-878d-4c95-b20f-a7bd0ec2e636] raised unexpected: TypeError("pandas_handling() missing 1 required positional argument: 'df'")
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/root/.cache/pypoetry/virtualenvs/fastapi-celery-9TtSrW0h-py3.10/lib/python3.10/site-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+TypeError: pandas_handling() missing 1 required positional argument: 'df'

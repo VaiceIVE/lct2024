@@ -1,0 +1,39 @@
+version: "3.3"
+services:
+  celery1:
+    container_name: celery-worker-1
+    build: .
+    volumes: 
+      - ./:/app/
+    working_dir: /app/src
+    networks:
+      - hack_network
+      - backend_network
+    command:
+      bash -c "
+      poetry env use 3.10 &&
+      poetry update &&
+      poetry run celery -A worker.celery worker --loglevel=info " #--logfile=logs/celery.log"
+    ports:
+      - 8002:80
+  celery2:
+    container_name: celery-worker-2
+    build: .
+    volumes: 
+      - ./:/app/
+    working_dir: /app/src
+    networks:
+      - hack_network
+      - backend_network
+    command:
+      bash -c "
+      poetry env use 3.10 &&
+      poetry update &&
+      poetry run celery -A worker.celery worker --loglevel=info " #--logfile=logs/celery.log"
+    ports:
+      - 8003:80
+networks:
+  hack_network:
+    external: true
+  backend_network:
+    external: true
