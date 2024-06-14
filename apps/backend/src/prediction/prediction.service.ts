@@ -22,6 +22,8 @@ export class PredictionService {
 
         
         //let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {names: names})
+        //let formdata = new FormData()
+        //files.forEach((file) => {formdata.append('files', file)})
         let dataLoadStatus = axios.post(this.configService.get('DATA_LOAD_URL'), {files: files})
         await dataLoadStatus
         //let predictionAnswer = await predictionStatus
