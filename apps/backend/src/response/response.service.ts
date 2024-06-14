@@ -195,7 +195,7 @@ export class ResponseService {
           consumersCount: consumersCount,
           coords: coords,
           event: object.event,
-          priority: object.priority,
+          priority: 1,
           socialType: socialType,
           isLast: object.isLast
         }
