@@ -1,11 +1,11 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Obj } from "../../obj/entities/obj.entity";
 import { Event } from "./event.entity";
 
 @Entity()
 export class Prediction {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number
 
     @Column()
@@ -18,6 +18,7 @@ export class Prediction {
         onDelete: "CASCADE",
         cascade: true
     })
+    @JoinTable()
     events: Event[]
 
 }

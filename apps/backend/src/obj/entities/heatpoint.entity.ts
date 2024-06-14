@@ -1,46 +1,70 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Obj } from "./obj.entity";
 import { Event } from "../../database/entities-index";
+import { ObjResponse } from "../../response/entities/objResponse.entity";
 
 @Entity()
 export class HeatPoint {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number
     //9
     @Column(
         {
-            nullable: false
+            nullable: false,
+            unique: true
         }
     )
     code: string
 
-    @Column()
+    @Column({
+        nullable: true
+        //ctp itp
+    })
     type: string
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     heatSource: string
 
-    @Column()
+    @Column({
+        nullable: true
+    })
+    addressTP: string
+
+    @Column({
+        nullable: true
+    })
     dateStartUsage: string
 
     //balansoderjatel
-    @Column()
+    @Column({
+        nullable: true
+    })
     authority: string
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     geodata: string
     
     @OneToMany(() => Obj, (obj) => obj.heatPoint, {
         onDelete: "SET NULL",
         cascade: true
     })
-    objects: Obj
+    @JoinTable()
+    objects: Obj[]
 
     @OneToMany(() => Event, (event) => event.heatPoint,{
         onDelete: "CASCADE",
         cascade: true
     })
+    @JoinTable()
     events: Event[]
+
+    @OneToMany(() => ObjResponse, (objRes) => objRes.heatPoint)
+    @JoinTable()
+    objResponses: ObjResponse[]
 
 }

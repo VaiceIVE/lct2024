@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Obj } from "../../obj/entities/obj.entity";
 import { Prediction } from "./prediction.entity";
 import { HeatPoint } from "../../database/entities-index";
@@ -6,7 +6,7 @@ import { HeatPoint } from "../../database/entities-index";
 @Entity()
 export class Event {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number
 
     @Column()
@@ -25,11 +25,14 @@ export class Event {
     cooldown: number
 
     @ManyToOne(() => Obj, (obj) => obj.events)
+    @JoinTable()
     object: Obj
 
     @ManyToOne(() => HeatPoint, (heatPoint) => heatPoint.events)
+    @JoinTable()
     heatPoint: HeatPoint
 
     @ManyToOne(() => Prediction, (pred) => pred.events)
+    @JoinTable()
     prediction: Prediction
 }

@@ -1,8 +1,9 @@
-export class CreateHeatPointDto{
+export class MessageHeatPointDto{
     code: string
     type?: string
     heatSource?: string
     dateStartUsage?: string
-    authority?: string
     addressTP?: string
+    authority?: string   
+    address?: string
 }
