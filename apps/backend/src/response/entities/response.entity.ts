@@ -14,7 +14,9 @@ export class Response {
     )
     date: string
 
-    @OneToOne(() => User)
+    @OneToOne(() => User, {
+        cascade: true
+    })
     @JoinColumn()
     user: User
 
