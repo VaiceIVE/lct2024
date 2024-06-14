@@ -205,7 +205,14 @@ export class ResponseService {
           socialType: socialType,
           isLast: object.isLast
         }
-        responseDict.obj.push(newIObj)
+        if(responseDict.obj)
+          {
+            responseDict.obj.push(newIObj)
+          }
+          else
+          {
+            responseDict.obj = [newIObj]
+          }
       })
     }
     return responseDict
