@@ -20,14 +20,16 @@ interface ResponseListProps {
   obj: IObj[] | undefined;
   isPriority: boolean;
   setPriority: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedObj: React.Dispatch<React.SetStateAction<IObj | null>>;
 }
 
 export const ResponseList = ({
   obj,
   isPriority,
   setPriority,
+  setSelectedObj,
 }: ResponseListProps) => {
-  const [isOpen, setOpen] = useState(false);
+  const [isFiltersOpen, setFiltersOpen] = useState(false);
 
   return (
     <WidgetWrapper
@@ -39,9 +41,9 @@ export const ResponseList = ({
             fullWidth
             type="light"
             label="Фильтры"
-            onClick={() => setOpen((prev) => !prev)}
+            onClick={() => setFiltersOpen((prev) => !prev)}
             icon={
-              isOpen ? (
+              isFiltersOpen ? (
                 <IconFilterMinus size={18} />
               ) : (
                 <IconFilterPlus size={18} />
@@ -89,6 +91,7 @@ export const ResponseList = ({
                     w={57}
                     type="outline"
                     icon={<IconPencil size={18} />}
+                    onClick={() => setSelectedObj(o)}
                   />
                   <Button w={57} type="outline" icon={<IconMap size={18} />} />
                 </Flex>

@@ -21,16 +21,18 @@ import { IconChevronRight } from '@tabler/icons-react';
 
 interface Props {
   data: IBuilding[];
+  setSelectedBuilding: React.Dispatch<React.SetStateAction<IBuilding | null>>;
+  selectedBuilding: IBuilding | null;
 }
 
-export const Table = ({ data }: Props) => {
+export const Table = ({
+  data,
+  setSelectedBuilding,
+  selectedBuilding,
+}: Props) => {
   const theme = useMantineTheme();
 
   const [opened, { open, close }] = useDisclosure(false);
-
-  const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
-    null
-  );
 
   useEffect(() => {
     if (selectedBuilding) {

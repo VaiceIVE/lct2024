@@ -31,6 +31,11 @@
       background: #adb5bd;
       color: white;
     }
+
+    &[data-disabled='true'] {
+      background: #f1f1f2;
+      color: white;
+    }
   }
 
   label {

@@ -34,9 +34,8 @@ const CreatePredictionPage = () => {
     setLoading(true);
     try {
       const id = await PredictionServices.createPrediction(files, conditions);
-      console.log(id);
 
-      navigate(`/prediction?id=${3}`);
+      if (id) navigate(`/prediction?id=${id}`);
     } catch (error) {
       console.error('Ошибка сети:', error);
     }

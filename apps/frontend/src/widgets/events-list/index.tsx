@@ -19,71 +19,29 @@ import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 interface EventsListProps {
   id: string | (string | null)[] | null;
   month: number;
+  data: IBuilding[];
+  setSelectedBuilding: React.Dispatch<React.SetStateAction<IBuilding | null>>;
+  selectedBuilding: IBuilding | null;
 }
 
-export const EventsList = ({ id, month }: EventsListProps) => {
-  const data: IBuilding[] = [
-    {
-      address: 'Новокосинская улица, 32, Москва, 111672',
-      events: [
-        {
-          eventName: 'Сильная течь в системе отопления',
-          chance: 20,
-          date: '12.06',
-        },
-        { eventName: 'P1 <= 0', chance: 30, date: '12.06' },
-      ],
-      socialType: 'МКД',
-      coords: [55.717482785, 37.828189394],
-      coolingRate: 3,
-      consumersCount: null,
-      priority: 1,
-    },
-    {
-      address: 'Новокосинская улица, 32, Москва, 111673',
-      events: [
-        {
-          eventName: 'Сильная течь в системе отопления',
-          chance: 80,
-          date: '12.06',
-        },
-        { eventName: 'P1 <= 0', chance: 60, date: '12.06' },
-      ],
-      socialType: 'Здравоохранение',
-      coords: [55.717482785, 37.828189394],
-      coolingRate: 5,
-      consumersCount: null,
-      priority: 2,
-    },
-    {
-      address: 'Новокосинская улица, 32, Москва, 1673',
-      events: [
-        {
-          eventName: 'Сильная течь в системе отопления',
-          chance: 80,
-          date: '12.06',
-        },
-        { eventName: 'P1 <= 0', chance: 60, date: '12.06' },
-      ],
-      socialType: 'ТЭЦ',
-      coords: [55.717482785, 37.828189394],
-      coolingRate: 5,
-      consumersCount: 13,
-      priority: 1,
-    },
-  ];
-
+export const EventsList = ({
+  id,
+  month,
+  data,
+  selectedBuilding,
+  setSelectedBuilding,
+}: EventsListProps) => {
   const [isOpen, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   const { control, watch } = useFormContext();
 
+  const isPriority = watch('priority') || '1';
+
   const getDataByFilters = () => {
     return data
       .sort((a, b) =>
-        watch('priority') === '1'
-          ? a.priority - b.priority
-          : b.priority - a.priority
+        isPriority === '1' ? a.priority - b.priority : b.priority - a.priority
       )
       .filter((item) =>
         item.address
@@ -168,7 +126,11 @@ export const EventsList = ({ id, month }: EventsListProps) => {
           <p className="text medium placeholder">
             Найдено результатов: {getDataByFilters().length}
           </p>
-          <Table data={getDataByFilters()} />
+          <Table
+            selectedBuilding={selectedBuilding}
+            setSelectedBuilding={setSelectedBuilding}
+            data={getDataByFilters()}
+          />
         </Stack>
       </Stack>
     </WidgetWrapper>

@@ -12,6 +12,7 @@ interface Props {
   w?: number;
   defaultValue?: string;
   searchable?: boolean;
+  disabled?: boolean;
 }
 
 export const Select = ({ field, ...props }: Props) => {

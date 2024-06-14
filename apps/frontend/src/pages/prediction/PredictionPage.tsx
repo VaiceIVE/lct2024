@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IBuilding } from 'shared/models/IBuilding';
 import { IPrediction } from 'shared/models/IPrediction';
 import { Breadcrumbs } from 'shared/ui/Breadcrumbs';
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
@@ -24,6 +26,57 @@ interface PredictionPageProps {
   id: string | (string | null)[] | null;
 }
 
+const data: IBuilding[] = [
+  {
+    address: 'Новокосинская улица, 32, Москва, 111672',
+    events: [
+      {
+        eventName: 'Сильная течь в системе отопления',
+        chance: 50,
+        date: '12.06',
+      },
+      { eventName: 'P1 <= 0', chance: 90, date: '12.06' },
+    ],
+    socialType: 'МКД',
+    coords: [55.717482785, 37.828189394],
+    coolingRate: 3,
+    consumersCount: null,
+    priority: 1,
+  },
+  {
+    address: 'Новокосинская улица, 32, Москва, 111673',
+    events: [
+      {
+        eventName: 'Сильная течь в системе отопления',
+        chance: 50,
+        date: '12.06',
+      },
+      { eventName: 'P1 <= 0', chance: 20, date: '12.06' },
+    ],
+    socialType: 'Здравоохранение',
+    coords: [55.803579031, 37.513482336],
+    coolingRate: 5,
+    consumersCount: null,
+    priority: 2,
+  },
+  {
+    address: 'Новокосинская улица, 32, Москва, 123',
+    events: [
+      {
+        eventName: 'Сильная течь в системе отопления',
+        chance: 50,
+        date: '12.06',
+      },
+      { eventName: 'P1 <= 0', chance: 20, date: '12.06' },
+    ],
+    socialType: 'Здравоохранение',
+    coords: [55.720046086, 37.797663794],
+    coolingRate: 5,
+    consumersCount: null,
+    priority: 3,
+  },
+];
+
 export const PredictionPage = ({
   months,
   monthsIndex,
@@ -40,6 +93,10 @@ export const PredictionPage = ({
   id,
 }: PredictionPageProps) => {
   const navigate = useNavigate();
+
+  const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
+    null
+  );
 
   return (
     <PageWrapper
@@ -65,8 +122,20 @@ export const PredictionPage = ({
         months={months}
       />
       <PredictionCards />
-      <EventsMap id={id} months={months} monthsIndex={monthsIndex} />
-      <EventsList id={id} month={months[monthsIndex].value} />
+      <EventsMap
+        data={data}
+        id={id}
+        months={months}
+        monthsIndex={monthsIndex}
+        setSelectedBuilding={setSelectedBuilding}
+      />
+      <EventsList
+        data={data}
+        id={id}
+        month={months[monthsIndex].value}
+        setSelectedBuilding={setSelectedBuilding}
+        selectedBuilding={selectedBuilding}
+      />
       <PredictionLeaveModal
         customButtonRow={customButtonRow}
         title={'Вы уверены, что хотите выйти \n без сохранения прогноза?'}
