@@ -33,6 +33,8 @@ services:
     ports:
       - 8003:80
 networks:
+  network:
+    driver: bridge
   lct2024_network:
     external: true
   backend_network:
