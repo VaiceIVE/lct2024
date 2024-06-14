@@ -16,6 +16,8 @@ services:
     ports:
       - 8001:80
 networks:
+  network:
+    driver: bridge
   hack_network:
     external: true
   backend_network:
