@@ -66,7 +66,7 @@ export const PredictionPage = ({
       />
       <PredictionCards />
       <EventsMap id={id} months={months} monthsIndex={monthsIndex} />
-      <EventsList />
+      <EventsList id={id} month={months[monthsIndex].value} />
       <PredictionLeaveModal
         customButtonRow={customButtonRow}
         title={'Вы уверены, что хотите выйти \n без сохранения прогноза?'}

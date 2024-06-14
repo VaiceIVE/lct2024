@@ -7,6 +7,7 @@ import {
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { IBuilding } from 'shared/models/IBuilding';
+import FileServices from 'shared/services/FilesServices';
 
 import { Button } from 'shared/ui/Button';
 import { Filters } from 'shared/ui/Filters';
@@ -15,7 +16,12 @@ import { Select } from 'shared/ui/Select';
 import { Table } from 'shared/ui/Table';
 import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
-export const EventsList = () => {
+interface EventsListProps {
+  id: string | (string | null)[] | null;
+  month: number;
+}
+
+export const EventsList = ({ id, month }: EventsListProps) => {
   const data: IBuilding[] = [
     {
       address: 'Новокосинская улица, 32, Москва, 111672',
@@ -68,6 +74,7 @@ export const EventsList = () => {
   ];
 
   const [isOpen, setOpen] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const { control, watch } = useFormContext();
 
@@ -85,6 +92,11 @@ export const EventsList = () => {
       );
   };
 
+  const handleDownloadTable = () => {
+    setLoading(true);
+    FileServices.downloadTable(`${id}`, month).then(() => setLoading(false));
+  };
+
   return (
     <WidgetWrapper
       button={
@@ -92,6 +104,8 @@ export const EventsList = () => {
           label="Скачать таблицу"
           icon={<IconDownload width={18} height={18} />}
           type="light"
+          onClick={handleDownloadTable}
+          disabled={isLoading}
         />
       }
       title="Список событий"
