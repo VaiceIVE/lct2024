@@ -16,6 +16,8 @@ import { IconBlock } from '../IconBlock';
 import styles from './Table.module.scss';
 import { IBuilding } from 'shared/models/IBuilding';
 import { ObjectInfo } from 'widgets/object-info';
+import { Chance } from '../Chance';
+import { IconChevronRight } from '@tabler/icons-react';
 
 interface Props {
   data: IBuilding[];
@@ -63,7 +65,10 @@ export const Table = ({ data }: Props) => {
         size: 361,
         enableSorting: false,
         Cell: ({ renderedCellValue }) => (
-          <div className={styles.address}>{renderedCellValue}</div>
+          <div className={styles.address}>
+            {renderedCellValue}{' '}
+            <IconChevronRight size={20} color={theme.colors.myBlue[1]} />
+          </div>
         ),
         mantineTableBodyCellProps: {
           style: {
@@ -76,17 +81,10 @@ export const Table = ({ data }: Props) => {
         header: 'Вероятность',
         size: 172,
         Cell: ({ row }) => (
-          <div
-            className={classNames(
-              styles.chance,
-              row.original.events.length && row.original.events[0].chance < 80
-                ? row.original.events[0].chance < 50
-                  ? styles.gray
-                  : styles.blue
-                : styles.orange
+          <div className={classNames(styles.chance)}>
+            {row.original.events.length && (
+              <Chance value={row.original.events[0].chance} />
             )}
-          >
-            {row.original.events.length && row.original.events[0].chance}%
           </div>
         ),
 
@@ -134,7 +132,7 @@ export const Table = ({ data }: Props) => {
         ),
       },
     ],
-    []
+    [theme.colors.myBlue]
   );
 
   const table = useMantineReactTable({
