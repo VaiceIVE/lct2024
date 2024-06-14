@@ -72,11 +72,13 @@ export const Drawer = ({
               <div className={styles.title}>{title}</div>
             </MantineDrawer.Title>
           </Flex>
-          <MantineDrawer.CloseButton
-            onClick={onCloseIconClick}
-            icon={closeIcon}
-            autoFocus={false}
-          />
+          {withCloseButton ? (
+            <MantineDrawer.CloseButton
+              onClick={onCloseIconClick}
+              icon={closeIcon}
+              autoFocus={false}
+            />
+          ) : null}
         </MantineDrawer.Header>
         <MantineDrawer.Body className={classNames({ [styles.body]: footer })}>
           {children}

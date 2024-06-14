@@ -52,13 +52,13 @@ const Routing = observer(() => {
 
   return (
     <Flex className="wrapper" style={{ height: '100vh' }}>
-      <Flex>
+      <Flex gap={0}>
         {!pagesWithoutNavbar.includes(location.pathname) && UStore.isAuth && (
           <div style={{ width: 'fit-content' }} className="wrapper">
             <Navbar />
           </div>
         )}
-        <Stack w={'100%'}>
+        <Stack flex={1} w={'100%'}>
           <Routes>
             {UStore.isAuth &&
               authRoutes.map(({ path, Component }) => (

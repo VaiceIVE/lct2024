@@ -149,6 +149,10 @@ html {
     line-height: 15.39px;
   }
 
+  &.black {
+    color: $main-black-color;
+  }
+
   &.medium {
     color: $main-black-color;
     font-weight: 500;
@@ -164,6 +168,14 @@ html {
 
   &.center {
     text-align: center;
+  }
+
+  &.orange {
+    color: #ff8165;
+  }
+
+  &.blue {
+    color: $main-blue-color;
   }
 
   &.error {

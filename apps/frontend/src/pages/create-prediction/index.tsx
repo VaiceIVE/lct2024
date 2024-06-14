@@ -44,7 +44,7 @@ const CreatePredictionPage = () => {
 
   return (
     <PageWrapper
-      fullWidth={isLoading}
+      isLoading={isLoading}
       button={
         <Flex gap={12}>
           <Button

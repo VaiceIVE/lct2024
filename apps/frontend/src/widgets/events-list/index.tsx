@@ -49,11 +49,41 @@ export const EventsList = () => {
       consumersCount: null,
       priority: 2,
     },
+    {
+      address: 'Новокосинская улица, 32, Москва, 1673',
+      events: [
+        {
+          eventName: 'Сильная течь в системе отопления',
+          chance: 80,
+          date: '12.06',
+        },
+        { eventName: 'P1 <= 0', chance: 60, date: '12.06' },
+      ],
+      socialType: 'ТЭЦ',
+      coords: [55.717482785, 37.828189394],
+      coolingRate: 5,
+      consumersCount: 13,
+      priority: 1,
+    },
   ];
 
   const [isOpen, setOpen] = useState(false);
 
   const { control, watch } = useFormContext();
+
+  const getDataByFilters = () => {
+    return data
+      .sort((a, b) =>
+        watch('priority') === '1'
+          ? a.priority - b.priority
+          : b.priority - a.priority
+      )
+      .filter((item) =>
+        item.address
+          .toLowerCase()
+          .includes(watch('address')?.toLowerCase() || '')
+      );
+  };
 
   return (
     <WidgetWrapper
@@ -96,7 +126,7 @@ export const EventsList = () => {
                     { value: '2', label: 'От низкого приоритета к высокому' },
                   ]}
                   label="Сортировать"
-                  placeholder=""
+                  placeholder="Выберите приоритет"
                 />
               )}
             />
@@ -120,13 +150,7 @@ export const EventsList = () => {
           </Grid.Col>
         </Grid>
         <Filters opened={isOpen} span={6} />
-        <Table
-          data={data.filter((item) =>
-            item.address
-              .toLowerCase()
-              .includes(watch('address')?.toLowerCase() || '')
-          )}
-        />
+        <Table data={getDataByFilters()} />
       </Stack>
     </WidgetWrapper>
   );

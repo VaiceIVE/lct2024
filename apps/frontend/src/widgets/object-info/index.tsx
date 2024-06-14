@@ -1,6 +1,7 @@
-import { Divider, Flex, Stack } from '@mantine/core';
+import { Divider, Flex, Grid, Stack } from '@mantine/core';
 import { IBuilding } from 'shared/models/IBuilding';
 import { Card } from 'shared/ui/Card';
+import { Chance } from 'shared/ui/Chance';
 import { IconBlock } from 'shared/ui/IconBlock';
 import { Title } from 'shared/ui/Title';
 
@@ -21,7 +22,7 @@ export const ObjectInfo = ({ selectedBuilding }: ObjectCardProps) => {
   };
 
   return (
-    <Stack gap={40}>
+    <Stack gap={44}>
       <Stack gap={16}>
         <Card type="dark">
           <Stack gap={26}>
@@ -75,11 +76,43 @@ export const ObjectInfo = ({ selectedBuilding }: ObjectCardProps) => {
           <Stack gap={26}>
             <Title level={4} title="Ответственный за объект ТЭЦ" />
             <Flex gap={12} align={'center'}>
-              <IconBlock iconType="3" />
+              <IconBlock iconType="ТЭЦ" />
               <p className="text medium">Адрес ТЭЦ</p>
             </Flex>
           </Stack>
         </Card>
+      </Stack>
+      <Stack gap={16}>
+        <Title
+          level={4}
+          title={`Выявленные события на объекте (${selectedBuilding.events.length})`}
+        />
+        <Grid gutter={12}>
+          {selectedBuilding.events.map((e, index) => (
+            <Grid.Col key={index} span={6}>
+              <Card h={'100%'} p="20px" radius={'8px'} type="dark">
+                <Stack gap={8}>
+                  <p
+                    style={{
+                      textWrap: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      cursor: 'default',
+                    }}
+                    className="text medium"
+                  >
+                    {e.eventName}
+                  </p>
+                  <Flex align={'center'} gap={8}>
+                    <Chance value={e.chance} />
+                    <p className="text medium placeholder">|</p>
+                    <p className="text medium placeholder">{e.date}</p>
+                  </Flex>
+                </Stack>
+              </Card>
+            </Grid.Col>
+          ))}
+        </Grid>
       </Stack>
     </Stack>
   );
