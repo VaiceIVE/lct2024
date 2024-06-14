@@ -1,16 +1,12 @@
 import { Stack } from '@mantine/core';
 import { Radio as MantineRadio } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Card } from 'shared/ui/Card';
 import { Radio } from 'shared/ui/Radio';
 import { Select } from 'shared/ui/Select';
 import { Title } from 'shared/ui/Title';
-
-interface ResponseDrawerProps {
-  handleAddObject: () => void;
-}
 
 const radios = [
   {
@@ -27,21 +23,34 @@ const radios = [
   },
 ];
 
-export const ResponseDrawer = ({ handleAddObject }: ResponseDrawerProps) => {
+export const ResponseDrawer = () => {
   const [event, setEvent] = useState('');
 
-  const { control } = useForm();
+  const { control, watch } = useForm();
+
+  const socialType = watch('socialType') || 'mkd';
+
+  useEffect(() => {
+    console.log(socialType);
+  }, [socialType]);
 
   return (
     <Stack gap={32}>
       <Stack gap={16}>
         <Controller
           control={control}
-          name="type"
+          name="socialType"
+          defaultValue={'mkd'}
           render={({ field }) => (
             <Select
+              defaultValue={'mkd'}
               field={field}
-              data={[]}
+              data={[
+                { value: 'mkd', label: 'МКД' },
+                { value: 'education', label: 'Оброзовательное учереждение' },
+                { value: 'medicine', label: 'Объект здравоохранения' },
+                { value: 'prom', label: 'Прочее' },
+              ]}
               label="Тип потребителя"
               placeholder="Выберите тип потребителя"
             />
@@ -54,6 +63,7 @@ export const ResponseDrawer = ({ handleAddObject }: ResponseDrawerProps) => {
             <Select
               field={field}
               data={[]}
+              searchable
               label="Объект"
               placeholder="Начните вводить адрес"
             />

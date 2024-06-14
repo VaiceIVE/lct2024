@@ -164,7 +164,12 @@ export const EventsList = ({ id, month }: EventsListProps) => {
           </Grid.Col>
         </Grid>
         <Filters opened={isOpen} span={6} />
-        <Table data={getDataByFilters()} />
+        <Stack gap={16}>
+          <p className="text medium placeholder">
+            Найдено результатов: {getDataByFilters().length}
+          </p>
+          <Table data={getDataByFilters()} />
+        </Stack>
       </Stack>
     </WidgetWrapper>
   );

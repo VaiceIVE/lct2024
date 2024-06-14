@@ -1,13 +1,101 @@
-import { Flex } from '@mantine/core';
+import { Flex, Stack } from '@mantine/core';
+import {
+  IconFilterMinus,
+  IconFilterPlus,
+  IconMap,
+  IconPencil,
+} from '@tabler/icons-react';
+import { IObj } from 'shared/models/IResponse';
+import { Button } from 'shared/ui/Button';
+import { IconBlock } from 'shared/ui/IconBlock';
 import { Title } from 'shared/ui/Title';
 import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
-export const ResponseList = () => {
+import styles from './ResponseList.module.scss';
+import classNames from 'classnames';
+import { PriorityFilter } from 'shared/ui/PriorityFilter';
+import { useState } from 'react';
+
+interface ResponseListProps {
+  obj: IObj[] | undefined;
+  isPriority: boolean;
+  setPriority: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const ResponseList = ({
+  obj,
+  isPriority,
+  setPriority,
+}: ResponseListProps) => {
+  const [isOpen, setOpen] = useState(false);
+
   return (
-    <WidgetWrapper>
-      <Flex align={'center'} justify={'space-between'}>
-        <Title level={3} title="События по приоритету " />
-      </Flex>
+    <WidgetWrapper
+      title="События по приоритету "
+      button={
+        <Flex gap={24} align={'center'}>
+          <PriorityFilter setPriority={setPriority} isPriority={isPriority} />
+          <Button
+            fullWidth
+            type="light"
+            label="Фильтры"
+            onClick={() => setOpen((prev) => !prev)}
+            icon={
+              isOpen ? (
+                <IconFilterMinus size={18} />
+              ) : (
+                <IconFilterPlus size={18} />
+              )
+            }
+          />
+        </Flex>
+      }
+    >
+      <Stack gap={8}>
+        {obj &&
+          obj.map((o, index) => (
+            <Flex
+              className={classNames(styles.obj, {
+                [styles.first]: index === 0,
+              })}
+              align={'center'}
+              gap={44}
+              key={index}
+            >
+              <Flex gap={16} align={'flex-start'} flex={1}>
+                <Title level={4} title={index + 1} color="gray" />
+                <Stack gap={16}>
+                  <IconBlock iconType="МКД" />
+                  <Stack gap={8}>
+                    <Title level={4} title={o.address} />
+                    <p className="text medium">{o.event}</p>
+                    <p className="text placeholder">Условия события:</p>
+                  </Stack>
+                </Stack>
+              </Flex>
+              <Flex flex={1} align={'center'} justify={'space-between'}>
+                <Stack gap={8}>
+                  <Flex gap={3}>
+                    <p className="text medium placeholder">
+                      Количество потребителей
+                    </p>
+                    <p className="text medium">
+                      {o.consumersCount ? o.consumersCount : 1}
+                    </p>
+                  </Flex>
+                </Stack>
+                <Flex gap={8}>
+                  <Button
+                    w={57}
+                    type="outline"
+                    icon={<IconPencil size={18} />}
+                  />
+                  <Button w={57} type="outline" icon={<IconMap size={18} />} />
+                </Flex>
+              </Flex>
+            </Flex>
+          ))}
+      </Stack>
     </WidgetWrapper>
   );
 };

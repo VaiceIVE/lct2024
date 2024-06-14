@@ -10,8 +10,17 @@ interface Props {
   label?: string;
   placeholder?: string;
   w?: number;
+  defaultValue?: string;
+  searchable?: boolean;
 }
 
 export const Select = ({ field, ...props }: Props) => {
-  return <MantineSelect {...field} {...props} className={style.select} />;
+  return (
+    <MantineSelect
+      allowDeselect={false}
+      {...field}
+      {...props}
+      className={style.select}
+    />
+  );
 };

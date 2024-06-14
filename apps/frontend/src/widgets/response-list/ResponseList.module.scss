@@ -1,0 +1,9 @@
+.obj {
+  padding: 24px 0;
+
+  border-bottom: 1px solid #eaf1f6;
+
+  &.first {
+    border-top: 1px solid #eaf1f6;
+  }
+}
