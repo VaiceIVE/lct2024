@@ -72,7 +72,14 @@ export class ResponseService {
             oldLast.isLast = false
             await this.objResponseRepository.save(oldLast)
           }
-        response.objects.push(newObjResponse)
+        if(response.objects)
+          {
+            response.objects.push(newObjResponse)
+          }
+          else
+          {
+            response.objects = [newObjResponse]
+          }
         await this.responseRepository.save(response)
         return this.handleResponse(response)
       }
@@ -86,7 +93,14 @@ export class ResponseService {
           oldLast.isLast = false
           await this.objResponseRepository.save(oldLast)
         }
-      response.objects.push(newObjResponse)
+        if(response.objects)
+          {
+            response.objects.push(newObjResponse)
+          }
+          else
+          {
+            response.objects = [newObjResponse]
+          }
       await this.responseRepository.save(response)
       return this.handleResponse(response)
     }
