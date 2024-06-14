@@ -7,7 +7,7 @@ services:
       - ./:/app/
     working_dir: /app/src
     networks:
-      - hack_network
+      - lct2024_network
       - backend_network
     command:
       bash -c "
@@ -23,7 +23,7 @@ services:
       - ./:/app/
     working_dir: /app/src
     networks:
-      - hack_network
+      - lct2024_network
       - backend_network
     command:
       bash -c "
@@ -33,7 +33,7 @@ services:
     ports:
       - 8003:80
 networks:
-  hack_network:
+  lct2024_network:
     external: true
   backend_network:
     external: true
