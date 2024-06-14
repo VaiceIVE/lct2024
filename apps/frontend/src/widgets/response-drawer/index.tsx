@@ -49,7 +49,9 @@ export const ResponseDrawer = ({
       setLoading(true);
       ResponseServices.getAddresses(socialType)
         .then((response) => {
-          setAddresses(response.data.map((a) => ({ value: a, label: a })));
+          setAddresses(
+            response.data.map((a) => ({ value: a.address, label: a.address }))
+          );
         })
         .finally(() => setLoading(false));
     }

@@ -79,7 +79,7 @@ export const Table = ({
         },
       },
       {
-        accessorKey: 'events.chance',
+        accessorKey: 'chance',
         header: 'Вероятность',
         size: 172,
         Cell: ({ row }) => (
@@ -96,7 +96,7 @@ export const Table = ({
         },
       },
       {
-        accessorKey: 'events.date',
+        accessorKey: 'date',
         header: 'Дата',
         size: 110,
         grow: false,
@@ -111,7 +111,7 @@ export const Table = ({
         Header: () => <div className={styles.header}>Дата</div>,
       },
       {
-        accessorKey: 'events.eventName',
+        accessorKey: 'eventName',
         header: 'Событие',
         Header: () => <div className={styles.header}>Событие</div>,
         size: 200,

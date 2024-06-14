@@ -13,7 +13,7 @@ export default class PredictionServices {
       formData.append(`files`, file);
     });
 
-    return $api.post('/prediction1', formData, {
+    return $api.post('/prediction', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
