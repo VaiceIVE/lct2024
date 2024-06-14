@@ -5,6 +5,7 @@ from typing import List
 import logging
 from dotenv import load_dotenv
 from worker import pandas_handling
+from fastapi.middleware.cors import CORSMiddleware
 load_dotenv()
 app = FastAPI()
 
