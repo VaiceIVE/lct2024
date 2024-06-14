@@ -13,6 +13,7 @@ services:
       - .env
     networks:
       - network
+      - fastapi-celery_network
     volumes:
       - ./../../../postgres/postgres-data:/var/lib/postgresql/data
     healthcheck:
@@ -40,4 +41,6 @@ services:
 networks:
   network:
     driver: bridge
+  fastapi-celery_network:
+    external: true
 
