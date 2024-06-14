@@ -17,6 +17,7 @@ services:
       - 8001:80
 networks:
   network:
+    external: false
     driver: bridge
   lct2024_network:
     external: true
