@@ -9,7 +9,7 @@ services:
       environment:
         - PGADMIN_DEFAULT_EMAIL=postgres@admin.com
         - PGADMIN_DEFAULT_PASSWORD=postgres
-        - PGADMIN_DISABLE_POSTFIX=true
+#        - PGADMIN_DISABLE_POSTFIX=true
       networks:
         - backend_network
 networks:

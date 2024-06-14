@@ -18,7 +18,30 @@ export class StorageService {
             }
 
         console.log(file.originalname)
-        return this.minioService.client.putObject('tables', file.originalname, file.buffer)
+        await this.minioService.client.putObject('tables', file.originalname, file.buffer)
+        return file.originalname
+    }
+
+    public async uploadToS3Many(files: Express.Multer.File[])
+    {
+        let sentFiles = []
+        let names = []
+        for(const file of files)
+            {
+                const names: string[] = await this.getNames()
+                if(names.includes(file.originalname))
+                    {
+                        file.originalname = file.originalname + `(${(new Date).toDateString()})`
+                    }
+                names.push(file.originalname)
+                sentFiles.push(await this.minioService.client.putObject('tables', file.originalname, file.buffer))
+            }
+            return names
+    }
+
+    public async getFromS3ByName(name: string)
+    {
+        return await this.minioService.client.getObject('tables', name)
     }
 
     public async uploadToS3test(files: Express.Multer.File[])
@@ -28,11 +51,8 @@ export class StorageService {
         for(const file of files)
             {
                 let res = await this.uploadToS3(file)
-                etags.push(res.etag)
-                names.push(file.originalname)
+                names.push(res)
             }
-        console.log(names)
-        console.log(etags)
         return this.minioService.client.getObject('tables', names[0])
     }
 
@@ -40,6 +60,11 @@ export class StorageService {
     {
         const names = await this.getNames()
         return await this.minioService.client.removeObjects('tables', names)
+    }
+
+    public async deleteObject(name: string)
+    {
+        return await this.minioService.client.removeObjects('tables', [name])
     }
 
     public async getNames()

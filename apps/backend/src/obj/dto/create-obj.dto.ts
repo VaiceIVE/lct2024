@@ -1,3 +1,4 @@
+import { HeatPoint } from "../entities/heatpoint.entity"
 import { CreateHeatPointDto } from "./create-heatpoint.dto"
 
 export class CreateObjDto {
@@ -8,10 +9,10 @@ export class CreateObjDto {
     floorsAmount?: number
     totalArea?: number
     objType?: string
-    isImportant?: boolean
+    socialType?:  "education" | "medicine" | "mkd" | "prom"
     entranceAmount?: number
     flatsAmount?: number
     btuwear?: number
     geodata?: string
-    heatPoint?: CreateHeatPointDto
+    heatPoint?: HeatPoint
 }

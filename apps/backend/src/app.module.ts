@@ -5,6 +5,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { PredictionModule } from './prediction/prediction.module';
 import { StorageModule } from './storage/storage.module';
 import { ObjModule } from './obj/obj.module';
+import { ResponseModule } from './response/response.module';
 import ormconfig from './ormconfig';
 
 @Module({
@@ -15,6 +16,7 @@ import ormconfig from './ormconfig';
     PredictionModule,
     StorageModule,
     ObjModule,
+    ResponseModule,
   ],
   controllers: [],
   providers: [],

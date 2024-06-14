@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, JoinTable, ManyToMany, BeforeInsert, BeforeUpdate, Repository } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, JoinTable, ManyToMany, BeforeInsert, BeforeUpdate, Repository, OneToOne } from "typeorm"
+import { Response } from "../../response/entities/response.entity"
 
 
 @Entity()
@@ -31,4 +32,8 @@ export class User {
         nullable: true
     })
     refreshToken: string
+
+    @OneToOne(() => Response)
+    @JoinColumn()
+    response: Response
 }

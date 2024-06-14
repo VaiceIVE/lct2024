@@ -5,9 +5,11 @@ import { StorageModule } from '../storage/storage.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Prediction } from './entities/prediction.entity';
 import { Event } from './entities/event.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule,
     StorageModule,
     TypeOrmModule.forFeature([Prediction, Event])
   ],

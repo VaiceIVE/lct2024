@@ -3,7 +3,7 @@ import { CreateObjDto } from './dto/create-obj.dto';
 import { UpdateObjDto } from './dto/update-obj.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HeatPoint } from './entities/heatpoint.entity';
-import { Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 import { CreateHeatPointDto } from './dto/create-heatpoint.dto';
 import { UpdateHeatPointDto } from './dto/update-heatpoint.dto';
 
@@ -16,13 +16,27 @@ export class HeatPointService {
     ){}
 
     async create(createHeatPointDto: CreateHeatPointDto) {
-    if(await this.heatPointRepository.findOne({where: {code: createHeatPointDto.code}}))
+        try
         {
-            return this.updateByCode(createHeatPointDto.code, createHeatPointDto)
+            if(await this.heatPointRepository.findOne({where: {code: createHeatPointDto.code}}))
+                {
+                    return this.updateByCode(createHeatPointDto.code, createHeatPointDto)
+                }
+            const newHeatPoint = await this.heatPointRepository.create(createHeatPointDto)
+            await this.heatPointRepository.save(newHeatPoint)
+            return newHeatPoint
         }
-    const newHeatPoint = await this.heatPointRepository.create(createHeatPointDto)
-    await this.heatPointRepository.save(newHeatPoint)
-    return newHeatPoint
+        catch(e)
+        {
+            if(e instanceof QueryFailedError)
+                {
+                    return await this.create(createHeatPointDto)
+                }
+                else
+                {
+                    throw e
+                }
+        }
     }
 
     async findAll() {
