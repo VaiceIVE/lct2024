@@ -24,7 +24,7 @@ const cookieSettings: CookieOptions = {
     httpOnly: true,
     domain: "adera-team.ru",
     secure: true,
-    maxAge: 7200
+    maxAge: 1000 * 60 * 60 * 24 * 3
 }
 
 @Controller('auth')

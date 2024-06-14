@@ -66,9 +66,12 @@ export class ResponseService {
       {
         let heatPoint = await this.heatPointRepository.findOneBy({addressTP: address})
         let newObjResponse = this.objResponseRepository.create({event: event, heatPoint: heatPoint, isLast: true})
-        let oldLast = await this.objResponseRepository.findOneBy({response: response, isLast: true})
-        oldLast.isLast = false
-        await this.objResponseRepository.save(oldLast)
+        if(await this.objResponseRepository.findOneBy({response: response, isLast: true}))
+          {
+            let oldLast = await this.objResponseRepository.findOneBy({response: response, isLast: true})
+            oldLast.isLast = false
+            await this.objResponseRepository.save(oldLast)
+          }
         response.objects.push(newObjResponse)
         await this.responseRepository.save(response)
         return this.handleResponse(response)
@@ -77,9 +80,12 @@ export class ResponseService {
     {
       let obj = await this.objRepository.findOneBy({address: address})
       let newObjResponse = this.objResponseRepository.create({event: event, obj: obj, isLast: true})
-      let oldLast = await this.objResponseRepository.findOneBy({response: response, isLast: true})
-      oldLast.isLast = false
-      await this.objResponseRepository.save(oldLast)
+      if(await this.objResponseRepository.findOneBy({response: response, isLast: true}))
+        {
+          let oldLast = await this.objResponseRepository.findOneBy({response: response, isLast: true})
+          oldLast.isLast = false
+          await this.objResponseRepository.save(oldLast)
+        }
       response.objects.push(newObjResponse)
       await this.responseRepository.save(response)
       return this.handleResponse(response)
