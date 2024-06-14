@@ -25,6 +25,7 @@ services:
     networks:
       - lct2024_network
       - backend_network
+      - network
     command:
       bash -c "
       poetry env use 3.10 &&
