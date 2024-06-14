@@ -8,6 +8,22 @@ from worker import pandas_handling
 load_dotenv()
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=
+    [
+        "http://localhost:4200/",
+        "http://127.0.0.1:4200/",
+        "http://localhost:4200",
+        "http://127.0.0.1:4200",
+        "https://api.adera-team.ru",
+        "https://api.adera-team.ru/"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+
+)
 
 @app.get("/")
 async def root():
