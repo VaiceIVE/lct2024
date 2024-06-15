@@ -160,7 +160,6 @@ export class ResponseService {
       obj: []
     }
     let objs = []
-    console.log(response)
     if(response.objects != null)
       {
         for(const object of response.objects)
@@ -235,13 +234,15 @@ export class ResponseService {
                         event: object.event,
                         priority: 1,
                         socialType: socialType,
-                        isLast: object.isLast
+                        isLast: object.isLast 
                     }
                     objs.push(newIObj)
                 }
     }
     for(let obj of objs)
         {
+            const outTemp = dateTempsDict[responseDict.date.split(' ')[1]]
+            let beta = 50
             obj.priority = 0
             if(obj.socialType == "education" || obj.socialType == "medicine" )
                 {
@@ -264,13 +265,14 @@ export class ResponseService {
             if(obj.socialType != 'tp')
                 {
                     let currentobj = await this.objRepository.findOne({where: {address: obj.address}})
+                    
                     if(currentobj.wallMaterial != null)
                         {
                             if(Object.keys(wallDict).includes((currentobj.wallMaterial)))
                                 {
+                                    beta = wallDictCoef[currentobj.wallMaterial]
                                     if(currentobj.floorsAmount != null)
                                         {
-                                            console.log(currentobj.flatsAmount)
                                             obj.priority += wallDict[currentobj.wallMaterial] * currentobj.floorsAmount * 0.1
                                         }
                                         else
@@ -289,22 +291,26 @@ export class ResponseService {
                                     {
                                         if(await this.getWorkTime(obj.address) == '09:00–21:00')
                                             {
-                                                obj.priority += 10
+                                                obj.priority += 20
                                             }
                                             else
                                             {
                                                 if(await this.getWorkTime(obj.address) == '09:00–18:00')
                                                     {
-                                                        obj.priority += 5
+                                                        obj.priority += 10
                                                     }
                                                     else
                                                     {
-                                                        obj.priority += 20
+                                                        obj.priority += 5
                                                     }
                                             }
                                     }
                             }
                 }
+            const zNorm = beta * Math.log((25 - outTemp)/(18 - outTemp))
+            const zAbs = beta * Math.log((25 - outTemp)/(0 - outTemp))
+                obj.normCooldown = zNorm
+                obj.fullCooldown = zAbs
         }
     responseDict.obj = objs
     return responseDict
@@ -329,7 +335,6 @@ export class ResponseService {
                     if(feature.properties.CompanyMetaData.Hours.text)
                         {
                             try{
-                                console.log(feature.properties.CompanyMetaData.Hours.text)
                                 return feature.properties.CompanyMetaData.Hours.text.slice(-11)
                             }
                             catch(e)
@@ -344,6 +349,30 @@ export class ResponseService {
   }
 }
 
+const dateTempsDict = {
+    'октября': -5,
+    'ноября': -10,
+    'декабря': -20,
+    'января': -30,
+    'февраля': -20,
+    'марта': -10,
+    'апреля': 10,
+    'мая': 15
+}
+
+const wallDictCoef = {
+'монолитные (ж-б)': 46,
+'кирпичные': 48,
+'из железобетонных сегментов': 52,
+'из унифицированных железобетонных элементов': 40,
+'панельные': 42,
+'панели керамзитобетонные': 46,
+'Ж/б 3-х слойная панель с утеплителем': 50,
+'шлакобетонные': 45,
+'легкобетонные блоки': 44,
+'Монолитные': 36,
+'деревянные': 20
+}
 
 const wallDict = {'монолитные (ж-б)': 0.940816878,
 'кирпичные': 0.979849361,
