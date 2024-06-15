@@ -1,4 +1,4 @@
-import { Flex, Grid, Stack } from '@mantine/core';
+import { Flex, Grid, Loader, Stack, useMantineTheme } from '@mantine/core';
 import { DateValue } from '@mantine/dates';
 import { IconCalendarEvent } from '@tabler/icons-react';
 import { socialTypes } from 'shared/constants/socialTypes';
@@ -11,9 +11,17 @@ interface ResponseCardsProp {
   setDate: React.Dispatch<React.SetStateAction<DateValue>>;
   date: DateValue;
   obj: IObj[] | undefined;
+  isLoading: boolean;
 }
 
-export const ResponseCards = ({ setDate, date, obj }: ResponseCardsProp) => {
+export const ResponseCards = ({
+  setDate,
+  date,
+  obj,
+  isLoading,
+}: ResponseCardsProp) => {
+  const theme = useMantineTheme();
+
   const getConsumersCount = () => {
     let consumersCount = 0;
     obj?.forEach((o) => (consumersCount += o.consumersCount || 1));
@@ -57,8 +65,8 @@ export const ResponseCards = ({ setDate, date, obj }: ResponseCardsProp) => {
   return (
     <Grid gutter={10}>
       <Grid.Col span={6}>
-        <Card type="dark">
-          <Stack gap={24}>
+        <Card h={'100%'} type="dark">
+          <Stack gap={35}>
             <Stack gap={12}>
               <Title level={4} title="Дата по умолчанию" />
               <p className="text">
@@ -85,36 +93,44 @@ export const ResponseCards = ({ setDate, date, obj }: ResponseCardsProp) => {
       </Grid.Col>
       <Grid.Col span={6}>
         <Card type="blue" h={'100%'}>
-          <Flex align={'flex-start'} justify={'space-between'}>
-            <Stack gap={8} flex={1}>
-              <Title level={'title'} title={obj?.length} color="blue" />
-              <p className="text secondary">
-                Событий произошло <br /> у{' '}
-                <span className="text medium blue">{getConsumersCount()}</span>{' '}
-                конечных потребителей
-              </p>
+          {isLoading ? (
+            <Stack h={'100%'} align="center" justify="center">
+              <Loader size={'xl'} color={theme.colors.myBlue[2]} />
             </Stack>
-            <Stack gap={20} flex={1}>
-              {Object.keys(stats).map((s) => (
-                <Stack key={s} gap={8}>
-                  <p className="text secondary">{stats[+s].label}</p>
-                  <Flex gap={1}>
-                    <Title
-                      level={4}
-                      color={stats[+s].color}
-                      title={`${stats[+s].count}`}
-                    />
-                    <Title level={4} color="gray" title={`/`} />
-                    <Title
-                      level={4}
-                      color="gray"
-                      title={`${getConsumersCount()}`}
-                    />
-                  </Flex>
-                </Stack>
-              ))}
-            </Stack>
-          </Flex>
+          ) : (
+            <Flex align={'flex-start'} justify={'space-between'}>
+              <Stack gap={8} flex={1}>
+                <Title level={'title'} title={obj?.length || 0} color="blue" />
+                <p className="text secondary">
+                  Событий произошло <br /> у{' '}
+                  <span className="text medium blue">
+                    {getConsumersCount()}
+                  </span>{' '}
+                  конечных потребителей
+                </p>
+              </Stack>
+              <Stack gap={20} flex={1}>
+                {Object.keys(stats).map((s) => (
+                  <Stack key={s} gap={8}>
+                    <p className="text secondary">{stats[+s].label}</p>
+                    <Flex gap={1}>
+                      <Title
+                        level={4}
+                        color={stats[+s].color}
+                        title={`${stats[+s].count}`}
+                      />
+                      <Title level={4} color="gray" title={`/`} />
+                      <Title
+                        level={4}
+                        color="gray"
+                        title={`${getConsumersCount()}`}
+                      />
+                    </Flex>
+                  </Stack>
+                ))}
+              </Stack>
+            </Flex>
+          )}
         </Card>
       </Grid.Col>
     </Grid>
