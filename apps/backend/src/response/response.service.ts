@@ -228,7 +228,6 @@ export class ResponseService {
                         }
                     }
                 }
-
                     let newIObj: IObj = {
                         address: address,
                         consumersCount: consumersCount,
@@ -238,11 +237,72 @@ export class ResponseService {
                         socialType: socialType,
                         isLast: object.isLast
                     }
-                    console.log(newIObj)
                     objs.push(newIObj)
                 }
     }
-    console.log(objs)
+    for(let obj of objs)
+        {
+            obj.priority = 0
+            if(obj.socialType == "education" || obj.socialType == "medicine" )
+                {
+                    obj.priority =+ 30
+                }
+            else
+            {
+                if(obj.socialType == "tp")
+                    {
+                        obj.priority += 100
+                    }
+                    else
+                    {
+                        if(obj.socialType == 'mkd')
+                            {
+                                obj.priority += 10
+                            }
+                    }
+            }
+            if(obj.socialType != 'tp')
+                {
+                    let currentobj = await this.objRepository.findOne({where: {address: obj.address}})
+                    if(currentobj.wallMaterial)
+                        {
+                            if(currentobj.floorsAmount)
+                                {
+                                    obj.priority += wallDict[currentobj.wallMaterial] * currentobj.floorsAmount * 0.1
+                                }
+                                else
+                                {
+                                    obj.priority += wallDict[currentobj.wallMaterial]
+                                }
+                        }
+                        else
+                        {
+                            obj.priority += 1
+                        }
+                        if(obj.socialType != 'mkd')
+                            {
+                                if(await this.getWorkTime(obj.address))
+                                    {
+                                        if(await this.getWorkTime(obj.address) == '09:00–21:00')
+                                            {
+                                                obj.priority += 10
+                                            }
+                                            else
+                                            {
+                                                if(await this.getWorkTime(obj.address) == '09:00–18:00')
+                                                    {
+                                                        obj.priority += 5
+                                                    }
+                                                    else
+                                                    {
+                                                        obj.priority += 20
+                                                    }
+                                            }
+                                       
+                                    }
+                            }
+                }
+        }
     responseDict.obj = objs
     return responseDict
   }
@@ -255,4 +315,35 @@ export class ResponseService {
     let coordsString = (await axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=Москва, ${address}`)).data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
     return coordsString
   }
+
+  async getWorkTime(address: string)
+  {
+    let response = await axios.get(`https://search-maps.yandex.ru/v1/?apikey=1b3a849d-3b81-4460-b655-91b6ad568432&format=json&lang=ru&type=biz&text=${address}`)
+    for(const feature of response.data.features)
+        {
+            if(feature.properties.CompanyMetaData.Hours.text)
+                {
+                    try{
+                        return feature.properties.CompanyMetaData.Hours.text.slice(-11)
+                    }
+                    catch(e)
+                    {
+                        continue
+                    }
+                }
+        }
+    return null
+  }
 }
+
+
+const wallDict = {'Керамзитобетон (блоки)': 0.940816878,
+'Кирпич': 0.979849361,
+'Железобетон': 1.062219809,
+'Керамзитобетон': 0.823457464,
+'Железобетонная панель': 0.849775847,
+'Керамзитобетонная 1-слойная панель': 0.938908594,
+'Ж/б 3-х слойная панель с утеплителем': 1.062219809,
+'Шлакобетон (блоки)': 0.893714907,
+'Шлакокерамзитобетонная 1-слойная панель': 0.940816878,
+'Монолитные': 0.747126437}

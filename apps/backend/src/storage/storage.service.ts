@@ -11,7 +11,6 @@ export class StorageService {
     {
         const names: string[] = await this.getNames()
         console.log(file.originalname)
-        console.log(names)
         if(names.includes(file.originalname))
             {
                 file.originalname = file.originalname + `(${(new Date).toDateString()})`
@@ -76,7 +75,6 @@ export class StorageService {
         data.push(obj)
         })
         stream.on('end', function (obj) {
-        console.log(data)
         })
         stream.on('error', function (err) {
         console.log(err)

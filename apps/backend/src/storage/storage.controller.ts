@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Res, StreamableFile, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Res, StreamableFile, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { StorageService } from './storage.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Multer } from 'multer'
 import { Response } from 'express';
+import { AccessTokenGuard } from '../auth/accessToken.guard';
 @Controller('storage')
 export class StorageController {
   constructor(private readonly storageService: StorageService) {}
@@ -22,6 +23,7 @@ export class StorageController {
     return await this.storageService.uploadToS3Many(files)
   }
 
+  @UseGuards(AccessTokenGuard)
   @Get('names')
   public async getNames(){
     return this.storageService.getNames()
@@ -32,8 +34,9 @@ export class StorageController {
     return new StreamableFile(await this.storageService.getFromS3ByName(data.name))
   }
 
-  @Delete(':id')
-  public async removeObject(@Param('id') name: string)
+  @UseGuards(AccessTokenGuard)
+  @Delete(':name')
+  public async removeObject(@Param('name') name: string)
   {
     return await this.storageService.deleteObject(name)
   }
