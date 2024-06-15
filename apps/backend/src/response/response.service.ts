@@ -182,7 +182,7 @@ export class ResponseService {
                 coords = coordsReturn
                 for(let coord of coords)
                     {
-                      coord = +coord
+                      coord = Number(coord)
                     }
               }
               else
@@ -195,7 +195,7 @@ export class ResponseService {
                 coords = coordsReturn
                 for(let coord of coords)
                     {
-                      coord = +coord
+                      coord = Number(coord)
                     }
               }
           }
@@ -211,7 +211,7 @@ export class ResponseService {
                 coords = coordsReturn
                 for(let coord of coords)
                   {
-                    coord = +coord
+                    coord = Number(coord)
                   }
               }
               else
@@ -224,23 +224,22 @@ export class ResponseService {
                 coords = coordsReturn
                 for(let coord of coords)
                   {
-                    coord = +coord
+                    coord = Number(coord)
                   }
               }
           }
 
-          let newIObj = {
-            address: address,
-            consumersCount: consumersCount,
-            coords: coords,
-            event: object.event,
-            priority: 1,
-            socialType: socialType,
-            isLast: object.isLast
-          }
-          console.log(newIObj)
-          objs.push(newIObj)
-      }
+            let newIObj: IObj = {
+                address: address,
+                consumersCount: consumersCount,
+                coords: coords,
+                event: object.event,
+                priority: 1,
+                socialType: socialType,
+                isLast: object.isLast
+            }
+            objs.push(newIObj)
+        }
     )
     }
     console.log(objs)
