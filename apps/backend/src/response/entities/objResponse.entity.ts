@@ -7,7 +7,9 @@ export class ObjResponse {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     priority: number
 
     @Column()
