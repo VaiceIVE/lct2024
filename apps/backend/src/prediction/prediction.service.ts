@@ -3,7 +3,7 @@ import { StorageService } from '../storage/storage.service';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { createReadStream, createWriteStream } from 'fs';
-
+import * as fs from 'fs';
 @Injectable()
 export class PredictionService {
     constructor(
