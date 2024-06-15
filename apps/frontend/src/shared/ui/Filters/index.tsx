@@ -80,7 +80,7 @@ export const Filters = ({ children, opened, span }: FiltersProps) => {
               )}
             />
           </Grid.Col>
-          <Grid.Col span={span}>
+          {/* <Grid.Col span={span}>
             <Controller
               control={control}
               name="priority"
@@ -97,7 +97,7 @@ export const Filters = ({ children, opened, span }: FiltersProps) => {
                 />
               )}
             />
-          </Grid.Col>
+          </Grid.Col> */}
         </Grid>
       </Stack>
     </Card>

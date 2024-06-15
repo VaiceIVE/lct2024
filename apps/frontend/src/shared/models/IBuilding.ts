@@ -1,11 +1,12 @@
 export interface IBuilding {
-  coords: number[];
+  coords: [number, number];
   events: IEvents[];
   socialType: string;
   address: string;
   coolingRate: number;
   consumersCount: number | null;
   priority: number;
+  district: string;
 }
 
 // скорость остывания
