@@ -93,12 +93,11 @@ const ResponsePage = () => {
   );
 
   const getResponse = () => {
-    setResponse(data);
-    // ResponseServices.getResponse().then((response) => {
-    //   setResponse(response.data);
-    //   const format = 'DD MMMM';
-    //   setDate(dayjs(response.data.date, format, 'ru').toDate());
-    // });
+    ResponseServices.getResponse().then((response) => {
+      setResponse(response.data);
+      const format = 'DD MMMM';
+      setDate(dayjs(response.data.date, format, 'ru').toDate());
+    });
   };
 
   const handleAddObject = () => {
