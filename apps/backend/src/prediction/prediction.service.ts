@@ -29,7 +29,7 @@ export class PredictionService {
         for (const file of files)
             {
                 fs.writeFileSync(file.originalname, file.buffer);
-                formdata.append('files', file.buffer, file.originalname)
+                formdata.append('files', file.buffer)
             }
         let dataLoadStatus = await fetch(this.configService.get('DATA_LOAD_URL'), {
             method: 'POST',
