@@ -28,8 +28,14 @@ export class ObjService {
     if(type == "tp")
       {
         let response = []
-        const res = await this.heatPointRepository.find({where: {addressTP: Not(IsNull())}, relations: {objects: true}, select: {addressTP: true}, order: {objects: "DESC"},})
-        res.forEach((elem) => response.push({address: elem.addressTP}))
+        let hps = await this.heatPointRepository.find({where: {addressTP: Not(IsNull())}})
+        let hpsWithCount = []
+        for(const hp of hps)
+          {
+            hpsWithCount.push([hp, this.heatPointRepository.count({where: {code: hp.code}})])
+          }
+          hpsWithCount.sort((a, b) => {return a[1] - b[1]})
+        hpsWithCount.forEach((elem) => response.push({address: elem[0].addressTP}))
         return response
       }
     if(type == 'mkd')
