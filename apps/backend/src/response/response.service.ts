@@ -239,6 +239,7 @@ export class ResponseService {
           socialType: socialType,
           isLast: object.isLast
         }
+        console.log(newIObj)
         if(responseDict.obj)
           {
             responseDict.obj.push(newIObj)
