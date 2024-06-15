@@ -3,7 +3,7 @@ import { CreateObjDto } from './dto/create-obj.dto';
 import { UpdateObjDto } from './dto/update-obj.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Obj } from './entities/obj.entity';
-import { Code, IsNull, Not, QueryFailedError, Repository } from 'typeorm';
+import { Code, IsNull, Not, QueryFailedError, Repository, Unique } from 'typeorm';
 import { HeatPoint } from './entities/heatpoint.entity';
 import { MessageObjectDto } from './dto/message-object-dto';
 import { HeatPointService } from './heatPoint.service';
@@ -42,27 +42,35 @@ export class ObjService {
           hpsWithCount = hpsWithCount.sort((a, b) => {
             return b.count - a.count})
         hpsWithCount.forEach((elem) => response.push({address: elem.hp.addressTP}))
-        return [...new Set(response)];
+        const unique = [...new Set(response)]
+        return unique;
       }
     if(type == 'mkd')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}, take: 5000})
-        return [...new Set(addresses)];
+        const unique = [...new Set(addresses)]
+        return unique;
       }
     if(type == 'education')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'education'}, select: {address: true}})
-        return [...new Set(addresses)];
+        const unique = [...new Set(addresses)]
+
+        return unique;
       }
     if(type == 'medicine')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'medicine'}, select: {address: true}})
-        return [...new Set(addresses)];
+        const unique = [...new Set(addresses)]
+
+        return unique;
       }
     if(type == 'prom')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'prom'}, select: {address: true}})
-        return [...new Set(addresses)];
+        const unique = [...new Set(addresses)]
+
+        return unique;
       }
   }
 
