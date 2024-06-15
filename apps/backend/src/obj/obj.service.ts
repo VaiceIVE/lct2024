@@ -32,11 +32,12 @@ export class ObjService {
         let hpsWithCount = []
         for(const hp of hps)
           {
-            hpsWithCount.push([hp, await this.heatPointRepository.count({where: {code: hp.code}})])
+            hpsWithCount.push({hp: hp, count: await this.heatPointRepository.count({where: {code: hp.code}})})
           }
-          hpsWithCount = hpsWithCount.sort((a, b) => {return a[1] - b[1]})
+          hpsWithCount = hpsWithCount.sort((a, b) => {
+            return a.count - b.count})
           console.log(hpsWithCount[0])
-        hpsWithCount.forEach((elem) => response.push({address: elem[0].addressTP}))
+        hpsWithCount.forEach((elem) => response.push({address: elem.hp.addressTP}))
         return response
       }
     if(type == 'mkd')
