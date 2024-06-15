@@ -30,7 +30,7 @@ const data: IBuilding[] = [
       },
       { eventName: 'P1 <= 0', chance: 90, date: '12.06' },
     ],
-    socialType: 'МКД',
+    socialType: 'mkd',
     coords: [55.717482785, 37.828189394],
     coolingRate: 3,
     consumersCount: null,
@@ -46,7 +46,7 @@ const data: IBuilding[] = [
       },
       { eventName: 'P1 <= 0', chance: 20, date: '12.06' },
     ],
-    socialType: 'Здравоохранение',
+    socialType: 'medicine',
     coords: [55.803579031, 37.513482336],
     coolingRate: 5,
     consumersCount: null,
@@ -62,7 +62,7 @@ const data: IBuilding[] = [
       },
       { eventName: 'P1 <= 0', chance: 20, date: '12.06' },
     ],
-    socialType: 'Здравоохранение',
+    socialType: 'medicine',
     coords: [55.720046086, 37.797663794],
     coolingRate: 5,
     consumersCount: null,
@@ -76,9 +76,9 @@ const MapPage = () => {
 
   const [prediction, setPrediction] = useState<IPrediction | null>(null);
   const [typeFilters, setTypeFilters] = useState<string[]>([
-    'МКД',
+    'mkd',
     'Социальные объекты',
-    '2',
+    'tp',
   ]);
   const [isPriority, setPriority] = useState<boolean>(true);
   const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
