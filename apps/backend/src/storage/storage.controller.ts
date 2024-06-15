@@ -4,11 +4,13 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Multer } from 'multer'
 import { Response } from 'express';
 import { AccessTokenGuard } from '../auth/accessToken.guard';
+import { ApiResponse } from '@nestjs/swagger';
 @Controller('storage')
 export class StorageController {
   constructor(private readonly storageService: StorageService) {}
 
 
+  @ApiResponse({ status: 201, description: 'Запись успешно создана.'})
   @Post('table')
   @UseInterceptors(FileInterceptor('file'))
   public async setFileToS3(@UploadedFile() file: Express.Multer.File)
@@ -16,6 +18,7 @@ export class StorageController {
     return await this.storageService.uploadToS3(file)
   }
 
+  @ApiResponse({ status: 201, description: 'Запись успешно создана.'})
   @Post('tables')
   @UseInterceptors(FilesInterceptor('files'))
   public async setFilesToS3(@UploadedFiles() files: Express.Multer.File[])
@@ -46,7 +49,6 @@ export class StorageController {
   {
     return await this.storageService.clearBucket()
   }
-
   @Post('test')
   @UseInterceptors(FilesInterceptor('file'))
   public async setFilesToS3Test(@UploadedFiles() files: Express.Multer.File[], @Res() res: Response)

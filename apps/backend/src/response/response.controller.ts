@@ -7,6 +7,7 @@ import { DeleteObjResDto } from './dto/delete-obj.dto';
 import { UpdateObjResDto } from './dto/update-obj-res.dto';
 import { CreateResObjDto } from './dto/create-res-obj.dtp';
 import { UpdateDateDto } from './dto/update-date.dto';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('response')
 export class ResponseController {
@@ -14,12 +15,14 @@ export class ResponseController {
 
 
   
+  @ApiResponse({ status: 201, description: 'Запись успешно создана.'})
   @UseGuards(AccessTokenGuard)
   @Post()
   async createObj(@Body() createResponseDto: CreateResObjDto, @Req() request: Record<string, any>) {
     return this.responseService.addObj(createResponseDto.socialType, createResponseDto.address, createResponseDto.event, request.user.sub)
   }
 
+  @ApiResponse({ status: 201, description: 'Запись успешно обновлена.'})
   @UseGuards(AccessTokenGuard)
   @Post('date')
   async changeDate(@Body() updateDateDto: UpdateDateDto, @Req() request: Record<string, any>) {
@@ -37,6 +40,7 @@ export class ResponseController {
     return await this.responseService.findMy(id);
   }
 
+  @ApiResponse({ status: 201, description: 'Запись успешно обновлена.'})
   @UseGuards(AccessTokenGuard)
   @Patch(':id')
   async update(@Param('id') id: number, @Body() updateResponseDto: UpdateObjResDto) {

@@ -11,6 +11,7 @@ import { MessageDto } from './dto/message.dto';
 import { CreateHeatPointDto } from './dto/create-heatpoint.dto';
 import { MessageHeatPointDto } from './dto/message-heatpoint.dto';
 import { CombinedMessageObjectDto } from './dto/message-combined.dto';
+import { UpdateHeatPointDto } from './dto/update-heatpoint.dto';
 
 @Injectable()
 export class ObjService {
@@ -36,7 +37,6 @@ export class ObjService {
           }
           hpsWithCount = hpsWithCount.sort((a, b) => {
             return b.count - a.count})
-          console.log(hpsWithCount[0])
         hpsWithCount.forEach((elem) => response.push({address: elem.hp.addressTP}))
         return response
       }
@@ -55,6 +55,35 @@ export class ObjService {
     if(type == 'prom')
       {
         return await this.objRepository.find({where: {socialType: 'prom'}, select: {address: true}})
+      }
+  }
+
+  async handleMessageNew(message: MessageDto)
+  {
+    let createdObjects = []
+    for(let object of  message.data)
+      {
+        if(Object.keys(object).includes('code') && Object.keys(object).includes('unom'))
+          {
+            console.log('COMBINED')
+            createdObjects.push(await this.handleCombinedObjectPromising(object))
+          }
+          else
+          {
+            let heatObject = {...object}
+            if(Object.keys(object).includes('unom'))
+              {
+                console.log("OBJ")
+                delete object.code
+                createdObjects.push(await this.handleObject(object as CreateObjDto))
+              }
+            if(Object.keys(heatObject).includes('code'))
+              {
+                console.log("HP")
+                delete heatObject.unom
+                createdObjects.push(await this.handleHeatPoint(heatObject as CreateHeatPointDto))
+              }
+          }
       }
   }
 
@@ -103,7 +132,12 @@ export class ObjService {
       else
       {
         const newObj = await this.objRepository.create(object as CreateObjDto)
-        await this.objRepository.save(newObj)
+        this.objRepository.save(newObj).catch((e) => {
+          if(e instanceof QueryFailedError)
+            {
+              return this.handleObject(object)
+            }
+        })
         return newObj
       }
     } catch (e) {
@@ -130,13 +164,40 @@ export class ObjService {
           {
             if(await this.objRepository.findOneBy({address: object.address})!= null)
               {
-                let obj = await this.objRepository.findOneBy({heatPoint: IsNull()})
+                let obj = await this.objRepository.findOneBy({address: object.address})
+                if(Object.keys(object as UpdateHeatPointDto).length > 1)
+                  {
+                    console.log(Object.keys(object as UpdateHeatPointDto).length)
+
+                    this.heatPointRepository.update({code: heatPoint.code}, {addressTP: object.addressTP, authority: object.authority, dateStartUsage: object.dateStartUsage, heatSource: object.heatSource, type: object.type}).catch(() => {})
+                    this.heatPointRepository.save(heatPoint).catch((e) => {
+                      if(e instanceof QueryFailedError)
+                        {
+                          return this.handleHeatPoint(object)
+                        }
+                    })
+                  }
                 obj.heatPoint = heatPoint
-                this.objRepository.save(obj)
+                this.objRepository.save(obj).catch((e) => {
+                  if(e instanceof QueryFailedError)
+                    {
+                      return this.handleHeatPoint(object)
+                    }
+                })
               }
           }
-          await this.heatPointRepository.update({code: object.code}, object as UpdateObjDto)
-          await this.heatPointRepository.save(heatPoint)
+          if(Object.keys(object as UpdateHeatPointDto).length > 1)
+            {
+              console.log(Object.keys(object as UpdateHeatPointDto).length)
+
+              this.heatPointRepository.update({code: heatPoint.code}, {addressTP: object.addressTP, authority: object.authority, dateStartUsage: object.dateStartUsage, heatSource: object.heatSource, type: object.type}).catch(() => {})
+              this.heatPointRepository.save(heatPoint).catch((e) => {
+                if(e instanceof QueryFailedError)
+                  {
+                    return this.handleHeatPoint(object)
+                  }
+              })
+            }
           return heatPoint
       }
     else
@@ -147,9 +208,14 @@ export class ObjService {
           {
             if(await this.objRepository.findOneBy({address: object.address}))
               {
-                let obj = await this.objRepository.findOneBy({heatPoint: IsNull()})
+                let obj = await this.objRepository.findOneBy({address: object.address})
                 obj.heatPoint = newHeatPoint
-                this.objRepository.save(obj)
+                this.objRepository.save(obj).catch((e) => {
+                  if(e instanceof QueryFailedError)
+                    {
+                      return this.handleHeatPoint(object)
+                    }
+                })
               }
           }
         this.heatPointRepository.save(newHeatPoint)
@@ -175,6 +241,118 @@ export class ObjService {
     }
   }
 
+  async handleCombinedObjectPromising(object: CombinedMessageObjectDto)
+  {
+    if(await this.objRepository.findOneBy({unom: object.unom}) != null)
+      {
+        if(await this.heatPointRepository.findOneBy({code: object.code}) != null)
+          {
+            let currObj = await this.objRepository.findOneBy({unom: object.unom})
+            const heatPoint = await this.heatPointRepository.findOneBy({code: object.code})
+            if(Object.keys(object as UpdateHeatPointDto).length > 1)
+              {
+                console.log(Object.keys(object as UpdateHeatPointDto).length)
+                this.heatPointRepository.update({code: heatPoint.code}, {addressTP: object.addressTP, authority: object.authority, dateStartUsage: object.dateStartUsage, heatSource: object.heatSource, type: object.type}).catch(() => {})
+                this.heatPointRepository.save(heatPoint).catch((e) => {
+                  if(e instanceof QueryFailedError)
+                    {
+                      return this.handleHeatPoint(object)
+                    }
+                })
+              }
+            currObj.heatPoint = heatPoint
+            this.objRepository.save(currObj).catch((e) => {
+              if(e instanceof QueryFailedError)
+                {
+                  return this.handleCombinedObjectPromising(object)
+                }
+            })
+          }
+          else
+          {
+            try
+            {
+              let currObj = await this.objRepository.findOneBy({unom: object.unom})
+              const newHeatPointData = object as CreateHeatPointDto
+              const newHeatPoint = this.heatPointRepository.create(newHeatPointData)
+              currObj.heatPoint = newHeatPoint
+              this.objRepository.save(currObj).catch((e) => {
+                if(e instanceof QueryFailedError)
+                  {
+                    return this.handleCombinedObjectPromising(object)
+                  }
+              })
+            }catch (e) {
+              if(e instanceof QueryFailedError)
+                {
+                  console.log(e)
+                  return await this.handleCombinedObjectPromising(object)
+                }
+                else
+                {
+                  throw e
+                }
+              
+            }
+          }
+      }
+      else
+      {
+        if(await this.heatPointRepository.findOneBy({code: object.code}) != null)
+          {
+            const heatPoint = await this.heatPointRepository.findOneBy({code: object.code})
+            if(Object.keys(object as UpdateHeatPointDto).length > 1)
+              {
+                console.log(Object.keys(object as UpdateHeatPointDto).length)
+
+                this.heatPointRepository.update({code: heatPoint.code}, {addressTP: object.addressTP, authority: object.authority, dateStartUsage: object.dateStartUsage, heatSource: object.heatSource, type: object.type}).catch(() => {})
+                this.heatPointRepository.save(heatPoint).catch((e) => {
+                  if(e instanceof QueryFailedError)
+                    {
+                      return this.handleHeatPoint(object)
+                    }
+                })
+              }
+            const newObjectData = object as CreateObjDto
+            const newObject = this.objRepository.create({...newObjectData, heatPoint: heatPoint})
+            this.objRepository.save(newObject).catch((e) => {
+              if(e instanceof QueryFailedError)
+                {
+                  return this.handleCombinedObjectPromising(object)
+                }
+            })  
+          }
+          else
+          {
+            try {
+              const newObjectData = object as CreateObjDto
+              const newHeatPointData = object as CreateHeatPointDto
+              const newHeatPoint = this.heatPointRepository.create(newHeatPointData)
+              const newObject = this.objRepository.create({...newObjectData, heatPoint: newHeatPoint})
+              this.objRepository.save(newObject).catch((e) => {
+                if(e instanceof QueryFailedError)
+                  {
+                    return this.handleCombinedObject(object)
+                  }
+              })
+            } catch (e) {
+              if(e instanceof QueryFailedError)
+                {
+                  console.log(e)
+                  return await this.handleCombinedObject(object)
+                }
+                else
+                {
+                  throw e
+                }
+              
+            }
+          }
+      }
+    
+  }
+
+
   async handleCombinedObject(object: CombinedMessageObjectDto)
   {
     try
@@ -196,7 +374,12 @@ export class ObjService {
               const newHeatPointData = object as CreateHeatPointDto
               const newHeatPoint = this.heatPointRepository.create(newHeatPointData)
               currObj.heatPoint = newHeatPoint
-              await this.objRepository.save(currObj)
+              this.objRepository.save(currObj).catch(async (e) => {
+                if(e instanceof QueryFailedError)
+                  {
+                    return await this.handleCombinedObject(object)
+                  }
+              })
             }catch (e) {
               if(e instanceof QueryFailedError)
                 {
@@ -227,7 +410,12 @@ export class ObjService {
               const newHeatPointData = object as CreateHeatPointDto
               const newHeatPoint = this.heatPointRepository.create(newHeatPointData)
               const newObject = this.objRepository.create({...newObjectData, heatPoint: newHeatPoint})
-              this.objRepository.save(newObject) 
+              this.objRepository.save(newObject).catch(async (e) => {
+                if(e instanceof QueryFailedError)
+                  {
+                    return await this.handleCombinedObject(object)
+                  }
+              })
             } catch (e) {
               if(e instanceof QueryFailedError)
                 {
