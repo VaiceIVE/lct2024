@@ -35,7 +35,7 @@ const MapPage = () => {
     null
   );
 
-  const [isShowConnected, setShowConnected] = useState(false);
+  const [showConnected, setShowConnected] = useState('Район');
 
   const filtersFields = useForm();
 
@@ -141,17 +141,17 @@ const MapPage = () => {
         </Flex>
         <Flex h={'100%'}>
           <Map
-            isShowConnected={isShowConnected}
             fullWidth
             buildings={
               selectedBuilding ? [selectedBuilding] : getFilteredBuildings()
             }
             onPlacemarkClick={onPlacemarkClick}
+            showConnected={showConnected}
           />
         </Flex>
         <MapFilters
           setShowConnected={setShowConnected}
-          isShowConnected={isShowConnected}
+          showConnected={showConnected}
           setTypeFilters={setTypeFilters}
           typeFilters={typeFilters}
         />

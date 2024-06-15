@@ -14,7 +14,6 @@ import mkd from 'shared/assets/mkd.svg';
 import social from 'shared/assets/social.svg';
 import tp from 'shared/assets/tec.svg';
 import styles from './Map.module.scss';
-import { findSquareForHouse } from './helpers/test';
 
 interface MapProps {
   fullWidth?: boolean;
@@ -22,7 +21,7 @@ interface MapProps {
   onPlacemarkClick?: (building: IBuilding) => void;
   objs?: IObj[];
   simpleMap?: boolean;
-  isShowConnected?: boolean;
+  showConnected?: string;
 }
 
 interface District {
@@ -36,7 +35,7 @@ export const Map = ({
   objs,
   onPlacemarkClick,
   simpleMap,
-  isShowConnected,
+  showConnected,
 }: MapProps) => {
   const iconsTypes: { [key: string]: string } = {
     mkd: mkd,
@@ -85,16 +84,13 @@ export const Map = ({
 
   const markers = buildings?.length ? buildings : objs;
 
-  const houseCoordinates = [55.717482785, 37.828189394];
-
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
       <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
-        {isShowConnected &&
+        {showConnected === 'Район' &&
           districts &&
           districts.map(({ name, coords }) => (
             <Polygon
-              onClick={() => console.log(findSquareForHouse(houseCoordinates))}
               key={name}
               geometry={[coords]}
               options={{
