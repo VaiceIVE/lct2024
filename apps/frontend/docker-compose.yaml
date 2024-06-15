@@ -1,0 +1,10 @@
+services:
+  frontend:
+    image: node:20
+    restart: "unless-stopped"
+    volumes:
+      - ../../:/app/
+    ports:
+      - 4200:4200
+    working_dir: /app/
+    entrypoint: npx nx serve frontend --host --skip-nx-cache

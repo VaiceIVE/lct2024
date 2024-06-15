@@ -1,0 +1,140 @@
+services:
+  minio:
+    image: 'bitnami/minio:2024.5.28'
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      - MINIO_ROOT_USER=minio-adera-user
+      - MINIO_ROOT_PASSWORD=minio-adera-password
+      - MINIO_DATA_DIR=/data
+
+      - MINIO_BROWSER_REDIRECT_URL = https://minio.adera-team.ru
+      - BITNAMI_DEBUG=true
+    volumes:
+######ВАЖНО: чтобы работы S3 был корректной необходимо дать пользователю 1001
+######доступ к директории minio на каталог выше которая появится при первом неудачном пуске контейнера
+###### BASH: sudo chown 1001 ../minio
+      - ../minio/minio-data:/data
+
+  nginx:
+    image: nginx:1.24.0
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ~/../etc/letsencrypt/live/adera-team.ru-0002/fullchain.pem:/etc/nginx/ssl/fullchain.pem        
+      - ~/../etc/letsencrypt/live/adera-team.ru-0002/privkey.pem:/etc/nginx/ssl/privkey.pem
+    ports:
+            - "80:80"
+            - "443:443"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: on-failure
+    ports:
+      - '5050:80'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=postgres@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_DISABLE_POSTFIX=true
+
+  redis:
+    image: redis:7
+    ports:
+      - 6379:6379
+
+  postgres:
+    image: postgres:16.0
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    restart: "always"
+    env_file:
+      - .env
+#    ports: 
+#      - 127.0.0.1:5432:5432
+    volumes:
+      - ./../postgres/postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nest:
+    depends_on:
+      - postgres
+    image: node:20
+    environment:
+      DATABASE_HOST: postgres
+    restart: "always"
+    volumes:
+      - ./:/nest-app/
+    ports:
+      - 8000:8000
+    working_dir: /nest-app/
+    entrypoint: bash -c "npm run create-entities-index && npx nx serve backend --skip-nx-cache"
+    links:
+      - "postgres:postgres" 
+
+  py:
+    image: python:3.10.14-bookworm 
+    volumes: 
+      - ./apps/HaCS_ml_back/:/app/
+    working_dir: /app
+    command:
+      bash -c "
+      pip install -r req.txt &&
+      gunicorn -k uvicorn.workers.UvicornWorker --log-level trace main:app -b :80 -t 100000"
+    ports:
+      - 8080:80
+
+  fastapi:
+    container_name: fastapi
+    build: .
+    volumes: 
+      - ./:/app/
+    working_dir: /app/src
+    command:
+      bash -c "
+      poetry env use 3.10 &&
+      poetry update &&
+      poetry run gunicorn -k uvicorn.workers.UvicornWorker --log-level trace main:app -b :80 -t 100000"
+    ports:
+      - 8001:80
+
+  celery1:
+    container_name: celery-worker-1
+    build: .
+    volumes: 
+      - ./:/app/
+    working_dir: /app/src
+    command:
+      bash -c "
+      poetry env use 3.10 &&
+      poetry update &&
+      poetry run celery -A worker.celery worker --loglevel=info "
+      - 8002:80
+
+  celery2:
+    container_name: celery-worker-2
+    build: .
+    volumes: 
+      - ./:/app/
+    working_dir: /app/src
+    command:
+      bash -c "
+      poetry env use 3.10 &&
+      poetry update &&
+      poetry run celery -A worker.celery worker --loglevel=info "
+    ports:
+      - 8003:80
+  frontend:
+    image: node:20
+    restart: "unless-stopped"
+    volumes:
+      - ./:/app/
+    ports:
+      - 4200:4200
+    working_dir: /app/
+    entrypoint: npx nx serve frontend --host --skip-nx-cache

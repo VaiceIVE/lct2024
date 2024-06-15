@@ -9,7 +9,7 @@ export class Response {
 
     @Column(
         {
-            default: '15 Января'
+            default: '15 января'
         }
     )
     date: string
