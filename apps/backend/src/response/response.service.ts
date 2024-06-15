@@ -168,6 +168,7 @@ export class ResponseService {
         let consumersCount = 1
         let coords = []
         let socialType = ''
+        console.log(object.heatPoint)
         if(object.heatPoint)
           {
             address = object.heatPoint.addressTP
