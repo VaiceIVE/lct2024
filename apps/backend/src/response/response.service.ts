@@ -172,7 +172,7 @@ export class ResponseService {
         if(object.heatPoint)
           {
             address = object.heatPoint.addressTP
-            consumersCount = await this.objRepository.count({where: {heatPoint: object.heatPoint}})
+            consumersCount = 1 + await this.objRepository.count({where: {heatPoint: object.heatPoint}})
             socialType = 'tp'
             if(object.heatPoint.geodata)
               {
@@ -250,6 +250,7 @@ export class ResponseService {
           }
       })
     }
+    console.log(responseDict)
     return responseDict
   }
 
