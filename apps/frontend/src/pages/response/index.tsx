@@ -162,6 +162,7 @@ const ResponsePage = () => {
     date: DateValue | undefined;
     response: IResponse | null;
   }) {
+    console.log(response?.date, date);
     if (date && dayjs(date).format('DD MMMM').toString() !== response?.date) {
       setLoading(true);
       ResponseServices.updateDefaultDate(

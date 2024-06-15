@@ -7,7 +7,7 @@ import {
 import classNames from 'classnames';
 
 import styles from './MapFilters.module.scss';
-import { Checkbox } from 'shared/ui/Checkbox';
+import { SegmentControl } from 'shared/ui/SegmentControl';
 
 const filters = [
   { icon: <IconHome size={20} />, label: 'МКД', color: 'orange', type: 'mkd' },
@@ -28,15 +28,15 @@ const filters = [
 interface MapFiltersProps {
   setTypeFilters: React.Dispatch<React.SetStateAction<string[]>>;
   typeFilters: string[];
-  isShowConnected: boolean;
-  setShowConnected: React.Dispatch<React.SetStateAction<boolean>>;
+  showConnected: string;
+  setShowConnected: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MapFilters = ({
   setTypeFilters,
   typeFilters,
-  isShowConnected,
   setShowConnected,
+  showConnected,
 }: MapFiltersProps) => {
   return (
     <Stack className={styles.wrapper} gap={18} align="flex-end">
@@ -59,13 +59,14 @@ export const MapFilters = ({
           <div className={classNames(styles.circle, styles[f.color])}></div>
         </Flex>
       ))}
-      <Checkbox
+      {/* <Checkbox
         checked={isShowConnected}
         onChange={setShowConnected}
         className={styles['custom-checkbox']}
         value="1"
         label="Показать связанные объекты"
-      />
+      /> */}
+      <SegmentControl onChange={setShowConnected} value={showConnected} />
     </Stack>
   );
 };
