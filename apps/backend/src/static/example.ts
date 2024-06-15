@@ -1,4 +1,4 @@
-export answer = {
+export {
   "propability_of_anomaly": {
     "5783": {
       "2023-10-01T00:00:00": 0.7007607221603394,

@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { createReadStream, createWriteStream } from 'fs';
 import * as fs from 'fs';
 import { Buffer } from 'buffer';
-import { answer } from '../../assets/example.js'
+
 @Injectable()
 export class PredictionService {
     constructor(
@@ -35,7 +35,7 @@ export class PredictionService {
         //let dataLoadStatus = await axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
         //await dataLoadStatus
         //let predictionAnswer = await predictionStatus
-        let tempPredictionAnswer = answer
+        //let tempPredictionAnswer = example
 
 
         //return analysis result and be ready to return houses data from tables
