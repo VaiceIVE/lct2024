@@ -87,18 +87,26 @@ export const ResponseList = ({
                       {o.consumersCount ? o.consumersCount : 1}
                     </p>
                   </Flex>
-                  <Flex gap={3}>
-                    <p className="text medium placeholder">
-                      Температура ниже 18° С:
-                    </p>
-                    <p className="text medium">⁓Через{o.normCooldown} часа</p>
-                  </Flex>
-                  <Flex gap={3}>
-                    <p className="text medium placeholder">
-                      Полное остывание трубы:
-                    </p>
-                    <p className="text medium">⁓Через {o.fullCooldown} часа</p>
-                  </Flex>
+                  {o.normCooldown ? (
+                    <Flex gap={3}>
+                      <p className="text medium placeholder">
+                        Температура ниже 18° С:
+                      </p>
+                      <p className="text medium">
+                        ⁓Через {Math.trunc(o.normCooldown)} часа
+                      </p>
+                    </Flex>
+                  ) : null}
+                  {o.fullCooldown ? (
+                    <Flex gap={3}>
+                      <p className="text medium placeholder">
+                        Полное остывание трубы:
+                      </p>
+                      <p className="text medium">
+                        ⁓Через {Math.trunc(o.fullCooldown)} часа
+                      </p>
+                    </Flex>
+                  ) : null}
                 </Stack>
                 <Flex gap={8}>
                   <Button
