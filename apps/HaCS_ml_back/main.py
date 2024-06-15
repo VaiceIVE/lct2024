@@ -14,8 +14,8 @@ from logic.pipelines import load_dataframe_pipeline, load_buildings_tensor, proc
 from vars import DATA_BUILDINGS_UNOM_IDS_PAIRS, WEATHERS
 
 
-
 logger = logging.getLogger("gunicorn.error")
+
 
 moe = [
     "P1 <= 0", 
@@ -128,13 +128,14 @@ def get_anomalies_by_day(body: GetAnomaliesByDayModel):
     with torch.no_grad():
         wt = wt.unsqueeze(0).repeat([bt.shape[0], 1, 1]).float()
         bt = bt.float()
-        r1: torch.Tensor = Models.is_day_anomaly(wt, bt).numpy().tolist()
-        r2: torch.Tensor = ((Models.what_anomaly_in_day(process_data_to_model_cluster(wt, bt)) + 1)/2).numpy().tolist()
+        # r1 = Models.is_day_anomaly(wt, bt).numpy().tolist()
+        r2 = ((Models.what_anomaly_in_day(process_data_to_model_cluster(wt, bt)) + 1)/2)
+        r2_p = r2.argsort(dim=2)[:, :, :body.n_top].numpy().tolist()
+        r2_l = r2.numpy().tolist()
+    # prob1 = {unom_ids[i0]: {tl[i1]: r1[i0][i1] for i1 in range(len(tl))} for i0 in tqdm(range(len(unom_ids)))}
+    prob2 = {unom_ids[i0]: {tl[i1]: {moe[i2]: r2_l[i0][i1][i2] for i2 in r2_p[i0][i1]} for i1 in range(len(tl))} for i0 in tqdm(range(len(unom_ids)))}
+    
     return {
-        'propability_of_anomaly': {
-            i: {i1: j1 for i1, j1 in zip(tl, j)} for i, j in zip(unom_ids, r1)
-        },
-        'what_anomaly_propability':{
-            i: {i1: {i2: j2 for i2, j2 in zip(moe, j1)} for i1, j1 in zip(tl, j)} for i, j in zip(unom_ids, r2)
-        }
+        # 'propability_of_anomaly': prob1,
+        'what_anomaly_propability': prob2
     }

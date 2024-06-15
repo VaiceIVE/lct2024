@@ -60,6 +60,12 @@ class Models:
     what_anomaly_in_day = torch.jit.load(Pathes.what_anomaly_in_day_model_path, map_location='cpu').to('cpu')
 
 
+with open(environ.get('SPEC_HEAT_DATA')) as f:
+    SPEC_HEAT_DATA = json.load(f)
+
+
+
+
 S3_CLIENT = boto3.client(
     's3',
     endpoint_url = S3Storage.endpoint_url,

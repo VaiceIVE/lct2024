@@ -77,7 +77,7 @@ def get_buildings_dataset(dfs: list[pd.DataFrame]) -> pd.DataFrame | None:
 def scale_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     for i in df.columns.intersection(ColumnsInfo.scale_data):
         min_v, max_v = ColumnsInfo.scale_data[i]['min'], ColumnsInfo.scale_data[i]['max']
-        df[i] = (df[i] - min_v) / (max_v - min_v)
+        df[i] = (df[i].map(lambda a: float(a.replace(',', '.')) if type(a) is str else a) - min_v) / (max_v - min_v)
     return df
 
 
@@ -105,7 +105,7 @@ def process_weathers_dataframe(path: str) -> pd.DataFrame:
     encode_weather_type = pd.DataFrame([{k: int(k in i) for k in ColumnsInfo.weathers_types} for i in df['описание погоды'].map(lambda a: a.split(', '))], index=df.index)
     data_weather_encoded = pd.concat([df, encode_weather_type], axis=1).drop(['описание погоды', 'время'], axis=1)
     data_weather_encoded = scale_dataframe(data_weather_encoded) 
-    data_weather_encoded['timeline'] = data_weather_encoded['timeline'].map(lambda a: pd.to_datetime(a)) 
+    data_weather_encoded['timeline'] = pd.to_datetime(data_weather_encoded['timeline']) 
     data_weather_encoded['days'] = data_weather_encoded['timeline'].map(lambda a: a.round(freq='d')) 
     data_weather_encoded['houres'] = data_weather_encoded['timeline'].map(lambda a: a.round(freq='h')) 
     return data_weather_encoded
@@ -119,3 +119,11 @@ def prep_building_df_for_model(building_df: pd.DataFrame) -> torch.Tensor:
         else:
             d.append(building_df.loc[:, [i,]])
     return torch.from_numpy(pd.concat(d, axis=1).fillna(-1).values)
+
+
+def get_dataframe_for_heat_station():
+    pass
+
+
+def get_anomalies_on_heat_station():
+    pass

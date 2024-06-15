@@ -13,6 +13,11 @@ export class PredictionService {
         private configService: ConfigService
     ){}
 
+    private async sortDict(dict)
+    {
+
+    }
+
     public async createPrediction(files: Express.Multer.File[])
     {
         let names = []
@@ -36,9 +41,32 @@ export class PredictionService {
         //await dataLoadStatus
         //let predictionAnswer = await predictionStatus
         let tempPredictionAnswer = answer
-        console.log(tempPredictionAnswer)
-        
+        let objectsData = {}
+        const dayProbs = tempPredictionAnswer.propability_of_anomaly
+        let topProbs = []
+        for (const unom of Object.keys(dayProbs))
+            {
+                for (const date of Object.keys(dayProbs[unom]))
+                    {
+                        let anomalyProbs = tempPredictionAnswer.what_anomaly_propability[unom][date]
+                        var items = Object.keys(anomalyProbs).map(function(key) {
+                            return [key, anomalyProbs[key]];
+                        });
+                        items.sort(function(first, second) {
+                        return second[1] - first[1];
+                        });
+                        let top3Anomalies = items.slice(0, 3)
+                        for (const anomaly of top3Anomalies)
+                            {
+                                topProbs.push({key: anomaly[0], value: anomaly[1] * dayProbs[unom][date], unom: unom, date: date})
+                                //console.log(anomaly)
+                            }
+                    }
+            }
 
+            topProbs = topProbs.sort((a, b) => {return b.value - a.value})
+        
+            console.log(topProbs)
         //return analysis result and be ready to return houses data from tables
         return 1
 
