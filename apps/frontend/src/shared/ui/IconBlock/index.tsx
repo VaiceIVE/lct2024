@@ -7,6 +7,7 @@ import {
 
 import styles from './IconBlock.module.scss';
 import { Tooltip } from '@mantine/core';
+import { simpleBuildingTypes } from 'shared/constants/buildingTypes';
 
 interface IconBlockProps {
   iconType: string;
@@ -21,15 +22,19 @@ export const IconBlock = ({ iconType, tooltip, color }: IconBlockProps) => {
   };
 
   const typeIcons: { [key: string]: { icon: JSX.Element; color: string } } = {
-    МКД: {
+    mkd: {
       icon: <IconHome {...sizes} className={styles.orange} />,
       color: 'orange',
     },
-    Здравоохранение: {
+    medicine: {
       icon: <IconAmbulance {...sizes} className={styles.blue} />,
       color: 'blue',
     },
-    ТЭЦ: {
+    tp: {
+      icon: <IconBuildingFactory {...sizes} className={styles.black} />,
+      color: 'gray',
+    },
+    prom: {
       icon: <IconBuildingFactory {...sizes} className={styles.black} />,
       color: 'gray',
     },
@@ -53,7 +58,7 @@ export const IconBlock = ({ iconType, tooltip, color }: IconBlockProps) => {
       arrowPosition="center"
       arrowSize={8}
       withArrow
-      label={tooltip}
+      label={simpleBuildingTypes[tooltip]}
     >
       {element}
     </Tooltip>

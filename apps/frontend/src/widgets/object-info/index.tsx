@@ -1,4 +1,5 @@
 import { Divider, Flex, Grid, Stack } from '@mantine/core';
+import { buildingTypes } from 'shared/constants/buildingTypes';
 import { IBuilding } from 'shared/models/IBuilding';
 import { Card } from 'shared/ui/Card';
 import { Chance } from 'shared/ui/Chance';
@@ -29,7 +30,9 @@ export const ObjectInfo = ({ selectedBuilding }: ObjectCardProps) => {
             <IconBlock iconType={selectedBuilding?.socialType} />
             <Stack gap={12}>
               <Title level={3} title={selectedBuilding?.address} />
-              <p className="text medium">Многоквартирный дом</p>
+              <p className="text medium">
+                {buildingTypes[selectedBuilding.socialType]}
+              </p>
             </Stack>
           </Stack>
         </Card>
@@ -76,7 +79,7 @@ export const ObjectInfo = ({ selectedBuilding }: ObjectCardProps) => {
           <Stack gap={26}>
             <Title level={4} title="Ответственный за объект ТЭЦ" />
             <Flex gap={12} align={'center'}>
-              <IconBlock iconType="ТЭЦ" />
+              <IconBlock iconType="tp" />
               <p className="text medium">Адрес ТЭЦ</p>
             </Flex>
           </Stack>
