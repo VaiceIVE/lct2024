@@ -8,6 +8,7 @@ import {
   IconPlus,
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { debounce } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -25,6 +26,8 @@ import { EventsMap } from 'widgets/events-map';
 import { ResponseCards } from 'widgets/response-cards';
 import { ResponseDrawer } from 'widgets/response-drawer';
 import { ResponseList } from 'widgets/response-list';
+
+dayjs.extend(customParseFormat);
 
 const data: IResponse = {
   date: '15.10.2024',
@@ -70,7 +73,7 @@ const ResponsePage = () => {
 
   const eventFields = useForm();
 
-  const [date, setDate] = useState<DateValue>();
+  const [date, setDate] = useState<DateValue>(null);
   const [response, setResponse] = useState<IResponse | null>(null);
   const [selectedObj, setSelectedObj] = useState<IObj | null>(null);
   const [event, setEvent] = useState('');
@@ -86,7 +89,8 @@ const ResponsePage = () => {
   const getResponse = () => {
     ResponseServices.getResponse().then((response) => {
       setResponse(response.data);
-      console.log(dayjs(response.data.date, 'DD MMMM'));
+      const format = 'DD MMMM';
+      setDate(dayjs(response.data.date, format, 'ru').toDate());
     });
   };
 

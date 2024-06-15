@@ -4,8 +4,8 @@ import { DateValue, DateInput as MantineDateInput } from '@mantine/dates';
 import styles from './DateInput.module.scss';
 
 interface Props {
-  onChange: (value: DateValue | undefined) => void;
-  value: DateValue | undefined;
+  onChange: (value: DateValue) => void;
+  value: DateValue;
   w?: number;
   size?: string;
   h?: number;
