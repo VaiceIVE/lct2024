@@ -266,15 +266,17 @@ export class ResponseService {
                     let currentobj = await this.objRepository.findOne({where: {address: obj.address}})
                     if(currentobj.wallMaterial != null)
                         {
-                            console.log(currentobj.wallMaterial)
-                            if(currentobj.floorsAmount != null)
+                            if(Object.keys(wallDict).includes((currentobj.wallMaterial)))
                                 {
-                                    console.log(currentobj.flatsAmount)
-                                    obj.priority += wallDict[currentobj.wallMaterial] * currentobj.floorsAmount * 0.1
-                                }
-                                else
-                                {
-                                    obj.priority += wallDict[currentobj.wallMaterial]
+                                    if(currentobj.floorsAmount != null)
+                                        {
+                                            console.log(currentobj.flatsAmount)
+                                            obj.priority += wallDict[currentobj.wallMaterial] * currentobj.floorsAmount * 0.1
+                                        }
+                                        else
+                                        {
+                                            obj.priority += wallDict[currentobj.wallMaterial]
+                                        }
                                 }
                         }
                         else
@@ -343,13 +345,14 @@ export class ResponseService {
 }
 
 
-const wallDict = {'Керамзитобетон (блоки)': 0.940816878,
-'Кирпич': 0.979849361,
-'Железобетон': 1.062219809,
-'Керамзитобетон': 0.823457464,
-'Железобетонная панель': 0.849775847,
-'Керамзитобетонная 1-слойная панель': 0.938908594,
+const wallDict = {'монолитные (ж-б)': 0.940816878,
+'кирпичные': 0.979849361,
+'из железобетонных сегментов': 1.062219809,
+'из унифицированных железобетонных элементов': 0.823457464,
+'панельные': 0.849775847,
+'панели керамзитобетонные': 0.938908594,
 'Ж/б 3-х слойная панель с утеплителем': 1.062219809,
-'Шлакобетон (блоки)': 0.893714907,
-'Шлакокерамзитобетонная 1-слойная панель': 0.940816878,
-'Монолитные': 0.747126437}
+'шлакобетонные': 0.893714907,
+'легкобетонные блоки': 0.940816878,
+'Монолитные': 0.747126437,
+'деревянные': 0.5}
