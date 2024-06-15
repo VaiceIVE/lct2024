@@ -24,6 +24,10 @@ export class ObjService {
     private heatPointService: HeatPointService
   ){}
 
+  onlyUnique(value, index, array) {
+    return array.indexOf(value) === index;
+  }
+
   async getByType(type: string)
   {
     if(type == "tp")
@@ -38,52 +42,34 @@ export class ObjService {
           hpsWithCount = hpsWithCount.sort((a, b) => {
             return b.count - a.count})
         hpsWithCount.forEach((elem) => response.push({address: elem.hp.addressTP}))
-        let set = new Set()
-        for (const address of response)
-          {
-            set.add(address)
-          }
-        return Array.from(set);
+        return response.filter(this.onlyUnique);
       }
     if(type == 'mkd')
       {
         let set = new Set()
         const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}})
-        for (const address of addresses)
-          {
-            set.add(address)
-          }
-        return Array.from(set);
+        return addresses.filter(this.onlyUnique);
       }
     if(type == 'education')
       {
         let set = new Set()
         const addresses = await this.objRepository.find({where: {socialType: 'education'}, select: {address: true}})
-        for (const address of addresses)
-          {
-            set.add(address)
-          }
-        return Array.from(set);
+        return addresses.filter(this.onlyUnique);
+
       }
     if(type == 'medicine')
       {
         let set = new Set()
         const addresses = await this.objRepository.find({where: {socialType: 'medicine'}, select: {address: true}})
-        for (const address of addresses)
-          {
-            set.add(address)
-          }
-        return Array.from(set);
+        return addresses.filter(this.onlyUnique);
+
       }
     if(type == 'prom')
       {
         let set = new Set()
         const addresses = await this.objRepository.find({where: {socialType: 'prom'}, select: {address: true}})
-        for (const address of addresses)
-          {
-            set.add(address)
-          }
-        return Array.from(set);
+        return addresses.filter(this.onlyUnique);
+
       }
   }
 
