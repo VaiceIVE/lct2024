@@ -29,7 +29,7 @@ export class PredictionService {
         for (const file of files)
             {
                 fs.writeFileSync(file.originalname, file.buffer);
-                formdata.append('files', file.buffer)
+                formdata.append('files', file.buffer, file.originalname)
             }
         let dataLoadStatus = await fetch(this.configService.get('DATA_LOAD_URL'), {
             method: 'POST',
@@ -37,6 +37,7 @@ export class PredictionService {
             headers: {'Content-Type': 'multipart-formdata'}
           })
         console.log(dataLoadStatus)
+        console.log(dataLoadStatus.body)
         await dataLoadStatus
         //let predictionAnswer = await predictionStatus
 
