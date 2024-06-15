@@ -160,7 +160,7 @@ export class ResponseService {
       obj: []
     }
     console.log(response)
-    if(response.objects)
+    if(response.objects != null)
       {
     response.objects.forEach(async (object) => 
       {
@@ -177,6 +177,12 @@ export class ResponseService {
               {
                 object.heatPoint.geodata = object.heatPoint.geodata as string
                 coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(',')
+                const coordsReturn = [coords[1], coords[0]]
+                coords = coordsReturn
+                for(let coord of coords)
+                    {
+                      coord = +coord
+                    }
               }
               else
               {
@@ -184,6 +190,12 @@ export class ResponseService {
                 object.heatPoint.geodata = geodataString
                 this.heatPointRepository.save(object.heatPoint)
                 coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(',')
+                const coordsReturn = [coords[1], coords[0]]
+                coords = coordsReturn
+                for(let coord of coords)
+                    {
+                      coord = +coord
+                    }
               }
           }
         else
@@ -194,6 +206,8 @@ export class ResponseService {
               {
                 object.obj.geodata = object.obj.geodata as string
                 coords = object.obj.geodata.replace('[', '').replace(']', '').split(',')
+                const coordsReturn = [coords[1], coords[0]]
+                coords = coordsReturn
                 for(let coord of coords)
                   {
                     coord = +coord
@@ -205,6 +219,8 @@ export class ResponseService {
                 object.obj.geodata = geodataString
                 this.objRepository.save(object.obj)
                 coords = object.obj.geodata.replace('[', '').replace(']', '').split(',')
+                const coordsReturn = [coords[1], coords[0]]
+                coords = coordsReturn
                 for(let coord of coords)
                   {
                     coord = +coord
