@@ -31,17 +31,7 @@ export class PredictionService {
                 fs.writeFileSync(file.originalname, file.buffer);
                 formdata.append('files', file.buffer, file.originalname)
             }
-        // let dataLoadStatus = await fetch(this.configService.get('DATA_LOAD_URL'), {
-        //     method: 'POST',
-        //     body: formdata,
-        //     headers: {'Content-Type': 'multipart-formdata'}
-        //   })
         let dataLoadStatus = await axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
-        console.log(dataLoadStatus)
-        console.log(dataLoadStatus.data)
-        console.log(dataLoadStatus.statusText)
-        //console.log(await dataLoadStatus.text())
-
         await dataLoadStatus
         //let predictionAnswer = await predictionStatus
 

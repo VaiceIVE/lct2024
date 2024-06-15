@@ -56,8 +56,8 @@ with open(Pathes.columns_info) as f:
 
 @dataclass(frozen=True)
 class Models:
-    is_day_anomaly = torch.jit.load(Pathes.is_day_anomaly_model_path).to('cpu')
-    what_anomaly_in_day = torch.jit.load(Pathes.what_anomaly_in_day_model_path).to('cpu')
+    is_day_anomaly = torch.jit.load(Pathes.is_day_anomaly_model_path, map_location='cpu').to('cpu')
+    what_anomaly_in_day = torch.jit.load(Pathes.what_anomaly_in_day_model_path, map_location='cpu').to('cpu')
 
 
 S3_CLIENT = boto3.client(

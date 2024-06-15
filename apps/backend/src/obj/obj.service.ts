@@ -28,7 +28,7 @@ export class ObjService {
     if(type == "tp")
       {
         let response = []
-        const res = await this.heatPointRepository.find({where: {addressTP: Not(IsNull())}, select: {addressTP: true}})
+        const res = await this.heatPointRepository.find({where: {addressTP: Not(IsNull())}, relations: {objects: true}, select: {addressTP: true}, order: {objects: "DESC"},})
         res.forEach((elem) => response.push({address: elem.addressTP}))
         return response
       }
