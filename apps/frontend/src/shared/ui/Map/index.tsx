@@ -3,6 +3,7 @@ import {
   Map as MapComponent,
   GeoObject,
   Placemark,
+  ZoomControl,
 } from '@pbe/react-yandex-maps';
 
 import { IBuilding } from 'shared/models/IBuilding';
@@ -65,6 +66,11 @@ export const Map = ({
               opacity: 0.5,
               strokeWidth: 2,
             }}
+          />
+        ) : null}
+        {simpleMap ? (
+          <ZoomControl
+            options={{ size: 'small', position: { top: '24px', left: '24px' } }}
           />
         ) : null}
         {markers &&
