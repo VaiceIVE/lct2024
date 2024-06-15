@@ -20,7 +20,9 @@ export class Response {
     @JoinColumn()
     user: User
 
-    @OneToMany(() => ObjResponse, (objRes) => objRes.response)
+    @OneToMany(() => ObjResponse, (objRes) => objRes.response, {
+        eager: true
+    })
     @JoinTable()
     objects: ObjResponse[]
 }

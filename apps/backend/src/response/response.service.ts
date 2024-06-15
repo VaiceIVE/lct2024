@@ -52,7 +52,7 @@ export class ResponseService {
   async changeDate(date: string, userId: number)
   {
 
-    let response = await this.responseRepository.findOneBy({user: {id: userId}})
+    let response = await this.responseRepository.findOne({where: {user: {id: userId}}, relations: {objects: {obj: true, heatPoint: true}}})
     response.date = date
     await this.responseRepository.save(response)
     return await this.handleResponse(response)
@@ -242,17 +242,16 @@ export class ResponseService {
     }
     for(let obj of objs)
         {
-            console.log(obj)
             obj.priority = 0
             if(obj.socialType == "education" || obj.socialType == "medicine" )
                 {
-                    obj.priority =+ 30
+                    obj.priority += 30
                 }
             else
             {
                 if(obj.socialType == "tp")
                     {
-                        obj.priority += 100
+                        obj.priority += 10 * obj.consumersCount
                     }
                     else
                     {
@@ -299,7 +298,6 @@ export class ResponseService {
                                                         obj.priority += 20
                                                     }
                                             }
-                                       
                                     }
                             }
                 }

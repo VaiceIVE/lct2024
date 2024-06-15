@@ -18,11 +18,15 @@ export class ObjResponse {
     @Column()
     isLast: boolean
 
-    @ManyToOne(() => Obj, (obj) => obj.objResponses)
+    @ManyToOne(() => Obj, (obj) => obj.objResponses, {
+        eager: true
+    })
     @JoinTable()
     obj: Obj
 
-    @ManyToOne(() => HeatPoint, (hp) => hp.objResponses)
+    @ManyToOne(() => HeatPoint, (hp) => hp.objResponses, {
+        eager: true
+    })
     @JoinTable()
     heatPoint: HeatPoint
 
