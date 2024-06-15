@@ -9,7 +9,7 @@ import {
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { debounce } from 'lodash';
+import { debounce, toLower } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -104,9 +104,11 @@ const ResponsePage = () => {
         console.log(
           'get',
           response.data.date,
-          dayjs(response.data.date, format, 'ru').toDate()
+          dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
         );
-        setDate(dayjs(response.data.date, format, 'ru').toDate());
+        setDate(
+          dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
+        );
       })
       .finally(() => setLoading(false));
   };
