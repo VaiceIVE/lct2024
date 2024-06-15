@@ -91,9 +91,9 @@ services:
 
   fastapi:
     container_name: fastapi
-    build: .
+    build: ./apps/fastapi-celery/
     volumes: 
-      - ./:/app/
+      - ./apps/fastapi-celery/:/app/
     working_dir: /app/src
     command:
       bash -c "
@@ -105,9 +105,9 @@ services:
 
   celery1:
     container_name: celery-worker-1
-    build: .
+    build: ./apps/fastapi-celery/
     volumes: 
-      - ./:/app/
+      - ./apps/fastapi-celery/:/app/
     working_dir: /app/src
     command:
       bash -c "
@@ -118,9 +118,9 @@ services:
 
   celery2:
     container_name: celery-worker-2
-    build: .
+    build: ./apps/fastapi-celery/
     volumes: 
-      - ./:/app/
+      - ./apps/fastapi-celery/:/app/
     working_dir: /app/src
     command:
       bash -c "

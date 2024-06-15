@@ -42,19 +42,43 @@ export class ObjService {
       }
     if(type == 'mkd')
       {
-        return await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}})
+        let set = new Set()
+        const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}})
+        for (const address of addresses)
+          {
+            set.add(address)
+          }
+        return Array.from(set);
       }
     if(type == 'education')
       {
-        return await this.objRepository.find({where: {socialType: 'education'}, select: {address: true}})
+        let set = new Set()
+        const addresses = await this.objRepository.find({where: {socialType: 'education'}, select: {address: true}})
+        for (const address of addresses)
+          {
+            set.add(address)
+          }
+        return Array.from(set);
       }
     if(type == 'medicine')
       {
-        return await this.objRepository.find({where: {socialType: 'medicine'}, select: {address: true}})
+        let set = new Set()
+        const addresses = await this.objRepository.find({where: {socialType: 'medicine'}, select: {address: true}})
+        for (const address of addresses)
+          {
+            set.add(address)
+          }
+        return Array.from(set);
       }
     if(type == 'prom')
       {
-        return await this.objRepository.find({where: {socialType: 'prom'}, select: {address: true}})
+        let set = new Set()
+        const addresses = await this.objRepository.find({where: {socialType: 'prom'}, select: {address: true}})
+        for (const address of addresses)
+          {
+            set.add(address)
+          }
+        return Array.from(set);
       }
   }
 
