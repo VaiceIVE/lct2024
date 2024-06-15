@@ -38,6 +38,8 @@ export class PredictionService {
           })
         console.log(dataLoadStatus)
         console.log(dataLoadStatus.body)
+        console.log(dataLoadStatus.text)
+
         await dataLoadStatus
         //let predictionAnswer = await predictionStatus
 
