@@ -127,13 +127,6 @@ const ResponsePage = () => {
   }, []);
 
   const getObjByFilters = () => {
-    console.log(
-      'response.obj',
-      response?.obj,
-      response?.obj.sort((a, b) =>
-        isPriority ? a.priority - b.priority : b.priority - a.priority
-      )
-    );
     return response?.obj.sort((a, b) =>
       isPriority ? a.priority - b.priority : b.priority - a.priority
     );
@@ -148,6 +141,7 @@ const ResponsePage = () => {
   }, [eventFields]);
 
   function changeDefaultDate(date: DateValue | undefined) {
+    console.log(date, dayjs(date).format('DD MMMM').toString(), response?.date);
     if (date && dayjs(date).format('DD MMMM').toString() !== response?.date) {
       ResponseServices.updateDefaultDate(
         dayjs(date).format('DD MMMM').toString()
