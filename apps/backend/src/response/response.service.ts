@@ -62,6 +62,7 @@ export class ResponseService {
   async addObj(type: string, address: string, event: string, userId: number)
   {
     let response = await this.responseRepository.findOneBy({user: {id: userId}})
+    console.log(response)
     if(type == 'tp')
       {
         let heatPoint = await this.heatPointRepository.findOneBy({addressTP: address})
