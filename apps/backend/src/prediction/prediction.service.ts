@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { createReadStream, createWriteStream } from 'fs';
 import * as fs from 'fs';
+import { Buffer } from 'buffer';
 @Injectable()
 export class PredictionService {
     constructor(
@@ -23,11 +24,12 @@ export class PredictionService {
         
         
         //let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {names: names})
+        const FormData = require('form-data');
         let formdata = new FormData()
         for (const file of files)
             {
                 fs.writeFileSync(file.originalname, file.buffer);
-                formdata.append('files', createReadStream(file.originalname).read())
+                formdata.append('files', Buffer.from(file.buffer), file.originalname)
             }
         
         let dataLoadStatus = axios.post(this.configService.get('DATA_LOAD_URL'), {files: files})
