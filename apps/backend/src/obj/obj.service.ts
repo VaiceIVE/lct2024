@@ -38,7 +38,12 @@ export class ObjService {
           hpsWithCount = hpsWithCount.sort((a, b) => {
             return b.count - a.count})
         hpsWithCount.forEach((elem) => response.push({address: elem.hp.addressTP}))
-        return response
+        let set = new Set()
+        for (const address of response)
+          {
+            set.add(address)
+          }
+        return Array.from(set);
       }
     if(type == 'mkd')
       {
