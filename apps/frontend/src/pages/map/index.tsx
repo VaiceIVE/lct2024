@@ -115,7 +115,7 @@ const MapPage = () => {
   const getFilteredBuildings = () => {
     return prediction?.buildings
       ?.sort((a, b) =>
-        isPriority ? a.priority - b.priority : b.priority - a.priority
+        isPriority ? b.priority - a.priority : a.priority - b.priority
       )
       .filter((b) => {
         if (typeFilters.includes(b.socialType)) {

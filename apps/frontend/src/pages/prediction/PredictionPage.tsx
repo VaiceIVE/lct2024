@@ -118,7 +118,7 @@ export const PredictionPage = ({
       />
       <PredictionCards />
       <EventsMap
-        data={data}
+        buildings={data}
         id={id}
         months={months}
         monthsIndex={monthsIndex}

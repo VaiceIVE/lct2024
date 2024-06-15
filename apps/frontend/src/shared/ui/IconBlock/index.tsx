@@ -3,6 +3,7 @@ import {
   IconAmbulance,
   IconBuildingFactory,
   IconHome,
+  IconMoodKid,
 } from '@tabler/icons-react';
 
 import styles from './IconBlock.module.scss';
@@ -28,6 +29,10 @@ export const IconBlock = ({ iconType, tooltip, color }: IconBlockProps) => {
     },
     medicine: {
       icon: <IconAmbulance {...sizes} className={styles.blue} />,
+      color: 'blue',
+    },
+    education: {
+      icon: <IconMoodKid {...sizes} className={styles.blue} />,
       color: 'blue',
     },
     tp: {

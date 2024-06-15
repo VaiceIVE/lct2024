@@ -47,9 +47,9 @@ const data: IResponse = {
       id: 2,
       date: '15.10.2024',
       address: '2Новокосинская улица, 32, Москва, 111672',
-      socialType: 'mkd',
+      socialType: 'education',
       consumersCount: null,
-      coords: [55.717482785, 37.828189394],
+      coords: [55.720046086, 37.797663794],
       event: 'Прорыв трубы',
       priority: 2,
       isLast: true,
@@ -58,9 +58,9 @@ const data: IResponse = {
       id: 3,
       date: '15.10.2024',
       address: '3Новокосинская улица, 32, Москва, 111672',
-      socialType: 'mkd',
+      socialType: 'prom',
       consumersCount: null,
-      coords: [55.717482785, 37.828189394],
+      coords: [55.815345188, 37.514882646],
       event: 'Прорыв трубы',
       priority: 3,
       isLast: true,
@@ -116,7 +116,7 @@ const ResponsePage = () => {
         event,
         address,
         selectedObj?.id ? selectedObj?.id : 1
-      ).then((response) => console.log(response.data));
+      ).then((response) => setResponse(response.data));
 
       close();
     }
@@ -128,7 +128,7 @@ const ResponsePage = () => {
 
   const getObjByFilters = () => {
     return response?.obj.sort((a, b) =>
-      isPriority ? a.priority - b.priority : b.priority - a.priority
+      isPriority ? b.priority - a.priority : a.priority - b.priority
     );
   };
 
@@ -184,8 +184,13 @@ const ResponsePage = () => {
           setSelectedObj={setSelectedObj}
         />
       ) : null}
-      {getObjByFilters()?.length ? (
-        <EventsMap data={[]} months={months} monthsIndex={1} id={'3'} />
+      {response?.obj?.length ? (
+        <EventsMap
+          objs={response?.obj}
+          months={months}
+          monthsIndex={1}
+          id={'3'}
+        />
       ) : null}
       <FormProvider {...eventFields}>
         <Drawer

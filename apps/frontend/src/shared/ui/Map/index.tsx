@@ -6,9 +6,12 @@ import {
 } from '@pbe/react-yandex-maps';
 
 import { IBuilding } from 'shared/models/IBuilding';
+import { IObj } from 'shared/models/IResponse';
 import { location as LOCATION } from './helpers';
+
 import mkd from 'shared/assets/mkd.svg';
 import social from 'shared/assets/social.svg';
+import tp from 'shared/assets/tec.svg';
 
 import styles from './Map.module.scss';
 
@@ -27,39 +30,58 @@ const geoJsonData = {
 
 interface MapProps {
   fullWidth?: boolean;
-  buildings: IBuilding[] | undefined;
-  onPlacemarkClick: (building: IBuilding) => void;
+  buildings?: IBuilding[] | undefined;
+  onPlacemarkClick?: (building: IBuilding) => void;
+  objs?: IObj[];
+  simpleMap?: boolean;
 }
 
-export const Map = ({ fullWidth, buildings, onPlacemarkClick }: MapProps) => {
+export const Map = ({
+  fullWidth,
+  buildings,
+  objs,
+  onPlacemarkClick,
+  simpleMap,
+}: MapProps) => {
   const iconsTypes: { [key: string]: string } = {
     mkd: mkd,
     medicine: social,
+    education: social,
+    tp: tp,
+    prom: tp,
   };
+
+  const markers = buildings?.length ? buildings : objs;
 
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
       <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
-        <GeoObject
-          geometry={geoJsonData}
-          options={{
-            fillColor: '#00FF00',
-            strokeColor: '#0000FF',
-            opacity: 0.5,
-            strokeWidth: 2,
-          }}
-        />
-        {buildings &&
-          buildings.map((building) => (
+        {!simpleMap ? (
+          <GeoObject
+            geometry={geoJsonData}
+            options={{
+              fillColor: '#00FF00',
+              strokeColor: '#0000FF',
+              opacity: 0.5,
+              strokeWidth: 2,
+            }}
+          />
+        ) : null}
+        {markers &&
+          markers.map((marker) => (
             <Placemark
-              onClick={() => onPlacemarkClick(building)}
-              key={building.address}
-              geometry={building.coords}
+              onClick={
+                !simpleMap && onPlacemarkClick && 'events' in marker
+                  ? () => onPlacemarkClick(marker)
+                  : undefined
+              }
+              key={marker.address}
+              geometry={marker.coords}
               modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
               options={{
                 iconLayout: 'default#image',
-                iconContentLayout: iconsTypes[building.socialType],
-                iconImageHref: iconsTypes[building.socialType],
+                iconContentLayout: iconsTypes[marker.socialType],
+                iconImageHref: iconsTypes[marker.socialType],
                 iconImageSize: [30, 30],
                 iconOffset: [1, 21],
               }}
