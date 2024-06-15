@@ -45,15 +45,15 @@ const PredictionPageContainer = () => {
 
   function getPredictionResult(index: number) {
     console.log(id, isDefault);
-    // if (isDefault) {
-    //   PredictionServices.getDefaultPrediction(months[index].value).then(
-    //     (response) => setPrediction(response.data)
-    //   );
-    // } else {
-    //   PredictionServices.getPredictionById(+id, months[index].value).then(
-    //     (response) => setPrediction(response.data)
-    //   );
-    // }
+    if (isDefault) {
+      PredictionServices.getDefaultPrediction(months[index].value).then(
+        (response) => setPrediction(response.data)
+      );
+    } else {
+      PredictionServices.getPredictionById(+id, months[index].value).then(
+        (response) => setPrediction(response.data)
+      );
+    }
   }
 
   const handleSavePrediction = () => {

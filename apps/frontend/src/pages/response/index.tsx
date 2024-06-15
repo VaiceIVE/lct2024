@@ -84,9 +84,10 @@ const ResponsePage = () => {
   );
 
   const getResponse = () => {
-    ResponseServices.getResponse().then((response) =>
-      setResponse(response.data)
-    );
+    ResponseServices.getResponse().then((response) => {
+      setResponse(response.data);
+      console.log(response.data);
+    });
   };
 
   const handleAddObject = () => {
@@ -171,13 +172,17 @@ const ResponsePage = () => {
       }
     >
       <ResponseCards setDate={setDate} date={date} />
-      <ResponseList
-        setPriority={setPriority}
-        isPriority={isPriority}
-        obj={getObjByFilters()}
-        setSelectedObj={setSelectedObj}
-      />
-      <EventsMap months={months} monthsIndex={1} id={'3'} />
+      {getObjByFilters()?.length ? (
+        <ResponseList
+          setPriority={setPriority}
+          isPriority={isPriority}
+          obj={getObjByFilters()}
+          setSelectedObj={setSelectedObj}
+        />
+      ) : null}
+      {getObjByFilters()?.length ? (
+        <EventsMap data={[]} months={months} monthsIndex={1} id={'3'} />
+      ) : null}
       <FormProvider {...eventFields}>
         <Drawer
           isBlur

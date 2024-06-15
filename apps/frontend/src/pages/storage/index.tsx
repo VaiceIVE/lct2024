@@ -1,6 +1,5 @@
 import { Flex, Loader, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { IFile } from 'shared/models/IFiles';
 import FileServices from 'shared/services/FilesServices';
 
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
@@ -12,7 +11,7 @@ const StoragePage = () => {
   const theme = useMantineTheme();
 
   const [file, setFile] = useState<File | null>(null);
-  const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
 
   const [isLoading, setLoading] = useState(true);
 
@@ -22,8 +21,8 @@ const StoragePage = () => {
       .finally(() => setLoading(false));
   };
 
-  const handleDeleteUploadedFile = (id: number) => {
-    FileServices.deleteFile(id).then(() => {
+  const handleDeleteUploadedFile = (name: string) => {
+    FileServices.deleteFile(name).then(() => {
       getUploadedFiles();
     });
     setLoading(false);

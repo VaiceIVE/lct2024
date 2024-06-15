@@ -1,22 +1,21 @@
 import { AxiosResponse } from 'axios';
 import $api from 'shared/api';
-import { IFile } from '../models/IFiles';
 
 export default class FileServices {
-  static async deleteFile(id: number): Promise<AxiosResponse<IFile[]>> {
-    return $api.delete<IFile[]>(`/file/${id}`);
+  static async deleteFile(name: string): Promise<AxiosResponse<string[]>> {
+    return $api.delete<string[]>(`/storage/${name}`);
   }
 
-  static async uploadFile(file: File): Promise<AxiosResponse<IFile[]>> {
+  static async uploadFile(file: File): Promise<AxiosResponse<string[]>> {
     const formData = new FormData();
 
     formData.append('file', file);
 
-    return $api.post<IFile[]>('/file', { file: formData });
+    return $api.post<string[]>('/file', { file: formData });
   }
 
-  static async getUploadedFiles(): Promise<AxiosResponse<IFile[]>> {
-    return $api.get<IFile[]>('/files');
+  static async getUploadedFiles(): Promise<AxiosResponse<string[]>> {
+    return $api.get<string[]>('/storage/names');
   }
 
   static async downloadTable(id: string | null, month: number) {
