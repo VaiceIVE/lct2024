@@ -78,7 +78,7 @@ export const ResponseDrawer = ({
               field={field}
               data={[
                 { value: 'mkd', label: 'МКД' },
-                { value: 'education', label: 'Оброзовательное учереждение' },
+                { value: 'education', label: 'Образовательное учереждение' },
                 { value: 'medicine', label: 'Объект здравоохранения' },
                 { value: 'tp', label: 'Тепловой пункт' },
                 { value: 'prom', label: 'Прочее' },

@@ -1,1 +1,1 @@
-export const socialTypes = ['Здравоохранение'];
+export const socialTypes = ['medicine'];

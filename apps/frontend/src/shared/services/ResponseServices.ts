@@ -40,7 +40,7 @@ export default class ResponseServices {
 
   static async getAddresses(
     socialType: string
-  ): Promise<AxiosResponse<string[]>> {
-    return $api.post<string[]>('/obj/type', { socialType });
+  ): Promise<AxiosResponse<{ address: string }[]>> {
+    return $api.post<{ address: string }[]>('/obj/type', { socialType });
   }
 }

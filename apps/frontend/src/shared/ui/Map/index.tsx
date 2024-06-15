@@ -33,8 +33,8 @@ interface MapProps {
 
 export const Map = ({ fullWidth, buildings, onPlacemarkClick }: MapProps) => {
   const iconsTypes: { [key: string]: string } = {
-    МКД: mkd,
-    Здравоохранение: social,
+    mkd: mkd,
+    medicine: social,
   };
 
   return (

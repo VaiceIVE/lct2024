@@ -10,12 +10,12 @@ import styles from './MapFilters.module.scss';
 import { Checkbox } from 'shared/ui/Checkbox';
 
 const filters = [
-  { icon: <IconHome size={20} />, label: 'МКД', color: 'orange', type: 'МКД' },
+  { icon: <IconHome size={20} />, label: 'МКД', color: 'orange', type: 'mkd' },
   {
     icon: <IconBuildingFactory size={20} />,
     label: 'Пункты отопления',
     color: 'gray',
-    type: '2',
+    type: 'tp',
   },
   {
     icon: <IconBuildingHospital size={20} />,

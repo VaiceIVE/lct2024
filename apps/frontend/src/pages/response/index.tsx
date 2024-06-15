@@ -127,6 +127,13 @@ const ResponsePage = () => {
   }, []);
 
   const getObjByFilters = () => {
+    console.log(
+      'response.obj',
+      response?.obj,
+      response?.obj.sort((a, b) =>
+        isPriority ? a.priority - b.priority : b.priority - a.priority
+      )
+    );
     return response?.obj.sort((a, b) =>
       isPriority ? a.priority - b.priority : b.priority - a.priority
     );
