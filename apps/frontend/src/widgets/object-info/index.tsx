@@ -75,15 +75,17 @@ export const ObjectInfo = ({ selectedBuilding }: ObjectCardProps) => {
             </Stack>
           </Stack>
         </Card>
-        <Card>
-          <Stack gap={26}>
-            <Title level={4} title="Ответственный за объект ТЭЦ" />
-            <Flex gap={12} align={'center'}>
-              <IconBlock iconType="tp" />
-              <p className="text medium">Адрес ТЭЦ</p>
-            </Flex>
-          </Stack>
-        </Card>
+        {selectedBuilding.socialType !== 'tp' ? (
+          <Card>
+            <Stack gap={26}>
+              <Title level={4} title="Ответственный за объект ТЭЦ" />
+              <Flex gap={12} align={'center'}>
+                <IconBlock iconType="tp" />
+                <p className="text medium">Адрес ТЭЦ</p>
+              </Flex>
+            </Stack>
+          </Card>
+        ) : null}
       </Stack>
       <Stack gap={16}>
         <Title

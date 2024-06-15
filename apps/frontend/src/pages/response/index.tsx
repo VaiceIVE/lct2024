@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Flex } from '@mantine/core';
+import { Flex, Loader, useMantineTheme } from '@mantine/core';
 import { DateValue } from '@mantine/dates';
 import { useDisclosure } from '@mantine/hooks';
 import {
@@ -77,6 +77,8 @@ const data: IResponse = {
 const ResponsePage = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
+  const theme = useMantineTheme();
+
   const eventFields = useForm();
 
   const [date, setDate] = useState<DateValue>(null);
@@ -84,8 +86,9 @@ const ResponsePage = () => {
   const [selectedObj, setSelectedObj] = useState<IObj | null>(null);
   const [event, setEvent] = useState('');
 
-  const [isNoticeShow, setNoticeShow] = useState(false);
-  const [isPriority, setPriority] = useState(true);
+  const [isNoticeShow, setNoticeShow] = useState<boolean>(false);
+  const [isPriority, setPriority] = useState<boolean>(true);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const debounceDate = useCallback(
     debounce((newState) => changeDefaultDate(newState), 600),
@@ -93,11 +96,14 @@ const ResponsePage = () => {
   );
 
   const getResponse = () => {
-    ResponseServices.getResponse().then((response) => {
-      setResponse(response.data);
-      const format = 'DD MMMM';
-      setDate(dayjs(response.data.date, format, 'ru').toDate());
-    });
+    setLoading(true);
+    ResponseServices.getResponse()
+      .then((response) => {
+        setResponse(response.data);
+        const format = 'DD MMMM';
+        setDate(dayjs(response.data.date, format, 'ru').toDate());
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleAddObject = () => {
@@ -113,6 +119,7 @@ const ResponsePage = () => {
     ) {
       setNoticeShow(true);
     } else {
+      setLoading(true);
       const addFunction = selectedObj
         ? ResponseServices.changeObj
         : ResponseServices.addObject;
@@ -122,7 +129,9 @@ const ResponsePage = () => {
         event,
         address,
         selectedObj?.id ? selectedObj?.id : 1
-      ).then((response) => setResponse(response.data));
+      )
+        .then((response) => setResponse(response.data))
+        .finally(() => setLoading(false));
 
       close();
     }
@@ -148,9 +157,12 @@ const ResponsePage = () => {
 
   function changeDefaultDate(date: DateValue | undefined) {
     if (date) {
+      setLoading(true);
       ResponseServices.updateDefaultDate(
         dayjs(date).format('DD MMMM').toString()
-      ).then((response) => setResponse(response.data));
+      )
+        .then((response) => setResponse(response.data))
+        .finally(() => setLoading(false));
     }
   }
 
@@ -181,8 +193,18 @@ const ResponsePage = () => {
         />
       }
     >
-      <ResponseCards obj={response?.obj} setDate={setDate} date={date} />
-      {getObjByFilters()?.length ? (
+      <ResponseCards
+        isLoading={isLoading}
+        obj={response?.obj}
+        setDate={setDate}
+        date={date}
+      />
+      {isLoading ? (
+        <Flex flex={1} align={'center'} justify={'center'}>
+          <Loader size={'xl'} color={theme.colors.myBlue[2]} />
+        </Flex>
+      ) : null}
+      {getObjByFilters()?.length && !isLoading ? (
         <ResponseList
           date={response?.date}
           setPriority={setPriority}
@@ -191,7 +213,7 @@ const ResponsePage = () => {
           setSelectedObj={setSelectedObj}
         />
       ) : null}
-      {response?.obj?.length ? (
+      {response?.obj?.length && !isLoading ? (
         <EventsMap
           objs={response?.obj}
           months={months}
