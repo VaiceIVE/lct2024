@@ -35,7 +35,7 @@ export class ObjService {
             hpsWithCount.push({hp: hp, count: await this.heatPointRepository.count({where: {code: hp.code}})})
           }
           hpsWithCount = hpsWithCount.sort((a, b) => {
-            return a.count - b.count})
+            return b.count - a.count})
           console.log(hpsWithCount[0])
         hpsWithCount.forEach((elem) => response.push({address: elem.hp.addressTP}))
         return response
