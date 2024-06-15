@@ -242,6 +242,7 @@ export class ResponseService {
     }
     for(let obj of objs)
         {
+            console.log(obj)
             obj.priority = 0
             if(obj.socialType == "education" || obj.socialType == "medicine" )
                 {
