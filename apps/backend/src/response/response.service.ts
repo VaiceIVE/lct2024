@@ -321,16 +321,21 @@ export class ResponseService {
     let response = await axios.get(`https://search-maps.yandex.ru/v1/?apikey=1b3a849d-3b81-4460-b655-91b6ad568432&format=json&lang=ru&type=biz&text=${address}`)
     for(const feature of response.data.features)
         {
-            if(feature.properties.CompanyMetaData.Hours.text)
+            if(feature.properties && feature.properties.CompanyMetaData && feature.properties.CompanyMetaData.Hours)
                 {
-                    try{
-                        return feature.properties.CompanyMetaData.Hours.text.slice(-11)
+                    if(feature.properties.CompanyMetaData.Hours.text)
+                        {
+                            try{
+                                console.log(feature.properties.CompanyMetaData.Hours.text)
+                                return feature.properties.CompanyMetaData.Hours.text.slice(-11)
+                            }
+                            catch(e)
+                            {
+                                continue
+                            }
+                        }
                     }
-                    catch(e)
-                    {
-                        continue
-                    }
-                }
+            
         }
     return null
   }
