@@ -11,6 +11,7 @@ openpyxl
 python-dotenv
 pandas
 uvicorn
+gunicorn
 fastapi
 boto3
 minio
