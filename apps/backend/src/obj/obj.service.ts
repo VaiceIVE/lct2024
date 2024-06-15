@@ -42,33 +42,29 @@ export class ObjService {
           hpsWithCount = hpsWithCount.sort((a, b) => {
             return b.count - a.count})
         hpsWithCount.forEach((elem) => response.push({address: elem.hp.addressTP}))
-        return response.filter(this.onlyUnique);
+        return [...new Set(response)];
       }
     if(type == 'mkd')
       {
-        let set = new Set()
         const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}})
-        return addresses.filter(this.onlyUnique);
+        return [...new Set(addresses)];
       }
     if(type == 'education')
       {
-        let set = new Set()
         const addresses = await this.objRepository.find({where: {socialType: 'education'}, select: {address: true}})
-        return addresses.filter(this.onlyUnique);
+        return [...new Set(addresses)];
 
       }
     if(type == 'medicine')
       {
-        let set = new Set()
         const addresses = await this.objRepository.find({where: {socialType: 'medicine'}, select: {address: true}})
-        return addresses.filter(this.onlyUnique);
+        return [...new Set(addresses)];
 
       }
     if(type == 'prom')
       {
-        let set = new Set()
         const addresses = await this.objRepository.find({where: {socialType: 'prom'}, select: {address: true}})
-        return addresses.filter(this.onlyUnique);
+        return [...new Set(addresses)];
 
       }
   }
