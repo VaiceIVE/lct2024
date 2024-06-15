@@ -13,7 +13,7 @@ interface Props {
   mb?: number;
   bg?: string;
   radius?: number | string;
-  type?: 'outline' | 'dark' | 'default' | 'error';
+  type?: 'outline' | 'dark' | 'default' | 'error' | 'blue';
   className?: string;
   overflow?: string;
   onClick?: () => void;
