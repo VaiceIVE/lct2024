@@ -13,6 +13,7 @@ interface Props {
   defaultValue?: string;
   searchable?: boolean;
   disabled?: boolean;
+  limit?: number;
 }
 
 export const Select = ({ field, ...props }: Props) => {

@@ -93,6 +93,7 @@ export const ResponseDrawer = ({
           name="address"
           render={({ field }) => (
             <Select
+              limit={5}
               field={field}
               data={addresses}
               searchable

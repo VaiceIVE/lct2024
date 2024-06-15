@@ -21,6 +21,7 @@ interface ResponseListProps {
   isPriority: boolean;
   setPriority: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedObj: React.Dispatch<React.SetStateAction<IObj | null>>;
+  date: string | undefined;
 }
 
 export const ResponseList = ({
@@ -28,6 +29,7 @@ export const ResponseList = ({
   isPriority,
   setPriority,
   setSelectedObj,
+  date,
 }: ResponseListProps) => {
   const [isFiltersOpen, setFiltersOpen] = useState(false);
 
@@ -71,7 +73,7 @@ export const ResponseList = ({
                   <Stack gap={8}>
                     <Title level={4} title={o.address} />
                     <p className="text medium">{o.event}</p>
-                    <p className="text placeholder">Условия события:</p>
+                    <p className="text placeholder">Условия события: {date}</p>
                   </Stack>
                 </Stack>
               </Flex>
@@ -85,6 +87,26 @@ export const ResponseList = ({
                       {o.consumersCount ? o.consumersCount : 1}
                     </p>
                   </Flex>
+                  {o.normCooldown ? (
+                    <Flex gap={3}>
+                      <p className="text medium placeholder">
+                        Температура ниже 18° С:
+                      </p>
+                      <p className="text medium">
+                        ⁓Через {Math.trunc(o.normCooldown)} часа
+                      </p>
+                    </Flex>
+                  ) : null}
+                  {o.fullCooldown ? (
+                    <Flex gap={3}>
+                      <p className="text medium placeholder">
+                        Полное остывание трубы:
+                      </p>
+                      <p className="text medium">
+                        ⁓Через {Math.trunc(o.fullCooldown)} часа
+                      </p>
+                    </Flex>
+                  ) : null}
                 </Stack>
                 <Flex gap={8}>
                   <Button
