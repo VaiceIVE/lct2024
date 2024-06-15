@@ -309,8 +309,8 @@ export class ResponseService {
                 }
             const zNorm = beta * Math.log((25 - outTemp)/(18 - outTemp))
             const zAbs = beta * Math.log((25 - outTemp)/(0 - outTemp))
-                obj.normCooldown = zNorm
-                obj.fullCooldown = zAbs
+            obj.normCooldown = zNorm
+            obj.fullCooldown = zAbs
         }
     responseDict.obj = objs
     return responseDict
