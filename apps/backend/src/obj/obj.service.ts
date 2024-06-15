@@ -32,7 +32,7 @@ export class ObjService {
         let hpsWithCount = []
         for(const hp of hps)
           {
-            hpsWithCount.push([hp, this.heatPointRepository.count({where: {code: hp.code}})])
+            hpsWithCount.push([hp, await this.heatPointRepository.count({where: {code: hp.code}})])
           }
           hpsWithCount = hpsWithCount.sort((a, b) => {return b[1] - a[1]})
           console.log(hpsWithCount)
