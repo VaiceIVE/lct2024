@@ -263,7 +263,7 @@ export class ResponseService {
             }
             if(obj.socialType != 'tp')
                 {
-                    let currentobj = await this.objRepository.findOne({where: {address: obj.address}})
+                    let currentobj = await this.objRepository.findOne({where: {address: obj.obj.address}})
                     if(currentobj.wallMaterial != null)
                         {
                             if(currentobj.floorsAmount != null)
@@ -281,15 +281,15 @@ export class ResponseService {
                         }
                         if(obj.socialType != 'mkd')
                             {
-                                if(await this.getWorkTime(obj.address))
+                                if(await this.getWorkTime(obj.obj.address) != null)
                                     {
-                                        if(await this.getWorkTime(obj.address) == '09:00–21:00')
+                                        if(await this.getWorkTime(obj.obj.address) == '09:00–21:00')
                                             {
                                                 obj.priority += 10
                                             }
                                             else
                                             {
-                                                if(await this.getWorkTime(obj.address) == '09:00–18:00')
+                                                if(await this.getWorkTime(obj.obj.address) == '09:00–18:00')
                                                     {
                                                         obj.priority += 5
                                                     }
