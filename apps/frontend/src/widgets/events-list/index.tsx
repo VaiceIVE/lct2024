@@ -33,7 +33,7 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
   const getDataByFilters = () => {
     return data
       .sort((a, b) =>
-        isPriority === '1' ? a.priority - b.priority : b.priority - a.priority
+        isPriority === '1' ? b.priority - a.priority : a.priority - b.priority
       )
       .filter((item) =>
         item.address
