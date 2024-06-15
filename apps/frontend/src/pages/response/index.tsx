@@ -155,15 +155,8 @@ const ResponsePage = () => {
     setEvent('');
   }, [eventFields]);
 
-  function changeDefaultDate({
-    date,
-    response,
-  }: {
-    date: DateValue | undefined;
-    response: IResponse | null;
-  }) {
-    console.log(response?.date, date);
-    if (date && dayjs(date).format('DD MMMM').toString() !== response?.date) {
+  function changeDefaultDate(date: string) {
+    if (date) {
       setLoading(true);
       ResponseServices.updateDefaultDate(
         dayjs(date).format('DD MMMM').toString()
@@ -186,8 +179,8 @@ const ResponsePage = () => {
   }, [clear, opened]);
 
   useEffect(() => {
-    debounceDate({ date: date, response: response });
-  }, [debounceDate, date, response]);
+    debounceDate(date);
+  }, [debounceDate, date]);
 
   return (
     <PageWrapper
