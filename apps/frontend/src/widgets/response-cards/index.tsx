@@ -6,8 +6,8 @@ import { DateInput } from 'shared/ui/DateInput';
 import { Title } from 'shared/ui/Title';
 
 interface ResponseCardsProp {
-  setDate: React.Dispatch<React.SetStateAction<DateValue | undefined>>;
-  date: DateValue | undefined;
+  setDate: React.Dispatch<React.SetStateAction<DateValue>>;
+  date: DateValue;
 }
 
 export const ResponseCards = ({ setDate, date }: ResponseCardsProp) => {
