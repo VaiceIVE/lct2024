@@ -46,26 +46,23 @@ export class ObjService {
       }
     if(type == 'mkd')
       {
-        const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}})
+        const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}, take: 5000})
         return [...new Set(addresses)];
       }
     if(type == 'education')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'education'}, select: {address: true}})
         return [...new Set(addresses)];
-
       }
     if(type == 'medicine')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'medicine'}, select: {address: true}})
         return [...new Set(addresses)];
-
       }
     if(type == 'prom')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'prom'}, select: {address: true}})
         return [...new Set(addresses)];
-
       }
   }
 
