@@ -67,7 +67,7 @@ export const ResponseList = ({
               <Flex gap={16} align={'flex-start'} flex={1}>
                 <Title level={4} title={index + 1} color="gray" />
                 <Stack gap={16}>
-                  <IconBlock iconType="mkd" />
+                  <IconBlock iconType={o.socialType} />
                   <Stack gap={8}>
                     <Title level={4} title={o.address} />
                     <p className="text medium">{o.event}</p>
