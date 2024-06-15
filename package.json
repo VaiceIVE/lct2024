@@ -26,6 +26,7 @@
     "@pbe/react-yandex-maps": "^1.2.5",
     "@tabler/icons-react": "^3.5.0",
     "@types/multer": "^1.4.11",
+    "@turf/turf": "^7.0.0",
     "argon2": "^0.40.3",
     "axios": "^1.7.2",
     "classnames": "^2.5.1",
@@ -52,6 +53,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
+    "turf": "^3.0.14",
     "typeorm": "^0.3.20",
     "vite-tsconfig-paths": "^4.3.2",
     "ymap3-components": "^1.1.6"
@@ -81,6 +83,7 @@
     "@types/node": "18.16.9",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
+    "@types/turf": "^3.5.32",
     "@typescript-eslint/eslint-plugin": "^7.3.0",
     "@typescript-eslint/parser": "^7.3.0",
     "@vitejs/plugin-react": "^4.2.0",
