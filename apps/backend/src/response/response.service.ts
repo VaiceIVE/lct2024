@@ -81,6 +81,7 @@ export class ResponseService {
           {
             response.objects = [newObjResponse]
           }
+        await this.objResponseRepository.save(newObjResponse)
         await this.responseRepository.save(response)
         return this.handleResponse(response)
       }
@@ -102,6 +103,7 @@ export class ResponseService {
           {
             response.objects = [newObjResponse]
           }
+          await this.objResponseRepository.save(newObjResponse)
       await this.responseRepository.save(response)
       return this.handleResponse(response)
     }
