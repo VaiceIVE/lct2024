@@ -159,6 +159,7 @@ export class ResponseService {
       date: response.date,
       obj: []
     }
+    let objs = []
     console.log(response)
     if(response.objects != null)
       {
@@ -168,7 +169,6 @@ export class ResponseService {
         let consumersCount = 1
         let coords = []
         let socialType = ''
-        console.log(object.heatPoint)
         if(object.heatPoint)
           {
             address = object.heatPoint.addressTP
@@ -240,17 +240,10 @@ export class ResponseService {
           isLast: object.isLast
         }
         console.log(newIObj)
-        if(responseDict.obj)
-          {
-            responseDict.obj.push(newIObj)
-          }
-          else
-          {
-            responseDict.obj = [newIObj]
-          }
+        objs.push(newIObj)
       })
     }
-    console.log(responseDict)
+    responseDict.obj = objs
     return responseDict
   }
 
