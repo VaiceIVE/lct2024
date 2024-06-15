@@ -177,7 +177,7 @@ const ResponsePage = () => {
         obj={getObjByFilters()}
         setSelectedObj={setSelectedObj}
       />
-      <EventsMap months={months} monthsIndex={1} id={'3'} />
+      <EventsMap data={[]} months={months} monthsIndex={1} id={'3'} />
       <FormProvider {...eventFields}>
         <Drawer
           isBlur

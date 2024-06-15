@@ -20,17 +20,9 @@ interface EventsListProps {
   id: string | (string | null)[] | null;
   month: number;
   data: IBuilding[];
-  setSelectedBuilding: React.Dispatch<React.SetStateAction<IBuilding | null>>;
-  selectedBuilding: IBuilding | null;
 }
 
-export const EventsList = ({
-  id,
-  month,
-  data,
-  selectedBuilding,
-  setSelectedBuilding,
-}: EventsListProps) => {
+export const EventsList = ({ id, month, data }: EventsListProps) => {
   const [isOpen, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -126,11 +118,7 @@ export const EventsList = ({
           <p className="text medium placeholder">
             Найдено результатов: {getDataByFilters().length}
           </p>
-          <Table
-            selectedBuilding={selectedBuilding}
-            setSelectedBuilding={setSelectedBuilding}
-            data={getDataByFilters()}
-          />
+          <Table data={getDataByFilters()} />
         </Stack>
       </Stack>
     </WidgetWrapper>

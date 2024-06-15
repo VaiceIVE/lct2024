@@ -11,7 +11,6 @@ interface EventsMapProps {
   months: { value: number; label: string }[];
   monthsIndex: number;
   data: IBuilding[];
-  setSelectedBuilding: React.Dispatch<React.SetStateAction<IBuilding | null>>;
 }
 
 export const EventsMap = ({
@@ -19,7 +18,6 @@ export const EventsMap = ({
   months,
   monthsIndex,
   data,
-  setSelectedBuilding,
 }: EventsMapProps) => {
   return (
     <WidgetWrapper
@@ -39,7 +37,7 @@ export const EventsMap = ({
       title="События на карте"
     >
       <Map
-        onPlacemarkClick={(building) => setSelectedBuilding(building)}
+        onPlacemarkClick={(building) => console.log(building)}
         buildings={data}
       />
     </WidgetWrapper>

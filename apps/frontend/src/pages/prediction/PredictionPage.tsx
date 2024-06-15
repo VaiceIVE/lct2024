@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IBuilding } from 'shared/models/IBuilding';
 import { IPrediction } from 'shared/models/IPrediction';
@@ -94,10 +93,6 @@ export const PredictionPage = ({
 }: PredictionPageProps) => {
   const navigate = useNavigate();
 
-  const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
-    null
-  );
-
   return (
     <PageWrapper
       title={isSaved && prediction?.id ? `Анализ от ${1}` : ''}
@@ -127,15 +122,8 @@ export const PredictionPage = ({
         id={id}
         months={months}
         monthsIndex={monthsIndex}
-        setSelectedBuilding={setSelectedBuilding}
       />
-      <EventsList
-        data={data}
-        id={id}
-        month={months[monthsIndex].value}
-        setSelectedBuilding={setSelectedBuilding}
-        selectedBuilding={selectedBuilding}
-      />
+      <EventsList data={data} id={id} month={months[monthsIndex].value} />
       <PredictionLeaveModal
         customButtonRow={customButtonRow}
         title={'Вы уверены, что хотите выйти \n без сохранения прогноза?'}
