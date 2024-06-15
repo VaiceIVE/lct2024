@@ -1,1 +1,1 @@
-export const socialTypes = ['medicine'];
+export const socialTypes = ['medicine', 'education'];

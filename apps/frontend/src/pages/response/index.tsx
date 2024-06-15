@@ -42,6 +42,8 @@ const data: IResponse = {
       event: 'Прорыв трубы',
       priority: 1,
       isLast: true,
+      fullCooldown: 3,
+      normCooldown: 2,
     },
     {
       id: 2,
@@ -53,17 +55,21 @@ const data: IResponse = {
       event: 'Прорыв трубы',
       priority: 2,
       isLast: true,
+      fullCooldown: 3,
+      normCooldown: 2,
     },
     {
       id: 3,
       date: '15.10.2024',
       address: '3Новокосинская улица, 32, Москва, 111672',
-      socialType: 'prom',
-      consumersCount: null,
+      socialType: 'tp',
+      consumersCount: 190,
       coords: [55.815345188, 37.514882646],
       event: 'Прорыв трубы',
       priority: 3,
       isLast: true,
+      fullCooldown: 3,
+      normCooldown: 2,
     },
   ],
 };
@@ -87,11 +93,12 @@ const ResponsePage = () => {
   );
 
   const getResponse = () => {
-    ResponseServices.getResponse().then((response) => {
-      setResponse(response.data);
-      const format = 'DD MMMM';
-      setDate(dayjs(response.data.date, format, 'ru').toDate());
-    });
+    setResponse(data);
+    // ResponseServices.getResponse().then((response) => {
+    //   setResponse(response.data);
+    //   const format = 'DD MMMM';
+    //   setDate(dayjs(response.data.date, format, 'ru').toDate());
+    // });
   };
 
   const handleAddObject = () => {
@@ -175,9 +182,10 @@ const ResponsePage = () => {
         />
       }
     >
-      <ResponseCards setDate={setDate} date={date} />
+      <ResponseCards obj={response?.obj} setDate={setDate} date={date} />
       {getObjByFilters()?.length ? (
         <ResponseList
+          date={response?.date}
           setPriority={setPriority}
           isPriority={isPriority}
           obj={getObjByFilters()}

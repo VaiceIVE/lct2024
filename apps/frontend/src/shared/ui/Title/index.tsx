@@ -5,7 +5,7 @@ import styles from './Title.module.scss';
 
 interface TitleProps {
   title: string | ReactNode;
-  level?: number;
+  level?: number | string;
   color?: string;
 }
 
@@ -71,6 +71,18 @@ export const Title = ({ title, level, color }: TitleProps) => {
         >
           {title}
         </h5>
+      );
+      break;
+    case 'title':
+      content = (
+        <h1
+          className={classNames(
+            `${styles.title} ${styles.main}`,
+            color && styles[color]
+          )}
+        >
+          {title}
+        </h1>
       );
       break;
   }
