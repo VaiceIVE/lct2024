@@ -141,8 +141,7 @@ const ResponsePage = () => {
   }, [eventFields]);
 
   function changeDefaultDate(date: DateValue | undefined) {
-    console.log(date, dayjs(date).format('DD MMMM').toString(), response?.date);
-    if (date && dayjs(date).format('DD MMMM').toString() !== response?.date) {
+    if (date) {
       ResponseServices.updateDefaultDate(
         dayjs(date).format('DD MMMM').toString()
       ).then((response) => setResponse(response.data));
