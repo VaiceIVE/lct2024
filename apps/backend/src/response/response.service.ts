@@ -198,6 +198,18 @@ export class ResponseService {
                       coord = +coord
                     }
               }
+
+          let newIObj: IObj = {
+            address: address,
+            consumersCount: consumersCount,
+            coords: coords,
+            event: object.event,
+            priority: 1,
+            socialType: socialType,
+            isLast: object.isLast
+          }
+          console.log(newIObj)
+          objs.push(newIObj)
           }
         else
           {
@@ -227,7 +239,6 @@ export class ResponseService {
                     coord = +coord
                   }
               }
-          }
 
           let newIObj: IObj = {
             address: address,
@@ -240,6 +251,7 @@ export class ResponseService {
           }
           console.log(newIObj)
           objs.push(newIObj)
+          }
       })
     }
     console.log(objs)
