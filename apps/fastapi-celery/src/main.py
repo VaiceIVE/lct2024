@@ -31,7 +31,7 @@ async def root():
     return {"message": "Hello World"}
 
 @app.post("/process")
-async def process_new(files: List[UploadFile], background_tasks: Optional[BackgroundTasks]):
+async def process_new(files: List[UploadFile] = File(...), background_tasks: BackgroundTasks = BackgroundTasks()):
     dfs = []
     dfs_for_join = []
     dfs_with_code = []
