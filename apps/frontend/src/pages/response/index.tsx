@@ -96,14 +96,15 @@ const ResponsePage = () => {
   );
 
   const getResponse = () => {
-    setLoading(true);
-    ResponseServices.getResponse()
-      .then((response) => {
-        setResponse(response.data);
-        const format = 'DD MMMM';
-        setDate(dayjs(response.data.date, format, 'ru').toDate());
-      })
-      .finally(() => setLoading(false));
+    setResponse(data);
+    // setLoading(true);
+    // ResponseServices.getResponse()
+    //   .then((response) => {
+    //     setResponse(response.data);
+    //     const format = 'DD MMMM';
+    //     setDate(dayjs(response.data.date, format, 'ru').toDate());
+    //   })
+    //   .finally(() => setLoading(false));
   };
 
   const handleAddObject = () => {
@@ -155,8 +156,14 @@ const ResponsePage = () => {
     setEvent('');
   }, [eventFields]);
 
-  function changeDefaultDate(date: DateValue | undefined) {
-    if (date) {
+  function changeDefaultDate({
+    date,
+    response,
+  }: {
+    date: DateValue | undefined;
+    response: IResponse | null;
+  }) {
+    if (date && dayjs(date).format('DD MMMM').toString() !== response?.date) {
       setLoading(true);
       ResponseServices.updateDefaultDate(
         dayjs(date).format('DD MMMM').toString()
@@ -179,8 +186,8 @@ const ResponsePage = () => {
   }, [clear, opened]);
 
   useEffect(() => {
-    debounceDate(date);
-  }, [debounceDate, date]);
+    debounceDate({ date: date, response: response });
+  }, [debounceDate, date, response]);
 
   return (
     <PageWrapper
@@ -215,6 +222,7 @@ const ResponsePage = () => {
       ) : null}
       {response?.obj?.length && !isLoading ? (
         <EventsMap
+          title="Все инциденты на карте"
           objs={response?.obj}
           months={months}
           monthsIndex={1}

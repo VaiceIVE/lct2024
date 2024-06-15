@@ -13,6 +13,7 @@ interface EventsMapProps {
   monthsIndex: number;
   objs?: IObj[] | undefined;
   buildings?: IBuilding[];
+  title?: string;
 }
 
 export const EventsMap = ({
@@ -21,6 +22,7 @@ export const EventsMap = ({
   monthsIndex,
   objs,
   buildings,
+  title,
 }: EventsMapProps) => {
   return (
     <WidgetWrapper
@@ -37,7 +39,7 @@ export const EventsMap = ({
           />
         </NavLink>
       }
-      title="События на карте"
+      title={title ? title : 'События на карте'}
     >
       <Map simpleMap objs={objs} buildings={buildings} />
     </WidgetWrapper>
