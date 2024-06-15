@@ -86,7 +86,7 @@ const ResponsePage = () => {
   const getResponse = () => {
     ResponseServices.getResponse().then((response) => {
       setResponse(response.data);
-      console.log(response.data);
+      console.log(dayjs(response.data.date, 'DD MMMM'));
     });
   };
 
