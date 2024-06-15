@@ -28,7 +28,7 @@ export class ObjService {
     if(type == "tp")
       {
         let response = []
-        const res = await this.heatPointRepository.find({where: {addressTP: Not(IsNull())}, select: {addressTP: true}})m
+        const res = await this.heatPointRepository.find({where: {addressTP: Not(IsNull())}, select: {addressTP: true}})
         res.forEach((elem) => response.push({address: elem.addressTP}))
       }
     if(type == 'mkd')
