@@ -33,6 +33,7 @@ export class PredictionService {
             }
         console.log(formdata)
         let dataLoadStatus = axios.post(this.configService.get('DATA_LOAD_URL'), {files: files}, {headers: {'Content-Type': 'multipart/form-data'}})
+        console.log(dataLoadStatus)
         await dataLoadStatus
         //let predictionAnswer = await predictionStatus
 
