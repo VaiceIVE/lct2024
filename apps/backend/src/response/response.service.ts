@@ -41,7 +41,7 @@ export class ResponseService {
 
     if(await this.responseRepository.findOne({where:{user: {id: id}}}))
       {
-        return await this.handleResponse(await this.responseRepository.findOne({where:{user: {id: id}}}))
+        return await this.handleResponse(await this.responseRepository.findOne({where:{user: {id: id}}, relations: {objects: true}}))
       }
       else
       {
