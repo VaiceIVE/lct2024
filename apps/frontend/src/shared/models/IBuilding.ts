@@ -6,7 +6,7 @@ export interface IBuilding {
   coolingRate: number;
   consumersCount: number | null;
   priority: number;
-  district: string;
+  district: string | null;
 }
 
 // скорость остывания

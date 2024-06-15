@@ -50,11 +50,11 @@ export const Map = ({
 
     buildings &&
       buildings.forEach((building) => {
-        const { district, coords } = building;
-        if (!districtMap[district]) {
-          districtMap[district] = [];
+        const { coords } = building;
+        if (building.district && !districtMap[building.district]) {
+          districtMap[building.district] = [];
         }
-        districtMap[district].push(coords);
+        building.district && districtMap[building.district].push(coords);
       });
 
     const createEnvelopeWithPadding = (
