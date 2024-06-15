@@ -285,27 +285,27 @@ export class ResponseService {
                         {
                             obj.priority += 1
                         }
-                        if(obj.socialType != 'mkd')
-                            {
-                                if(await this.getWorkTime(obj.address) != null)
-                                    {
-                                        if(await this.getWorkTime(obj.address) == '09:00–21:00')
-                                            {
-                                                obj.priority += 20
-                                            }
-                                            else
-                                            {
-                                                if(await this.getWorkTime(obj.address) == '09:00–18:00')
-                                                    {
-                                                        obj.priority += 10
-                                                    }
-                                                    else
-                                                    {
-                                                        obj.priority += 5
-                                                    }
-                                            }
-                                    }
-                            }
+                        // if(obj.socialType != 'mkd')
+                        //     {
+                        //         if(await this.getWorkTime(obj.address) != null)
+                        //             {
+                        //                 if(await this.getWorkTime(obj.address) == '09:00–21:00')
+                        //                     {
+                        //                         obj.priority += 20
+                        //                     }
+                        //                     else
+                        //                     {
+                        //                         if(await this.getWorkTime(obj.address) == '09:00–18:00')
+                        //                             {
+                        //                                 obj.priority += 10
+                        //                             }
+                        //                             else
+                        //                             {
+                        //                                 obj.priority += 5
+                        //                             }
+                        //                     }
+                        //             }
+                        //     }
                 }
             const zNorm = beta * Math.log((25 - outTemp)/(18 - outTemp))
             const zAbs = beta * Math.log((25 - outTemp)/(0 - outTemp))

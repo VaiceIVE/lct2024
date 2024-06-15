@@ -130,7 +130,7 @@ export class ObjService {
           {
             if(await this.objRepository.findOneBy({address: object.address})!= null)
               {
-                let obj = await this.objRepository.findOneBy({address: object.address})
+                let obj = await this.objRepository.findOneBy({heatPoint: IsNull()})
                 obj.heatPoint = heatPoint
                 this.objRepository.save(obj)
               }
@@ -147,7 +147,7 @@ export class ObjService {
           {
             if(await this.objRepository.findOneBy({address: object.address}))
               {
-                let obj = await this.objRepository.findOneBy({address: object.address})
+                let obj = await this.objRepository.findOneBy({heatPoint: IsNull()})
                 obj.heatPoint = newHeatPoint
                 this.objRepository.save(obj)
               }
