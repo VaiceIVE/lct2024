@@ -1,4 +1,4 @@
-from fastapi import BackgroundTasks, FastAPI, File, UploadFile
+from fastapi import BackgroundTasks, FastAPI, File, UploadFile, Optional
 import pandas as pd
 import numpy as np
 from typing import List
@@ -31,7 +31,7 @@ async def root():
     return {"message": "Hello World"}
 
 @app.post("/process")
-async def process_new(background_tasks: BackgroundTasks, files: List[UploadFile]):
+async def process_new(files: List[UploadFile], background_tasks: Optional[BackgroundTasks]):
     dfs = []
     dfs_for_join = []
     dfs_with_code = []
