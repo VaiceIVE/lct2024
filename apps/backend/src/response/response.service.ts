@@ -264,9 +264,9 @@ export class ResponseService {
             if(obj.socialType != 'tp')
                 {
                     let currentobj = await this.objRepository.findOne({where: {address: obj.address}})
-                    if(currentobj.wallMaterial)
+                    if(currentobj.wallMaterial != null)
                         {
-                            if(currentobj.floorsAmount)
+                            if(currentobj.floorsAmount != null)
                                 {
                                     obj.priority += wallDict[currentobj.wallMaterial] * currentobj.floorsAmount * 0.1
                                 }
