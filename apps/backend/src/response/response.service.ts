@@ -61,7 +61,7 @@ export class ResponseService {
 
   async addObj(type: string, address: string, event: string, userId: number)
   {
-    let response = await this.responseRepository.findOneBy({user: {id: userId}})
+    let response = await this.responseRepository.findOne({where: {user: {id: userId}}, relations: {objects: {obj: true, heatPoint: true}}})
     console.log(response)
     if(type == 'tp')
       {
@@ -118,7 +118,7 @@ export class ResponseService {
 
   async updateObj(objid: number, updateObjDto: UpdateObjResDto)
   {
-    let obj = await this.objResponseRepository.findOneBy({id: objid})
+    let obj = await this.objResponseRepository.findOne({where: {id: objid}})
     if(updateObjDto.socialType == 'tp')
       {
         if(obj.obj)
