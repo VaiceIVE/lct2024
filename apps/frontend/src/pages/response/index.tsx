@@ -96,15 +96,14 @@ const ResponsePage = () => {
   );
 
   const getResponse = () => {
-    setResponse(data);
-    // setLoading(true);
-    // ResponseServices.getResponse()
-    //   .then((response) => {
-    //     setResponse(response.data);
-    //     const format = 'DD MMMM';
-    //     setDate(dayjs(response.data.date, format, 'ru').toDate());
-    //   })
-    //   .finally(() => setLoading(false));
+    setLoading(true);
+    ResponseServices.getResponse()
+      .then((response) => {
+        setResponse(response.data);
+        const format = 'DD MMMM';
+        setDate(dayjs(response.data.date, format, 'ru').toDate());
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleAddObject = () => {
