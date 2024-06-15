@@ -163,84 +163,84 @@ export class ResponseService {
     console.log(response)
     if(response.objects != null)
       {
-    response.objects.forEach(async (object) => 
-      {
-        let address = ''
-        let consumersCount = 1
-        let coords = []
-        let socialType = ''
-        if(object.heatPoint)
-          {
-            address = object.heatPoint.addressTP
-            consumersCount = 1 + await this.objRepository.count({where: {heatPoint: object.heatPoint}})
-            socialType = 'tp'
-            if(object.heatPoint.geodata)
-              {
-                object.heatPoint.geodata = object.heatPoint.geodata as string
-                coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
-                const coordsReturn = [coords[1], coords[0]]
-                coords = coordsReturn
-                for(let coord of coords)
+        for(const object of response.objects)
+            {
+                let address = ''
+                let consumersCount = 1
+                let coords = []
+                let socialType = ''
+                if(object.heatPoint)
+                {
+                    address = object.heatPoint.addressTP
+                    consumersCount = 1 + await this.objRepository.count({where: {heatPoint: object.heatPoint}})
+                    socialType = 'tp'
+                    if(object.heatPoint.geodata)
                     {
-                      coord = Number(coord)
+                        object.heatPoint.geodata = object.heatPoint.geodata as string
+                        coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
+                        const coordsReturn = [coords[1], coords[0]]
+                        coords = coordsReturn
+                        for(let coord of coords)
+                            {
+                            coord = Number(coord)
+                            }
                     }
-              }
-              else
-              {
-                let geodataString = await this.getGeodataString(object.heatPoint.addressTP)
-                object.heatPoint.geodata = geodataString
-                this.heatPointRepository.save(object.heatPoint)
-                coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
-                const coordsReturn = [coords[1], coords[0]]
-                coords = coordsReturn
-                for(let coord of coords)
+                    else
                     {
-                      coord = Number(coord)
+                        let geodataString = await this.getGeodataString(object.heatPoint.addressTP)
+                        object.heatPoint.geodata = geodataString
+                        this.heatPointRepository.save(object.heatPoint)
+                        coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
+                        const coordsReturn = [coords[1], coords[0]]
+                        coords = coordsReturn
+                        for(let coord of coords)
+                            {
+                            coord = Number(coord)
+                            }
                     }
-              }
-          }
-        else
-          {
-            address = object.obj.address
-            socialType = object.obj.socialType
-            if(object.obj.geodata)
-              {
-                object.obj.geodata = object.obj.geodata as string
-                coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
-                const coordsReturn = [coords[1], coords[0]]
-                coords = coordsReturn
-                for(let coord of coords)
-                  {
-                    coord = Number(coord)
-                  }
-              }
-              else
-              {
-                let geodataString = await this.getGeodataString(object.obj.address)
-                object.obj.geodata = geodataString
-                this.objRepository.save(object.obj)
-                coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
-                const coordsReturn = [coords[1], coords[0]]
-                coords = coordsReturn
-                for(let coord of coords)
-                  {
-                    coord = Number(coord)
-                  }
-              }
-          }
+                }
+                else
+                {
+                    address = object.obj.address
+                    socialType = object.obj.socialType
+                    if(object.obj.geodata)
+                    {
+                        object.obj.geodata = object.obj.geodata as string
+                        coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
+                        const coordsReturn = [coords[1], coords[0]]
+                        coords = coordsReturn
+                        for(let coord of coords)
+                        {
+                            coord = Number(coord)
+                        }
+                    }
+                    else
+                    {
+                        let geodataString = await this.getGeodataString(object.obj.address)
+                        object.obj.geodata = geodataString
+                        this.objRepository.save(object.obj)
+                        coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
+                        const coordsReturn = [coords[1], coords[0]]
+                        coords = coordsReturn
+                        for(let coord of coords)
+                        {
+                            coord = Number(coord)
+                        }
+                    }
+                }
 
-            let newIObj: IObj = {
-                address: address,
-                consumersCount: consumersCount,
-                coords: coords,
-                event: object.event,
-                priority: 1,
-                socialType: socialType,
-                isLast: object.isLast
-            }
-            objs.push(newIObj)
-        }
-    )
+                    let newIObj: IObj = {
+                        address: address,
+                        consumersCount: consumersCount,
+                        coords: coords,
+                        event: object.event,
+                        priority: 1,
+                        socialType: socialType,
+                        isLast: object.isLast
+                    }
+                    console.log(newIObj)
+                    objs.push(newIObj)
+                }
     }
     console.log(objs)
     responseDict.obj = objs
