@@ -177,7 +177,7 @@ export class ResponseService {
             if(object.heatPoint.geodata)
               {
                 object.heatPoint.geodata = object.heatPoint.geodata as string
-                coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(',')
+                coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
                 const coordsReturn = [coords[1], coords[0]]
                 coords = coordsReturn
                 for(let coord of coords)
@@ -190,7 +190,7 @@ export class ResponseService {
                 let geodataString = await this.getGeodataString(object.heatPoint.addressTP)
                 object.heatPoint.geodata = geodataString
                 this.heatPointRepository.save(object.heatPoint)
-                coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(',')
+                coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
                 const coordsReturn = [coords[1], coords[0]]
                 coords = coordsReturn
                 for(let coord of coords)
@@ -198,18 +198,6 @@ export class ResponseService {
                       coord = +coord
                     }
               }
-
-          let newIObj: IObj = {
-            address: address,
-            consumersCount: consumersCount,
-            coords: coords,
-            event: object.event,
-            priority: 1,
-            socialType: socialType,
-            isLast: object.isLast
-          }
-          console.log(newIObj)
-          objs.push(newIObj)
           }
         else
           {
@@ -218,7 +206,7 @@ export class ResponseService {
             if(object.obj.geodata)
               {
                 object.obj.geodata = object.obj.geodata as string
-                coords = object.obj.geodata.replace('[', '').replace(']', '').split(',')
+                coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
                 const coordsReturn = [coords[1], coords[0]]
                 coords = coordsReturn
                 for(let coord of coords)
@@ -231,7 +219,7 @@ export class ResponseService {
                 let geodataString = await this.getGeodataString(object.obj.address)
                 object.obj.geodata = geodataString
                 this.objRepository.save(object.obj)
-                coords = object.obj.geodata.replace('[', '').replace(']', '').split(',')
+                coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
                 const coordsReturn = [coords[1], coords[0]]
                 coords = coordsReturn
                 for(let coord of coords)
@@ -239,8 +227,9 @@ export class ResponseService {
                     coord = +coord
                   }
               }
+          }
 
-          let newIObj: IObj = {
+          let newIObj = {
             address: address,
             consumersCount: consumersCount,
             coords: coords,
@@ -251,8 +240,8 @@ export class ResponseService {
           }
           console.log(newIObj)
           objs.push(newIObj)
-          }
-      })
+      }
+    )
     }
     console.log(objs)
     responseDict.obj = objs
