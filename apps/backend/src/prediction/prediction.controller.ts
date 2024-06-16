@@ -9,7 +9,7 @@ export class PredictionController {
   constructor(private readonly predictionService: PredictionService) {}
 
   @ApiResponse({ status: 201, description: 'Запись успешно создана.'})
-  @UseGuards(AccessTokenGuard)
+  //@UseGuards(AccessTokenGuard)
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
   public async createPrediction(@UploadedFiles() files: Express.Multer.File[])
