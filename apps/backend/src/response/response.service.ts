@@ -134,7 +134,6 @@ export class ResponseService {
             obj.heatPoint = heatPoint
             await this.objResponseRepository.save(obj)
             await this.objResponseRepository.update({id: objid}, { event: updateObjDto.event })
-
           }
       }
       else
@@ -145,7 +144,6 @@ export class ResponseService {
             obj.obj = objRes
             await this.objResponseRepository.save(obj)
             await this.objResponseRepository.update({id: objid}, { event: updateObjDto.event })
-
           }
           else
           {
@@ -153,7 +151,6 @@ export class ResponseService {
             obj.obj = objRes
             await this.objResponseRepository.save(obj)
             await this.objResponseRepository.update({id: objid}, { event: updateObjDto.event, obj: null})
-
           }
       }
       let response = await this.responseRepository.findOne({where: {objects: {id: objid}}})
