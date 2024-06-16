@@ -51,7 +51,7 @@ export class PredictionService {
             {
                 if(!names.includes(name))
                     {
-                        await this.storageService.uploadToS3(createReadStream(join(process.cwd(),`src/defaultTables/${name}`)).read())
+                        await this.storageService.uploadToS3(createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`)).read())
                     }
             }
         let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: defaultNames, period: 2024})
