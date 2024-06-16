@@ -88,7 +88,7 @@ export class PredictionService {
 
     public async getPrediction(id: number, monthNum: string)
     {
-        const prediction = await this.predictionRepository.findOneBy({id: id})
+        const prediction = await this.predictionRepository.findOne({where: {id: id}, relations: {objPredictions: {events: true}}})
         return await this.handlePredictionOutput(prediction, monthNum)
     }
 
@@ -352,8 +352,6 @@ export class PredictionService {
       let coordsString = (await axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=Москва, ${address}`)).data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
       return coordsString
     }
-
-    
 }
 
 const dateTempsDict = {
