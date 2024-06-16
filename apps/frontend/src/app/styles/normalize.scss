@@ -181,4 +181,8 @@ html {
   &.error {
     color: $error-color;
   }
+
+  &.link {
+    color: $link-hover-color;
+  }
 }

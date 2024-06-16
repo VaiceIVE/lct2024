@@ -1,22 +1,47 @@
-import { Grid, Stack } from '@mantine/core';
+import { Flex, Grid, Stack } from '@mantine/core';
+import { IconChevronRight } from '@tabler/icons-react';
 import { Card } from 'shared/ui/Card';
 import { Title } from 'shared/ui/Title';
 
-export const PredictionCards = () => {
-  const data = ['Событий', 'Задействованные районы'];
+import styles from './PredictionCards.module.scss';
+import { NavLink } from 'react-router-dom';
+import { STORAGE_ROUTE } from 'shared/constants/const';
+import { StatCard } from 'shared/ui/StatCard';
+import { IBuilding } from 'shared/models/IBuilding';
 
+interface PredictionCardsProps {
+  isLoading: boolean;
+  buildings: IBuilding[] | undefined;
+}
+
+export const PredictionCards = ({
+  isLoading,
+  buildings,
+}: PredictionCardsProps) => {
   return (
     <Grid gutter={18}>
-      {data.map((item) => (
-        <Grid.Col key={item} span={6}>
-          <Card>
-            <Stack gap={8}>
-              <Title level={1} title="12" />
-              <div className="text medium secondary">{item}</div>
+      <Grid.Col span={6}>
+        <StatCard isLoading={isLoading} obj={buildings} />
+      </Grid.Col>
+      <Grid.Col span={6}>
+        <Card h={'100%'} type="dark">
+          <Stack h={'100%'}>
+            <Stack flex={1} gap={8}>
+              <Title level={3} title="История прогнозов" />
+              <p className="text secondary">
+                5 продвинутых прогнозов сделано за все время <br />{' '}
+                использования сервиса
+              </p>
             </Stack>
-          </Card>
-        </Grid.Col>
-      ))}
+            <NavLink to={STORAGE_ROUTE}>
+              <Flex className={styles.flex} gap={8} align={'center'}>
+                <p className="text medium link">Открыть историю в Хранилище</p>
+                <IconChevronRight size={20} />
+              </Flex>
+            </NavLink>
+          </Stack>
+        </Card>
+      </Grid.Col>
     </Grid>
   );
 };

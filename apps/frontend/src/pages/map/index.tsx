@@ -57,23 +57,27 @@ const MapPage = () => {
         PredictionServices.getDefaultPrediction().then((response) =>
           PredictionServices.getPredictionById(response.data, +month).then(
             (r) => {
-              setPrediction(r.data);
+              setPrediction({
+                id: r.data.id,
+                buildings: r.data.buildings.map((b) => ({
+                  ...b,
+                  connectionInfo: findSquareForHouse(b.coords),
+                })),
+              });
             }
           )
         );
       } else {
         PredictionServices.getPredictionById(+id, +month).then((response) =>
-          setPrediction(response.data)
+          setPrediction({
+            id: response.data.id,
+            buildings: response.data.buildings.map((b) => ({
+              ...b,
+              connectionInfo: findSquareForHouse(b.coords),
+            })),
+          })
         );
       }
-
-      // setPrediction({
-      //   id: 3,
-      //   buildings: data.map((b) => ({
-      //     ...b,
-      //     connectionInfo: findSquareForHouse(b.coords),
-      //   })),
-      // });
     },
     [id, isDefault]
   );
@@ -241,6 +245,11 @@ const MapPage = () => {
         <Flex h={'100%'}>
           <Map
             fullWidth
+            buildingsCount={
+              response?.obj
+                ? response.obj.length
+                : prediction?.buildings?.length
+            }
             buildings={
               selectedBuilding ? [selectedBuilding] : getFilteredBuildings()
             }

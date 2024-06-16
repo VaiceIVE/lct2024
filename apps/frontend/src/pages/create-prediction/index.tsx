@@ -14,6 +14,7 @@ import { PredictionLeaveModal } from 'widgets/prediction-leave-modal';
 
 import PredictionServices from 'shared/services/PredictionServices';
 import { CreatePredictionLoader } from 'widgets/create-prediction-loader';
+import { HOME_ROUTE } from 'shared/constants/const';
 
 const CreatePredictionPage = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -33,9 +34,9 @@ const CreatePredictionPage = () => {
   const handleCreatePrediction = async () => {
     setLoading(true);
     try {
-      const id = await PredictionServices.createPrediction(files, conditions);
-
-      if (id) navigate(`/prediction?id=${id}`);
+      PredictionServices.createPrediction(files, conditions)
+        .then((response) => navigate(`/prediction?id=${response.data}`))
+        .catch(() => navigate(HOME_ROUTE));
     } catch (error) {
       console.error('Ошибка сети:', error);
     }

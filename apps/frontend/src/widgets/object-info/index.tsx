@@ -56,13 +56,24 @@ export const ObjectInfo = ({
             </Stack>
           </Card>
         ) : null}
-        {item?.socialType !== 'tp' ? (
+        {item?.socialType !== 'tp' && item?.connectionInfo ? (
           <Card>
             <Stack gap={26}>
               <Title level={4} title="Ответственный за объект ЦТП" />
-              <Flex gap={12} align={'center'}>
+              <Flex
+                style={{ overflow: 'hidden' }}
+                gap={12}
+                align={'flex-start'}
+              >
                 <IconBlock iconType="tp" />
-                <p className="text medium">Адрес ЦТП</p>
+                <p
+                  style={{
+                    maxWidth: '380px',
+                  }}
+                  className="text medium"
+                >
+                  {item.connectionInfo.address}
+                </p>
               </Flex>
             </Stack>
           </Card>

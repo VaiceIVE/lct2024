@@ -1,0 +1,24 @@
+@import '@styles/__defines.scss';
+
+.flex {
+  cursor: pointer;
+  width: fit-content;
+
+  transition: all 0.3s;
+
+  svg {
+    color: $link-hover-color;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      svg {
+        color: $main-blue-color;
+      }
+
+      p {
+        color: $main-blue-color;
+      }
+    }
+  }
+}
