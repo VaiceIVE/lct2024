@@ -17,14 +17,14 @@ export class PredictionController {
     return this.predictionService.createPrediction(files)
   }
 
-  @UseGuards(AccessTokenGuard)
+  //@UseGuards(AccessTokenGuard)
   @Get('/default/')
   public async getDefaultPrediction()
   {
     return this.predictionService.createDefaultPrediction()
   }
 
-  @UseGuards(AccessTokenGuard)
+  //@UseGuards(AccessTokenGuard)
   @Get('/:id/:month')
   public async getPredictionRendered(@Param('id') id: number, @Param('month') monthNum: string)
   {
