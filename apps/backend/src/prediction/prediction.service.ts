@@ -310,7 +310,7 @@ export class PredictionService {
                         const probsDict = data[unom]['anomalies'][i]
                         if(data[unom] && data[unom]['anomalies'] && probsDict)
                             {
-                                for(const probData of probsDict)
+                                for(const probData of Object.keys(probsDict))
                                     {
                                         const event = probData
                                         const probability = probsDict[probData]
@@ -319,7 +319,7 @@ export class PredictionService {
                                             chance: probability,
                                             date: date
                                         })
-                                        events.push(event)
+                                        events.push(newEvent)
                                     }
                             }
                         
