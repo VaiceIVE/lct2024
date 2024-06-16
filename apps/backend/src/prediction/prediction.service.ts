@@ -299,11 +299,11 @@ export class PredictionService {
                                         {
 
                                             beta = wallDictCoef[currentobj.wallMaterial]
-                                            if(!beta)
+                                            if(beta == null)
                                             {   
                                                 beta = 50
                                             }
-                                                
+
                                             if(currentobj.floorsAmount != null)
                                                 {
                                                     obj.priority += wallDict[currentobj.wallMaterial] * currentobj.floorsAmount * 0.1
