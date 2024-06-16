@@ -128,9 +128,7 @@ export class PredictionService {
                         
                         const date = dates[i]
                         const probsDict = data[unom]['anomalies'][i]
-                        let averageProbability = 0
-                        let probsSum = 0
-                        let probsAmount = 0
+                        console.log(probsDict)
                         if(data[unom] && data[unom]['anomalies'] && probsDict)
                             {
                                 for(const probData of Object.keys(probsDict))
