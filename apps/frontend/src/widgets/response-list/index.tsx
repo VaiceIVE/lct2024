@@ -5,7 +5,7 @@ import { Button } from 'shared/ui/Button';
 import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
 import { PriorityFilter } from 'shared/ui/PriorityFilter';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ResponseItem } from './components/response-item';
 import { Filters } from 'shared/ui/Filters';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -40,20 +40,14 @@ export const ResponseList = ({
   const { control } = useFormContext();
 
   const onOpen = (id: number) => {
-    open();
     setDeletedId(id);
+    open();
   };
 
   const onClose = () => {
     handleDeleteObject();
     close();
   };
-
-  useEffect(() => {
-    if (!opened) {
-      setDeletedId(undefined);
-    }
-  }, [opened, setDeletedId]);
 
   return (
     <WidgetWrapper

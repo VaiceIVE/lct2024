@@ -192,7 +192,10 @@ const ResponsePage = () => {
         .then((response) => {
           setResponse(response.data);
         })
-        .finally(() => setLoading(false));
+        .finally(() => {
+          setLoading(false);
+          setDeletedId(undefined);
+        });
     }
   };
 
