@@ -14,12 +14,13 @@ interface Props {
   searchable?: boolean;
   disabled?: boolean;
   limit?: number;
+  allowDeselect?: boolean;
 }
 
-export const Select = ({ field, ...props }: Props) => {
+export const Select = ({ field, allowDeselect = false, ...props }: Props) => {
   return (
     <MantineSelect
-      allowDeselect={false}
+      allowDeselect={allowDeselect}
       {...field}
       {...props}
       className={style.select}

@@ -15,4 +15,5 @@ export interface IObj {
   priority: number;
   fullCooldown: number | null;
   normCooldown: number | null;
+  district: string | null;
 }

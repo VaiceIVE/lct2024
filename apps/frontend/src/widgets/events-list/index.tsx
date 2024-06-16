@@ -39,6 +39,15 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
         item.address
           .toLowerCase()
           .includes(watch('address')?.toLowerCase() || '')
+      )
+      .filter((b) => !watch('district') || b.district === watch('district'))
+      .filter(
+        (b) => !watch('networkType') || b.networkType === watch('networkType')
+      )
+      .filter(
+        (b) =>
+          !watch('events') ||
+          b.events.map((e) => e.eventName).includes(watch('events'))
       );
   };
 
