@@ -10,9 +10,13 @@ import styles from './StorageUploadCard.module.scss';
 
 interface StorageUploadCardProps {
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
+  resetRef?: React.ForwardedRef<() => void> | undefined;
 }
 
-export const StorageUploadCard = ({ setFile }: StorageUploadCardProps) => {
+export const StorageUploadCard = ({
+  setFile,
+  resetRef,
+}: StorageUploadCardProps) => {
   return (
     <Card overflow="hidden">
       <Flex pos={'relative'} w={'100%'}>
@@ -25,6 +29,7 @@ export const StorageUploadCard = ({ setFile }: StorageUploadCardProps) => {
             </p>
           </Stack>
           <Upload
+            resetRef={resetRef}
             onChange={setFile}
             label="Загрузить файл .xlsx, .xls"
             icon={<IconFileUpload size={18} />}

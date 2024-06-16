@@ -1,5 +1,5 @@
 import { Flex, Loader, useMantineTheme } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FileServices from 'shared/services/FilesServices';
 
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
@@ -15,7 +15,10 @@ const StoragePage = () => {
 
   const [isLoading, setLoading] = useState(true);
 
+  const resetRef = useRef<() => void>(null);
+
   const getUploadedFiles = () => {
+    setLoading(true);
     FileServices.getUploadedFiles()
       .then((response) => setUploadedFiles(response.data))
       .finally(() => setLoading(false));
@@ -34,15 +37,17 @@ const StoragePage = () => {
 
   useEffect(() => {
     if (file) {
-      FileServices.uploadFile(file).then(() => {
-        getUploadedFiles();
-      });
+      FileServices.uploadFile(file)
+        .then(() => {
+          getUploadedFiles();
+        })
+        .finally(() => resetRef.current?.());
     }
   }, [file]);
 
   return (
     <PageWrapper>
-      <StorageUploadCard setFile={setFile} />
+      <StorageUploadCard resetRef={resetRef} setFile={setFile} />
       {isLoading ? (
         <Flex align={'center'} justify={'center'}>
           <Loader color={theme.colors.myBlue[2]} />
