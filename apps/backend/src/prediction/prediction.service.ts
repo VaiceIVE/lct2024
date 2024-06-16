@@ -320,6 +320,7 @@ export class PredictionService {
                                                     chance: probability,
                                                     date: date
                                                 })
+                                                await this.eventRepository.save(newEvent)
                                                 events.push(newEvent)
                                             }
                                         
@@ -333,6 +334,7 @@ export class PredictionService {
                                 events: events,
                                 object: obj,
                             })
+                            await this.objPredictionRepository.save(objPrediction)
                             objPredictions.push(objPrediction)
                         }
                
