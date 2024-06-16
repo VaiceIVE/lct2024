@@ -1,3 +1,5 @@
+# Файл настройки эндпоинт а анализа
+
 ```
 S3_ENDPOINT_URL='https://minioapi.adera-team.ru'
 S3_AWS_ACCESS_TOKEN_ID=<1>
@@ -20,5 +22,15 @@ WEATHERS_TENSORS='./weathers_tensors/'
 SPEC_HEAT_DATA='./turn_on_of_heat_ordered.json'
 ```
 
-1 - access токен для s3 хранилища
-2 - secrret токен для s3 хранилища
+- `<1>` - access токен для s3 хранилища;
+- `<2>` - secrret токен для s3 хранилища;
+
+# Описание *`columns_info.json`*
+
+- `heat_station_usefull_columns` - сущности для жадного анализа данных по ТЦ;
+- `columns_scale_data` - параметры скалирования (размещения) значений сущностей в интервал от 0 до 1;
+- `buildings_dataframe_columns` - все сущности для объекта;
+- `building_column_for_model` - сущности объекта которые может принимать модель;
+- `usefull_events` - предсказываемые ивенты;
+- `weathers_types` - ;
+- `usfull_columns_for_algorithms` - именна сущностей для ;

@@ -118,8 +118,11 @@ def prep_building_df_for_model(building_df: pd.DataFrame) -> torch.Tensor:
         if not i in building_df.columns:
             d.append(pd.Series(np.full(building_df.shape[0], -1), name=i))
         else:
-            d.append(building_df.loc[:, [i,]])
-    return torch.from_numpy(pd.concat(d, axis=1).fillna(-1).values)
+            df_i = building_df.loc[:, i]
+            df_i = df_i.reset_index()
+            d.append(df_i)
+    df_r = pd.concat(d, axis=1).drop('index', axis=1)
+    return torch.from_numpy(df_r.fillna(-1).values)
 
 
 def get_dataframe_for_heat_station():

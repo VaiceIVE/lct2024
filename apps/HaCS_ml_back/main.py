@@ -92,16 +92,36 @@ def process_data_to_model_cluster(x1, x2, device='cpu'):
 
 @app.post("/get_anomalies_by_day")
 def get_anomalies_by_day(body: GetAnomaliesByDayModel):
+    """
+        Функция получает на вход имена таблиц из S3 хранилища и число возворащаемых объектов
+    """
     list_of_dataframes = []
     for table_name in tqdm(body.list_of_tables):
-        dataframe = load_dataframe_pipeline(table_name)
-        list_of_dataframes.append(dataframe)
+        try:
+            dataframe = load_dataframe_pipeline(table_name)
+            list_of_dataframes.append(dataframe)
+        except:
+            logger.error(f'Bad respones on table {table_name}')
+    # m = get_heatstation_anomaly(list_of_dataframes)
+    # return m.to_dict()
 
     fn = '_'.join(sorted(body.list_of_tables))
+
+
     if fn in DATA_BUILDINGS_UNOM_IDS_PAIRS:
-        tensor_id = DATA_BUILDINGS_UNOM_IDS_PAIRS[fn]['tensor_id']
-        unom_ids = DATA_BUILDINGS_UNOM_IDS_PAIRS[fn]['unom_ids']
-        bt = torch.load(Pathes.tensors + tensor_id + '.pt')
+        try:
+            tensor_id = DATA_BUILDINGS_UNOM_IDS_PAIRS[fn]['tensor_id']
+        except:
+            tensor_id = str(uuid.uuid4())
+        try:
+            unom_ids = DATA_BUILDINGS_UNOM_IDS_PAIRS[fn]['unom_ids']
+            bt = torch.load(Pathes.tensors + tensor_id + '.pt')
+        except:
+            bt, unom_ids = process_dataframe_to_buildings_tensor(list_of_dataframes)
+            DATA_BUILDINGS_UNOM_IDS_PAIRS[fn] = {
+                'tensor_id': tensor_id,
+                'unom_ids': unom_ids
+            }
     else:
         bt, unom_ids = process_dataframe_to_buildings_tensor(list_of_dataframes)
         tensor_id = str(uuid.uuid4())
@@ -134,34 +154,20 @@ def get_anomalies_by_day(body: GetAnomaliesByDayModel):
         bt = bt.float()
         x = []
         x1 = []
-        window = 64
+        window = 512
         for i in tqdm(range(0, bt.shape[0], window)):
-            r1 = Models.is_day_anomaly(wt, bt)
+            r1 = Models.is_day_anomaly(wt[i:i+window], bt[i:i+window])
             r2 = ((Models.what_anomaly_in_day(process_data_to_model_cluster(wt[i:i+window], bt[i:i+window])) + 1)/2)
             x.append(r2)
             x1.append(r1)
         r2 = torch.cat(x, dim=0)
-        r1 = torch.argsort(torch.cat(x1, dim=0), dim=1)
-        r1 = r1.argsort(dim=1)[:, :3]
+        r1 = torch.cat(x1, dim=0)
+        top_objects = r1.sum(dim=1).argsort()[:body.n_objects].clone()
+        r1 = torch.argsort(r1, dim=1)
+        r1 = r1.argsort(dim=1)[:, :body.n_days]
+        # top_objects = r1.sum(dim=1).argsort()[:body.n_objects]
         r2_p = r2.argsort(dim=2)[:, :, :body.n_top].numpy().tolist()
         r2_l = r2.numpy().tolist()
-    # prob1 = {unom_ids[i0]: {tl[i1]: r1[i0][i1] for i1 in range(len(tl))} for i0 in tqdm(range(len(unom_ids)))}
-    # prob2 = {
-    #     unom_ids[i0]: {
-    #         tl[i1]: {
-    #             moe[i2]: r2_l[i0][i1][i2] for i2 in r2_p[i0][i1]
-    #         } for i1 in range(len(tl))
-    #     } for i0 in tqdm(range(len(unom_ids)))
-    # }
-    # idx = np.random.rand(213) > 0.99
-    # prob2 = {
-    #     # unom_ids[i0]: 1
-    #     unom_ids[i0]: {
-    #         'tl': tl[idx].tolist(),
-    #         'anomalies': np.round(softmax(np.random.rand(213, 4), axis=1)[idx, :3], 2).tolist()
-    #     } 
-    #     for i0 in tqdm(range(len(unom_ids)))
-    # }
     prob2 = {
         unom_ids[i0]: {
             'tl': [tl[i.numpy()] for i in r1[i0]],
@@ -169,12 +175,10 @@ def get_anomalies_by_day(body: GetAnomaliesByDayModel):
                 {moe[j]: r2_l[i0][i][j] for j in r2_p[i0][i]} for i in r1[i0]
             ]
         } 
-        for i0 in tqdm(range(len(unom_ids)))
+        for i0 in tqdm(top_objects)
     }
-    # print(prob2.keys())
-    print(sys.getsizeof(prob2))
-    # with open('e.json', 'w') as f:
-    #     json.dump(prob2, f, default=str)
     return {
-        'what_anomaly_propability': prob2
+        'what_anomaly_propability': prob2,
+        'heat_station_anomaly': []
     }
+

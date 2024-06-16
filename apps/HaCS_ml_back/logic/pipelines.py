@@ -3,7 +3,8 @@ import os
 import numpy as np
 import pandas as pd
 import torch
-from constants import Pathes
+from tqdm import tqdm
+from constants import SPEC_HEAT_DATES, ColumnsInfo, Pathes
 from logic.s3_comunication import get_file_from_s3
 from logic import dataframe_processors
 
@@ -53,4 +54,30 @@ def load_dataframe_pipeline(table_name: str):
         df = load_table_from_s3_pipelines(table_name)
         df.to_csv(Pathes.dataframes + table_name + '.csv')
     return df
+
+
+# def get_heatstation_anomaly(list_of_dataframes: list[pd.DataFrame]):
+#     list_of_usefull_columns = []
+#     for i in tqdm(list_of_dataframes):
+#         i.columns.map(lambda a: a.rstrip().lstrip())
+#         df_i = i.loc[:, i.columns.intersection(ColumnsInfo.heat_station_columns)]
+#         if df_i.shape > 0:
+#             if 'UNOM' in df_i.columns:
+#                 list_of_usefull_columns.append(df_i)
+#             elif 'УНОМ' in df_i.columns:
+#                 df_i.rename({'УНОМ': 'UNOM'})
+#                 list_of_usefull_columns.append(df_i)
+#     mdf = list_of_usefull_columns[0]
+#     for i in list_of_usefull_columns[1:]:
+#         mdf = pd.merge(mdf, i, on='UNOM', how='left')
+#     mdf = mdf.dropna()
+#     if mdf.shape[0] == 0:
+#         return -1
+#     else:
+#         mdf['Дата регистрации отключения'] = mdf['Дата регистрации отключения'].map(lambda a: pd.to_datetime(a))
+#         idxes = ~mdf['Дата регистрации отключения'].isin(SPEC_HEAT_DATES)
+#         return mdf.loc[idxes, 'UNOM']
+
+
+    
     

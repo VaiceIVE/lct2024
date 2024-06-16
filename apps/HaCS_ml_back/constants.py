@@ -52,6 +52,7 @@ with open(Pathes.columns_info) as f:
         columns_norm_forms = d['columns_norm_form_pairs']
         weathers_types = d['weathers_types']
         buildings_dataframe_columns = d['buildings_dataframe_columns']
+        heat_station_columns = d['heat_station_usefull_columns']
 
 
 @dataclass(frozen=True)
@@ -62,7 +63,11 @@ class Models:
 
 with open(environ.get('SPEC_HEAT_DATA')) as f:
     SPEC_HEAT_DATA = json.load(f)
-
+    SPEC_HEAT_DATES = list()
+    for i in SPEC_HEAT_DATA:
+        for j in SPEC_HEAT_DATA[i]:
+            SPEC_HEAT_DATA[i][j] = [pd.to_datetime(k) for k in SPEC_HEAT_DATA[i][j]]
+            SPEC_HEAT_DATES += SPEC_HEAT_DATA[i][j]
 
 
 
