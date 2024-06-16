@@ -17,13 +17,22 @@ export const BuildingItem = ({ b, setSelectedBuilding }: BuildingItemProps) => {
       onClick={() => setSelectedBuilding(b)}
       p="20px"
       type="dark"
+      overflow="hidden"
     >
       <Flex align={'center'} gap={24}>
         <Flex align={'center'} gap={16}>
           <IconBlock iconType={b.socialType} />
-          <Stack gap={7}>
+          <Stack style={{ overflow: 'hidden' }} gap={7}>
             <p className="text medium">{b.address}</p>
-            <p className="text">
+            <p
+              style={{
+                textWrap: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '390px',
+              }}
+              className="text"
+            >
               {b.events.map((e) => e.eventName).join(', ')}
             </p>
           </Stack>
