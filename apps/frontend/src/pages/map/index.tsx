@@ -21,7 +21,6 @@ import { IObj, IResponse } from 'shared/models/IResponse';
 
 import styles from './MapPage.module.scss';
 import { findSquareForHouse } from 'shared/helpers';
-import { data } from 'shared/constants/mock';
 
 const MapPage = () => {
   const [opened, { open, close }] = useDisclosure(true);
@@ -79,14 +78,6 @@ const MapPage = () => {
           })
         );
       }
-
-      setPrediction({
-        id: 3,
-        buildings: data.map((b) => ({
-          ...b,
-          connectionInfo: findSquareForHouse(b.coords),
-        })),
-      });
     },
     [id, isDefault]
   );
