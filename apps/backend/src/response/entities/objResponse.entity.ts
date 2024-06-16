@@ -18,7 +18,9 @@ export class ObjResponse {
     @Column()
     isLast: boolean
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     district: string
 
     @ManyToOne(() => Obj, (obj) => obj.objResponses, {

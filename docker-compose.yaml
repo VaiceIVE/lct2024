@@ -75,7 +75,11 @@ services:
     working_dir: /nest-app/
     entrypoint: bash -c "npm run create-entities-index && npx nx serve backend --skip-nx-cache"
     links:
-      - "postgres:postgres" 
+      - "postgres:postgres"
+      - "minio:minio" 
+      - "py:py"
+      - "fastapi:fastapi"
+
 
   py:
     image: python:3.10.14-bookworm 
