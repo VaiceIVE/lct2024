@@ -28,7 +28,7 @@ export class ObjService {
     return array.indexOf(value) === index;
   }
 
-  async getByType(type: string)
+  async getByType(type: "education" | "medicine" | "mkd" | "prom" | "tp")
   {
     if(type == "tp")
       {
@@ -53,9 +53,9 @@ export class ObjService {
           }
         return ans;
       }
-    if(type == 'mkd')
+      else
       {
-        const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}, order: {address: 'ASC'}})
+        const addresses = await this.objRepository.find({where: {socialType: type}, select: {address: true}})
         const unique = Array.from(new Set(addresses))
         let ans = []
         for(const obj of addresses)
@@ -68,51 +68,6 @@ export class ObjService {
           console.log(addresses.length)
           console.log(unique.length)
           console.log(ans.length)
-        return ans;
-      }
-    if(type == 'education')
-      {
-        const addresses = await this.objRepository.find({where: {socialType: 'education'}, select: {address: true}})
-        const unique = Array.from(new Set(addresses))
-        let ans = []
-        for(const obj of addresses)
-          {
-            if(!ans.includes(obj))
-              {
-                ans.push(obj)
-              }
-          }
-
-        return ans;
-      }
-    if(type == 'medicine')
-      {
-        const addresses = await this.objRepository.find({where: {socialType: 'medicine'}, select: {address: true}})
-        const unique = Array.from(new Set(addresses))
-        let ans = []
-        for(const obj of addresses)
-          {
-            if(!ans.includes(obj))
-              {
-                ans.push(obj)
-              }
-          }
-
-        return ans;
-      }
-    if(type == 'prom')
-      {
-        const addresses = await this.objRepository.find({where: {socialType: 'prom'}, select: {address: true}})
-        const unique = Array.from(new Set(addresses))
-        let ans = []
-        for(const obj of addresses)
-          {
-            if(!ans.includes(obj))
-              {
-                ans.push(obj)
-              }
-          }
-
         return ans;
       }
   }
