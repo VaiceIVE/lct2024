@@ -45,8 +45,8 @@ export const ResponseList = ({
   };
 
   const onClose = () => {
-    close();
     handleDeleteObject();
+    close();
   };
 
   useEffect(() => {
