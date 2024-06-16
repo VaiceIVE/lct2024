@@ -74,14 +74,6 @@ export class PredictionService {
                         
                     }
             }
-        const FormData = require('form-data');
-        let formdata = new FormData()
-        for (const name of names)
-            {
-                formdata.append('files', await createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`)).read(), name)
-            }
-        let dataLoadStatus = axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
-        await dataLoadStatus
 
         let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: defaultNames, period: 2024, n_objects: 250})
         let predictionAnswer = (await predictionStatus).data
@@ -96,6 +88,8 @@ export class PredictionService {
         {
             names.push(await this.storageService.uploadToS3(file))
         }
+        
+        let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: names, period: 2024, n_objects: 250})
         const FormData = require('form-data');
         let formdata = new FormData()
         for (const file of files)
@@ -104,9 +98,8 @@ export class PredictionService {
                 formdata.append('files', file.buffer, file.originalname)
             }
         let dataLoadStatus = axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
-        await dataLoadStatus
-        let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: names, period: 2024, n_objects: 250})
         let predictionAnswer = (await predictionStatus).data
+        await dataLoadStatus
         return await this.handleResponseData(predictionAnswer)
     }
 
@@ -120,16 +113,14 @@ export class PredictionService {
     {
         const data = predictionAnswer.what_anomaly_propability     
         let objPredictions = []
-        console.log(data)
-        console.log(Object.keys(data))
         for (const unom of Object.keys(data))
             {
                 let obj = await this.objRepository.findOne({where: {unom: unom}})
                 let events = []
-                // if(!obj)
-                //     {
-                //         continue
-                //     }
+                if(! obj)
+                    {
+                        continue
+                    }
                 const dates = data[unom]['tl']
                 console.log(data[unom])
                 console.log(data[unom]['anomalies'])
