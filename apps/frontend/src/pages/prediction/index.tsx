@@ -18,6 +18,7 @@ import { Flex } from '@mantine/core';
 import PredictionServices from 'shared/services/PredictionServices';
 import { IPrediction } from 'shared/models/IPrediction';
 import { FormProvider, useForm } from 'react-hook-form';
+import { findSquareForHouse } from 'shared/helpers';
 
 const PredictionPageContainer = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -53,12 +54,28 @@ const PredictionPageContainer = () => {
           PredictionServices.getPredictionById(
             response.data,
             months[index].value
-          ).then((r) => setPrediction(r.data));
+          ).then((r) =>
+            setPrediction({
+              id: r.data.id,
+              buildings: r.data.buildings.map((b) => ({
+                ...b,
+                connectionInfo: findSquareForHouse(b.coords),
+              })),
+            })
+          );
         })
         .finally(() => setLoading(false));
     } else {
       PredictionServices.getPredictionById(+id, months[index].value)
-        .then((response) => setPrediction(response.data))
+        .then((response) =>
+          setPrediction({
+            id: response.data.id,
+            buildings: response.data.buildings.map((b) => ({
+              ...b,
+              connectionInfo: findSquareForHouse(b.coords),
+            })),
+          })
+        )
         .finally(() => setLoading(false));
     }
   }

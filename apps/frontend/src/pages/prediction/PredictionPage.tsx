@@ -75,7 +75,10 @@ export const PredictionPage = ({
         </Stack>
       ) : (
         <>
-          <PredictionCards />
+          <PredictionCards
+            isLoading={isLoading}
+            buildings={prediction?.buildings}
+          />
           <EventsMap
             buildings={prediction?.buildings}
             id={id}

@@ -24,7 +24,9 @@ export const PredictionDatePicker = ({
     <Flex className={styles.wrapper} gap={12} align={'center'}>
       <IconChevronLeft
         onClick={
-          isLeft ? () => setMonthsIndex((prev: number) => prev - 1) : undefined
+          isLeft || disabled
+            ? () => setMonthsIndex((prev: number) => prev - 1)
+            : undefined
         }
         className={classNames(styles.icon, {
           [styles.disabled]: !isLeft || disabled,
@@ -37,7 +39,9 @@ export const PredictionDatePicker = ({
       </div>
       <IconChevronRight
         onClick={
-          isRight ? () => setMonthsIndex((prev: number) => prev + 1) : undefined
+          isRight || disabled
+            ? () => setMonthsIndex((prev: number) => prev + 1)
+            : undefined
         }
         className={classNames(styles.icon, {
           [styles.disabled]: !isRight || disabled,
