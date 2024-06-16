@@ -46,6 +46,7 @@ export const Map = ({
   };
 
   const markers = buildings?.length ? buildings : objs;
+  console.log(markers);
 
   const districts: District[] = useMemo(() => {
     const districtMap: { [key: string]: [number, number][] } = {};

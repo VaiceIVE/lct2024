@@ -9,10 +9,17 @@ export interface IBuilding {
   district: string | null;
   networkType: 'ctp' | 'itp' | null;
   characteristics: { [key: string]: string | number };
+  connectionInfo: ICtp | null;
 }
 
 export interface IEvents {
   eventName: string;
   chance: number;
   date: string;
+}
+
+export interface ICtp {
+  address: string;
+  name: string;
+  coords: [number, number];
 }

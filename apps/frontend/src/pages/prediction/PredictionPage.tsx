@@ -1,6 +1,5 @@
 import { Loader, Stack, useMantineTheme } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { data } from 'shared/constants/mock';
 import { IPrediction } from 'shared/models/IPrediction';
 import { Breadcrumbs } from 'shared/ui/Breadcrumbs';
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
@@ -78,12 +77,18 @@ export const PredictionPage = ({
         <>
           <PredictionCards />
           <EventsMap
-            buildings={data}
+            buildings={prediction?.buildings}
             id={id}
             months={months}
             monthsIndex={monthsIndex}
           />
-          <EventsList data={data} id={id} month={months[monthsIndex].value} />
+          {prediction?.buildings ? (
+            <EventsList
+              data={prediction?.buildings}
+              id={id}
+              month={months[monthsIndex].value}
+            />
+          ) : null}
           <PredictionLeaveModal
             customButtonRow={customButtonRow}
             title={'Вы уверены, что хотите выйти \n без сохранения прогноза?'}

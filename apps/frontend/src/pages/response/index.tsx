@@ -14,6 +14,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { months } from 'shared/constants/months';
+import { findSquareForHouse } from 'shared/helpers';
 import { IObj, IResponse } from 'shared/models/IResponse';
 import ResponseServices from 'shared/services/ResponseServices';
 
@@ -56,7 +57,13 @@ const ResponsePage = () => {
     setLoading(true);
     ResponseServices.getResponse()
       .then((response) => {
-        setResponse(response.data);
+        setResponse({
+          date: response.data.date,
+          obj: response.data?.obj.map((o) => ({
+            ...o,
+            connectionInfo: findSquareForHouse(o.coords),
+          })),
+        });
         const format = 'DD MMMM';
         setDate(
           dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()

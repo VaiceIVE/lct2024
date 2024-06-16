@@ -20,7 +20,7 @@ import { IBuilding } from 'shared/models/IBuilding';
 import { IObj, IResponse } from 'shared/models/IResponse';
 
 import styles from './MapPage.module.scss';
-import { data } from 'shared/constants/mock';
+import { findSquareForHouse } from 'shared/helpers';
 
 const MapPage = () => {
   const [opened, { open, close }] = useDisclosure(true);
@@ -54,8 +54,12 @@ const MapPage = () => {
   const getPredictionResult = useCallback(
     (month: string) => {
       if (isDefault) {
-        PredictionServices.getDefaultPrediction(+month).then((response) =>
-          setPrediction(response.data)
+        PredictionServices.getDefaultPrediction().then((response) =>
+          PredictionServices.getPredictionById(response.data, +month).then(
+            (r) => {
+              setPrediction(r.data);
+            }
+          )
         );
       } else {
         PredictionServices.getPredictionById(+id, +month).then((response) =>
@@ -63,7 +67,13 @@ const MapPage = () => {
         );
       }
 
-      setPrediction({ id: 3, buildings: data });
+      // setPrediction({
+      //   id: 3,
+      //   buildings: data.map((b) => ({
+      //     ...b,
+      //     connectionInfo: findSquareForHouse(b.coords),
+      //   })),
+      // });
     },
     [id, isDefault]
   );

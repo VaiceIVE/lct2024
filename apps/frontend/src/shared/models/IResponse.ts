@@ -1,3 +1,5 @@
+import { ICtp } from './IBuilding';
+
 export interface IResponse {
   obj: IObj[];
   date: string;
@@ -17,4 +19,5 @@ export interface IObj {
   normCooldown: number | null;
   district: string | null;
   characteristics: { [key: string]: string | number };
+  connectionInfo: ICtp | null;
 }

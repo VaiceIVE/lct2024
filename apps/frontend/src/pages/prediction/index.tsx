@@ -48,8 +48,13 @@ const PredictionPageContainer = () => {
   function getPredictionResult(index: number) {
     setLoading(true);
     if (isDefault) {
-      PredictionServices.getDefaultPrediction(months[index].value)
-        .then((response) => setPrediction(response.data))
+      PredictionServices.getDefaultPrediction()
+        .then((response) => {
+          PredictionServices.getPredictionById(
+            response.data,
+            months[index].value
+          ).then((r) => setPrediction(r.data));
+        })
         .finally(() => setLoading(false));
     } else {
       PredictionServices.getPredictionById(+id, months[index].value)
