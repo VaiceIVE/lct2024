@@ -28,7 +28,7 @@ export class StorageService {
             {
                 name = name + `(${(new Date).toDateString()})`
             }
-        await this.minioService.client.putObject('tables', name, file)
+        await this.minioService.client.putObject('tables', name, 'file')
         return name
     }
 
