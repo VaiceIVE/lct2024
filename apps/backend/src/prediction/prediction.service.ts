@@ -169,9 +169,10 @@ export class PredictionService {
             id: prediction.id,
             buildings: []
         }
-
+        console.log(prediction)
         for(const objPrediction of prediction.objPredictions)
             {
+                console.log(objPrediction)
                 let events = []
                 for(const event of objPrediction.events)
                     {
@@ -186,7 +187,7 @@ export class PredictionService {
                     }
                 let address = ''
                 let consumersCount = 1
-                let coords: [number, number] = [55, 33]
+                let coords: [number, number] = null
                 let coolingRate = 1
                 let district = ''
                 let networkType = null
