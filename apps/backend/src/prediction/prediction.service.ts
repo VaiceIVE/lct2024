@@ -266,7 +266,6 @@ export class PredictionService {
             for(let obj of objPredictions.buildings)
                 {
                     const outTemp = dateTempsDict[obj.events[0].date.split('-')[1]]
-                    console.log(outTemp)
                     let beta = 50
                     obj.priority = 0
                     if(obj.socialType == "education" || obj.socialType == "medicine" )
