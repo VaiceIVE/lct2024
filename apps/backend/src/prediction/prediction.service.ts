@@ -53,11 +53,6 @@ export class PredictionService {
                 if(!names.includes(name))
                     {
                         let buffer: Buffer = createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`)).read()
-                        let upload: BufferedFile
-                        upload.buffer = buffer,
-                        upload.encoding = 'utf-8'
-                        upload.fieldname = name
-                        upload.originalname = name
                         await this.storageService.uploadToS3Buffer(buffer, name)
                         
                     }
