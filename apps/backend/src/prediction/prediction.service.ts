@@ -14,6 +14,7 @@ import { HeatPoint, Obj } from '../database/entities-index';
 import { ObjPrediction } from './entities/objPrediction.entity';
 import { IObjResponse, IPrediction } from './interfaces/IObjResponse.interface';
 import { join } from 'path';
+
 @Injectable()
 export class PredictionService {
     constructor(
@@ -51,15 +52,14 @@ export class PredictionService {
             {
                 if(!names.includes(name))
                     {
-                        let stdout = createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`)).read()
-                        console.log(stdout)
-                        let buf: Buffer
-                        let bufs = [];
-                        stdout.on('data', function(d){ bufs.push(d); });
-                        stdout.on('end', async function(){
-                        buf = Buffer.concat(bufs);
-                        await this.storageService.uploadToS3Buffer(buf, name)
-                        })
+                        let buffer: Buffer = createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`)).read()
+                        let upload: BufferedFile
+                        upload.buffer = buffer,
+                        upload.encoding = 'utf-8'
+                        upload.fieldname = name
+                        upload.originalname = name
+                        await this.storageService.uploadToS3Buffer(upload, name)
+                        
                     }
             }
         let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: defaultNames, period: 2024})
@@ -393,3 +393,11 @@ const wallDict = {'монолитные (ж-б)': 0.940816878,
 'легкобетонные блоки': 0.940816878,
 'Монолитные': 0.747126437,
 'деревянные': 0.5}
+
+interface BufferedFile {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    size: number;
+    buffer: Buffer | string;
+  }
