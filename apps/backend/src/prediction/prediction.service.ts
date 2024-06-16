@@ -323,7 +323,6 @@ export class PredictionService {
                                                     chance: probability,
                                                     date: date
                                                 })
-                                                console.log(newEvent)
                                                 events.push(newEvent)
                                             }
                                         
@@ -342,6 +341,7 @@ export class PredictionService {
                 objPredictions: objPredictions
             })
             console.log(prediction)
+            console.log(objPredictions.length)
             await this.predictionRepository.save(prediction)
             console.log("Saved")
 
