@@ -4,16 +4,19 @@ import { Drawer } from 'shared/ui/Drawer';
 import { Input } from 'shared/ui/Input';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from 'shared/ui/Button';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Context } from 'main';
+import { observer } from 'mobx-react-lite';
 
-const LoginPage = () => {
+const LoginPage = observer(() => {
   const { UStore } = useContext(Context);
 
   const { control, watch, handleSubmit } = useForm();
 
   const username = watch('username') || '';
   const password = watch('password') || '';
+
+  const [error, setError] = useState('');
 
   const handleLogin = handleSubmit(({ username, password }) => {
     UStore.login(username, password);
@@ -24,6 +27,10 @@ const LoginPage = () => {
       UStore.setError('');
     }
   }, [UStore, username, password]);
+
+  useEffect(() => {
+    setError(UStore.error);
+  }, [UStore.error]);
 
   return (
     <div className={styles.wrapper}>
@@ -53,7 +60,7 @@ const LoginPage = () => {
               name="username"
               render={({ field }) => (
                 <Input
-                  error={UStore.error}
+                  error={error}
                   label="Логин"
                   placeholder="Введите логин"
                   field={field}
@@ -66,7 +73,7 @@ const LoginPage = () => {
               defaultValue={''}
               render={({ field }) => (
                 <Input
-                  error={UStore.error}
+                  error={error}
                   type="password"
                   label="Пароль"
                   placeholder="Введите пароль"
@@ -79,6 +86,6 @@ const LoginPage = () => {
       </Drawer>
     </div>
   );
-};
+});
 
 export default LoginPage;
