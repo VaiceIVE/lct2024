@@ -66,7 +66,7 @@ export class ObjService {
                 ans.push(obj)
               }
           }
-        return unique;
+        return ans;
       }
     if(type == 'education')
       {
@@ -81,7 +81,7 @@ export class ObjService {
               }
           }
 
-        return unique;
+        return ans;
       }
     if(type == 'medicine')
       {
@@ -96,7 +96,7 @@ export class ObjService {
               }
           }
 
-        return unique;
+        return ans;
       }
     if(type == 'prom')
       {
@@ -111,7 +111,7 @@ export class ObjService {
               }
           }
 
-        return unique;
+        return ans;
       }
   }
 
