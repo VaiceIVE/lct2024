@@ -93,22 +93,25 @@ const ResponsePage = () => {
   const [isPriority, setPriority] = useState<boolean>(true);
   const [isLoading, setLoading] = useState<boolean>(false);
 
+  const [deletedId, setDeletedId] = useState<number>();
+
   const debounceDate = useCallback(
     debounce((newState) => changeDefaultDate(newState), 600),
     []
   );
 
   const getResponse = () => {
-    setLoading(true);
-    ResponseServices.getResponse()
-      .then((response) => {
-        setResponse(response.data);
-        const format = 'DD MMMM';
-        setDate(
-          dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
-        );
-      })
-      .finally(() => setLoading(false));
+    setResponse(data);
+    // setLoading(true);
+    // ResponseServices.getResponse()
+    //   .then((response) => {
+    //     setResponse(response.data);
+    //     const format = 'DD MMMM';
+    //     setDate(
+    //       dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
+    //     );
+    //   })
+    //   .finally(() => setLoading(false));
   };
 
   const handleAddObject = () => {
@@ -182,6 +185,17 @@ const ResponsePage = () => {
     }
   }
 
+  const handleDeleteObject = () => {
+    if (deletedId) {
+      setLoading(true);
+      ResponseServices.deleteObj(deletedId)
+        .then((response) => {
+          setResponse(response.data);
+        })
+        .finally(() => setLoading(false));
+    }
+  };
+
   useEffect(() => {
     if (selectedObj) {
       open();
@@ -228,6 +242,8 @@ const ResponsePage = () => {
             isPriority={isPriority}
             obj={getObjByFilters()}
             setSelectedObj={setSelectedObj}
+            setDeletedId={setDeletedId}
+            handleDeleteObject={handleDeleteObject}
           />
         ) : null}
         {response?.obj?.length && !isLoading ? (

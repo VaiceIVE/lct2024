@@ -2,7 +2,7 @@ import { Flex, Stack } from '@mantine/core';
 import { Title } from 'shared/ui/Title';
 import { IconBlock } from 'shared/ui/IconBlock';
 import { Button } from 'shared/ui/Button';
-import { IconMap, IconPencil } from '@tabler/icons-react';
+import { IconCheck, IconMap, IconPencil } from '@tabler/icons-react';
 import { IObj } from 'shared/models/IResponse';
 
 import classNames from 'classnames';
@@ -14,6 +14,7 @@ interface ResponseItemProps {
   o: IObj;
   setSelectedObj: React.Dispatch<React.SetStateAction<IObj | null>>;
   date: string | undefined;
+  onOpen: (id: number) => void;
 }
 
 export const ResponseItem = ({
@@ -21,6 +22,7 @@ export const ResponseItem = ({
   o,
   date,
   setSelectedObj,
+  onOpen,
 }: ResponseItemProps) => {
   return (
     <Flex
@@ -71,7 +73,7 @@ export const ResponseItem = ({
             </Flex>
           ) : null}
         </Stack>
-        <Flex gap={8}>
+        <Flex p={'0 24px 0 0'} gap={8}>
           <Button
             w={57}
             type="outline"
@@ -79,6 +81,12 @@ export const ResponseItem = ({
             onClick={() => setSelectedObj(o)}
           />
           <Button w={57} type="outline" icon={<IconMap size={18} />} />
+          <Button
+            onClick={() => onOpen(o.id)}
+            w={57}
+            type="outline"
+            icon={<IconCheck size={18} />}
+          />
         </Flex>
       </Flex>
     </Flex>
