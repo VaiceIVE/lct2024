@@ -265,6 +265,8 @@ export class PredictionService {
             }
             for(let obj of objPredictions.buildings)
                 {
+                    console.log(obj.events[0].date)
+                    console.log(obj.events[0].date.split('-'))
                     const outTemp = dateTempsDict[obj.events[0].date.split('-')[1]]
                     console.log(outTemp)
                     let beta = 50
