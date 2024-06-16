@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { createReadStream } from 'fs';
 import { MinioService } from 'nestjs-minio-client';
-import { ReadStream } from 'typeorm/platform/PlatformTools';
+import { ReadStream, Readable } from 'typeorm/platform/PlatformTools';
 
 @Injectable()
 export class StorageService {
@@ -23,7 +23,7 @@ export class StorageService {
         return file.originalname
     }
 
-    public async uploadToS3Buffer(file: Buffer, name: string)
+    public async uploadToS3Buffer(file: Readable, name: string)
     {
         const names: string[] = await this.getNames()
         if(names.includes(name))
