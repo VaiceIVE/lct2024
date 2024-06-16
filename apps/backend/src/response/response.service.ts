@@ -265,15 +265,19 @@ export class ResponseService {
                     else
                     {
                         let geodataString = await this.getGeodataString(object.obj.address)
-                        object.obj.geodata = geodataString
-                        this.objRepository.save(object.obj)
-                        coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
-                        const coordsReturn = [coords[1], coords[0]]
-                        coords = coordsReturn
-                        for(let coord of coords)
-                        {
-                            coord = Number(coord)
-                        }
+                        if (geodataString)
+                          {
+                            object.obj.geodata = geodataString
+                            this.objRepository.save(object.obj)
+                            coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
+                            const coordsReturn = [coords[1], coords[0]]
+                            coords = coordsReturn
+                            for(let coord of coords)
+                            {
+                                coord = Number(coord)
+                            }
+                          }
+                        
                     }
                 }
                     let newIObj: IObj = {
@@ -374,8 +378,23 @@ export class ResponseService {
 
   async getGeodataString(address: string)
   {
-    let coordsString = (await axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=Москва, ${address}`)).data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-    return coordsString
+    return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=eaca56be-180c-4b19-a427-ffc3e8723cad&format=json&geocode=Москва, ${address}`).catch((e) => {
+        return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=535a0aa8-991d-4b0e-b4a3-116d011e89b4&format=json&geocode=Москва, ${address}`).catch((e) => {
+            return null
+        }).then((res) => {
+            if(res)
+                {
+                    return res.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                }
+        })
+    }).then((res) => {
+        if(res)
+            {
+                return res.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+            }
+    })
+
+    
   }
 
   async getWorkTime(address: string)
