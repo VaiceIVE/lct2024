@@ -68,6 +68,7 @@ export class PredictionService {
             {
                 if(!names.includes(name))
                     {
+                        console.log(name)
                         let stream = createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`))
                         await this.storageService.uploadToS3Buffer(stream, name)
                         
@@ -138,8 +139,7 @@ export class PredictionService {
                                         probsSum += probability
                                         probsAmount += 1
                                         averageProbability = (probsSum / probsAmount)
-                                        if(probability >= averageProbability)
-                                            {
+
                                                 const newEvent = this.eventRepository.create({
                                                     eventName: event,
                                                     chance: probability,
@@ -147,24 +147,18 @@ export class PredictionService {
                                                 })
                                                 await this.eventRepository.save(newEvent)
                                                 events.push(newEvent)
-                                            }
                                         
                                     }
                             }
                         
                     }
-                    if(events.length != 0)
-                        {
                             const objPrediction = this.objPredictionRepository.create({
                                 events: events,
                                 object: obj,
                             })
                             await this.objPredictionRepository.save(objPrediction)
                             objPredictions.push(objPrediction)
-                        }
             }
-            if(objPredictions.length != 0)
-                {
                     const prediction = this.predictionRepository.create({
                         objPredictions: objPredictions,
                         isDefault: isDefault
@@ -175,8 +169,7 @@ export class PredictionService {
                     console.log("Saved")
                     
                     return prediction.id
-                }
-                return null
+
     }
     private async handlePredictionOutput(prediction: Prediction, monthNum: string)
     {
