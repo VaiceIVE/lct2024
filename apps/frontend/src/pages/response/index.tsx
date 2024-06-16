@@ -63,7 +63,7 @@ const data: IResponse = {
     {
       id: 3,
       date: '15.10.2024',
-      address: '3Новокосинская улица, 32, Москва, 111672',
+      address: 'Снайперская ул., д.11, стр.2',
       socialType: 'tp',
       consumersCount: 190,
       coords: [55.815345188, 37.514882646],
@@ -185,7 +185,6 @@ const ResponsePage = () => {
   }
 
   const handleDeleteObject = () => {
-    console.log('delete', deletedId);
     if (deletedId) {
       setLoading(true);
       ResponseServices.deleteObj(deletedId)

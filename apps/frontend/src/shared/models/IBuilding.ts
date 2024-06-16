@@ -10,11 +10,6 @@ export interface IBuilding {
   networkType: 'ctp' | 'itp' | null;
 }
 
-// скорость остывания
-//   характеристики
-//   address
-//   адрес отопительного обхекта
-
 export interface IEvents {
   eventName: string;
   chance: number;

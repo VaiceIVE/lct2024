@@ -24,6 +24,7 @@ const PredictionPageContainer = () => {
 
   const [monthsIndex, setMonthsIndex] = useState(0);
   const [prediction, setPrediction] = useState<IPrediction | null>(null);
+  const [isLoading, setLoading] = useState(true);
 
   const [path, setPath] = useState<string>('');
 
@@ -31,6 +32,7 @@ const PredictionPageContainer = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+
   const { id, isSaved } = qs.parse(location.search);
 
   const isDefault = !id;
@@ -44,14 +46,15 @@ const PredictionPageContainer = () => {
   );
 
   function getPredictionResult(index: number) {
+    setLoading(true);
     if (isDefault) {
-      PredictionServices.getDefaultPrediction(months[index].value).then(
-        (response) => setPrediction(response.data)
-      );
+      PredictionServices.getDefaultPrediction(months[index].value)
+        .then((response) => setPrediction(response.data))
+        .finally(() => setLoading(false));
     } else {
-      PredictionServices.getPredictionById(+id, months[index].value).then(
-        (response) => setPrediction(response.data)
-      );
+      PredictionServices.getPredictionById(+id, months[index].value)
+        .then((response) => setPrediction(response.data))
+        .finally(() => setLoading(false));
     }
   }
 
@@ -93,6 +96,7 @@ const PredictionPageContainer = () => {
         close={close}
         prediction={prediction}
         isSaved={Boolean(isSaved)}
+        isLoading={isLoading}
         customButtonRow={
           isDefault ? null : (
             <>

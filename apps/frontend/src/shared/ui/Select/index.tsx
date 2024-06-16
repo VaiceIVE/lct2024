@@ -21,7 +21,8 @@ export const Select = ({ field, allowDeselect = false, ...props }: Props) => {
   return (
     <MantineSelect
       allowDeselect={allowDeselect}
-      {...field}
+      value={field.value}
+      onChange={field.onChange}
       {...props}
       className={style.select}
     />
