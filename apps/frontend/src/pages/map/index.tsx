@@ -61,6 +61,7 @@ const MapPage = () => {
                 id: r.data.id,
                 buildings: r.data.buildings.map((b) => ({
                   ...b,
+                  coords: b.coords.map((c) => +c),
                   connectionInfo: findSquareForHouse(b.coords),
                 })),
               });
@@ -73,6 +74,7 @@ const MapPage = () => {
             id: response.data.id,
             buildings: response.data.buildings.map((b) => ({
               ...b,
+              coords: b.coords.map((c) => +c),
               connectionInfo: findSquareForHouse(b.coords),
             })),
           })
@@ -172,7 +174,14 @@ const MapPage = () => {
   useEffect(() => {
     if (isResponse) {
       ResponseServices.getResponse().then((response) => {
-        setResponse(response.data);
+        setResponse({
+          date: response.data.date,
+          obj: response.data.obj.map((o) => ({
+            ...o,
+            coords: o.coords.map((c) => +c),
+            connectionInfo: findSquareForHouse(o.coords),
+          })),
+        });
       });
 
       if (location?.state?.obj) {
