@@ -55,7 +55,7 @@ const MapPage = () => {
     (month: string) => {
       if (isDefault) {
         PredictionServices.getDefaultPrediction().then((response) =>
-          PredictionServices.getPredictionById(response.data, +month).then(
+          PredictionServices.getPredictionById(response.data, month).then(
             (r) => {
               setPrediction({
                 id: r.data.id,
@@ -68,7 +68,7 @@ const MapPage = () => {
           )
         );
       } else {
-        PredictionServices.getPredictionById(+id, +month).then((response) =>
+        PredictionServices.getPredictionById(+id, month).then((response) =>
           setPrediction({
             id: response.data.id,
             buildings: response.data.buildings.map((b) => ({

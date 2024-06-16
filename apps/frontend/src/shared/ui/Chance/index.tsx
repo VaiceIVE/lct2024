@@ -3,9 +3,13 @@ interface ChanceProps {
 }
 
 export const Chance = ({ value }: ChanceProps) => {
-  if (value <= 20) return <p className="text medium placeholder">{value}%</p>;
+  const returnValue = value * 100;
 
-  if (value < 80) return <p className="text medium blue">{value}%</p>;
+  if (returnValue <= 20)
+    return <p className="text medium placeholder">{returnValue}%</p>;
 
-  return <p className="text medium orange">{value}%</p>;
+  if (returnValue < 80)
+    return <p className="text medium blue">{returnValue}%</p>;
+
+  return <p className="text medium orange">{returnValue}%</p>;
 };
