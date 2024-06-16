@@ -297,7 +297,13 @@ export class PredictionService {
                                 {
                                     if(Object.keys(wallDict).includes((currentobj.wallMaterial)))
                                         {
+
                                             beta = wallDictCoef[currentobj.wallMaterial]
+                                            if(!beta)
+                                            {   
+                                                beta = 50
+                                            }
+                                                
                                             if(currentobj.floorsAmount != null)
                                                 {
                                                     obj.priority += wallDict[currentobj.wallMaterial] * currentobj.floorsAmount * 0.1
