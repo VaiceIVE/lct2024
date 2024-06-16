@@ -1,5 +1,6 @@
 from fastapi import BackgroundTasks, FastAPI, File, UploadFile
 import pandas as pd
+import os
 import numpy as np
 from typing import List
 import logging
@@ -8,6 +9,9 @@ from worker import pandas_handling
 from fastapi.middleware.cors import CORSMiddleware
 load_dotenv()
 app = FastAPI()
+backend_url = os.environ.get("BACKEND_URL")
+if backend_url == None:
+    raise Exception('No Env')
 
 app.add_middleware(
     CORSMiddleware,

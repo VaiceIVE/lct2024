@@ -4,14 +4,8 @@ services:
     ports:
       - '9000:9000'
       - '9001:9001'
-    environment:
-      - MINIO_ROOT_USER=minio-adera-user
-      - MINIO_ROOT_PASSWORD=minio-adera-password
-      - MINIO_DATA_DIR=/data
-#      - MINIO_SERVER_URL=https://minio.adera-team.ru
-#      - MINIO_SCHEME=https
-      - MINIO_BROWSER_REDIRECT_URL = https://minio.adera-team.ru
-      - BITNAMI_DEBUG=true
+    env_file:
+      - .env
     volumes:
 ######ВАЖНО: чтобы работы S3 был корректной необходимо дать пользователю 1001
 ######доступ к директории minio на каталог выше которая появится при первом неудачном пуске контейнера

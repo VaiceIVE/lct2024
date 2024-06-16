@@ -6,6 +6,7 @@ export interface IObj {
     event: string;
     coords: number[];
     priority: number;
+    district: string;
     fullCooldown?: number;
     normCooldown?: number;
 }

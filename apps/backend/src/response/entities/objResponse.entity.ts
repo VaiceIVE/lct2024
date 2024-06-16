@@ -18,6 +18,9 @@ export class ObjResponse {
     @Column()
     isLast: boolean
 
+    @Column()
+    district: string
+
     @ManyToOne(() => Obj, (obj) => obj.objResponses, {
         eager: true
     })

@@ -168,6 +168,7 @@ export class ResponseService {
                 let consumersCount = 1
                 let coords = []
                 let socialType = ''
+                let district = null
                 if(object.heatPoint)
                 {
                     address = object.heatPoint.addressTP
@@ -200,6 +201,7 @@ export class ResponseService {
                 }
                 else
                 {
+                    district = object.obj.munOkr
                     address = object.obj.address
                     socialType = object.obj.socialType
                     if(object.obj.geodata)
@@ -232,6 +234,7 @@ export class ResponseService {
                         consumersCount: consumersCount,
                         coords: coords,
                         event: object.event,
+                        district: district,
                         priority: 1,
                         socialType: socialType,
                         isLast: object.isLast 
@@ -311,7 +314,7 @@ export class ResponseService {
             const zAbs = beta * Math.log((25 - outTemp)/(0 - outTemp))
             obj.normCooldown = zNorm
             obj.fullCooldown = zAbs
-            obj.priority -= zNorm + zAbs
+            obj.priority -= (zNorm + zAbs) / 2
         }
     responseDict.obj = objs
     return responseDict

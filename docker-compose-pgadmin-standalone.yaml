@@ -6,10 +6,8 @@ services:
       restart: on-failure
       ports:
         - '5050:80'
-      environment:
-        - PGADMIN_DEFAULT_EMAIL=postgres@admin.com
-        - PGADMIN_DEFAULT_PASSWORD=postgres
-#        - PGADMIN_DISABLE_POSTFIX=true
+      env_file:
+        - .env
       networks:
         - backend_network
 networks:
