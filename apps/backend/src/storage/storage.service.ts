@@ -21,7 +21,7 @@ export class StorageService {
         return file.originalname
     }
 
-    public async uploadToS3Buffer(file: any, name: string)
+    public async uploadToS3Buffer(file: Buffer, name: string)
     {
         const names: string[] = await this.getNames()
         if(names.includes(name))

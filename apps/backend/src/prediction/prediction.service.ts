@@ -58,7 +58,7 @@ export class PredictionService {
                         upload.encoding = 'utf-8'
                         upload.fieldname = name
                         upload.originalname = name
-                        await this.storageService.uploadToS3Buffer(upload, name)
+                        await this.storageService.uploadToS3Buffer(buffer, name)
                         
                     }
             }
