@@ -67,9 +67,11 @@ const ResponsePage = () => {
           })),
         });
         const format = 'DD MMMM';
-        setDate(
-          dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
-        );
+        if (response.data.date !== dayjs(date).format('DD MMMM').toString()) {
+          setDate(
+            dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
+          );
+        }
       })
       .finally(() => setLoading(false));
   };
@@ -98,8 +100,8 @@ const ResponsePage = () => {
         address,
         selectedObj?.id ? selectedObj?.id : 1
       )
-        .then((response) => {
-          setResponse(response.data);
+        .then(() => {
+          getResponse();
           setPageNoticeShow(true);
         })
         .finally(() => setLoading(false));
@@ -143,7 +145,7 @@ const ResponsePage = () => {
       ResponseServices.updateDefaultDate(
         dayjs(date).format('DD MMMM').toString()
       )
-        .then(() => getResponse())
+        .then((response) => setResponse(response.data))
         .finally(() => setLoading(false));
     }
   }
