@@ -46,6 +46,6 @@ export class PredictionController {
   {
     return this.predictionService.getPrediction(id, monthNum)
   }
-
+  
 
 }

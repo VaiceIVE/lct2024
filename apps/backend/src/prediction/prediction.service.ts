@@ -38,8 +38,13 @@ export class PredictionService {
 
     public async getSaved()
     {
-        const predictionData = await this.predictionRepository.findOne({where: {isSaved: true}, select: {dateCreated: true, id: true}, relations: {objPredictions: true}})
-        return {id: predictionData.id, dateCreated: predictionData.dateCreated, objectCount: predictionData.objPredictions.length}
+        let res = []
+        const predictionData = await this.predictionRepository.find({where: {isSaved: true}, select: {dateCreated: true, id: true}, relations: {objPredictions: true}})
+        for(const data of predictionData)
+            {
+                res.push({id: data.id, dateCreated: data.dateCreated, objectCount: data.objPredictions.length})
+            }
+        return res
     }
 
     public async createDefaultPrediction()
