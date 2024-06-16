@@ -365,7 +365,7 @@ export class PredictionService {
     private async handleGeodataString(geodataStting)
     {
         let coords = geodataStting.replace('[', '').replace(']', '').split(' ')
-        return [coords[1] as number, coords[0] as number] as [number, number]
+        return [+coords[1], +coords[0]] as [number, number]
     }
 
     private async getGeodataString(address: string)
@@ -379,9 +379,6 @@ export class PredictionService {
                             return res.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
                         }
                 })
-            
-
-            
     }
 }
 
