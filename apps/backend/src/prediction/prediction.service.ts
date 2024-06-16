@@ -257,6 +257,10 @@ export class PredictionService {
                                         objPrediction.object.geodata = coordString
                                         await this.objRepository.save(objPrediction.object)
                                     }
+                                    for(let coord of coords)
+                                        {
+                                        coord = Number(coord)
+                                        }
                             }
                     }
                     else
