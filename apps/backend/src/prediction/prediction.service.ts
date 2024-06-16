@@ -50,7 +50,6 @@ export class PredictionService {
         const names = await this.storageService.getNames()
         for(const name of defaultNames)
             {
-                console.log(name)
                 if(!names.includes(name))
                     {
                         let stream = createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`))
