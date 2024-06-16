@@ -88,7 +88,7 @@ export class PredictionService {
 
     public async getPrediction(id: number, monthNum: string)
     {
-        const prediction = await this.predictionRepository.findOne({where: {id: id}, relations: {objPredictions: {events: true}}})
+        const prediction = await this.predictionRepository.findOne({where: {id: id}, relations: {objPredictions: {events: true, heatPoint: true, object: true}}})
         return await this.handlePredictionOutput(prediction, monthNum)
     }
 
