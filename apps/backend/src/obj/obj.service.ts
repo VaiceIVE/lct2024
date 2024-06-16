@@ -60,9 +60,9 @@ export class ObjService {
         let ans = []
         for(const obj of addresses)
           {
-            if(!ans.includes(obj))
+            if(!ans.includes(obj.address))
               {
-                ans.push(obj)
+                ans.push(obj.address)
               }
           }
           console.log(addresses.length)
