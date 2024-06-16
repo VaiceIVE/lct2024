@@ -49,8 +49,10 @@ export class PredictionService {
 
     public async createDefaultPrediction()
     {
+        console.log('default')
         if(await this.predictionRepository.findOneBy({isDefault: true}))
             {
+                console.log('found')
                 return (await this.predictionRepository.findOne({where: {isDefault: true}, select: {id: true}})).id
             }
         const defaultNames = [
