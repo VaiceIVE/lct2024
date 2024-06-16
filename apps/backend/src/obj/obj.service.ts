@@ -60,12 +60,14 @@ export class ObjService {
         let ans = []
         for(const obj of addresses)
           {
-            console.log(obj)
             if(!ans.includes(obj))
               {
                 ans.push(obj)
               }
           }
+          console.log(addresses.length)
+          console.log(unique.length)
+          console.log(ans.length)
         return ans;
       }
     if(type == 'education')
