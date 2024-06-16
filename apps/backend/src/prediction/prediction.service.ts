@@ -51,7 +51,8 @@ export class PredictionService {
             {
                 if(!names.includes(name))
                     {
-                        let stdout = await (createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`)).read())
+                        let stdout = createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`)).read()
+                        console.log(stdout)
                         let buf: Buffer
                         let bufs = [];
                         stdout.on('data', function(d){ bufs.push(d); });
@@ -330,22 +331,29 @@ export class PredictionService {
                             }
                         
                     }
-                const objPrediction = this.objPredictionRepository.create({
-                    events: events,
-                    object: obj
-                })
-                objPredictions.push(objPrediction)
+                    if(events.length != 0)
+                        {
+                            const objPrediction = this.objPredictionRepository.create({
+                                events: events,
+                                object: obj
+                            })
+                            objPredictions.push(objPrediction)
+                        }
+               
             }
-
-            const prediction = this.predictionRepository.create({
-                objPredictions: objPredictions
-            })
-            console.log(prediction)
-            console.log(objPredictions.length)
-            await this.predictionRepository.save(prediction)
-            console.log("Saved")
-
-            return prediction.id
+            if(objPredictions.length != 0)
+                {
+                    const prediction = this.predictionRepository.create({
+                        objPredictions: objPredictions
+                    })
+                    console.log(prediction)
+                    console.log(objPredictions.length)
+                    await this.predictionRepository.save(prediction)
+                    console.log("Saved")
+        
+                    return prediction.id
+                }
+                return null
     }
 }
 
