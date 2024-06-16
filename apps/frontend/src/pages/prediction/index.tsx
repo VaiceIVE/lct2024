@@ -27,6 +27,8 @@ const PredictionPageContainer = () => {
   const [prediction, setPrediction] = useState<IPrediction | null>(null);
   const [isLoading, setLoading] = useState(true);
 
+  const [isShowNotice, setShowNotice] = useState(false);
+
   const [path, setPath] = useState<string>('');
 
   const filterFields = useForm();
@@ -119,6 +121,8 @@ const PredictionPageContainer = () => {
         prediction={prediction}
         isSaved={Boolean(isSaved)}
         isLoading={isLoading}
+        isShowNotice={isShowNotice}
+        setShowNotice={setShowNotice}
         customButtonRow={
           isDefault ? null : (
             <>

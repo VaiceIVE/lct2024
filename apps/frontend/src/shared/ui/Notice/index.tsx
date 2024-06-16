@@ -8,17 +8,23 @@ import { useEffect, useState } from 'react';
 
 interface NoticeProps {
   message: string;
-  type: 'error';
+  type: 'error' | 'done';
   close: () => void;
+  isPageNotice?: boolean;
 }
 
-export const Notice = ({ message, type, close }: NoticeProps) => {
+export const Notice = ({ message, type, close, isPageNotice }: NoticeProps) => {
   const [isFade, setFade] = useState(false);
 
   const types = {
     error: {
       color: 'orange',
       bg: '#FFE4DE',
+      icon: <IconAlertTriangle size={24} />,
+    },
+    done: {
+      color: 'orange',
+      bg: '#EEF6FC',
       icon: <IconAlertTriangle size={24} />,
     },
   };
@@ -43,6 +49,7 @@ export const Notice = ({ message, type, close }: NoticeProps) => {
     <Card
       className={classNames(styles.notice, styles[types[type].color], {
         [styles.fade]: isFade,
+        [styles.paage]: isPageNotice,
       })}
       bg={types[type].bg}
       p="16px 18px"

@@ -2,6 +2,7 @@ import { Loader, Stack, useMantineTheme } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { IPrediction } from 'shared/models/IPrediction';
 import { Breadcrumbs } from 'shared/ui/Breadcrumbs';
+import { Notice } from 'shared/ui/Notice';
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
 import { EventsList } from 'widgets/events-list';
 import { EventsMap } from 'widgets/events-map';
@@ -24,6 +25,8 @@ interface PredictionPageProps {
   returnPage?: { title: string; href: string };
   id: string | (string | null)[] | null;
   isLoading: boolean;
+  isShowNotice?: boolean;
+  setShowNotice: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const PredictionPage = ({
@@ -41,6 +44,8 @@ export const PredictionPage = ({
   prediction,
   id,
   isLoading,
+  isShowNotice,
+  setShowNotice,
 }: PredictionPageProps) => {
   const navigate = useNavigate();
   const theme = useMantineTheme();
@@ -90,6 +95,14 @@ export const PredictionPage = ({
               data={prediction?.buildings}
               id={id}
               month={months[monthsIndex].value}
+            />
+          ) : null}
+          {isShowNotice ? (
+            <Notice
+              type="done"
+              message="Прогноз успешно сохранен"
+              isPageNotice
+              close={() => setShowNotice(false)}
             />
           ) : null}
           <PredictionLeaveModal
