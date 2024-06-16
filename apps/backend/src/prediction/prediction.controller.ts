@@ -28,6 +28,6 @@ export class PredictionController {
   @Get('/:id/:month')
   public async getPredictionRendered(@Param('id') id: number, @Param('month') monthNum: string)
   {
-    return this.predictionService.createDefaultPrediction()
+    return this.predictionService.getPrediction(id, monthNum)
   }
 }
