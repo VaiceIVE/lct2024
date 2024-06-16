@@ -21,6 +21,17 @@ export class StorageService {
         return file.originalname
     }
 
+    public async uploadToS3Buffer(file: Buffer, name: string)
+    {
+        const names: string[] = await this.getNames()
+        if(names.includes(name))
+            {
+                name = name + `(${(new Date).toDateString()})`
+            }
+        await this.minioService.client.putObject('tables', name, file)
+        return name
+    }
+
     public async uploadToS3Many(files: Express.Multer.File[])
     {
         let sentFiles = []
