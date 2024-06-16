@@ -52,7 +52,7 @@ export const PredictionPage = ({
 
   return (
     <PageWrapper
-      title={isSaved && prediction?.id ? `Анализ от ${1}` : ''}
+      title={isSaved && prediction?.id ? `Прогноз` : ''}
       button={headerActions}
     >
       {isDefault ? null : (
@@ -61,8 +61,7 @@ export const PredictionPage = ({
           path={[
             returnPage ? returnPage : { title: 'Базовый прогноз', href: '/' },
             {
-              title:
-                isSaved && prediction?.id ? `Анализ от ${1}` : 'Новый прогноз',
+              title: isSaved && prediction?.id ? `Прогноз` : 'Новый прогноз',
               href: '/prediction',
             },
           ]}

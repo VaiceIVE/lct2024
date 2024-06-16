@@ -11,6 +11,7 @@ import { Button } from 'shared/ui/Button';
 
 import styles from './StorageHistory.module.scss';
 import HistoryServices from 'shared/services/HistoryServices';
+import dayjs from 'dayjs';
 
 export const StorageHistory = () => {
   const theme = useMantineTheme();
@@ -56,20 +57,27 @@ export const StorageHistory = () => {
                   justify={'space-between'}
                 >
                   <Stack gap={18} flex={1}>
-                    <Title level={4} title={`Анализ от ${h.date}`} />
-                    <p className="text medium">{h.time}</p>
+                    <Title
+                      level={4}
+                      title={`Анализ от ${dayjs(h.dateCreated).format(
+                        'DD.MM.YYYY'
+                      )}`}
+                    />
+                    <p className="text medium">
+                      {dayjs(h.dateCreated).format('hh:mm:ss')}
+                    </p>
                     <p className="text placeholder">
-                      Условия события: {h.anomalies?.join(', ')}
+                      Условия события: загрузка файлов
                     </p>
                   </Stack>
                   <Flex flex={1} align={'center'} justify={'space-between'}>
                     <Stack gap={8}>
-                      {Object.keys(h.result).map((r) => (
-                        <Flex key={r} gap={3}>
-                          <p className="text placeholder">{r}:</p>
-                          <p className="text medium">{h.result[r]}</p>
-                        </Flex>
-                      ))}
+                      <Flex gap={3}>
+                        <p className="text placeholder">
+                          Количество потребителей:
+                        </p>
+                        <p className="text medium">{h.objectCount}</p>
+                      </Flex>
                     </Stack>
                     <NavLink
                       state={{

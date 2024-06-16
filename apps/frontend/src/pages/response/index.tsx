@@ -48,6 +48,8 @@ const ResponsePage = () => {
 
   const [deletedId, setDeletedId] = useState<number>();
 
+  const [isPageNoticeShow, setPageNoticeShow] = useState<boolean>(false);
+
   const debounceDate = useCallback(
     debounce((newState) => changeDefaultDate(newState), 600),
     []
@@ -96,7 +98,10 @@ const ResponsePage = () => {
         address,
         selectedObj?.id ? selectedObj?.id : 1
       )
-        .then((response) => setResponse(response.data))
+        .then((response) => {
+          setResponse(response.data);
+          setPageNoticeShow(true);
+        })
         .finally(() => setLoading(false));
 
       close();
@@ -234,7 +239,10 @@ const ResponsePage = () => {
               <Button
                 fullWidth
                 label="Отменить"
-                onClick={close}
+                onClick={() => {
+                  close();
+                  setPageNoticeShow(true);
+                }}
                 isIconLeft
                 icon={<IconChevronLeft size={18} />}
                 type="white"
@@ -255,6 +263,13 @@ const ResponsePage = () => {
           />
         </Drawer>
       </FormProvider>
+      {/* {isPageNoticeShow ? (
+        <Notice
+          message="123"
+          close={() => setPageNoticeShow(false)}
+          type="done"
+        />
+      ) : null} */}
     </PageWrapper>
   );
 };

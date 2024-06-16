@@ -4,6 +4,6 @@ import { IHistory } from 'shared/models/IHistory';
 
 export default class HistoryServices {
   static async getHistory(): Promise<AxiosResponse<IHistory[]>> {
-    return $api.get<IHistory[]>('/history');
+    return $api.get<IHistory[]>('/prediction/saved');
   }
 }
