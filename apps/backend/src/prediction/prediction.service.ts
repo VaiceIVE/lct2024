@@ -57,7 +57,6 @@ export class PredictionService {
                         
                     }
             }
-            console.log("DONE WTF")
         let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: defaultNames, period: 2024})
         let predictionAnswer = (await predictionStatus).data
 

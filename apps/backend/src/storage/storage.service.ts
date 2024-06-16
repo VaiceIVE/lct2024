@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { createReadStream } from 'fs';
 import { MinioService } from 'nestjs-minio-client';
+import { ReadStream } from 'typeorm/platform/PlatformTools';
 
 @Injectable()
 export class StorageService {
@@ -28,7 +30,9 @@ export class StorageService {
             {
                 name = name + `(${(new Date).toDateString()})`
             }
-        await this.minioService.client.putObject('tables', name, file as Buffer)
+            const { Readable } = require('stream');
+            const stream = Readable.from(file);
+        await this.minioService.client.putObject('tables', name, stream)
         return name
     }
 
