@@ -164,6 +164,7 @@ export class ResponseService {
       {
         for(const object of response.objects)
             {
+                const id = object.id
                 let address = ''
                 let consumersCount = 1
                 let coords = []
@@ -230,6 +231,7 @@ export class ResponseService {
                     }
                 }
                     let newIObj: IObj = {
+                        id: id,
                         address: address,
                         consumersCount: consumersCount,
                         coords: coords,

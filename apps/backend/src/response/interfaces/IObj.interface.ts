@@ -1,4 +1,5 @@
 export interface IObj {
+    id: number;
     address: string;
     socialType: string;
     isLast: boolean;
