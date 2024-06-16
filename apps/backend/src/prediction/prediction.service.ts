@@ -127,6 +127,7 @@ export class PredictionService {
                     {
                         
                         const date = dates[i]
+                        console.log(data[unom]['anomalies'])
                         const probsDict = data[unom]['anomalies'][i]
                         console.log(probsDict)
                         if(data[unom] && data[unom]['anomalies'] && probsDict)
