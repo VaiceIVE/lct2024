@@ -265,9 +265,6 @@ export class PredictionService {
             }
             for(let obj of objPredictions.buildings)
                 {
-                    console.log(obj.events[0].date)
-                    console.log(obj.events[0].date.split('-').values())
-                    console.log(obj.events[0].date.split('-').values()[1])
                     const outTemp = dateTempsDict[obj.events[0].date.split('-')[1]]
                     console.log(outTemp)
                     let beta = 50
@@ -363,14 +360,14 @@ export class PredictionService {
 }
 
 const dateTempsDict = {
-    'Oct': -5,
-    'Nov': -10,
-    'Dec': -20,
-    'Jan': -30,
-    'Feb': -20,
-    'Mar': -10,
-    'Apr': 10,
-    'May': 15
+    '10': -5,
+    '11': -10,
+    '12': -20,
+    '01': -30,
+    '02': -20,
+    '03': -10,
+    '04': 10,
+    '05': 15
 }
 
 const wallDictCoef = {
