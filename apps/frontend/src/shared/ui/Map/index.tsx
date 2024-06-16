@@ -74,7 +74,7 @@ const getDistrictColor = (
 
   const red = Math.round(255 * (1 - ratio));
   const green = Math.round(255 * (1 - ratio));
-  const blue = 0;
+  const blue = Math.round(255 * (1 - ratio));
 
   const fillColor = `rgba(${red}, ${green}, ${blue}, 0.5)`;
   const strokeColor = `rgba(${red}, ${green}, ${blue}, 0.5)`;
