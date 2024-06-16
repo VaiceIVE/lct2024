@@ -304,19 +304,29 @@ export class PredictionService {
                         
                         const date = dates[i]
                         const probsDict = data[unom]['anomalies'][i]
+                        let averageProbability = 0
+                        let probsSum = 0
+                        let probsAmount = 0
                         if(data[unom] && data[unom]['anomalies'] && probsDict)
                             {
                                 for(const probData of Object.keys(probsDict))
                                     {
                                         const event = probData
                                         const probability = probsDict[probData]
-                                        const newEvent = this.eventRepository.create({
-                                            eventName: event,
-                                            chance: probability,
-                                            date: date
-                                        })
-                                        console.log(newEvent)
-                                        events.push(newEvent)
+                                        probsSum += probability
+                                        probsAmount += 1
+                                        averageProbability = (probsSum / probsAmount)
+                                        if(probability >= averageProbability)
+                                            {
+                                                const newEvent = this.eventRepository.create({
+                                                    eventName: event,
+                                                    chance: probability,
+                                                    date: date
+                                                })
+                                                console.log(newEvent)
+                                                events.push(newEvent)
+                                            }
+                                        
                                     }
                             }
                         
@@ -333,7 +343,8 @@ export class PredictionService {
             })
             console.log(prediction)
             await this.predictionRepository.save(prediction)
-            
+            console.log("Saved")
+
             return prediction.id
     }
 }
