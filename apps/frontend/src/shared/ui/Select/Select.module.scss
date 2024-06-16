@@ -29,12 +29,12 @@
 
     &:disabled {
       background: #adb5bd;
-      color: white;
+      color: $placeholder-color;
     }
 
     &[data-disabled='true'] {
       background: #f1f1f2;
-      color: white;
+      color: $placeholder-color;
     }
   }
 

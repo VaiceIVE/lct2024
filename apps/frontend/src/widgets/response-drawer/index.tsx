@@ -98,6 +98,7 @@ export const ResponseDrawer = ({
             <Select
               defaultValue={'mkd'}
               field={field}
+              disabled={Boolean(selectedObj)}
               data={[
                 { value: 'mkd', label: 'МКД' },
                 { value: 'education', label: 'Образовательное учереждение' },
@@ -119,7 +120,7 @@ export const ResponseDrawer = ({
               field={field}
               data={addresses}
               searchable
-              disabled={isLoading || !addresses.length}
+              disabled={isLoading || Boolean(selectedObj)}
               label="Объект"
               placeholder="Начните вводить адрес"
             />
