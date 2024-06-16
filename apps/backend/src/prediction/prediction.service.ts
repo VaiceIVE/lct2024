@@ -55,10 +55,10 @@ export class PredictionService {
                         let buf: Buffer
                         let bufs = [];
                         stdout.on('data', function(d){ bufs.push(d); });
-                        stdout.on('end', function(){
+                        stdout.on('end', async function(){
                         buf = Buffer.concat(bufs);
-                        })
                         await this.storageService.uploadToS3Buffer(buf, name)
+                        })
                     }
             }
         let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: defaultNames, period: 2024})
