@@ -119,7 +119,7 @@ export class PredictionService {
             {
                 let obj = await this.objRepository.findOne({where: {unom: unom}})
                 let events = []
-                if(! obj)
+                if(!obj)
                     {
                         continue
                     }
