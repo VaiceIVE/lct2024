@@ -78,7 +78,6 @@ export class ObjService {
       {
         if(Object.keys(object).includes('code') && Object.keys(object).includes('unom'))
           {
-            console.log('COMBINED')
             createdObjects.push(await this.handleCombinedObjectPromising(object))
           }
           else
@@ -86,13 +85,11 @@ export class ObjService {
             let heatObject = {...object}
             if(Object.keys(object).includes('unom'))
               {
-                console.log("OBJ")
                 delete object.code
                 createdObjects.push(await this.handleObject(object as CreateObjDto))
               }
             if(Object.keys(heatObject).includes('code'))
               {
-                console.log("HP")
                 delete heatObject.unom
                 createdObjects.push(await this.handleHeatPoint(heatObject as CreateHeatPointDto))
               }
@@ -116,13 +113,11 @@ export class ObjService {
           let heatObject = {...object}
           if(Object.keys(object).includes('unom'))
             {
-              console.log("OBJ")
               delete object.code
               createdObjects.push(await this.handleObject(object as CreateObjDto))
             }
           if(Object.keys(heatObject).includes('code'))
             {
-              console.log("HP")
               delete heatObject.unom
               createdObjects.push(await this.handleHeatPoint(heatObject as CreateHeatPointDto))
             }
@@ -169,7 +164,6 @@ export class ObjService {
   {
     try{
 
-    console.log(object)
     if(await this.heatPointService.findCode(object.code)!= null)
       {
         const heatPoint = await this.heatPointService.findCode(object.code)
