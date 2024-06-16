@@ -48,9 +48,31 @@ export const ObjectInfo = ({
               <Stack gap={12}>
                 {Object.keys(item.characteristics).map((key) => (
                   <Flex key={key} align={'center'} gap={24}>
-                    <p className="text medium placeholder">{key}</p>
+                    <p
+                      style={{
+                        textWrap: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        maxWidth: '170px',
+                      }}
+                      className="text medium placeholder"
+                    >
+                      {key}
+                    </p>
                     <Divider color="#CAD5DD" style={{ flex: 1 }} />
-                    <p className="text medium">{item?.characteristics[key]}</p>
+                    <p
+                      style={{
+                        textWrap: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        maxWidth: '200px',
+                      }}
+                      className="text medium"
+                    >
+                      {item?.characteristics[key]
+                        .toString()
+                        .replace('муниципальный округ', '')}
+                    </p>
                   </Flex>
                 ))}
               </Stack>

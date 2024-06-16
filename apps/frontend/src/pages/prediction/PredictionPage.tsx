@@ -78,6 +78,8 @@ export const PredictionPage = ({
         <Stack align="center" flex={1} justify="center">
           <Loader size={'xl'} color={theme.colors.myBlue[2]} />
         </Stack>
+      ) : !prediction?.buildings.length ? (
+        <p className="text medium">В этом месяце не выявлено никаких событий</p>
       ) : (
         <>
           <PredictionCards

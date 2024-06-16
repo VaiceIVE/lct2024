@@ -17,7 +17,7 @@ export const BuildingStat = ({ selectedBuilding }: BuildingStatProps) => {
           <Title
             color="error"
             level={4}
-            title={`${selectedBuilding.coolingRate} гр./час`}
+            title={`${selectedBuilding.coolingRate.toFixed(2)} гр./час`}
           />
         </Flex>
         <Flex align={'center'} gap={24}>
