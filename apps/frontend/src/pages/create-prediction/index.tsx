@@ -58,7 +58,7 @@ const CreatePredictionPage = () => {
             label="Анализировать данные"
             onClick={handleCreatePrediction}
             icon={<IconAnalyze width={18} height={18} />}
-            disabled={(!conditions.length && !files?.length) || isLoading}
+            disabled={!files?.length || isLoading}
             isLoading={isLoading}
           />
         </Flex>

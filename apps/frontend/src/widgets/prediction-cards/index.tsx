@@ -8,6 +8,8 @@ import { NavLink } from 'react-router-dom';
 import { STORAGE_ROUTE } from 'shared/constants/const';
 import { StatCard } from 'shared/ui/StatCard';
 import { IBuilding } from 'shared/models/IBuilding';
+import { useEffect, useState } from 'react';
+import HistoryServices from 'shared/services/HistoryServices';
 
 interface PredictionCardsProps {
   isLoading: boolean;
@@ -18,6 +20,18 @@ export const PredictionCards = ({
   isLoading,
   buildings,
 }: PredictionCardsProps) => {
+  const [historyLen, setHistoryLen] = useState<number>(0);
+
+  const getHistory = () => {
+    HistoryServices.getHistory().then((response) =>
+      setHistoryLen(response.data.length)
+    );
+  };
+
+  useEffect(() => {
+    getHistory();
+  }, []);
+
   return (
     <Grid gutter={18}>
       <Grid.Col span={6}>
@@ -29,7 +43,7 @@ export const PredictionCards = ({
             <Stack flex={1} gap={8}>
               <Title level={3} title="История прогнозов" />
               <p className="text secondary">
-                5 продвинутых прогнозов сделано за все время <br />{' '}
+                {historyLen} продвинутых прогнозов сделано за все время <br />{' '}
                 использования сервиса
               </p>
             </Stack>
