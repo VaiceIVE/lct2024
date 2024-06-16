@@ -169,10 +169,8 @@ export class PredictionService {
             id: prediction.id,
             buildings: []
         }
-        console.log(prediction)
         for(const objPrediction of prediction.objPredictions)
             {
-                console.log(objPrediction)
                 let events = []
                 for(const event of objPrediction.events)
                     {
@@ -269,6 +267,7 @@ export class PredictionService {
             for(let obj of objPredictions.buildings)
                 {
                     const outTemp = dateTempsDict[obj.events[0].date.split(' ')[1]]
+                    console.log(outTemp)
                     let beta = 50
                     obj.priority = 0
                     if(obj.socialType == "education" || obj.socialType == "medicine" )
