@@ -55,7 +55,7 @@ export class PredictionService {
                     {
                         let stream = createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`))
                         stream.on('readable', async function () {
-                                await this.storageService.uploadToS3Buffer(stream.read, name)
+                                await this.storageService.uploadToS3Buffer(stream, name)
                             }
                           );
                         
