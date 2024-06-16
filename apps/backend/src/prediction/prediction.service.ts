@@ -301,12 +301,6 @@ export class PredictionService {
                 for(const i of Array(dates.length).keys())
                     {
                         const date = dates[i]
-                        console.log(dates)
-                        console.log(date)
-                        console.log(data[unom])
-                        console.log(data[unom]['anomalies'])
-                        console.log(data[unom]['anomalies'][i])
-
                         const probsDict = data[unom]['anomalies'][i]
                         if(data[unom] && data[unom]['anomalies'] && probsDict)
                             {
@@ -319,6 +313,7 @@ export class PredictionService {
                                             chance: probability,
                                             date: date
                                         })
+                                        console.log(newEvent)
                                         events.push(newEvent)
                                     }
                             }
