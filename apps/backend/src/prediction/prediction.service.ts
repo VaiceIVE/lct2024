@@ -286,7 +286,7 @@ export class PredictionService {
 
     private async handleResponseData(predictionAnswer: any)
     {
-        
+        console.log(predictionAnswer)
         const data = predictionAnswer.what_anomaly_propability     
         let objPredictions = []
         for (const unom of Object.keys(data))
@@ -324,7 +324,7 @@ export class PredictionService {
             const prediction = this.predictionRepository.create({
                 objPredictions: objPredictions
             })
-
+            console.log(prediction)
             await this.predictionRepository.save(prediction)
             
             return prediction.id
