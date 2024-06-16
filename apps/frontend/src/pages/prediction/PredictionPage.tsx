@@ -13,7 +13,7 @@ import { PredictionLeaveModal } from 'widgets/prediction-leave-modal';
 interface PredictionPageProps {
   monthsIndex: number;
   setMonthsIndex: React.Dispatch<React.SetStateAction<number>>;
-  months: { label: string; value: number }[];
+  months: { label: string; value: string }[];
   isDefault: boolean;
   open: (path: string) => void;
   opened: boolean;

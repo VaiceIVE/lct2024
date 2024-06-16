@@ -1,34 +1,34 @@
 export const months = [
   {
-    value: 10,
+    value: '10',
     label: 'Октябрь',
   },
   {
-    value: 11,
+    value: '11',
     label: 'Ноябрь',
   },
   {
-    value: 12,
+    value: '12',
     label: 'Декабрь',
   },
   {
-    value: 1,
+    value: '01',
     label: 'Январь',
   },
   {
-    value: 2,
+    value: '02',
     label: 'Февраль',
   },
   {
-    value: 3,
+    value: '03',
     label: 'Март',
   },
   {
-    value: 4,
+    value: '04',
     label: 'Апрель',
   },
   {
-    value: 5,
+    value: '05',
     label: 'Май',
   },
 ];

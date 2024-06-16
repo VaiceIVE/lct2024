@@ -18,7 +18,7 @@ export default class FileServices {
     return $api.get<string[]>('/storage/names');
   }
 
-  static async downloadTable(id: string | null, month: number) {
+  static async downloadTable(id: string | null, month: string) {
     return $api.get(id ? `/table/${id}` : `/table`);
   }
 }
