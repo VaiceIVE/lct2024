@@ -67,6 +67,8 @@ export const ResponseDrawer = ({
   useEffect(() => {
     if (socialType) {
       setLoading(true);
+      if (socialType !== selectedObj?.socialType) setValue('address', '');
+
       ResponseServices.getAddresses(socialType)
         .then((response) => {
           setAddresses(
@@ -75,7 +77,7 @@ export const ResponseDrawer = ({
         })
         .finally(() => setLoading(false));
     }
-  }, [socialType]);
+  }, [socialType, setValue, selectedObj?.socialType]);
 
   useEffect(() => {
     if (selectedObj) {

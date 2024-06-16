@@ -18,7 +18,7 @@ import styles from './Map.module.scss';
 interface MapProps {
   fullWidth?: boolean;
   buildings?: IBuilding[] | undefined;
-  onPlacemarkClick?: (building: IBuilding) => void;
+  onPlacemarkClick?: (building: IBuilding | null, obg: IObj | null) => void;
   objs?: IObj[];
   simpleMap?: boolean;
   showConnected?: string;
@@ -45,16 +45,19 @@ export const Map = ({
     prom: tp,
   };
 
+  const markers = buildings?.length ? buildings : objs;
+  console.log(markers);
+
   const districts: District[] = useMemo(() => {
     const districtMap: { [key: string]: [number, number][] } = {};
 
-    buildings &&
-      buildings.forEach((building) => {
-        const { coords } = building;
-        if (building.district && !districtMap[building.district]) {
-          districtMap[building.district] = [];
+    markers &&
+      markers.forEach((marker) => {
+        const { coords } = marker;
+        if (marker.district && !districtMap[marker.district]) {
+          districtMap[marker.district] = [];
         }
-        building.district && districtMap[building.district].push(coords);
+        marker.district && districtMap[marker.district].push(coords);
       });
 
     const createEnvelopeWithPadding = (
@@ -80,9 +83,7 @@ export const Map = ({
       name: district,
       coords: createEnvelopeWithPadding(districtMap[district]),
     }));
-  }, [buildings]);
-
-  const markers = buildings?.length ? buildings : objs;
+  }, [markers]);
 
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
@@ -109,8 +110,10 @@ export const Map = ({
           markers.map((marker) => (
             <Placemark
               onClick={
-                !simpleMap && onPlacemarkClick && 'events' in marker
-                  ? () => onPlacemarkClick(marker)
+                !simpleMap && onPlacemarkClick
+                  ? 'events' in marker
+                    ? () => onPlacemarkClick(marker, null)
+                    : () => onPlacemarkClick(null, marker)
                   : undefined
               }
               key={marker.address}

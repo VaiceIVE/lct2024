@@ -1,5 +1,5 @@
+import { Loader, Stack, useMantineTheme } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { data } from 'shared/constants/mock';
 import { IPrediction } from 'shared/models/IPrediction';
 import { Breadcrumbs } from 'shared/ui/Breadcrumbs';
 import { PageWrapper } from 'shared/ui/Wrappers/PageWrapper';
@@ -23,6 +23,7 @@ interface PredictionPageProps {
   isSaved?: boolean;
   returnPage?: { title: string; href: string };
   id: string | (string | null)[] | null;
+  isLoading: boolean;
 }
 
 export const PredictionPage = ({
@@ -39,8 +40,10 @@ export const PredictionPage = ({
   returnPage,
   prediction,
   id,
+  isLoading,
 }: PredictionPageProps) => {
   const navigate = useNavigate();
+  const theme = useMantineTheme();
 
   return (
     <PageWrapper
@@ -64,22 +67,37 @@ export const PredictionPage = ({
         monthsIndex={monthsIndex}
         setMonthsIndex={setMonthsIndex}
         months={months}
+        disabled={isLoading}
       />
-      <PredictionCards />
-      <EventsMap
-        buildings={data}
-        id={id}
-        months={months}
-        monthsIndex={monthsIndex}
-      />
-      <EventsList data={data} id={id} month={months[monthsIndex].value} />
-      <PredictionLeaveModal
-        customButtonRow={customButtonRow}
-        title={'Вы уверены, что хотите выйти \n без сохранения прогноза?'}
-        text="Все введенные данные не сохранятся. Это действие нельзя будет отменить."
-        opened={opened}
-        close={close}
-      />
+      {isLoading ? (
+        <Stack align="center" flex={1} justify="center">
+          <Loader size={'xl'} color={theme.colors.myBlue[2]} />
+        </Stack>
+      ) : (
+        <>
+          <PredictionCards />
+          <EventsMap
+            buildings={prediction?.buildings}
+            id={id}
+            months={months}
+            monthsIndex={monthsIndex}
+          />
+          {prediction?.buildings ? (
+            <EventsList
+              data={prediction?.buildings}
+              id={id}
+              month={months[monthsIndex].value}
+            />
+          ) : null}
+          <PredictionLeaveModal
+            customButtonRow={customButtonRow}
+            title={'Вы уверены, что хотите выйти \n без сохранения прогноза?'}
+            text="Все введенные данные не сохранятся. Это действие нельзя будет отменить."
+            opened={opened}
+            close={close}
+          />
+        </>
+      )}
     </PageWrapper>
   );
 };
