@@ -2,6 +2,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryCol
 import { Obj } from "../../obj/entities/obj.entity";
 import { Event } from "./event.entity";
 import { ObjPrediction } from "./objPrediction.entity";
+import * as dayjs from 'dayjs'
 
 @Entity()
 export class Prediction {
@@ -10,7 +11,7 @@ export class Prediction {
     id: number
 
     @Column({
-        default: new Date
+        default: dayjs(new Date())
     })
     dateCreated: string
 
