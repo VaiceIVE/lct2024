@@ -338,6 +338,7 @@ export class PredictionService {
                     obj.coolingRate =  (25 - outTemp) / zAbs
                     obj.priority -= (zNorm + zAbs) / 2
                 }
+                return objPredictions
     }
 
     private async handleGeodataString(geodataStting)
