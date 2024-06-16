@@ -36,6 +36,8 @@ services:
       - PGADMIN_DEFAULT_EMAIL=postgres@admin.com
       - PGADMIN_DEFAULT_PASSWORD=postgres
       - PGADMIN_DISABLE_POSTFIX=true
+    links:
+      - "postgres:postgres"
 
   redis:
     image: redis:7
@@ -119,6 +121,8 @@ services:
       poetry update &&
       poetry run celery -A worker.celery worker --loglevel=info "
       - 8002:80
+    links:
+      - "nest:nest"
 
   celery2:
     container_name: celery-worker-2
@@ -133,6 +137,8 @@ services:
       poetry run celery -A worker.celery worker --loglevel=info "
     ports:
       - 8003:80
+    links:
+      - "nest:nest"
   frontend:
     image: node:20
     restart: "unless-stopped"
