@@ -7,7 +7,7 @@ import classNames from 'classnames';
 interface PredictionDatePickerProps {
   monthsIndex: number;
   setMonthsIndex: React.Dispatch<React.SetStateAction<number>>;
-  months: { label: string; value: number }[];
+  months: { label: string; value: string }[];
   disabled?: boolean;
 }
 

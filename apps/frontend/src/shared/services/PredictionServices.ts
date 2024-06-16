@@ -26,7 +26,7 @@ export default class PredictionServices {
 
   static async getPredictionById(
     id: number,
-    month: number
+    month: string
   ): Promise<AxiosResponse<IPrediction>> {
     return $api.get<IPrediction>(`/prediction/${id}/${month}`);
   }

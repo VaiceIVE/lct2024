@@ -9,7 +9,7 @@ import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
 interface EventsMapProps {
   id: string | (string | null)[] | null;
-  months: { value: number; label: string }[];
+  months: { value: string; label: string }[];
   monthsIndex: number;
   objs?: IObj[] | undefined;
   buildings?: IBuilding[];

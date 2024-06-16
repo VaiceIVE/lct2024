@@ -18,7 +18,7 @@ import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
 interface EventsListProps {
   id: string | (string | null)[] | null;
-  month: number;
+  month: string;
   data: IBuilding[];
 }
 
