@@ -2,6 +2,7 @@ import io
 import numpy as np
 import pandas as pd
 import torch
+from tqdm import tqdm
 from constants import FACTORIZED_OBJECTS, ColumnsInfo
 
 
@@ -61,21 +62,21 @@ def save_only_usfull_events(source: pd.DataFrame) -> pd.DataFrame:
 
 def get_buildings_dataset(dfs: list[pd.DataFrame]) -> pd.DataFrame | None:
     list_of_cleaned_dataframe: list[pd.DataFrame] = []
-    for df_i in dfs:
+    for df_i in tqdm(dfs, desc='get_buildings_dataset'):
         cols_i = df_i.columns.intersection(ColumnsInfo.usfull_columns_in_buildings_data)
         list_of_cleaned_dataframe.append(df_i.loc[:, cols_i])
     if len(list_of_cleaned_dataframe):
         unom_ids = np.unique(sum([i['UNOM'].to_list() for i in list_of_cleaned_dataframe if 'UNOM' in i.columns], []))
         merged_dataframe = pd.DataFrame({'UNOM': unom_ids.astype(float).astype(int)})
-        for i in list_of_cleaned_dataframe:
+        for i in tqdm(list_of_cleaned_dataframe, desc='gbd'):
             if 'UNOM' in i.columns:
                 i['UNOM'] = i['UNOM'].astype(int)
                 merged_dataframe = pd.merge(merged_dataframe, i, how='left', on='UNOM')
-        return merged_dataframe
+        return merged_dataframe.drop_duplicates()
 
 
 def scale_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    for i in df.columns.intersection(ColumnsInfo.scale_data):
+    for i in tqdm(df.columns.intersection(ColumnsInfo.scale_data), desc='scale_dataframe'):
         min_v, max_v = ColumnsInfo.scale_data[i]['min'], ColumnsInfo.scale_data[i]['max']
         df[i] = (df[i].map(lambda a: float(a.replace(',', '.')) if type(a) is str else a) - min_v) / (max_v - min_v)
     return df
@@ -113,7 +114,7 @@ def process_weathers_dataframe(path: str) -> pd.DataFrame:
 
 def prep_building_df_for_model(building_df: pd.DataFrame) -> torch.Tensor:
     d = []
-    for i in ColumnsInfo.building_column_for_model:
+    for i in tqdm(ColumnsInfo.building_column_for_model, desc='prep_building_df_for_model'):
         if not i in building_df.columns:
             d.append(pd.Series(np.full(building_df.shape[0], -1), name=i))
         else:

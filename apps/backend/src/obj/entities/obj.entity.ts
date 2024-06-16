@@ -2,6 +2,7 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, JoinTable, Many
 import { HeatPoint } from "./heatpoint.entity";
 import { Event } from "../../prediction/entities/event.entity";
 import { ObjResponse } from "../../response/entities/objResponse.entity";
+import { ObjPrediction } from "../../prediction/entities/objPrediction.entity";
 
 @Entity()
 export class Obj {
@@ -85,18 +86,16 @@ export class Obj {
     heatPoint: HeatPoint
 
     @OneToMany(() => ObjResponse, (objRes) => objRes.obj,{
-        onDelete: "CASCADE",
         cascade: true
     })
     @JoinTable()
     objResponses: ObjResponse[]
 
-    @OneToMany(() => Event, (event) => event.object,{
-        onDelete: "CASCADE",
+    @OneToMany(() => ObjPrediction, (event) => event.object,{
         cascade: true
     })
     @JoinTable()
-    events: Event[]
+    objPredictions: ObjPrediction[]
 
     @BeforeInsert()
     @BeforeUpdate()

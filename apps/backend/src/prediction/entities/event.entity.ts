@@ -2,6 +2,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryCol
 import { Obj } from "../../obj/entities/obj.entity";
 import { Prediction } from "./prediction.entity";
 import { HeatPoint } from "../../database/entities-index";
+import { ObjPrediction } from "./objPrediction.entity";
 
 @Entity()
 export class Event {
@@ -10,29 +11,18 @@ export class Event {
     id: number
 
     @Column()
-    EventName: string
+    eventName: string
 
     @Column()
-    probability: number
+    chance: number
 
     @Column()
-    approxDate: string
+    date: string
 
-    @Column()
-    affectedConsumers: number
-
-    @Column()
-    cooldown: number
-
-    @ManyToOne(() => Obj, (obj) => obj.events)
+    @ManyToOne(() => ObjPrediction, (obj) => obj.events, {
+        onDelete: "CASCADE",
+        eager: true
+    })
     @JoinTable()
-    object: Obj
-
-    @ManyToOne(() => HeatPoint, (heatPoint) => heatPoint.events)
-    @JoinTable()
-    heatPoint: HeatPoint
-
-    @ManyToOne(() => Prediction, (pred) => pred.events)
-    @JoinTable()
-    prediction: Prediction
+    object: ObjPrediction
 }

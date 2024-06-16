@@ -1,6 +1,7 @@
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Obj } from "../../obj/entities/obj.entity";
 import { Event } from "./event.entity";
+import { ObjPrediction } from "./objPrediction.entity";
 
 @Entity()
 export class Prediction {
@@ -8,17 +9,20 @@ export class Prediction {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({
+        default: new Date
+    })
     dateCreated: string
 
-    @Column()
+    @Column({
+        default: false
+    })
     isSaved: boolean
 
-    @OneToMany(() => Event, (event) => event.prediction,{
-        onDelete: "CASCADE",
-        cascade: true
+    @OneToMany(() => ObjPrediction, (op) => op.prediction,{
+        cascade: true,
+        eager: true
     })
     @JoinTable()
-    events: Event[]
-
+    objPredictions: ObjPrediction[]
 }

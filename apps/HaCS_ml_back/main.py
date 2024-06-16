@@ -1,9 +1,12 @@
 import json
 import logging
 import os
+import sys
 import uuid
 from fastapi import FastAPI
+import numpy as np
 import pandas as pd
+from scipy.special import softmax
 import torch
 from tqdm import tqdm
 from constants import Models, Pathes
@@ -12,7 +15,7 @@ from logic import dataframe_processors
 from logic.generators import make_timeline_for_period
 from logic.pipelines import load_dataframe_pipeline, load_buildings_tensor, process_dataframe_to_buildings_tensor
 from vars import DATA_BUILDINGS_UNOM_IDS_PAIRS, WEATHERS
-
+from fastapi.middleware.gzip import GZipMiddleware
 
 logger = logging.getLogger("gunicorn.error")
 
@@ -32,6 +35,7 @@ moe = [
     "Течь в системе отопления"
 ]
 app = FastAPI()
+# app.add_middleware(GZipMiddleware, minimum_size=500)
 
 
 @app.get("/hi")
@@ -61,7 +65,7 @@ def set_tables(body: GetAnomaliesByDayModel):
         }
     with open(Pathes.data_buildings_unom_ids_pairs, 'w') as f:
         json.dump(DATA_BUILDINGS_UNOM_IDS_PAIRS, f)
-        torch.save(bt, Pathes.tensors + tensor_id + '.pt')
+        # torch.save(bt, Pathes.tensors + tensor_id + '.pt')
 
     tl = make_timeline_for_period(2023, 24)
     wtn = f'{body.period}_in_days.pt'
@@ -109,7 +113,7 @@ def get_anomalies_by_day(body: GetAnomaliesByDayModel):
         json.dump(DATA_BUILDINGS_UNOM_IDS_PAIRS, f)
         torch.save(bt, Pathes.tensors + tensor_id + '.pt')
 
-    tl = make_timeline_for_period(2023, 24)
+    tl = np.array(make_timeline_for_period(2023, 24))
     wtn = f'{body.period}_in_days.pt'
     if os.path.isfile(Pathes.weathers_tensors + wtn):
         wt = torch.load(Pathes.weathers_tensors + wtn)
@@ -118,7 +122,7 @@ def get_anomalies_by_day(body: GetAnomaliesByDayModel):
             'timeline', 'houres'
         ], axis=1).drop_duplicates()
         l = []
-        for i in tl:
+        for i in tqdm(tl, desc='tl'):
             anomalies_idxes = weather['days'] == i
             n = anomalies_idxes.sum()
             l.append(weather[anomalies_idxes].drop('days', axis=1).sum(axis=0) / n)
@@ -128,14 +132,49 @@ def get_anomalies_by_day(body: GetAnomaliesByDayModel):
     with torch.no_grad():
         wt = wt.unsqueeze(0).repeat([bt.shape[0], 1, 1]).float()
         bt = bt.float()
-        # r1 = Models.is_day_anomaly(wt, bt).numpy().tolist()
-        r2 = ((Models.what_anomaly_in_day(process_data_to_model_cluster(wt, bt)) + 1)/2)
+        x = []
+        x1 = []
+        window = 64
+        for i in tqdm(range(0, bt.shape[0], window)):
+            r1 = Models.is_day_anomaly(wt, bt)
+            r2 = ((Models.what_anomaly_in_day(process_data_to_model_cluster(wt[i:i+window], bt[i:i+window])) + 1)/2)
+            x.append(r2)
+            x1.append(r1)
+        r2 = torch.cat(x, dim=0)
+        r1 = torch.argsort(torch.cat(x1, dim=0), dim=1)
+        r1 = r1.argsort(dim=1)[:, :3]
         r2_p = r2.argsort(dim=2)[:, :, :body.n_top].numpy().tolist()
         r2_l = r2.numpy().tolist()
     # prob1 = {unom_ids[i0]: {tl[i1]: r1[i0][i1] for i1 in range(len(tl))} for i0 in tqdm(range(len(unom_ids)))}
-    prob2 = {unom_ids[i0]: {tl[i1]: {moe[i2]: r2_l[i0][i1][i2] for i2 in r2_p[i0][i1]} for i1 in range(len(tl))} for i0 in tqdm(range(len(unom_ids)))}
-    
+    # prob2 = {
+    #     unom_ids[i0]: {
+    #         tl[i1]: {
+    #             moe[i2]: r2_l[i0][i1][i2] for i2 in r2_p[i0][i1]
+    #         } for i1 in range(len(tl))
+    #     } for i0 in tqdm(range(len(unom_ids)))
+    # }
+    # idx = np.random.rand(213) > 0.99
+    # prob2 = {
+    #     # unom_ids[i0]: 1
+    #     unom_ids[i0]: {
+    #         'tl': tl[idx].tolist(),
+    #         'anomalies': np.round(softmax(np.random.rand(213, 4), axis=1)[idx, :3], 2).tolist()
+    #     } 
+    #     for i0 in tqdm(range(len(unom_ids)))
+    # }
+    prob2 = {
+        unom_ids[i0]: {
+            'tl': [tl[i.numpy()] for i in r1[i0]],
+            'anomalies': [
+                {moe[j]: r2_l[i0][i][j] for j in r2_p[i0][i]} for i in r1[i0]
+            ]
+        } 
+        for i0 in tqdm(range(len(unom_ids)))
+    }
+    # print(prob2.keys())
+    print(sys.getsizeof(prob2))
+    # with open('e.json', 'w') as f:
+    #     json.dump(prob2, f, default=str)
     return {
-        # 'propability_of_anomaly': prob1,
         'what_anomaly_propability': prob2
     }

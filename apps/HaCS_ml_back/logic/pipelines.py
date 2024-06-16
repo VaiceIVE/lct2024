@@ -1,5 +1,6 @@
 import json
 import os
+import numpy as np
 import pandas as pd
 import torch
 from constants import Pathes
@@ -17,8 +18,12 @@ def load_table_from_s3_pipelines(table_name: str) -> pd.DataFrame:
 
 def process_dataframe_to_buildings_tensor(list_of_dataframes: list[pd.DataFrame]) -> tuple[torch.Tensor, list[int]]:
     buildings_dataset = dataframe_processors.get_buildings_dataset(list_of_dataframes)
+    buildings_dataset.dropna(thresh=len(buildings_dataset.columns)/2, axis=0, inplace=True)
     buildings_dataset = dataframe_processors.process_buildings_dataframe(buildings_dataset)
-    unom_ids = buildings_dataset['UNOM'].to_list()
+    print(buildings_dataset.shape)
+    unom_ids, idxes = np.unique(buildings_dataset['UNOM'], return_index=True)
+    unom_ids = unom_ids.tolist()
+    buildings_dataset = buildings_dataset.iloc[idxes]
     bt = dataframe_processors.prep_building_df_for_model(buildings_dataset)
     return bt, unom_ids
 
