@@ -88,8 +88,6 @@ export class PredictionService {
         {
             names.push(await this.storageService.uploadToS3(file))
         }
-        
-        let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: names, period: 2024, n_objects: 250})
         const FormData = require('form-data');
         let formdata = new FormData()
         for (const file of files)
@@ -98,8 +96,9 @@ export class PredictionService {
                 formdata.append('files', file.buffer, file.originalname)
             }
         let dataLoadStatus = axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
-        let predictionAnswer = (await predictionStatus).data
         await dataLoadStatus
+        let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: names, period: 2024, n_objects: 250})
+        let predictionAnswer = (await predictionStatus).data
         return await this.handleResponseData(predictionAnswer)
     }
 
