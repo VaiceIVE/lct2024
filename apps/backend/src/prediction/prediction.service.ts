@@ -243,7 +243,13 @@ export class PredictionService {
                             }
                             else
                             {
-                                coords = await this.handleGeodataString(await this.getGeodataString(objPrediction.object.address))
+                                let coordString = await this.getGeodataString(objPrediction.object.address)
+                                if(coordString != null)
+                                    {
+                                        coords = await this.handleGeodataString(coordString)
+                                        objPrediction.object.geodata = coordString
+                                        await this.objRepository.save(objPrediction.object)
+                                    }
                             }
                     }
                     else
@@ -353,8 +359,18 @@ export class PredictionService {
 
     private async getGeodataString(address: string)
     {
-      let coordsString = (await axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=Москва, ${address}`)).data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-      return coordsString
+
+            return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=Москва, ${address}`).catch((e) => {
+                return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=Москва, ${address}`).catch((e) => {
+                    return null
+                }).then((res) => {
+                    return res.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                })
+            }).then((res) => {
+                return res.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+            })
+
+            
     }
 }
 
