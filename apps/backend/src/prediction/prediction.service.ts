@@ -92,6 +92,77 @@ export class PredictionService {
         return await this.handlePredictionOutput(prediction, monthNum)
     }
 
+    private async handleResponseData(predictionAnswer: any, isDefault: boolean = false)
+    {
+        console.log(predictionAnswer)
+        const data = predictionAnswer.what_anomaly_propability     
+        let objPredictions = []
+        for (const unom of Object.keys(data))
+            {
+                let obj = await this.objRepository.findOne({where: {unom: unom}})
+                let events = []
+                if(! obj)
+                    {
+                        continue
+                    }
+                const dates = data[unom]['tl']
+                for(const i of Array(dates.length).keys())
+                    {
+                        
+                        const date = dates[i]
+                        const probsDict = data[unom]['anomalies'][i]
+                        let averageProbability = 0
+                        let probsSum = 0
+                        let probsAmount = 0
+                        if(data[unom] && data[unom]['anomalies'] && probsDict)
+                            {
+                                for(const probData of Object.keys(probsDict))
+                                    {
+                                        const event = probData
+                                        const probability = probsDict[probData]
+                                        probsSum += probability
+                                        probsAmount += 1
+                                        averageProbability = (probsSum / probsAmount)
+                                        if(probability >= averageProbability)
+                                            {
+                                                const newEvent = this.eventRepository.create({
+                                                    eventName: event,
+                                                    chance: probability,
+                                                    date: date
+                                                })
+                                                await this.eventRepository.save(newEvent)
+                                                events.push(newEvent)
+                                            }
+                                        
+                                    }
+                            }
+                        
+                    }
+                    if(events.length != 0)
+                        {
+                            const objPrediction = this.objPredictionRepository.create({
+                                events: events,
+                                object: obj,
+                            })
+                            await this.objPredictionRepository.save(objPrediction)
+                            objPredictions.push(objPrediction)
+                        }
+            }
+            if(objPredictions.length != 0)
+                {
+                    const prediction = this.predictionRepository.create({
+                        objPredictions: objPredictions,
+                        isDefault: isDefault
+                    })
+                    console.log(prediction)
+                    console.log(objPredictions.length)
+                    let result = await this.predictionRepository.save(prediction)
+                    console.log("Saved")
+                    
+                    return result
+                }
+                return null
+    }
     private async handlePredictionOutput(prediction: Prediction, monthNum: string)
     {
         let objPredictions: IPrediction = {
@@ -281,78 +352,7 @@ export class PredictionService {
       return coordsString
     }
 
-    private async handleResponseData(predictionAnswer: any, isDefault: boolean = false)
-    {
-        console.log(predictionAnswer)
-        const data = predictionAnswer.what_anomaly_propability     
-        let objPredictions = []
-        for (const unom of Object.keys(data))
-            {
-                let obj = await this.objRepository.findOne({where: {unom: unom}})
-                let events = []
-                if(! obj)
-                    {
-                        continue
-                    }
-                const dates = data[unom]['tl']
-                for(const i of Array(dates.length).keys())
-                    {
-                        
-                        const date = dates[i]
-                        const probsDict = data[unom]['anomalies'][i]
-                        let averageProbability = 0
-                        let probsSum = 0
-                        let probsAmount = 0
-                        if(data[unom] && data[unom]['anomalies'] && probsDict)
-                            {
-                                for(const probData of Object.keys(probsDict))
-                                    {
-                                        const event = probData
-                                        const probability = probsDict[probData]
-                                        probsSum += probability
-                                        probsAmount += 1
-                                        averageProbability = (probsSum / probsAmount)
-                                        if(probability >= averageProbability)
-                                            {
-                                                const newEvent = this.eventRepository.create({
-                                                    eventName: event,
-                                                    chance: probability,
-                                                    date: date
-                                                })
-                                                await this.eventRepository.save(newEvent)
-                                                events.push(newEvent)
-                                            }
-                                        
-                                    }
-                            }
-                        
-                    }
-                    if(events.length != 0)
-                        {
-                            const objPrediction = this.objPredictionRepository.create({
-                                events: events,
-                                object: obj,
-                            })
-                            await this.objPredictionRepository.save(objPrediction)
-                            objPredictions.push(objPrediction)
-                        }
-               
-            }
-            if(objPredictions.length != 0)
-                {
-                    const prediction = this.predictionRepository.create({
-                        objPredictions: objPredictions,
-                        isDefault: isDefault
-                    })
-                    console.log(prediction)
-                    console.log(objPredictions.length)
-                    await this.predictionRepository.save(prediction)
-                    console.log("Saved")
-        
-                    return prediction.id
-                }
-                return null
-    }
+    
 }
 
 const dateTempsDict = {
