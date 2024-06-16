@@ -123,13 +123,14 @@ export class ResponseService {
       {
         if(obj.obj)
           {
-            await this.objResponseRepository.update({id: objid}, {heatPoint: null})
+            await this.objResponseRepository.update({id: objid}, { ...updateObjDto, heatPoint: null})
             const heatPoint = await this.heatPointRepository.findOneBy({addressTP: updateObjDto.address})
             obj.heatPoint = heatPoint
             await this.objResponseRepository.save(obj)
           }
           else
           {
+            await this.objResponseRepository.update({id: objid}, { ...updateObjDto})
             const heatPoint = await this.heatPointRepository.findOneBy({addressTP: updateObjDto.address})
             obj.heatPoint = heatPoint
             await this.objResponseRepository.save(obj)
@@ -139,13 +140,14 @@ export class ResponseService {
       {
         if(obj.obj)
           {
+            await this.objResponseRepository.update({id: objid}, { ...updateObjDto})
             const objRes = await this.objRepository.findOneBy({address: updateObjDto.address})
             obj.obj = objRes
             await this.objResponseRepository.save(obj)
           }
           else
           {
-            await this.objResponseRepository.update({id: objid}, {obj: null})
+            await this.objResponseRepository.update({id: objid}, { ...updateObjDto, obj: null})
             const objRes = await this.objRepository.findOneBy({address: updateObjDto.address})
             obj.obj = objRes
             await this.objResponseRepository.save(obj)
