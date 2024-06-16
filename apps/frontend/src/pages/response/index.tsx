@@ -143,7 +143,7 @@ const ResponsePage = () => {
       ResponseServices.updateDefaultDate(
         dayjs(date).format('DD MMMM').toString()
       )
-        .then((response) => setResponse(response.data))
+        .then(() => getResponse())
         .finally(() => setLoading(false));
     }
   }
