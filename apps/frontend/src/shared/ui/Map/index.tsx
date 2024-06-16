@@ -4,6 +4,7 @@ import {
   Placemark,
   ZoomControl,
   Polygon,
+  Circle,
 } from '@pbe/react-yandex-maps';
 import * as turf from '@turf/turf';
 import { useMemo } from 'react';
@@ -22,12 +23,42 @@ interface MapProps {
   objs?: IObj[];
   simpleMap?: boolean;
   showConnected?: string;
+  buildingsCount?: number;
 }
 
 interface District {
   name: string;
   coords: [number, number][];
 }
+
+interface CTP {
+  name: string;
+  address: string;
+  coords: [number, number];
+  priority: number;
+}
+
+const getColorShade = (
+  index: number,
+  total: number
+): { fillColor: string; strokeColor: string } => {
+  const ratio = index / (total - 1);
+
+  if (total === 1)
+    return {
+      fillColor: 'rgba(255, 0, 0, 0.5)',
+      strokeColor: 'rgba(255, 0, 0, 0.5)',
+    };
+
+  const red = 255;
+  const green = Math.round(255 * (1 - ratio));
+  const blue = 0;
+
+  const fillColor = `rgba(${red}, ${green}, ${blue}, 0.5)`;
+  const strokeColor = `rgba(${red}, ${green}, ${blue}, 0.5)`;
+
+  return { fillColor, strokeColor };
+};
 
 export const Map = ({
   fullWidth,
@@ -36,6 +67,7 @@ export const Map = ({
   onPlacemarkClick,
   simpleMap,
   showConnected,
+  buildingsCount,
 }: MapProps) => {
   const iconsTypes: { [key: string]: string } = {
     mkd: mkd,
@@ -46,7 +78,6 @@ export const Map = ({
   };
 
   const markers = buildings?.length ? buildings : objs;
-  console.log(markers);
 
   const districts: District[] = useMemo(() => {
     const districtMap: { [key: string]: [number, number][] } = {};
@@ -85,6 +116,39 @@ export const Map = ({
     }));
   }, [markers]);
 
+  const ctps: CTP[] = useMemo(() => {
+    const ctpMap: CTP[] = [];
+
+    markers &&
+      markers.forEach((marker) => {
+        if (
+          marker?.connectionInfo &&
+          !ctpMap.map((c) => c.name).includes(marker?.connectionInfo.name)
+        ) {
+          ctpMap.push({
+            address: marker?.connectionInfo?.address,
+            coords: marker?.connectionInfo?.coords,
+            name: marker?.connectionInfo?.name,
+            priority: 0,
+          });
+        }
+      });
+
+    markers &&
+      markers.forEach((marker) => {
+        if (marker?.connectionInfo) {
+          const ctp = ctpMap.find(
+            (c) => c.name === marker.connectionInfo?.name
+          );
+          if (ctp && marker.priority) {
+            ctp.priority += marker.priority;
+          }
+        }
+      });
+
+    return ctpMap.sort((a, b) => b.priority - a.priority);
+  }, [markers]);
+
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
       <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
@@ -101,6 +165,27 @@ export const Map = ({
               }}
             />
           ))}
+        {showConnected === 'ЦТП/ИТП' &&
+          ctps &&
+          ctps.map(({ name, coords, address }, index) => {
+            const { fillColor, strokeColor } = getColorShade(
+              index,
+              buildingsCount || 1
+            );
+
+            return (
+              <Circle
+                key={name}
+                onClick={() => console.log(address)}
+                geometry={[coords, 700]}
+                options={{
+                  fillColor,
+                  strokeColor,
+                  strokeWidth: 2,
+                }}
+              />
+            );
+          })}
         {simpleMap ? (
           <ZoomControl
             options={{ size: 'small', position: { top: '24px', left: '24px' } }}

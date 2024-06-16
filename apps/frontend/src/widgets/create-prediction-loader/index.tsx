@@ -10,7 +10,7 @@ export const CreatePredictionLoader = () => {
       <Stack gap={12} align="center">
         <Title level={3} title="Идет анализ" />
         <p className="text secondary center">
-          Пожалуйста, подождите. Обычно это занимает <br /> не больше минуты
+          Пожалуйста, подождите. Обычно это занимает <br /> не больше 5 минут
         </p>
       </Stack>
     </Stack>
