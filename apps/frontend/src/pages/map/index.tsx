@@ -97,6 +97,9 @@ const MapPage = () => {
         ) {
           return true;
         }
+        if (typeFilters.includes('mkd') && socialTypes.includes('prom')) {
+          return true;
+        }
         return false;
       })
       .filter((item) =>

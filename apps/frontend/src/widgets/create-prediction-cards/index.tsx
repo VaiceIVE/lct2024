@@ -36,7 +36,7 @@ export const CreatePredictionCards = ({
           <Flex gap={16} align={'flex-start'}>
             <IconCircleCheckFilled color={theme.colors.myState[1]} size={24} />
             <p className="text error">
-              Для нового прогноза введите данные как минимум в один блок
+              Для нового прогноза необходимо загрузить файл
             </p>
           </Flex>
         </Card>
