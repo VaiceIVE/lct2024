@@ -53,9 +53,15 @@ export class PredictionService {
                 console.log(name)
                 if(!names.includes(name))
                     {
-                        let buffer: Buffer = createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`)).read()
-                        console.log(buffer)
-                        await this.storageService.uploadToS3Buffer(buffer as Buffer, name)
+                        let stream = createReadStream(join(process.cwd(),`/apps/backend/src/defaultTables/${name}`))
+                        stream.on('readable', async function () {
+                            var buffer = stream.read(10);
+                            if (buffer) {
+                                console.log(buffer)
+                                await this.storageService.uploadToS3Buffer(buffer as Buffer, name)
+                            }
+                          });
+                        
                     }
             }
 
