@@ -46,16 +46,16 @@ export class ObjService {
         let ans = []
         for(const obj of response)
           {
-            if(!ans.includes(obj))
+            if(!ans.includes(obj.address))
               {
-                ans.push(obj)
+                ans.push(obj.address)
               }
           }
         return ans;
       }
       else
       {
-        const addresses = await this.objRepository.find({where: {socialType: type}, select: {address: true}})
+        const addresses = await this.objRepository.find({where: {socialType: type, address: Not(IsNull())}, select: {address: true}})
         const unique = Array.from(new Set(addresses))
         let ans = []
         for(const obj of addresses)
