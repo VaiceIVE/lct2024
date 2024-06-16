@@ -16,9 +16,10 @@ export class ObjPrediction {
     @JoinTable()
     events: Event[]
 
-    @OneToMany(() => Prediction, (pred) => pred.objPredictions, {
+    @ManyToOne(() => Prediction, (pred) => pred.objPredictions, {
         onDelete: "CASCADE"
     })
+    @JoinTable()
     prediction: Prediction
 
     @ManyToOne(() => Obj, (obj) => obj.objPredictions)
