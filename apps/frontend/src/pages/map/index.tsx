@@ -32,7 +32,7 @@ const MapPage = () => {
   const [typeFilters, setTypeFilters] = useState<string[]>([
     'mkd',
     'Социальные объекты',
-    'tp',
+    'prom',
   ]);
   const [isPriority, setPriority] = useState<boolean>(true);
   const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
@@ -95,9 +95,6 @@ const MapPage = () => {
           typeFilters.includes('Социальные объекты') &&
           socialTypes.includes(b.socialType)
         ) {
-          return true;
-        }
-        if (typeFilters.includes('mkd') && b.socialType === 'prom') {
           return true;
         }
         return false;

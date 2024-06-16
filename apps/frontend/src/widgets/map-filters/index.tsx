@@ -13,9 +13,9 @@ const filters = [
   { icon: <IconHome size={20} />, label: 'МКД', color: 'orange', type: 'mkd' },
   {
     icon: <IconBuildingFactory size={20} />,
-    label: 'Пункты отопления',
+    label: 'Прочее',
     color: 'gray',
-    type: 'tp',
+    type: 'prom',
   },
   {
     icon: <IconBuildingHospital size={20} />,

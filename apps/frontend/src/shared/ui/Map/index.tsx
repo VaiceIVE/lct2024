@@ -60,6 +60,28 @@ const getColorShade = (
   return { fillColor, strokeColor };
 };
 
+const getDistrictColor = (
+  index: number,
+  total: number
+): { fillColor: string; strokeColor: string } => {
+  const ratio = index / (total - 1);
+
+  if (total === 1)
+    return {
+      fillColor: 'rgba(255, 0, 0, 0.5)',
+      strokeColor: 'rgba(255, 0, 0, 0.5)',
+    };
+
+  const red = Math.round(255 * (1 - ratio));
+  const green = Math.round(255 * (1 - ratio));
+  const blue = Math.round(255 * (1 - ratio));
+
+  const fillColor = `rgba(${red}, ${green}, ${blue}, 0.5)`;
+  const strokeColor = `rgba(${red}, ${green}, ${blue}, 0.5)`;
+
+  return { fillColor, strokeColor };
+};
+
 export const Map = ({
   fullWidth,
   buildings,
@@ -154,17 +176,24 @@ export const Map = ({
       <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
         {showConnected === 'Район' &&
           districts &&
-          districts.map(({ name, coords }) => (
-            <Polygon
-              key={name}
-              geometry={[coords]}
-              options={{
-                fillColor: 'rgba(255, 0, 0, 0.5)',
-                strokeColor: 'rgba(255, 0, 0, 0.5)',
-                strokeWidth: 2,
-              }}
-            />
-          ))}
+          districts.map(({ name, coords }, index) => {
+            const { fillColor, strokeColor } = getDistrictColor(
+              index,
+              districts.length || 1
+            );
+
+            return (
+              <Polygon
+                key={name}
+                geometry={[coords]}
+                options={{
+                  fillColor,
+                  strokeColor,
+                  strokeWidth: 2,
+                }}
+              />
+            );
+          })}
         {showConnected === 'ЦТП/ИТП' &&
           ctps &&
           ctps.map(({ name, coords, address }, index) => {
