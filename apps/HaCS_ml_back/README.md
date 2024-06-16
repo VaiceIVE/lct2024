@@ -34,3 +34,13 @@ SPEC_HEAT_DATA='./turn_on_of_heat_ordered.json'
 - `usefull_events` - предсказываемые ивенты;
 - `weathers_types` - ;
 - `usfull_columns_for_algorithms` - именна сущностей для ;
+
+# Описание тела запроса *`get_anomalies_by_day`* 
+
+GetAnomaliesByDayModel:
+- list_of_tables - таблицы получаемые из S3 хранилища
+- period - год по для предикта
+- n_top - число возвращаемых аномалий
+- n_days
+- n_objects - число
+

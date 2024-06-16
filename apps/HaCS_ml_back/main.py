@@ -93,7 +93,7 @@ def process_data_to_model_cluster(x1, x2, device='cpu'):
 @app.post("/get_anomalies_by_day")
 def get_anomalies_by_day(body: GetAnomaliesByDayModel):
     """
-        Функция получает на вход имена таблиц из S3 хранилища и число возворащаемых объектов
+        Функция получает на вход имена таблиц из S3 хранилища,число возворащаемых объектов
     """
     list_of_dataframes = []
     for table_name in tqdm(body.list_of_tables):
