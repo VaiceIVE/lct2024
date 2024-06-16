@@ -55,7 +55,7 @@ export class ObjService {
       }
     if(type == 'mkd')
       {
-        const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}})
+        const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}, order: {address: 'ASC'}})
         const unique = Array.from(new Set(addresses))
         let ans = []
         for(const obj of addresses)
