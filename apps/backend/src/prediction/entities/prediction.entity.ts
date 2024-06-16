@@ -19,6 +19,11 @@ export class Prediction {
     })
     isSaved: boolean
 
+    @Column({
+        default: false
+    })
+    isDefault: boolean
+
     @OneToMany(() => ObjPrediction, (op) => op.prediction,{
         cascade: true,
         eager: true

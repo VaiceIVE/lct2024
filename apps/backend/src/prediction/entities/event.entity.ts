@@ -21,7 +21,6 @@ export class Event {
 
     @ManyToOne(() => ObjPrediction, (obj) => obj.events, {
         onDelete: "CASCADE",
-        eager: true
     })
     @JoinTable()
     object: ObjPrediction

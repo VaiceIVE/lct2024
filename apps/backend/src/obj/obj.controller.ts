@@ -20,7 +20,7 @@ export class ObjController {
   @Post('type')
   async getByType(@Body() getByTypeDto: GetByTypeDto) {
 
-    return await this.objService.getByType(getByTypeDto.socialType)
+    return this.objService.getByType(getByTypeDto.socialType)
   }
 
   @Post('message')

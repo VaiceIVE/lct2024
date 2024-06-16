@@ -6,12 +6,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Prediction } from './entities/prediction.entity';
 import { Event } from './entities/event.entity';
 import { ConfigModule } from '@nestjs/config';
+import { ObjPrediction } from './entities/objPrediction.entity';
+import { HeatPoint, Obj } from '../database/entities-index';
 
 @Module({
   imports: [
     ConfigModule,
     StorageModule,
-    TypeOrmModule.forFeature([Prediction, Event])
+    TypeOrmModule.forFeature([Prediction, ObjPrediction, Event, Obj, HeatPoint])
   ],
   controllers: [PredictionController],
   providers: [PredictionService],

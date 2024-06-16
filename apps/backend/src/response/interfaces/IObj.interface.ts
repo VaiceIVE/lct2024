@@ -10,4 +10,5 @@ export interface IObj {
     district: string;
     fullCooldown?: number;
     normCooldown?: number;
+    characteristics: {[key: string]: string | number};
 }
