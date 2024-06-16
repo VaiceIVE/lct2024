@@ -53,8 +53,8 @@ export function findSquareForHouse(house: number[]): ICtp | null {
   let shortestDistance = Infinity;
 
   const houseCoordinates: Coordinates = {
-    latitude: house[0],
-    longitude: house[1],
+    latitude: +house[0],
+    longitude: +house[1],
   };
 
   for (const square of squares) {
