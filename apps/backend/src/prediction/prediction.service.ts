@@ -159,7 +159,7 @@ export class PredictionService {
                     let result = await this.predictionRepository.save(prediction)
                     console.log("Saved")
                     
-                    return result
+                    return prediction.id
                 }
                 return null
     }
