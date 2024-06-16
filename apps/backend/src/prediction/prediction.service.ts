@@ -123,6 +123,8 @@ export class PredictionService {
                         continue
                     }
                 const dates = data[unom]['tl']
+                console.log(data[unom])
+                console.log(data[unom]['anomalies'])
                 for(const i of Array(dates.length).keys())
                     {
                         
