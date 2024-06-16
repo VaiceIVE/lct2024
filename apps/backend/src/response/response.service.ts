@@ -123,34 +123,37 @@ export class ResponseService {
       {
         if(obj.obj)
           {
-            await this.objResponseRepository.update({id: objid}, {event: updateObjDto.event, heatPoint: null})
             const heatPoint = await this.heatPointRepository.findOneBy({addressTP: updateObjDto.address})
             obj.heatPoint = heatPoint
             await this.objResponseRepository.save(obj)
+            await this.objResponseRepository.update({id: objid}, {event: updateObjDto.event, heatPoint: null})
           }
           else
           {
-            await this.objResponseRepository.update({id: objid}, { event: updateObjDto.event })
             const heatPoint = await this.heatPointRepository.findOneBy({addressTP: updateObjDto.address})
             obj.heatPoint = heatPoint
             await this.objResponseRepository.save(obj)
+            await this.objResponseRepository.update({id: objid}, { event: updateObjDto.event })
+
           }
       }
       else
       {
         if(obj.obj)
           {
-            await this.objResponseRepository.update({id: objid}, { event: updateObjDto.event })
             const objRes = await this.objRepository.findOneBy({address: updateObjDto.address})
             obj.obj = objRes
             await this.objResponseRepository.save(obj)
+            await this.objResponseRepository.update({id: objid}, { event: updateObjDto.event })
+
           }
           else
           {
-            await this.objResponseRepository.update({id: objid}, { event: updateObjDto.event, obj: null})
             const objRes = await this.objRepository.findOneBy({address: updateObjDto.address})
             obj.obj = objRes
             await this.objResponseRepository.save(obj)
+            await this.objResponseRepository.update({id: objid}, { event: updateObjDto.event, obj: null})
+
           }
       }
       let response = await this.responseRepository.findOne({where: {objects: {id: objid}}})
