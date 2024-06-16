@@ -5,13 +5,15 @@ import { Button } from 'shared/ui/Button';
 import { WidgetWrapper } from 'shared/ui/Wrappers/WidgetWrapper';
 
 import { PriorityFilter } from 'shared/ui/PriorityFilter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ResponseItem } from './components/response-item';
 import { Filters } from 'shared/ui/Filters';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Select } from 'shared/ui/Select';
 import { DISTRICTS } from 'shared/constants/const';
 import { buildingTypesByFilters } from 'shared/constants/buildingTypes';
+import { useDisclosure } from '@mantine/hooks';
+import { Modal } from 'shared/ui/Modal';
 
 interface ResponseListProps {
   obj: IObj[] | undefined;
@@ -19,6 +21,8 @@ interface ResponseListProps {
   setPriority: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedObj: React.Dispatch<React.SetStateAction<IObj | null>>;
   date: string | undefined;
+  setDeletedId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  handleDeleteObject: () => void;
 }
 
 export const ResponseList = ({
@@ -27,10 +31,29 @@ export const ResponseList = ({
   setPriority,
   setSelectedObj,
   date,
+  setDeletedId,
+  handleDeleteObject,
 }: ResponseListProps) => {
   const [isFiltersOpen, setFiltersOpen] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
 
   const { control } = useFormContext();
+
+  const onOpen = (id: number) => {
+    open();
+    setDeletedId(id);
+  };
+
+  const onClose = () => {
+    close();
+    handleDeleteObject();
+  };
+
+  useEffect(() => {
+    if (!opened) {
+      setDeletedId(undefined);
+    }
+  }, [opened, setDeletedId]);
 
   return (
     <WidgetWrapper
@@ -91,6 +114,7 @@ export const ResponseList = ({
           {obj &&
             obj.map((o, index) => (
               <ResponseItem
+                onOpen={onOpen}
                 date={date}
                 key={index}
                 setSelectedObj={setSelectedObj}
@@ -104,6 +128,28 @@ export const ResponseList = ({
           <div>Ничего не найдено</div>
         </Stack>
       )}
+      <Modal
+        w={557}
+        title="Вы уверены, что хотите завершить инцидент?"
+        opened={opened}
+        close={close}
+      >
+        <Stack gap={18}>
+          <p className="text">
+            После изменения статуса инцидент исчезнет из списка, вернуть его
+            будет можно лишь создав заново
+          </p>
+          <Flex gap={7}>
+            <Button fullWidth label="Отменить" onClick={close} />
+            <Button
+              fullWidth
+              label="Завершить инцидент"
+              type="white"
+              onClick={onClose}
+            />
+          </Flex>
+        </Stack>
+      </Modal>
     </WidgetWrapper>
   );
 };
