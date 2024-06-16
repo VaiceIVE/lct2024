@@ -30,9 +30,7 @@ export class StorageService {
             {
                 name = name + `(${(new Date).toDateString()})`
             }
-            const { Readable } = require('stream');
-            const stream = Readable.from(file);
-        await this.minioService.client.putObject('tables', name, stream)
+        await this.minioService.client.putObject('tables', name, file.toString())
         return name
     }
 
