@@ -9,7 +9,7 @@ import {
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { debounce, toLower } from 'lodash';
+import { debounce } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -41,9 +41,10 @@ const data: IResponse = {
       coords: [55.717482785, 37.828189394],
       event: 'Прорыв трубы',
       priority: 1,
-      isLast: true,
+      isLast: false,
       fullCooldown: 3,
       normCooldown: 2,
+      district: 'Восточное Измайлово',
     },
     {
       id: 2,
@@ -54,9 +55,10 @@ const data: IResponse = {
       coords: [55.720046086, 37.797663794],
       event: 'Прорыв трубы',
       priority: 2,
-      isLast: true,
+      isLast: false,
       fullCooldown: 3,
       normCooldown: 2,
+      district: 'муниципальный округ Преображенское',
     },
     {
       id: 3,
@@ -70,6 +72,7 @@ const data: IResponse = {
       isLast: true,
       fullCooldown: 3,
       normCooldown: 2,
+      district: 'муниципальный округ Преображенское',
     },
   ],
 };
@@ -144,9 +147,20 @@ const ResponsePage = () => {
   }, []);
 
   const getObjByFilters = () => {
-    return response?.obj.sort((a, b) =>
-      isPriority ? b.priority - a.priority : a.priority - b.priority
-    );
+    return response?.obj
+      .sort((a, b) =>
+        isPriority ? b.priority - a.priority : a.priority - b.priority
+      )
+      .filter(
+        (b) =>
+          !eventFields.watch('district') ||
+          b.district === eventFields.watch('district')
+      )
+      .filter(
+        (b) =>
+          !eventFields.watch('filterSocialType') ||
+          b.socialType === eventFields.watch('filterSocialType')
+      );
   };
 
   const clear = useCallback(() => {
@@ -206,25 +220,25 @@ const ResponsePage = () => {
           <Loader size={'xl'} color={theme.colors.myBlue[2]} />
         </Flex>
       ) : null}
-      {getObjByFilters()?.length && !isLoading ? (
-        <ResponseList
-          date={response?.date}
-          setPriority={setPriority}
-          isPriority={isPriority}
-          obj={getObjByFilters()}
-          setSelectedObj={setSelectedObj}
-        />
-      ) : null}
-      {response?.obj?.length && !isLoading ? (
-        <EventsMap
-          title="Все инциденты на карте"
-          objs={response?.obj}
-          months={months}
-          monthsIndex={1}
-          id={'3'}
-        />
-      ) : null}
       <FormProvider {...eventFields}>
+        {response?.obj?.length && !isLoading ? (
+          <ResponseList
+            date={response?.date}
+            setPriority={setPriority}
+            isPriority={isPriority}
+            obj={getObjByFilters()}
+            setSelectedObj={setSelectedObj}
+          />
+        ) : null}
+        {response?.obj?.length && !isLoading ? (
+          <EventsMap
+            title="Все инциденты на карте"
+            objs={response?.obj}
+            months={months}
+            monthsIndex={1}
+            id={'3'}
+          />
+        ) : null}
         <Drawer
           isBlur
           title="Симулирование события"

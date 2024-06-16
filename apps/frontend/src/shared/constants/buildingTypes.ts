@@ -13,3 +13,11 @@ export const simpleBuildingTypes: { [key: string]: string } = {
   tp: 'ТП',
   prom: 'Прочее',
 };
+
+export const buildingTypesByFilters: { value: string; label: string }[] = [
+  { value: 'mkd', label: 'Многоквартирный дом' },
+  { value: 'medicine', label: 'Объект здравоохранения' },
+  { value: 'education', label: 'Образовательное учереждение' },
+  { value: 'tp', label: 'Тепловой пункт' },
+  { value: 'prom', label: 'Прочее' },
+];
