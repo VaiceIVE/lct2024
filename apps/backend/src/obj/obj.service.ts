@@ -43,18 +43,43 @@ export class ObjService {
             return b.count - a.count})
         hpsWithCount.forEach((elem) => response.push({address: elem.hp.addressTP}))
         const unique = Array.from(new Set(response))
-        return unique;
+        let ans = []
+        for(const obj of response)
+          {
+            if(!ans.includes(obj))
+              {
+                ans.push(obj)
+              }
+          }
+        return ans;
       }
     if(type == 'mkd')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}})
         const unique = Array.from(new Set(addresses))
+        let ans = []
+        for(const obj of addresses)
+          {
+            console.log(obj)
+            if(!ans.includes(obj))
+              {
+                ans.push(obj)
+              }
+          }
         return unique;
       }
     if(type == 'education')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'education'}, select: {address: true}})
         const unique = Array.from(new Set(addresses))
+        let ans = []
+        for(const obj of addresses)
+          {
+            if(!ans.includes(obj))
+              {
+                ans.push(obj)
+              }
+          }
 
         return unique;
       }
@@ -62,6 +87,14 @@ export class ObjService {
       {
         const addresses = await this.objRepository.find({where: {socialType: 'medicine'}, select: {address: true}})
         const unique = Array.from(new Set(addresses))
+        let ans = []
+        for(const obj of addresses)
+          {
+            if(!ans.includes(obj))
+              {
+                ans.push(obj)
+              }
+          }
 
         return unique;
       }
@@ -69,6 +102,14 @@ export class ObjService {
       {
         const addresses = await this.objRepository.find({where: {socialType: 'prom'}, select: {address: true}})
         const unique = Array.from(new Set(addresses))
+        let ans = []
+        for(const obj of addresses)
+          {
+            if(!ans.includes(obj))
+              {
+                ans.push(obj)
+              }
+          }
 
         return unique;
       }
