@@ -8,9 +8,14 @@ import { Event } from './entities/event.entity';
 import { ConfigModule } from '@nestjs/config';
 import { ObjPrediction } from './entities/objPrediction.entity';
 import { HeatPoint, Obj } from '../database/entities-index';
+import { CacheModule, CacheInterceptor } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
+    CacheModule.register({
+      ttl: 3600, 
+      max: 20,
+    }),
     ConfigModule,
     StorageModule,
     TypeOrmModule.forFeature([Prediction, ObjPrediction, Event, Obj, HeatPoint])
