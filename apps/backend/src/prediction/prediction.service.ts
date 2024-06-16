@@ -301,18 +301,28 @@ export class PredictionService {
                 for(const i of Array(dates.length).keys())
                     {
                         const date = dates[i]
+                        console.log(dates)
+                        console.log(date)
+                        console.log(data[unom])
+                        console.log(data[unom]['anomalies'])
+                        console.log(data[unom]['anomalies'][i])
+
                         const probsDict = data[unom]['anomalies'][i]
-                        for(const probData of probsDict)
+                        if(data[unom] && data[unom]['anomalies'] && probsDict)
                             {
-                                const event = probData
-                                const probability = probsDict[probData]
-                                const newEvent = this.eventRepository.create({
-                                    eventName: event,
-                                    chance: probability,
-                                    date: date
-                                })
-                                events.push(event)
+                                for(const probData of probsDict)
+                                    {
+                                        const event = probData
+                                        const probability = probsDict[probData]
+                                        const newEvent = this.eventRepository.create({
+                                            eventName: event,
+                                            chance: probability,
+                                            date: date
+                                        })
+                                        events.push(event)
+                                    }
                             }
+                        
                     }
                 const objPrediction = this.objPredictionRepository.create({
                     events: events,
