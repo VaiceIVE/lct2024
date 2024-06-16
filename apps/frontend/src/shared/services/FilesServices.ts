@@ -11,7 +11,7 @@ export default class FileServices {
 
     formData.append('file', file);
 
-    return $api.post<string[]>('/file', { file: formData });
+    return $api.post<string[]>('/storage/table', formData);
   }
 
   static async getUploadedFiles(): Promise<AxiosResponse<string[]>> {
