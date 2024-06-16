@@ -27,6 +27,8 @@ const PredictionPageContainer = () => {
   const [prediction, setPrediction] = useState<IPrediction | null>(null);
   const [isLoading, setLoading] = useState(true);
 
+  const [defaultId, setDefaultId] = useState<number>();
+
   const [isShowNotice, setShowNotice] = useState(false);
 
   const [path, setPath] = useState<string>('');
@@ -44,29 +46,31 @@ const PredictionPageContainer = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceMonthsIndex = useCallback(
-    debounce((newState) => getPredictionResult(newState), 600),
+    debounce((newState, id) => getPredictionResult(newState, id), 100),
     []
   );
 
-  function getPredictionResult(index: number) {
-    setLoading(true);
+  function getPredictionResult(index: number, localId: number) {
     if (isDefault) {
-      PredictionServices.getDefaultPrediction()
-        .then((response) => {
-          PredictionServices.getPredictionById(
-            response.data,
-            months[index].value
-          ).then((r) =>
+      if (!localId) {
+        PredictionServices.getDefaultPrediction()
+          .then((response) => {
+            setDefaultId(response.data);
+          })
+          .finally(() => setLoading(false));
+      } else {
+        PredictionServices.getPredictionById(localId, months[index].value)
+          .then((r) => {
             setPrediction({
               id: r.data.id,
               buildings: r.data.buildings.map((b) => ({
                 ...b,
                 connectionInfo: findSquareForHouse(b.coords),
               })),
-            })
-          );
-        })
-        .finally(() => setLoading(false));
+            });
+          })
+          .finally(() => setLoading(false));
+      }
     } else {
       PredictionServices.getPredictionById(+id, months[index].value)
         .then((response) =>
@@ -103,8 +107,9 @@ const PredictionPageContainer = () => {
   };
 
   useEffect(() => {
-    debounceMonthsIndex(monthsIndex);
-  }, [debounceMonthsIndex, monthsIndex]);
+    setLoading(true);
+    debounceMonthsIndex(monthsIndex, defaultId);
+  }, [debounceMonthsIndex, monthsIndex, defaultId]);
 
   return (
     <FormProvider {...filterFields}>
