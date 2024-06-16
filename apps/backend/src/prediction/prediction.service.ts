@@ -364,10 +364,16 @@ export class PredictionService {
                 return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=Москва, ${address}`).catch((e) => {
                     return null
                 }).then((res) => {
-                    return res.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                    if(res)
+                        {
+                            return res.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                        }
                 })
             }).then((res) => {
-                return res.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                if(res)
+                    {
+                        return res.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                    }
             })
 
             
