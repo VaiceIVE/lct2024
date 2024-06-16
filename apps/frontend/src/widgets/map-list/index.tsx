@@ -1,33 +1,44 @@
-import { Stack, Flex } from '@mantine/core';
+import { Stack, Flex, Grid } from '@mantine/core';
 import { IconFilterMinus, IconFilterPlus } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { IBuilding } from 'shared/models/IBuilding';
 
 import { Button } from 'shared/ui/Button';
-import { Card } from 'shared/ui/Card';
 import { Filters } from 'shared/ui/Filters';
-import { IconBlock } from 'shared/ui/IconBlock';
 import { Input } from 'shared/ui/Input';
 import { Title } from 'shared/ui/Title';
-
-import styles from './MapList.module.scss';
 import { PriorityFilter } from 'shared/ui/PriorityFilter';
+import { Select } from 'shared/ui/Select';
+import { buildingTypesByFilters } from 'shared/constants/buildingTypes';
+import { DISTRICTS } from 'shared/constants/const';
+
+import { BuildingItem } from './components/BuildingItem';
+import { IObj } from 'shared/models/IResponse';
+import { ObjItem } from './components/ObjItem';
 
 interface MapListProps {
   buildings: IBuilding[] | undefined;
   setSelectedBuilding: React.Dispatch<React.SetStateAction<IBuilding | null>>;
+  setSelectedObj: React.Dispatch<React.SetStateAction<IObj | null>>;
   buildingsCount: number | undefined;
+  objsCount: number | undefined;
   isPriority: boolean;
   setPriority: React.Dispatch<React.SetStateAction<boolean>>;
+  isResponse?: boolean;
+  objs: IObj[] | undefined;
 }
 
 export const MapList = ({
   buildings,
   setSelectedBuilding,
+  setSelectedObj,
   buildingsCount,
   setPriority,
   isPriority,
+  objsCount,
+  isResponse,
+  objs,
 }: MapListProps) => {
   const [isOpen, setOpen] = useState(false);
 
@@ -63,41 +74,76 @@ export const MapList = ({
             }
           />
         </Flex>
-        <Filters opened={isOpen} span={12} />
+        <Filters opened={isOpen}>
+          {isResponse ? (
+            <>
+              <Grid.Col span={12}>
+                <Controller
+                  control={control}
+                  name="district"
+                  render={({ field }) => (
+                    <Select
+                      allowDeselect
+                      field={field}
+                      data={DISTRICTS}
+                      label="Район"
+                      placeholder="Выберите район"
+                    />
+                  )}
+                />
+              </Grid.Col>
+              <Grid.Col span={12}>
+                <Controller
+                  control={control}
+                  name="filterSocialType"
+                  render={({ field }) => (
+                    <Select
+                      allowDeselect
+                      field={field}
+                      data={buildingTypesByFilters}
+                      label="Тип объекта"
+                      placeholder="Выберите район"
+                    />
+                  )}
+                />
+              </Grid.Col>
+            </>
+          ) : null}
+        </Filters>
       </Stack>
       <Stack gap={24}>
         <Flex justify={'space-between'} align={'center'}>
           <Flex gap={5}>
             <Title level={4} title="События" />
-            <Title color="gray" level={4} title={`(${buildingsCount})`} />
+            <Title
+              color="gray"
+              level={4}
+              title={`(${buildingsCount || objsCount})`}
+            />
           </Flex>
           <PriorityFilter isPriority={isPriority} setPriority={setPriority} />
         </Flex>
-        <p className="text">Найдено {buildings?.length}</p>
-        <Stack gap={8}>
-          {buildings &&
-            buildings.map((b) => (
-              <Card
-                className={styles.building}
-                onClick={() => setSelectedBuilding(b)}
+        <p className="text">
+          Найдено {buildings ? buildings?.length : objs?.length}
+        </p>
+        {buildings ? (
+          <Stack gap={8}>
+            {buildings.map((b) => (
+              <BuildingItem
                 key={b.address}
-                p="20px"
-                type="dark"
-              >
-                <Flex align={'center'} gap={24}>
-                  <Flex align={'center'} gap={16}>
-                    <IconBlock iconType={b.socialType} />
-                    <Stack gap={7}>
-                      <p className="text medium">{b.address}</p>
-                      <p className="text">
-                        {b.events.map((e) => e.eventName).join(', ')}
-                      </p>
-                    </Stack>
-                  </Flex>
-                </Flex>
-              </Card>
+                b={b}
+                setSelectedBuilding={setSelectedBuilding}
+              />
             ))}
-        </Stack>
+          </Stack>
+        ) : null}
+        {objs ? (
+          <Stack gap={8}>
+            {objs.map((o) => (
+              <ObjItem key={o.address} o={o} setSelectedObj={setSelectedObj} />
+            ))}
+          </Stack>
+        ) : null}
       </Stack>
     </Stack>
   );

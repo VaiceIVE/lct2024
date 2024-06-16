@@ -1,4 +1,5 @@
-import { CTP_LIST } from './CTP_LIST';
+import { ICtp } from 'shared/models/IBuilding';
+import { CTP_LIST } from '../constants/CTP_LIST';
 
 interface Coordinates {
   latitude: number;
@@ -47,7 +48,7 @@ function calculateDistance(point1: Coordinates, point2: Coordinates): number {
   return Math.sqrt(latDiff * latDiff + longDiff * longDiff);
 }
 
-export function findSquareForHouse(house: number[]): ObjectData | null {
+export function findSquareForHouse(house: number[]): ICtp | null {
   let closestSquare: Square | null = null;
   let shortestDistance = Infinity;
 
@@ -65,5 +66,14 @@ export function findSquareForHouse(house: number[]): ObjectData | null {
     }
   }
 
-  return closestSquare ? closestSquare.objectData : null;
+  return closestSquare
+    ? {
+        address: closestSquare.objectData.UF_OBSHHAJA_INFORMAC,
+        name: closestSquare.objectData.UF_NAIMENOVANIE_OBEK,
+        coords: [
+          +closestSquare.objectData.UF_GEO_COORDINATES.split(', ')[0],
+          +closestSquare.objectData.UF_GEO_COORDINATES.split(', ')[1],
+        ],
+      }
+    : null;
 }

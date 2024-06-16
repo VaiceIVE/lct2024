@@ -1,0 +1,12 @@
+@import '@styles/__defines.scss';
+
+.obj {
+  cursor: pointer;
+  transition: all 0.3s;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: #eef6fc;
+    }
+  }
+}

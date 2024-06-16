@@ -14,6 +14,7 @@ interface EventsMapProps {
   objs?: IObj[] | undefined;
   buildings?: IBuilding[];
   title?: string;
+  isResponse?: boolean;
 }
 
 export const EventsMap = ({
@@ -23,14 +24,19 @@ export const EventsMap = ({
   objs,
   buildings,
   title,
+  isResponse,
 }: EventsMapProps) => {
   return (
     <WidgetWrapper
       button={
         <NavLink
-          to={`${MAP_ROUTE}?month=${months[monthsIndex].value}&${
-            id ? `id=${id}` : ''
-          }`}
+          to={
+            isResponse
+              ? `${MAP_ROUTE}?isResponse=true`
+              : `${MAP_ROUTE}?month=${months[monthsIndex].value}&${
+                  id ? `id=${id}` : ''
+                }`
+          }
         >
           <Button
             label="Развернуть карту"
