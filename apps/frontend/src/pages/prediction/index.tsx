@@ -65,6 +65,7 @@ const PredictionPageContainer = () => {
               id: r.data.id,
               buildings: r.data.buildings.map((b) => ({
                 ...b,
+                coords: b.coords.map((c) => +c),
                 connectionInfo: findSquareForHouse(b.coords),
               })),
             });
@@ -78,6 +79,7 @@ const PredictionPageContainer = () => {
             id: response.data.id,
             buildings: response.data.buildings.map((b) => ({
               ...b,
+              coords: b.coords.map((c) => +c),
               connectionInfo: findSquareForHouse(b.coords),
             })),
           })
