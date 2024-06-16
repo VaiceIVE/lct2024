@@ -113,7 +113,8 @@ export class PredictionService {
     {
         const data = predictionAnswer.what_anomaly_propability     
         let objPredictions = []
-        //console.log(data)
+        console.log(data)
+        console.log(Object.keys(data))
         for (const unom of Object.keys(data))
             {
                 let obj = await this.objRepository.findOne({where: {unom: unom}})
