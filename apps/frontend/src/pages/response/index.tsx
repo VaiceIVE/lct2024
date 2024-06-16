@@ -29,54 +29,6 @@ import { ResponseList } from 'widgets/response-list';
 
 dayjs.extend(customParseFormat);
 
-const data: IResponse = {
-  date: '15.10.2024',
-  obj: [
-    {
-      id: 1,
-      date: '15.10.2024',
-      address: '1Новокосинская улица, 32, Москва, 111672',
-      socialType: 'mkd',
-      consumersCount: null,
-      coords: [55.717482785, 37.828189394],
-      event: 'Прорыв трубы',
-      priority: 1,
-      isLast: false,
-      fullCooldown: 3,
-      normCooldown: 2,
-      district: 'Восточное Измайлово',
-    },
-    {
-      id: 2,
-      date: '15.10.2024',
-      address: '2Новокосинская улица, 32, Москва, 111672',
-      socialType: 'education',
-      consumersCount: null,
-      coords: [55.720046086, 37.797663794],
-      event: 'Прорыв трубы',
-      priority: 2,
-      isLast: false,
-      fullCooldown: 3,
-      normCooldown: 2,
-      district: 'муниципальный округ Преображенское',
-    },
-    {
-      id: 3,
-      date: '15.10.2024',
-      address: 'Снайперская ул., д.11, стр.2',
-      socialType: 'tp',
-      consumersCount: 190,
-      coords: [55.815345188, 37.514882646],
-      event: 'Прорыв трубы',
-      priority: 3,
-      isLast: true,
-      fullCooldown: 3,
-      normCooldown: 2,
-      district: 'муниципальный округ Преображенское',
-    },
-  ],
-};
-
 const ResponsePage = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -250,6 +202,7 @@ const ResponsePage = () => {
         ) : null}
         {response?.obj?.length && !isLoading ? (
           <EventsMap
+            isResponse
             title="Все инциденты на карте"
             objs={response?.obj}
             months={months}

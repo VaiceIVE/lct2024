@@ -8,6 +8,8 @@ import { IObj } from 'shared/models/IResponse';
 import classNames from 'classnames';
 
 import styles from './ResponseItem.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { MAP_ROUTE } from 'shared/constants/const';
 
 interface ResponseItemProps {
   index: number;
@@ -24,6 +26,8 @@ export const ResponseItem = ({
   setSelectedObj,
   onOpen,
 }: ResponseItemProps) => {
+  const navigate = useNavigate();
+
   return (
     <Flex
       className={classNames(styles.obj, {
@@ -80,7 +84,14 @@ export const ResponseItem = ({
             icon={<IconPencil size={18} />}
             onClick={() => setSelectedObj(o)}
           />
-          <Button w={57} type="outline" icon={<IconMap size={18} />} />
+          <Button
+            onClick={() =>
+              navigate(`${MAP_ROUTE}?isResponse=true`, { state: { obj: o } })
+            }
+            w={57}
+            type="outline"
+            icon={<IconMap size={18} />}
+          />
           <Button
             onClick={() => onOpen(o.id)}
             w={57}

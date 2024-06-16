@@ -9,6 +9,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { Drawer } from 'shared/ui/Drawer';
 import PredictionServices from 'shared/services/PredictionServices';
+import ResponseServices from 'shared/services/ResponseServices';
 import { IPrediction } from 'shared/models/IPrediction';
 import { MapFilters } from 'widgets/map-filters';
 import { Map } from 'shared/ui/Map';
@@ -16,6 +17,7 @@ import { ObjectInfo } from 'widgets/object-info';
 import { MapList } from 'widgets/map-list';
 import { socialTypes } from 'shared/constants/socialTypes';
 import { IBuilding } from 'shared/models/IBuilding';
+import { IObj, IResponse } from 'shared/models/IResponse';
 
 import styles from './MapPage.module.scss';
 import { data } from 'shared/constants/mock';
@@ -25,6 +27,8 @@ const MapPage = () => {
   const theme = useMantineTheme();
 
   const [prediction, setPrediction] = useState<IPrediction | null>(null);
+  const [response, setResponse] = useState<IResponse>();
+
   const [typeFilters, setTypeFilters] = useState<string[]>([
     'mkd',
     'Социальные объекты',
@@ -34,6 +38,7 @@ const MapPage = () => {
   const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
     null
   );
+  const [selectedObj, setSelectedObj] = useState<IObj | null>(null);
 
   const [showConnected, setShowConnected] = useState('Район');
 
@@ -41,7 +46,8 @@ const MapPage = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { id, month } = qs.parse(location.search);
+
+  const { id, month, isResponse } = qs.parse(location.search);
 
   const isDefault = !id;
 
@@ -103,8 +109,43 @@ const MapPage = () => {
       );
   };
 
-  const onPlacemarkClick = (building: IBuilding) => {
-    setSelectedBuilding(building);
+  const getFilteredObjs = () => {
+    return response?.obj
+      ?.sort((a, b) =>
+        isPriority ? b.priority - a.priority : a.priority - b.priority
+      )
+      .filter((b) => {
+        if (typeFilters.includes(b.socialType)) {
+          return true;
+        }
+        if (
+          typeFilters.includes('Социальные объекты') &&
+          socialTypes.includes(b.socialType)
+        ) {
+          return true;
+        }
+        return false;
+      })
+      .filter((item) =>
+        item.address
+          .toLowerCase()
+          .includes(filtersFields.watch('address')?.toLowerCase() || '')
+      )
+      .filter(
+        (b) =>
+          !filtersFields.watch('district') ||
+          b.district === filtersFields.watch('district')
+      )
+      .filter(
+        (b) =>
+          !filtersFields.watch('filterSocialType') ||
+          b.socialType === filtersFields.watch('filterSocialType')
+      );
+  };
+
+  const onPlacemarkClick = (building: IBuilding | null, obj: IObj | null) => {
+    if (building) setSelectedBuilding(building);
+    if (obj) setSelectedObj(obj);
     open();
   };
 
@@ -114,20 +155,39 @@ const MapPage = () => {
     }
   }, [getPredictionResult, month]);
 
+  useEffect(() => {
+    if (isResponse) {
+      ResponseServices.getResponse().then((response) => {
+        setResponse(response.data);
+      });
+
+      if (location?.state?.obj) {
+        setSelectedObj(location.state.obj);
+      }
+    }
+  }, [isResponse, location]);
+
   return (
     <div className={styles.wrapper}>
       <FormProvider {...filtersFields}>
         <Drawer
           position="left"
           onCloseIconClick={() => navigate(-1)}
-          title={selectedBuilding ? 'Карточка объекта' : 'Результаты на карте'}
+          title={
+            selectedBuilding || selectedObj
+              ? 'Карточка объекта'
+              : 'Результаты на карте'
+          }
           returnIcon={
-            selectedBuilding ? (
+            selectedBuilding || selectedObj ? (
               <IconArrowLeft
                 cursor={'pointer'}
                 color={theme.colors.myBlack[4]}
                 size={24}
-                onClick={() => setSelectedBuilding(null)}
+                onClick={() => {
+                  setSelectedObj(null);
+                  setSelectedBuilding(null);
+                }}
               />
             ) : null
           }
@@ -138,15 +198,22 @@ const MapPage = () => {
           closeOnClickOutside={false}
           overlayZIndex={1}
         >
-          {selectedBuilding ? (
-            <ObjectInfo selectedBuilding={selectedBuilding} />
+          {selectedBuilding || selectedObj ? (
+            <ObjectInfo
+              selectedObj={selectedObj}
+              selectedBuilding={selectedBuilding}
+            />
           ) : (
             <MapList
               buildingsCount={prediction?.buildings.length}
+              objsCount={response?.obj.length}
               setSelectedBuilding={setSelectedBuilding}
+              setSelectedObj={setSelectedObj}
               buildings={getFilteredBuildings()}
+              objs={getFilteredObjs()}
               setPriority={setPriority}
               isPriority={isPriority}
+              isResponse={Boolean(isResponse)}
             />
           )}
         </Drawer>
@@ -167,6 +234,7 @@ const MapPage = () => {
             buildings={
               selectedBuilding ? [selectedBuilding] : getFilteredBuildings()
             }
+            objs={selectedObj ? [selectedObj] : getFilteredObjs()}
             onPlacemarkClick={onPlacemarkClick}
             showConnected={showConnected}
           />

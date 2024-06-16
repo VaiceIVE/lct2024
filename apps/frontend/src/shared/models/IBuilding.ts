@@ -8,6 +8,7 @@ export interface IBuilding {
   priority: number;
   district: string | null;
   networkType: 'ctp' | 'itp' | null;
+  characteristics: { [key: string]: string | number };
 }
 
 export interface IEvents {
