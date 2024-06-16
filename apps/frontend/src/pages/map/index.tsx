@@ -78,7 +78,29 @@ const MapPage = () => {
           return true;
         }
         return false;
-      });
+      })
+      .filter((item) =>
+        item.address
+          .toLowerCase()
+          .includes(filtersFields.watch('address')?.toLowerCase() || '')
+      )
+      .filter(
+        (b) =>
+          !filtersFields.watch('district') ||
+          b.district === filtersFields.watch('district')
+      )
+      .filter(
+        (b) =>
+          !filtersFields.watch('networkType') ||
+          b.networkType === filtersFields.watch('networkType')
+      )
+      .filter(
+        (b) =>
+          !filtersFields.watch('events') ||
+          b.events
+            .map((e) => e.eventName)
+            .includes(filtersFields.watch('events'))
+      );
   };
 
   const onPlacemarkClick = (building: IBuilding) => {

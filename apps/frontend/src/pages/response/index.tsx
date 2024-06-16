@@ -101,11 +101,6 @@ const ResponsePage = () => {
       .then((response) => {
         setResponse(response.data);
         const format = 'DD MMMM';
-        console.log(
-          'get',
-          response.data.date,
-          dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
-        );
         setDate(
           dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
         );
@@ -163,7 +158,6 @@ const ResponsePage = () => {
   }, [eventFields]);
 
   function changeDefaultDate(date: string) {
-    console.log('change', date);
     if (date) {
       setLoading(true);
       ResponseServices.updateDefaultDate(
@@ -187,7 +181,6 @@ const ResponsePage = () => {
   }, [clear, opened]);
 
   useEffect(() => {
-    console.log('debounce', date);
     debounceDate(date);
   }, [debounceDate, date]);
 

@@ -14,25 +14,6 @@ interface FiltersProps {
   span: number;
 }
 
-const data = [
-  'муниципальный округ Преображенское',
-  'муниципальный округ Восточный',
-  'муниципальный округ Гольяново',
-  'муниципальный округ Перово',
-  'муниципальный округ Новокосино',
-  'муниципальный округ Богородское',
-  'муниципальный округ Новогиреево',
-  'муниципальный округ Вешняки',
-  'муниципальный округ Метрогородок',
-  'муниципальный округ Соколиная Гора',
-  'муниципальный округ Ивановское',
-  'муниципальный округ Измайлово',
-  'муниципальный округ Сокольники',
-  'муниципальный округ Северное Измайлово',
-  'муниципальный округ Восточное Измайлово',
-  'муниципальный округ Косино-Ухтомский',
-];
-
 export const Filters = ({ children, opened, span }: FiltersProps) => {
   const { control } = useFormContext();
 
@@ -51,6 +32,7 @@ export const Filters = ({ children, opened, span }: FiltersProps) => {
               name="district"
               render={({ field }) => (
                 <Select
+                  allowDeselect
                   field={field}
                   data={[
                     {
@@ -119,7 +101,7 @@ export const Filters = ({ children, opened, span }: FiltersProps) => {
                     },
                   ]}
                   label="Район"
-                  placeholder=""
+                  placeholder="Выберите район"
                 />
               )}
             />
@@ -127,17 +109,17 @@ export const Filters = ({ children, opened, span }: FiltersProps) => {
           <Grid.Col span={span}>
             <Controller
               control={control}
-              name="priority"
-              defaultValue={'1'}
+              name="networkType"
               render={({ field }) => (
                 <Select
                   field={field}
+                  allowDeselect
                   data={[
-                    { value: '1', label: 'От высокого приоритета к низкому' },
-                    { value: '2', label: 'От низкого приоритета к высокому' },
+                    { value: 'ctp', label: 'ЦТП' },
+                    { value: 'tp', label: 'ИТП' },
                   ]}
                   label="Тепловая сеть"
-                  placeholder=""
+                  placeholder="Выберите тип тепловой сети"
                 />
               )}
             />
@@ -145,17 +127,41 @@ export const Filters = ({ children, opened, span }: FiltersProps) => {
           <Grid.Col span={span}>
             <Controller
               control={control}
-              name="priority"
-              defaultValue={'1'}
+              name="events"
               render={({ field }) => (
                 <Select
+                  allowDeselect
                   field={field}
                   data={[
-                    { value: '1', label: 'От высокого приоритета к низкому' },
-                    { value: '2', label: 'От низкого приоритета к высокому' },
+                    { value: 'P1 <= 0', label: 'P1 <= 0' },
+                    { value: 'P2 <= 0', label: 'P2 <= 0' },
+                    { value: 'T1 < min', label: 'T1 < min' },
+                    { value: 'T1 > max', label: 'T1 > max' },
+                    {
+                      value: 'Протечка труб в подъезде',
+                      label: 'Протечка труб в подъезде',
+                    },
+                    {
+                      value: 'Сильная течь в системе отопления',
+                      label: 'Сильная течь в системе отопления',
+                    },
+                    {
+                      value: 'Температура в квартире ниже нормативной',
+                      label: 'Температура в квартире ниже нормативной',
+                    },
+                    {
+                      value:
+                        'Температура в помещении общего пользования ниже нормативной',
+                      label:
+                        'Температура в помещении общего пользования ниже нормативной',
+                    },
+                    {
+                      value: 'Течь в системе отопления',
+                      label: 'Течь в системе отопления',
+                    },
                   ]}
                   label="Событие"
-                  placeholder=""
+                  placeholder="Выберите событие"
                 />
               )}
             />
