@@ -185,6 +185,7 @@ const ResponsePage = () => {
   }
 
   const handleDeleteObject = () => {
+    console.log('delete', deletedId);
     if (deletedId) {
       setLoading(true);
       ResponseServices.deleteObj(deletedId)
