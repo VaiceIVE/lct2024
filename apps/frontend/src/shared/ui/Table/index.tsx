@@ -18,6 +18,7 @@ import { IBuilding } from 'shared/models/IBuilding';
 import { ObjectInfo } from 'widgets/object-info';
 import { Chance } from '../Chance';
 import { IconChevronRight } from '@tabler/icons-react';
+import dayjs from 'dayjs';
 
 interface Props {
   data: IBuilding[];
@@ -99,7 +100,8 @@ export const Table = ({ data }: Props) => {
         grow: false,
         Cell: ({ row }) => (
           <div className={styles.center}>
-            {row.original.events.length && row.original.events[0].date}
+            {row.original.events.length &&
+              dayjs(row.original.events[0].date).format('DD.MM')}
           </div>
         ),
         mantineTableHeadCellProps: {
@@ -193,7 +195,7 @@ export const Table = ({ data }: Props) => {
     <div className={styles.wrapper}>
       <Drawer isBlur title="Карточка объекта" opened={opened} close={close}>
         {selectedBuilding ? (
-          <ObjectInfo selectedBuilding={selectedBuilding} />
+          <ObjectInfo selectedObj={null} selectedBuilding={selectedBuilding} />
         ) : null}
       </Drawer>
       <MantineReactTable table={table} />

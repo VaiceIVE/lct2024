@@ -8,6 +8,7 @@ import { IconBlock } from 'shared/ui/IconBlock';
 import { Title } from 'shared/ui/Title';
 import { BuildingStat } from './components/BuildingStat';
 import { ObjStat } from './components/ObjStat';
+import dayjs from 'dayjs';
 
 interface ObjectCardProps {
   selectedBuilding: IBuilding | null;
@@ -104,7 +105,9 @@ export const ObjectInfo = ({
                     <Flex align={'center'} gap={8}>
                       <Chance value={e.chance} />
                       <p className="text medium placeholder">|</p>
-                      <p className="text medium placeholder">{e.date}</p>
+                      <p className="text medium placeholder">
+                        {dayjs(e.date).format('DD.MM')}
+                      </p>
                     </Flex>
                   </Stack>
                 </Card>
