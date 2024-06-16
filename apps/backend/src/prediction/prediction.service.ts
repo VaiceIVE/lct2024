@@ -31,7 +31,15 @@ export class PredictionService {
         private storageService: StorageService,
         private configService: ConfigService
     ){}
+    public async savePrediction(id: number)
+    {
+        return await this.predictionRepository.update({id: id}, {isSaved: true})
+    }
 
+    public async getSaved()
+    {
+        return await this.predictionRepository.find({where: {isSaved: true}})
+    }
 
     public async createDefaultPrediction()
     {
@@ -360,8 +368,8 @@ export class PredictionService {
     private async getGeodataString(address: string)
     {
 
-            return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=Москва, ${address}`).catch((e) => {
-                return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=5fff5614-b0c5-4970-b75d-28aa88c46171&format=json&geocode=Москва, ${address}`).catch((e) => {
+            return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=eaca56be-180c-4b19-a427-ffc3e8723cad&format=json&geocode=Москва, ${address}`).catch((e) => {
+                return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=535a0aa8-991d-4b0e-b4a3-116d011e89b4&format=json&geocode=Москва, ${address}`).catch((e) => {
                     return null
                 }).then((res) => {
                     if(res)

@@ -3,6 +3,7 @@ import { PredictionService } from './prediction.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiResponse } from '@nestjs/swagger';
 import { AccessTokenGuard } from '../auth/accessToken.guard';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('prediction')
 export class PredictionController {
@@ -17,17 +18,34 @@ export class PredictionController {
     return this.predictionService.createPrediction(files)
   }
 
+  
+
   //@UseGuards(AccessTokenGuard)
   @Get('/default/')
   public async getDefaultPrediction()
   {
     return this.predictionService.createDefaultPrediction()
   }
+  //@UseGuards(AccessTokenGuard)
+  @Get('/saved/')
+  public async getSavedPrediction()
+  {
+    return this.predictionService.getSaved()
+  }
+  //@UseGuards(AccessTokenGuard)
+  @Get('/:id/save/')
+  public async savePrediction(@Param('id') id: number)
+  {
+    return this.predictionService.savePrediction(id)
+  }
 
+  @UseInterceptors(CacheInterceptor)
   //@UseGuards(AccessTokenGuard)
   @Get('/:id/:month')
   public async getPredictionRendered(@Param('id') id: number, @Param('month') monthNum: string)
   {
     return this.predictionService.getPrediction(id, monthNum)
   }
+
+
 }
