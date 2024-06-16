@@ -298,8 +298,10 @@ export class PredictionService {
                         continue
                     }
                 const dates = data[unom]['tl']
+                console.log(dates.length)
                 for(const i of Array(dates.length).keys())
                     {
+                        
                         const date = dates[i]
                         const probsDict = data[unom]['anomalies'][i]
                         if(data[unom] && data[unom]['anomalies'] && probsDict)
