@@ -26,6 +26,7 @@ export const ResponseItem = ({
     <Flex
       className={classNames(styles.obj, {
         [styles.first]: index === 0,
+        [styles.last]: o.isLast,
       })}
       align={'center'}
       gap={44}
@@ -40,6 +41,9 @@ export const ResponseItem = ({
             <p className="text medium">{o.event}</p>
             <p className="text placeholder">Условия события: {date}</p>
           </Stack>
+          {o.isLast ? (
+            <div className={styles.tag}>Последний добавленный</div>
+          ) : null}
         </Stack>
       </Flex>
       <Flex flex={1} align={'center'} justify={'space-between'}>

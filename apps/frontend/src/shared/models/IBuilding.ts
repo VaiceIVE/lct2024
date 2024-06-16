@@ -7,6 +7,7 @@ export interface IBuilding {
   consumersCount: number | null;
   priority: number;
   district: string | null;
+  networkType: 'ctp' | 'itp' | null;
 }
 
 // скорость остывания

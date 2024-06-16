@@ -1,3 +1,5 @@
+@import '@styles/__defines.scss';
+
 .obj {
   padding: 24px 0;
 
@@ -5,5 +7,23 @@
 
   &.first {
     border-top: 1px solid #eaf1f6;
+  }
+
+  &.last {
+    background-color: $gray-color;
+  }
+
+  .tag {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 15.39px;
+
+    width: fit-content;
+
+    color: $white-color;
+
+    padding: 6px 14px;
+    background-color: #ff8165;
+    border-radius: 32px;
   }
 }

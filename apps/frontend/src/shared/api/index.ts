@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { IUser } from 'shared/models/IUser';
 
-export const API_URL = `https://api.adera-team.ru`;
+export const API_URL = import.meta.env.VITE_API_URL;
 
 axios.defaults.withCredentials = true;
 

@@ -16,7 +16,8 @@ export const data: IBuilding[] = [
     coolingRate: 3,
     consumersCount: null,
     priority: 1,
-    district: 'Северное Измайлово',
+    district: 'муниципальный округ Преображенское',
+    networkType: null,
   },
   {
     address: 'Новокосинская улица, 32, Москва, 111673',
@@ -34,6 +35,7 @@ export const data: IBuilding[] = [
     consumersCount: null,
     priority: 6,
     district: 'Восточное Измайлово',
+    networkType: 'itp',
   },
   {
     address: 'Новокосинская улица, 32, Москва, 123',
@@ -50,7 +52,8 @@ export const data: IBuilding[] = [
     coolingRate: 5,
     consumersCount: null,
     priority: 3,
-    district: 'Северное Измайлово',
+    district: 'муниципальный округ Преображенское',
+    networkType: null,
   },
   {
     address: 'Новокосинская улица, 32, Москва, 1223',
@@ -67,7 +70,8 @@ export const data: IBuilding[] = [
     coolingRate: 5,
     consumersCount: null,
     priority: 4,
-    district: 'Северное Измайлово',
+    district: 'муниципальный округ Преображенское',
+    networkType: 'ctp',
   },
   {
     address: 'Новокоси2нская улица, 32, Москва, 1223',
@@ -85,5 +89,6 @@ export const data: IBuilding[] = [
     consumersCount: null,
     priority: 5,
     district: 'Восточное Измайлово',
+    networkType: null,
   },
 ];
