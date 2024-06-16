@@ -48,7 +48,7 @@ export class ObjService {
     if(type == 'mkd')
       {
         const addresses = await this.objRepository.find({where: {socialType: 'mkd'}, select: {address: true}})
-        const unique = [...new Set(addresses)]
+        const unique = await [...new Set(addresses)]
         return unique;
       }
     if(type == 'education')
