@@ -42,33 +42,32 @@ export class ObjService {
           hpsWithCount = hpsWithCount.sort((a, b) => {
             return b.count - a.count})
         hpsWithCount.forEach((elem) => response.push({address: elem.hp.addressTP}))
-        const unique = Array.from(new Set(response))
         let ans = []
+        let send = []
         for(const obj of response)
           {
             if(!ans.includes(obj.address))
               {
                 ans.push(obj.address)
+                send.push(obj)
               }
           }
-        return ans;
+        return send;
       }
       else
       {
         const addresses = await this.objRepository.find({where: {socialType: type, address: Not(IsNull())}, select: {address: true}})
-        const unique = Array.from(new Set(addresses))
         let ans = []
+        let response = []
         for(const obj of addresses)
           {
             if(!ans.includes(obj.address))
               {
                 ans.push(obj.address)
+                response.push(obj)
               }
           }
-          console.log(addresses.length)
-          console.log(unique.length)
-          console.log(ans.length)
-        return ans;
+        return response;
       }
   }
 
