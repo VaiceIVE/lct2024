@@ -364,7 +364,7 @@ export class PredictionService {
 
     private async handleGeodataString(geodataStting)
     {
-        let coords = geodataStting.replace('[', '').replace(']', '').split(' ')
+        let coords = geodataStting.split('[')[1].split(']')[0].replace(',', '').split(' ')
         return [+coords[1], +coords[0]] as [number, number]
     }
 
