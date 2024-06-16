@@ -13,7 +13,11 @@ export class Event {
     @Column()
     eventName: string
 
-    @Column()
+    @Column('decimal', {
+        precision: 3,
+        scale: 2, 
+        nullable: true
+    })
     chance: number
 
     @Column()

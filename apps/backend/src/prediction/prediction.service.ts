@@ -61,7 +61,7 @@ export class PredictionService {
         let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: defaultNames, period: 2024})
         let predictionAnswer = (await predictionStatus).data
 
-        return await this.handleResponseData(predictionAnswer)
+        return await this.handleResponseData(predictionAnswer, true)
     }
 
     public async createPrediction(files: Express.Multer.File[])
@@ -281,7 +281,7 @@ export class PredictionService {
       return coordsString
     }
 
-    private async handleResponseData(predictionAnswer: any)
+    private async handleResponseData(predictionAnswer: any, isDefault: boolean = false)
     {
         console.log(predictionAnswer)
         const data = predictionAnswer.what_anomaly_propability     
@@ -331,7 +331,7 @@ export class PredictionService {
                         {
                             const objPrediction = this.objPredictionRepository.create({
                                 events: events,
-                                object: obj
+                                object: obj,
                             })
                             objPredictions.push(objPrediction)
                         }
@@ -340,7 +340,8 @@ export class PredictionService {
             if(objPredictions.length != 0)
                 {
                     const prediction = this.predictionRepository.create({
-                        objPredictions: objPredictions
+                        objPredictions: objPredictions,
+                        isDefault: isDefault
                     })
                     console.log(prediction)
                     console.log(objPredictions.length)
