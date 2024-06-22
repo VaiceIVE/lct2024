@@ -78,6 +78,11 @@ export class Obj {
     })
     geodata: string
 
+    @Column({
+        nullable: true
+    })
+    geoBoundaries: string
+
     @ManyToOne(() => HeatPoint, (heatPoint) => heatPoint.objects, {
         onDelete: "NO ACTION",
         cascade: ['insert', "update"]

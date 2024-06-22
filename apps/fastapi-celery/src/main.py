@@ -85,6 +85,9 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
         if find_column(header, ['geodata_center']):
             df = df.rename(columns={find_column(header,  ['geodata_center']): 'geodata'})
 
+        if find_column(header, ['geoData']):
+            df = df.rename(columns={find_column(header,  ['geoData']): 'geoBoundary'})
+
         if find_column(header, ['Улица']):
             num = find_column(header, ['Улица'])
             df['address'] = df[num - 1].fillna('').astype(str) + df[num].fillna('').astype(str) + ' ' + df[num + 1].fillna('').astype(str) + ' ' + df[num + 2].fillna('').astype(str) + ' ' + df[num + 3].fillna('').astype(str) + ' ' + df[num + 4].fillna('').astype(str) + ' ' + df[num + 5].fillna('').astype(str) 
@@ -99,8 +102,6 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
         if contains_unom:
             dfs_for_join.append(df)
 
-
-
         for name in df.columns.to_list():
             logging.warning(name)
         dfs.append(df)
@@ -109,7 +110,7 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
     df = dfs_for_join[0]
     for jdf in dfs_for_join[1:]:
         df = pd.merge(df, jdf, on=['unom'])#, how='outer'
-    valid_names = ['unom', 'address', 'geodata', 'authority', 'dateStartUsage', 'heatSource', 'type', 'addressTP', 'code', 'totalArea', 'admOkr', 'munOkr', 'floorsAmount', 'objType', 'wallMaterial']
+    valid_names = ['unom', 'address', 'geodata', 'authority', 'dateStartUsage', 'heatSource', 'type', 'addressTP', 'code', 'totalArea', 'admOkr', 'munOkr', 'floorsAmount', 'objType', 'wallMaterial', 'geoBoundary']
     df = df.rename(columns={'address_x': 'address'})
     df = df.iloc[1:]
     logging.warning("UNOM FINAL")
