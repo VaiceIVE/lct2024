@@ -17,7 +17,7 @@ export const ObjStat = ({ selectedObj }: ObjStatProps) => {
             <Divider color="#CAD5DD" style={{ flex: 1 }} />
             <Title
               level={4}
-              title={`⁓Через ${selectedObj.normCooldown} часа`}
+              title={`⁓Через ${selectedObj.normCooldown.toFixed(2)} часа`}
             />
           </Flex>
         ) : null}
@@ -27,7 +27,7 @@ export const ObjStat = ({ selectedObj }: ObjStatProps) => {
             <Divider color="#CAD5DD" style={{ flex: 1 }} />
             <Title
               level={4}
-              title={`⁓Через ${selectedObj.fullCooldown} часа`}
+              title={`⁓Через ${selectedObj.fullCooldown.toFixed(2)} часа`}
             />
           </Flex>
         ) : null}

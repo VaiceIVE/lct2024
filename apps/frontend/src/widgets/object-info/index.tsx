@@ -41,19 +41,17 @@ export const ObjectInfo = ({
           (selectedObj.fullCooldown || selectedObj?.normCooldown) ? (
           <ObjStat selectedObj={selectedObj} />
         ) : null}
-        {item?.characteristics ? (
+        {item?.characteristics && Object.keys(item?.characteristics).length ? (
           <Card type="outline">
             <Stack gap={26}>
               <Title level={4} title="Характеристики" />
               <Stack gap={12}>
                 {Object.keys(item.characteristics).map((key) => (
-                  <Flex key={key} align={'center'} gap={24}>
+                  <Flex align={'center'} key={key} gap={24}>
                     <p
                       style={{
-                        textWrap: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        maxWidth: '170px',
+                        textAlign: 'left',
+                        width: 'min-content',
                       }}
                       className="text medium placeholder"
                     >
@@ -62,10 +60,8 @@ export const ObjectInfo = ({
                     <Divider color="#CAD5DD" style={{ flex: 1 }} />
                     <p
                       style={{
-                        textWrap: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        maxWidth: '200px',
+                        textAlign: 'right',
+                        width: 'min-content',
                       }}
                       className="text medium"
                     >

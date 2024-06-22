@@ -57,29 +57,37 @@ const MapPage = () => {
     (month: string) => {
       setLoading(true);
       if (isDefault) {
-        PredictionServices.getDefaultPrediction().then((response) =>
-          PredictionServices.getPredictionById(response.data, month).then(
-            (r) => {
-              setPrediction({
-                id: r.data.id,
-                buildings: r.data.buildings.map((b) => ({
-                  ...b,
-                  connectionInfo: isNull(b.coords) ? null : findSquareForHouse(b.coords),
-                })),
-              });
-            }
+        PredictionServices.getDefaultPrediction()
+          .then((response) =>
+            PredictionServices.getPredictionById(response.data, month).then(
+              (r) => {
+                setPrediction({
+                  id: r.data.id,
+                  buildings: r.data.buildings.map((b) => ({
+                    ...b,
+                    connectionInfo: isNull(b.coords)
+                      ? null
+                      : findSquareForHouse(b.coords),
+                  })),
+                });
+              }
+            )
           )
-        ).finally(() => setLoading(false));
+          .finally(() => setLoading(false));
       } else {
-        PredictionServices.getPredictionById(+id, month).then((response) =>
-          setPrediction({
-            id: response.data.id,
-            buildings: response.data.buildings.map((b) => ({
-              ...b,
-              connectionInfo: isNull(b.coords) ? null : findSquareForHouse(b.coords),
-            })),
-          })
-        ).finally(() => setLoading(false));
+        PredictionServices.getPredictionById(+id, month)
+          .then((response) =>
+            setPrediction({
+              id: response.data.id,
+              buildings: response.data.buildings.map((b) => ({
+                ...b,
+                connectionInfo: isNull(b.coords)
+                  ? null
+                  : findSquareForHouse(b.coords),
+              })),
+            })
+          )
+          .finally(() => setLoading(false));
       }
     },
     [id, isDefault]
@@ -141,6 +149,9 @@ const MapPage = () => {
         ) {
           return true;
         }
+        if (typeFilters.includes('prom') && b.socialType === 'tp') {
+          return true;
+        }
         return false;
       })
       .filter((item) =>
@@ -175,15 +186,19 @@ const MapPage = () => {
   useEffect(() => {
     if (isResponse) {
       setLoading(true);
-      ResponseServices.getResponse().then((response) => {
-        setResponse({
-          date: response.data.date,
-          obj: response.data.obj.map((o) => ({
-            ...o,
-            connectionInfo: isNull(o.coords) ? null : findSquareForHouse(o.coords),
-          })),
-        });
-      }).finally(() => setLoading(false));
+      ResponseServices.getResponse()
+        .then((response) => {
+          setResponse({
+            date: response.data.date,
+            obj: response.data.obj.map((o) => ({
+              ...o,
+              connectionInfo: isNull(o.coords)
+                ? null
+                : findSquareForHouse(o.coords),
+            })),
+          });
+        })
+        .finally(() => setLoading(false));
 
       if (location?.state?.obj) {
         setSelectedObj(location.state.obj);
@@ -253,9 +268,11 @@ const MapPage = () => {
           <IconChevronsRight size={24} />
         </Flex>
         <Flex h={'100%'}>
-          {isLoading ? <Stack className={styles.loader}>
-            <Loader size={'xl'} color={theme.colors.myBlue[2]}/>
-          </Stack> : null}
+          {isLoading ? (
+            <Stack className={styles.loader}>
+              <Loader size={'xl'} color={theme.colors.myBlue[2]} />
+            </Stack>
+          ) : null}
           <Map
             fullWidth
             buildingsCount={
