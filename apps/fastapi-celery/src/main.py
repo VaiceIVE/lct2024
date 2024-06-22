@@ -236,6 +236,7 @@ async def process(files: List[bytes]):
         new_df = pd.concat(columns, axis=1)
 
         batch_size = 50
+        tasks = []
         tasks_ids = []
         logging.warning(len(df.index))
         counter = 0
@@ -244,7 +245,10 @@ async def process(files: List[bytes]):
             df_encoded = new_df.iloc[i:i + batch_size + 1,:].to_dict()
             counter += 1
             task = pandas_handling.delay(df_encoded)
+            tasks.append(task)
+        for task in tasks:
             tasks_ids.append(task.id)
+            await requests.post(requests.post(backend_url, data=json.dumps(task.get().result, indent=2), headers={'Content-Type': 'application/json'}))
         logging.warning(counter)
     #8450
     return {"result": tasks_ids}
