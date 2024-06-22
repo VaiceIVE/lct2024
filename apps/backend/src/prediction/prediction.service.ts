@@ -127,6 +127,8 @@ export class PredictionService {
                         const dateChance = predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster][date]
                         for(const eventId of Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster]))
                             {
+                                console.log(eventId)
+                                console.log(eventEnum[eventId])
                                 const eventChance = predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date][eventId]
                                 const newEvent = this.eventRepository.create({
                                     date: date,
