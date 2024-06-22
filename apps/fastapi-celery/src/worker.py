@@ -52,7 +52,6 @@ def pandas_handling(self, dict_df):
             name = names[number]
             resultdict.update({name: value})
         result['data'].append(resultdict)
-    logging.warning(result)
     return result
     # trycounter = 0
     # try:

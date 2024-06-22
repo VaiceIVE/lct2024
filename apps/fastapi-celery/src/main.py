@@ -162,7 +162,7 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
     tasks_ids = []
     for task in tasks:
         tasks_ids.append(task.id)
-        await requests.post(requests.post(backend_url, data=json.dumps(task.get(), indent=2), headers={'Content-Type': 'application/json'}))
+        await requests.post(requests.post(backend_url, data=json.dumps(task.get().result, indent=2), headers={'Content-Type': 'application/json'}))
     buffers = []
     for file in files:
         await file.seek(0)
