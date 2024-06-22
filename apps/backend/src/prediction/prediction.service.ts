@@ -101,7 +101,7 @@ export class PredictionService {
         let dataLoadStatus = axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
         let predictionAnswer = (await predictionStatus).data
         await dataLoadStatus
-        console.log('sstart handling')
+        console.log('start handling')
         return await this.handleResponseData(predictionAnswer)
     }
 

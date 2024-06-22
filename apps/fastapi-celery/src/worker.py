@@ -53,9 +53,13 @@ def pandas_handling(self, dict_df):
             resultdict.update({name: value})
         result['data'].append(resultdict)
     logging.warning(result)
+    trycounter = 0
     try:
+        trycounter += 1
         logging.warning(requests.post(backend_url, data=json.dumps(result, indent=2), headers={'Content-Type': 'application/json'}).text)
     except Exception as e:
+        if trycounter >= 10:
+            return True
         logging.warning(e)
         logging.warning(result)
         self.retry()

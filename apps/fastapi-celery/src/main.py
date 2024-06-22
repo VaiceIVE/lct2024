@@ -155,7 +155,7 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
         counter += 1
         task = pandas_handling.delay(df_encoded)
         tasks.append(task)
-    
+
     tasks_ids = []
     for task in tasks:
         tasks_ids.append(task.id)
