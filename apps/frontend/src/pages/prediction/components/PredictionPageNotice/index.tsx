@@ -2,7 +2,6 @@ import { isNull } from 'lodash';
 import { Context } from 'main';
 import { observer } from 'mobx-react-lite';
 import { useContext, useEffect, useState } from 'react';
-import { responseData } from 'shared/constants/mock';
 import { findSquareForHouse } from 'shared/helpers';
 import { IResponse } from 'shared/models/IResponse';
 import ResponseServices from 'shared/services/ResponseServices';
@@ -16,28 +15,21 @@ export const PredictionPageNotice = observer(() => {
   const { UStore } = useContext(Context);
 
   const getResponse = () => {
-    setResponse({
-      date: responseData.date,
-      obj: responseData?.obj.map((o) => ({
-        ...o,
-        connectionInfo: isNull(o.coords) ? null : findSquareForHouse(o.coords),
-      })),
-    });
-    // ResponseServices.getResponse()
-    //   .then((response) => {
-    //     setResponse({
-    //       date: response.data.date,
-    //       obj: response.data?.obj.map((o) => ({
-    //         ...o,
-    //         connectionInfo: isNull(o.coords)
-    //           ? null
-    //           : findSquareForHouse(o.coords),
-    //       })),
-    //     });
-    //   })
-    //   .finally(() => {
-    //     setPageNoticeShow(true);
-    //   });
+    ResponseServices.getResponse()
+      .then((response) => {
+        setResponse({
+          date: response.data.date,
+          obj: response.data?.obj.map((o) => ({
+            ...o,
+            connectionInfo: isNull(o.coords)
+              ? null
+              : findSquareForHouse(o.coords),
+          })),
+        });
+      })
+      .finally(() => {
+        setPageNoticeShow(true);
+      });
   };
 
   useEffect(() => {

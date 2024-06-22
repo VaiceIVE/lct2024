@@ -29,7 +29,6 @@ import { ResponseCards } from 'widgets/response-cards';
 import { ResponseDrawer } from 'widgets/response-drawer';
 import { ResponseList } from 'widgets/response-list';
 import { PageNotice } from '../../shared/ui/PageNotice';
-import { responseData } from 'shared/constants/mock';
 import { observer } from 'mobx-react-lite';
 import { Context } from 'main';
 
@@ -67,35 +66,28 @@ const ResponsePage = observer(() => {
   );
 
   const getResponse = () => {
-    setResponse({
-      date: responseData.date,
-      obj: responseData?.obj.map((o) => ({
-        ...o,
-        connectionInfo: isNull(o.coords) ? null : findSquareForHouse(o.coords),
-      })),
-    });
-    // setLoading(true);
-    // ResponseServices.getResponse()
-    //   .then((response) => {
-    //     setResponse({
-    //       date: response.data.date,
-    //       obj: response.data?.obj.map((o) => ({
-    //         ...o,
-    //         connectionInfo: isNull(o.coords)
-    //           ? null
-    //           : findSquareForHouse(o.coords),
-    //       })),
-    //     });
-    //     const format = 'DD MMMM';
-    //     if (response.data.date !== dayjs(date).format('DD MMMM').toString()) {
-    //       setDate(
-    //         dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
-    //       );
-    //     }
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
+    setLoading(true);
+    ResponseServices.getResponse()
+      .then((response) => {
+        setResponse({
+          date: response.data.date,
+          obj: response.data?.obj.map((o) => ({
+            ...o,
+            connectionInfo: isNull(o.coords)
+              ? null
+              : findSquareForHouse(o.coords),
+          })),
+        });
+        const format = 'DD MMMM';
+        if (response.data.date !== dayjs(date).format('DD MMMM').toString()) {
+          setDate(
+            dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
+          );
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleAddObject = () => {
