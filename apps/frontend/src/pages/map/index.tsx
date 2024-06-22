@@ -51,6 +51,8 @@ const MapPage = () => {
 
   const filtersFields = useForm();
 
+  const selectedTpAddress = filtersFields.watch('tpAddress') || '';
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -307,6 +309,15 @@ const MapPage = () => {
               selectedBuilding ? [selectedBuilding] : getFilteredBuildings()
             }
             objs={selectedObj ? [selectedObj] : getFilteredObjs()}
+            onCircleClick={
+              selectedBuilding || selectedObj
+                ? undefined
+                : (address: string) =>
+                    filtersFields.setValue(
+                      'tpAddress',
+                      selectedTpAddress ? '' : address
+                    )
+            }
             onPlacemarkClick={onPlacemarkClick}
             showConnected={showConnected}
           />

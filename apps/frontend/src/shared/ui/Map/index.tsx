@@ -28,6 +28,7 @@ interface MapProps {
   simpleMap?: boolean;
   showConnected?: string;
   buildingsCount?: number;
+  onCircleClick?: (address: string) => void;
 }
 
 interface District {
@@ -94,6 +95,7 @@ export const Map = ({
   simpleMap,
   showConnected,
   buildingsCount,
+  onCircleClick,
 }: MapProps) => {
   const iconsTypes: { [key: string]: string } = {
     mkd: mkd,
@@ -230,7 +232,9 @@ export const Map = ({
             return (
               <div key={name}>
                 <Circle
-                  onClick={() => console.log(address)}
+                  onClick={
+                    onCircleClick ? () => onCircleClick(address) : undefined
+                  }
                   geometry={[coords, 700]}
                   options={{
                     fillColor,
@@ -239,14 +243,18 @@ export const Map = ({
                   }}
                 />
                 <Placemark
+                  onClick={
+                    onCircleClick ? () => onCircleClick(address) : undefined
+                  }
                   geometry={coords}
                   options={{
                     iconLayout: 'default#image',
                     iconContentLayout: center,
                     iconImageHref: center,
-                    iconImageSize: [30, 30],
-                    iconOffset: [-4, 21],
+                    iconImageSize: [17, 17],
+                    iconOffset: [4, 31],
                     iconContentSize: [30, 30],
+                    zIndex: 700,
                   }}
                 />
               </div>
