@@ -149,6 +149,9 @@ const MapPage = () => {
         ) {
           return true;
         }
+        if (typeFilters.includes('prom') && b.socialType === 'tp') {
+          return true;
+        }
         return false;
       })
       .filter((item) =>
