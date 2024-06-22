@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, Grid, Stack } from '@mantine/core';
 import {
   IconDownload,
   IconFilterMinus,
   IconFilterPlus,
 } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { IBuilding } from 'shared/models/IBuilding';
 import FileServices from 'shared/services/FilesServices';
@@ -25,6 +26,10 @@ interface EventsListProps {
 export const EventsList = ({ id, month, data }: EventsListProps) => {
   const [isOpen, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
+
+  const [tpAddresses, setTpAddresses] = useState<
+    { value: string; label: string }[]
+  >([]);
 
   const { control, watch } = useFormContext();
 
@@ -55,6 +60,26 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
     setLoading(true);
     FileServices.downloadTable(`${id}`, month).then(() => setLoading(false));
   };
+
+  useEffect(() => {
+    const getUniqueAddresses = (items: IBuilding[]) => {
+      return Array.from(
+        new Set(
+          items
+            .filter((item) => item.connectionInfo?.address)
+            .map((item) => ({
+              value: item.connectionInfo!.address!,
+              label: item.connectionInfo!.address!,
+            }))
+        )
+      );
+    };
+
+    if (data?.length) {
+      const uniqTp = getUniqueAddresses(data);
+      setTpAddresses(uniqTp);
+    }
+  }, [data]);
 
   return (
     <WidgetWrapper
@@ -122,7 +147,7 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
             </Flex>
           </Grid.Col>
         </Grid>
-        <Filters opened={isOpen} span={6} />
+        <Filters tpAddresses={tpAddresses} opened={isOpen} span={6} />
         <Stack gap={16}>
           <p className="text medium placeholder">
             Найдено результатов: {getDataByFilters().length}

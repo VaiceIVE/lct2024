@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useDisclosure } from '@mantine/hooks';
 import qs from 'query-string';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -22,6 +23,7 @@ import { IObj, IResponse } from 'shared/models/IResponse';
 import styles from './MapPage.module.scss';
 import { findSquareForHouse } from 'shared/helpers';
 import { isNull } from 'lodash';
+import { responseData } from 'shared/constants/mock';
 
 const MapPage = () => {
   const [opened, { open, close }] = useDisclosure(true);
@@ -41,10 +43,15 @@ const MapPage = () => {
   );
   const [selectedObj, setSelectedObj] = useState<IObj | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [tpAddresses, setTpAddresses] = useState<
+    { value: string; label: string }[]
+  >([]);
 
   const [showConnected, setShowConnected] = useState('Район');
 
   const filtersFields = useForm();
+
+  const selectedTpAddress = filtersFields.watch('tpAddress') || '';
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -63,8 +70,9 @@ const MapPage = () => {
               (r) => {
                 setPrediction({
                   id: r.data.id,
-                  buildings: r.data.buildings.map((b) => ({
+                  buildings: r.data.buildings.map((b, index) => ({
                     ...b,
+                    index,
                     connectionInfo: isNull(b.coords)
                       ? null
                       : findSquareForHouse(b.coords),
@@ -79,8 +87,9 @@ const MapPage = () => {
           .then((response) =>
             setPrediction({
               id: response.data.id,
-              buildings: response.data.buildings.map((b) => ({
+              buildings: response.data.buildings.map((b, index) => ({
                 ...b,
+                index,
                 connectionInfo: isNull(b.coords)
                   ? null
                   : findSquareForHouse(b.coords),
@@ -93,19 +102,25 @@ const MapPage = () => {
     [id, isDefault]
   );
 
-  const getFilteredBuildings = () => {
-    return prediction?.buildings
-      ?.sort((a, b) =>
+  const filterItems = <T extends IBuilding | IObj>(
+    items: T[],
+    additionalFilters: (item: T) => boolean
+  ): T[] => {
+    return items
+      .sort((a, b) =>
         isPriority ? b.priority - a.priority : a.priority - b.priority
       )
-      .filter((b) => {
-        if (typeFilters.includes(b.socialType)) {
+      .filter((item) => {
+        if (typeFilters.includes(item.socialType)) {
           return true;
         }
         if (
           typeFilters.includes('Социальные объекты') &&
-          socialTypes.includes(b.socialType)
+          socialTypes.includes(item.socialType)
         ) {
+          return true;
+        }
+        if (typeFilters.includes('prom') && item.socialType === 'tp') {
           return true;
         }
         return false;
@@ -116,59 +131,36 @@ const MapPage = () => {
           .includes(filtersFields.watch('address')?.toLowerCase() || '')
       )
       .filter(
-        (b) =>
+        (item) =>
           !filtersFields.watch('district') ||
-          b.district === filtersFields.watch('district')
+          item.district === filtersFields.watch('district')
       )
       .filter(
-        (b) =>
-          !filtersFields.watch('networkType') ||
-          b.networkType === filtersFields.watch('networkType')
+        (item) =>
+          !filtersFields.watch('tpAddress') ||
+          item.connectionInfo?.address === filtersFields.watch('tpAddress')
       )
-      .filter(
-        (b) =>
-          !filtersFields.watch('events') ||
-          b.events
-            .map((e) => e.eventName)
-            .includes(filtersFields.watch('events'))
-      );
+      .filter(additionalFilters);
   };
 
-  const getFilteredObjs = () => {
-    return response?.obj
-      ?.sort((a, b) =>
-        isPriority ? b.priority - a.priority : a.priority - b.priority
-      )
-      .filter((b) => {
-        if (typeFilters.includes(b.socialType)) {
-          return true;
-        }
-        if (
-          typeFilters.includes('Социальные объекты') &&
-          socialTypes.includes(b.socialType)
-        ) {
-          return true;
-        }
-        if (typeFilters.includes('prom') && b.socialType === 'tp') {
-          return true;
-        }
-        return false;
-      })
-      .filter((item) =>
-        item.address
-          .toLowerCase()
-          .includes(filtersFields.watch('address')?.toLowerCase() || '')
-      )
-      .filter(
-        (b) =>
-          !filtersFields.watch('district') ||
-          b.district === filtersFields.watch('district')
-      )
-      .filter(
-        (b) =>
-          !filtersFields.watch('filterSocialType') ||
-          b.socialType === filtersFields.watch('filterSocialType')
-      );
+  const getFilteredBuildings = (): IBuilding[] => {
+    return filterItems<IBuilding>(
+      prediction?.buildings || [],
+      (item) =>
+        !filtersFields.watch('events') ||
+        item.events
+          .map((e) => e.eventName)
+          .includes(filtersFields.watch('events'))
+    );
+  };
+
+  const getFilteredObjs = (): IObj[] => {
+    return filterItems<IObj>(
+      response?.obj || [],
+      (item) =>
+        !filtersFields.watch('filterSocialType') ||
+        item.socialType === filtersFields.watch('filterSocialType')
+    );
   };
 
   const onPlacemarkClick = (building: IBuilding | null, obj: IObj | null) => {
@@ -185,13 +177,24 @@ const MapPage = () => {
 
   useEffect(() => {
     if (isResponse) {
+      setResponse({
+        date: '23',
+        obj: responseData.obj.map((o, index) => ({
+          ...o,
+          index,
+          connectionInfo: isNull(o.coords)
+            ? null
+            : findSquareForHouse(o.coords),
+        })),
+      });
       setLoading(true);
       ResponseServices.getResponse()
         .then((response) => {
           setResponse({
             date: response.data.date,
-            obj: response.data.obj.map((o) => ({
+            obj: response.data.obj.map((o, index) => ({
               ...o,
+              index,
               connectionInfo: isNull(o.coords)
                 ? null
                 : findSquareForHouse(o.coords),
@@ -205,6 +208,31 @@ const MapPage = () => {
       }
     }
   }, [isResponse, location]);
+
+  useEffect(() => {
+    const getUniqueAddresses = (items: IObj[] | IBuilding[]) => {
+      return Array.from(
+        new Set(
+          items
+            .filter((item) => item.connectionInfo?.address)
+            .map((item) => ({
+              value: item.connectionInfo!.address!,
+              label: item.connectionInfo!.address!,
+            }))
+        )
+      );
+    };
+
+    if (response?.obj.length) {
+      const uniqTp = getUniqueAddresses(response.obj);
+      setTpAddresses(uniqTp);
+    }
+
+    if (prediction?.buildings.length) {
+      const uniqTp = getUniqueAddresses(prediction.buildings);
+      setTpAddresses(uniqTp);
+    }
+  }, [response, prediction]);
 
   return (
     <div className={styles.wrapper}>
@@ -253,6 +281,7 @@ const MapPage = () => {
               setPriority={setPriority}
               isPriority={isPriority}
               isResponse={Boolean(isResponse)}
+              tpAddresses={tpAddresses}
             />
           )}
         </Drawer>
@@ -284,6 +313,15 @@ const MapPage = () => {
               selectedBuilding ? [selectedBuilding] : getFilteredBuildings()
             }
             objs={selectedObj ? [selectedObj] : getFilteredObjs()}
+            onCircleClick={
+              selectedBuilding || selectedObj
+                ? undefined
+                : (address: string) =>
+                    filtersFields.setValue(
+                      'tpAddress',
+                      selectedTpAddress ? '' : address
+                    )
+            }
             onPlacemarkClick={onPlacemarkClick}
             showConnected={showConnected}
           />

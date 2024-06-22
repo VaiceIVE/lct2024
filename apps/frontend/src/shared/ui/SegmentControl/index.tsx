@@ -13,7 +13,7 @@ export const SegmentControl = ({ onChange, value }: SegmentControlProps) => {
       value={value}
       onChange={onChange}
       className={styles.segment}
-      data={['Район', 'ЦТП/ИТП']}
+      data={['Район', 'ЦТП/ИТП', 'Дома']}
     />
   );
 };

@@ -10,6 +10,7 @@ export interface IBuilding {
   networkType: 'ctp' | 'itp' | null;
   characteristics: { [key: string]: string | number };
   connectionInfo: ICtp | null;
+  index?: number;
 }
 
 export interface IEvents {
