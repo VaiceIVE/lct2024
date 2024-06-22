@@ -188,8 +188,6 @@ export const Map = ({
       }));
   }, [buildingsCount, markers]);
 
-  const a = [];
-
   // const coordinatesToRemove = new Set(a);
 
   // const filteredObjects = CTP_LIST.filter(
@@ -224,7 +222,7 @@ export const Map = ({
         {showConnected === 'ЦТП/ИТП' && (
           <Clusterer
             options={{
-              groupByCoordinates: false,
+              groupByCoordinates: true,
             }}
           >
             {CTP_LIST.map((item) => (
