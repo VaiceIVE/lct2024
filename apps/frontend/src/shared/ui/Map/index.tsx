@@ -11,10 +11,13 @@ import { useMemo } from 'react';
 import { IBuilding } from 'shared/models/IBuilding';
 import { IObj } from 'shared/models/IResponse';
 import { location as LOCATION } from './helpers';
+
 import mkd from 'shared/assets/mkd.svg';
 import social from 'shared/assets/social.svg';
-//import prom from 'shared/assets/prom.svg';
+import prom from 'shared/assets/prom.svg';
 import tp from 'shared/assets/tp.svg';
+import center from 'shared/assets/center.svg';
+
 import styles from './Map.module.scss';
 
 interface MapProps {
@@ -97,7 +100,7 @@ export const Map = ({
     medicine: social,
     education: social,
     tp: tp,
-    prom: tp,
+    prom: prom,
   };
 
   const markers = buildings?.length ? buildings : objs;
@@ -174,7 +177,12 @@ export const Map = ({
 
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
-      <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
+      <MapComponent
+        width={'100%'}
+        height={'100%'}
+        defaultState={LOCATION}
+        options={{ suppressMapOpenBlock: true, restrictMapArea: true }}
+      >
         {showConnected === 'Район' &&
           districts &&
           districts.map(({ name, coords }, index) => {
@@ -195,6 +203,22 @@ export const Map = ({
               />
             );
           })}
+        {/* {CTP_LIST.map((item) => (
+          <Placemark
+            geometry={[
+              item.UF_GEO_COORDINATES.split(', ')[0],
+              item.UF_GEO_COORDINATES.split(', ')[1],
+            ]}
+            modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
+            options={{
+              iconLayout: 'default#image',
+              iconContentLayout: iconsTypes['tp'],
+              iconImageHref: iconsTypes['tp'],
+              iconImageSize: [10, 10],
+              iconOffset: [1, 21],
+            }}
+          />
+        ))} */}
         {showConnected === 'ЦТП/ИТП' &&
           ctps &&
           ctps.map(({ name, coords, address }, index) => {
@@ -204,16 +228,28 @@ export const Map = ({
             );
 
             return (
-              <Circle
-                key={name}
-                onClick={() => console.log(address)}
-                geometry={[coords, 700]}
-                options={{
-                  fillColor,
-                  strokeColor,
-                  strokeWidth: 2,
-                }}
-              />
+              <div key={name}>
+                <Circle
+                  onClick={() => console.log(address)}
+                  geometry={[coords, 700]}
+                  options={{
+                    fillColor,
+                    strokeColor,
+                    strokeWidth: 2,
+                  }}
+                />
+                <Placemark
+                  geometry={coords}
+                  options={{
+                    iconLayout: 'default#image',
+                    iconContentLayout: center,
+                    iconImageHref: center,
+                    iconImageSize: [30, 30],
+                    iconOffset: [-4, 21],
+                    iconContentSize: [30, 30],
+                  }}
+                />
+              </div>
             );
           })}
         {simpleMap ? (
@@ -221,7 +257,8 @@ export const Map = ({
             options={{ size: 'small', position: { top: '24px', left: '24px' } }}
           />
         ) : null}
-        {markers &&
+        {showConnected !== 'Дома' &&
+          markers &&
           markers.map((marker) => (
             <Placemark
               onClick={

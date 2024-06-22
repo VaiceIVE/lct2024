@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {
   IconAmbulance,
+  IconBuildingCommunity,
   IconBuildingFactory,
   IconHome,
   IconMoodKid,
@@ -40,7 +41,7 @@ export const IconBlock = ({ iconType, tooltip, color }: IconBlockProps) => {
       color: 'gray',
     },
     prom: {
-      icon: <IconBuildingFactory {...sizes} className={styles.black} />,
+      icon: <IconBuildingCommunity {...sizes} className={styles.black} />,
       color: 'gray',
     },
   };

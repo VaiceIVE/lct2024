@@ -27,6 +27,7 @@ interface MapListProps {
   setPriority: React.Dispatch<React.SetStateAction<boolean>>;
   isResponse?: boolean;
   objs: IObj[] | undefined;
+  tpAddresses?: { value: string; label: string }[];
 }
 
 export const MapList = ({
@@ -39,6 +40,7 @@ export const MapList = ({
   objsCount,
   isResponse,
   objs,
+  tpAddresses,
 }: MapListProps) => {
   const [isOpen, setOpen] = useState(false);
 
@@ -74,7 +76,7 @@ export const MapList = ({
             }
           />
         </Flex>
-        <Filters opened={isOpen}>
+        <Filters tpAddresses={tpAddresses} opened={isOpen}>
           {isResponse ? (
             <>
               <Grid.Col span={12}>
@@ -107,6 +109,21 @@ export const MapList = ({
                   )}
                 />
               </Grid.Col>
+              <Grid.Col span={12}>
+                <Controller
+                  control={control}
+                  name="tpAddress"
+                  render={({ field }) => (
+                    <Select
+                      field={field}
+                      allowDeselect
+                      data={tpAddresses ? tpAddresses : []}
+                      label="Ответсвенный тепловой пункт"
+                      placeholder="Выберите адрес цтп"
+                    />
+                  )}
+                />
+              </Grid.Col>
             </>
           ) : null}
         </Filters>
@@ -124,7 +141,7 @@ export const MapList = ({
           <PriorityFilter isPriority={isPriority} setPriority={setPriority} />
         </Flex>
         <p className="text">
-          Найдено {buildings ? buildings?.length : objs?.length}
+          Найдено {buildings?.length ? buildings?.length : objs?.length}
         </p>
         {buildings ? (
           <Stack gap={8}>

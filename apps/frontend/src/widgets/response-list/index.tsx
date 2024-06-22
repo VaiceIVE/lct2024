@@ -23,6 +23,7 @@ interface ResponseListProps {
   date: string | undefined;
   setDeletedId: React.Dispatch<React.SetStateAction<number | undefined>>;
   handleDeleteObject: () => void;
+  tpAddresses?: { value: string; label: string }[];
 }
 
 export const ResponseList = ({
@@ -33,6 +34,7 @@ export const ResponseList = ({
   date,
   setDeletedId,
   handleDeleteObject,
+  tpAddresses,
 }: ResponseListProps) => {
   const [isFiltersOpen, setFiltersOpen] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
@@ -71,7 +73,7 @@ export const ResponseList = ({
         </Flex>
       }
     >
-      <Filters opened={isFiltersOpen}>
+      <Filters tpAddresses={tpAddresses} opened={isFiltersOpen}>
         <Grid.Col span={6}>
           <Controller
             control={control}

@@ -13,9 +13,15 @@ interface FiltersProps {
   children?: React.ReactNode;
   opened: boolean;
   span?: number;
+  tpAddresses?: { value: string; label: string }[];
 }
 
-export const Filters = ({ children, opened, span }: FiltersProps) => {
+export const Filters = ({
+  children,
+  opened,
+  span,
+  tpAddresses,
+}: FiltersProps) => {
   const { control } = useFormContext();
 
   return (
@@ -48,17 +54,14 @@ export const Filters = ({ children, opened, span }: FiltersProps) => {
             <Grid.Col span={span}>
               <Controller
                 control={control}
-                name="networkType"
+                name="tpAddress"
                 render={({ field }) => (
                   <Select
                     field={field}
                     allowDeselect
-                    data={[
-                      { value: 'ctp', label: 'ЦТП' },
-                      { value: 'tp', label: 'ИТП' },
-                    ]}
-                    label="Тепловая сеть"
-                    placeholder="Выберите тип тепловой сети"
+                    data={tpAddresses ? tpAddresses : []}
+                    label="Ответсвенный тепловой пункт"
+                    placeholder="Выберите адрес цтп"
                   />
                 )}
               />
@@ -105,24 +108,6 @@ export const Filters = ({ children, opened, span }: FiltersProps) => {
                 )}
               />
             </Grid.Col>
-            {/* <Grid.Col span={span}>
-            <Controller
-              control={control}
-              name="priority"
-              defaultValue={'1'}
-              render={({ field }) => (
-                <Select
-                  field={field}
-                  data={[
-                    { value: '1', label: 'От высокого приоритета к низкому' },
-                    { value: '2', label: 'От низкого приоритета к высокому' },
-                  ]}
-                  label="Погодные условия"
-                  placeholder=""
-                />
-              )}
-            />
-          </Grid.Col> */}
           </Grid>
         )}
       </Stack>
