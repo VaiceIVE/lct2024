@@ -125,12 +125,12 @@ export class PredictionService {
                 for(const date of Object.keys(predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster]))
                     {
                         const dateChance = predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster][date]
-                        for(const eventName of Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster]))
+                        for(const eventId of Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster]))
                             {
-                                const eventChance = predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date][eventName]
+                                const eventChance = predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date][eventId]
                                 const newEvent = this.eventRepository.create({
                                     date: date,
-                                    eventName: eventName,
+                                    eventName: eventEnum[eventId],
                                     chance: dateChance * eventChance
                                 })
 
@@ -416,6 +416,22 @@ export class PredictionService {
                 })
     }
 }
+
+const eventEnum = {
+    "1": "P1 <= 0", 
+    "2": "P2 <= 0",
+    "3": "T1 < min", 
+    "4": "T1 > max", 
+    "5": "Аварийная протечка труб в подъезде",
+    "6": "Сильный пожар",
+    "7": "Отсутствие отопления в доме",
+    "8": "Протечка труб в подъезде",
+    "9": "Сильная течь в системе отопления",
+    "10": "Температура в квартире ниже нормативной",
+    "11": "Температура в помещении общего пользования ниже нормативной",
+    "12": "Течь в системе отопления"
+}
+
 
 const dateTempsDict = {
     '10': -5,
