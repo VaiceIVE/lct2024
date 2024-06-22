@@ -113,62 +113,58 @@ export class PredictionService {
 
     private async handleResponseData(predictionAnswer: any, isDefault: boolean = false)
     {
-        const data = predictionAnswer.what_anomaly_propability     
+        const data = predictionAnswer.what_anomaly_propability.unom_ids_clusters     
         let objPredictions = []
-        for (const unom of Object.keys(data))
-            {
-                let obj = await this.objRepository.findOne({where: {unom: unom}})
-                let events = []
-                if(! obj)
-                    {
-                        continue
-                    }
-                const dates = data[unom]['tl']
-                console.log(data[unom])
-                console.log(data[unom]['anomalies'])
-                for(const i of Array(dates.length).keys())
-                    {
-                        
-                        const date = dates[i]
-                        console.log(data[unom]['anomalies'])
-                        const probsDict = data[unom]['anomalies'][i]
-                        console.log(probsDict)
-                        if(data[unom] && data[unom]['anomalies'] && probsDict)
-                            {
-                                for(const probData of Object.keys(probsDict))
-                                    {
-                                        const event = probData
-                                        const probability = probsDict[probData]
 
-                                                const newEvent = this.eventRepository.create({
-                                                    eventName: event,
-                                                    chance: probability,
-                                                    date: date
-                                                })
-                                                await this.eventRepository.save(newEvent)
-                                                events.push(newEvent)
-                                        
-                                    }
+        for (const cluster of Object.keys(predictionAnswer.what_anomaly_propability.clusters_day_predict))
+            {
+                let events = []
+
+                for(const date of Object.keys(predictionAnswer.what_anomaly_propability.clusters_day_predict[cluster]))
+                    {
+                        const dateChance = predictionAnswer.what_anomaly_propability.clusters_day_predict[cluster][date]
+                        for(const eventName of Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster]))
+                            {
+                                const eventChance = predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date][eventName]
+                                const newEvent = this.eventRepository.create({
+                                    date: date,
+                                    eventName: eventName,
+                                    chance: dateChance * eventChance
+                                })
+
+                                await this.eventRepository.save(newEvent)
+                                events.push(newEvent)
                             }
-                        
                     }
-                            const objPrediction = this.objPredictionRepository.create({
-                                events: events,
-                                object: obj,
-                            })
-                            await this.objPredictionRepository.save(objPrediction)
-                            objPredictions.push(objPrediction)
+                for (const unom of Object.keys(data))
+                    {
+                        let obj = await this.objRepository.findOne({where: {unom: unom}})
+                        let events = []
+                        if(! obj)
+                            {
+                                continue
+                            }
+                        if(data[unom] == cluster)
+                            {
+                                const newObjPrediction = this.objPredictionRepository.create({
+                                    events: events,
+                                    object: obj
+                                })
+                                await this.objPredictionRepository.save(newObjPrediction)
+                                objPredictions.push(newObjPrediction)
+                            }
+                    }
             }
-                    const prediction = this.predictionRepository.create({
-                        objPredictions: objPredictions,
-                        isDefault: isDefault
-                    })
-                    console.log(prediction)
-                    console.log(objPredictions.length)
-                    let result = await this.predictionRepository.save(prediction)
-                    console.log("Saved")
-                    
-                    return prediction.id
+        const prediction = this.predictionRepository.create({
+            objPredictions: objPredictions,
+            isDefault: isDefault
+        })
+        console.log(prediction)
+        console.log(objPredictions.length)
+        let result = await this.predictionRepository.save(prediction)
+        console.log("Saved")
+        
+        return prediction.id
 
     }
     private async handlePredictionOutput(prediction: Prediction, monthNum: string)

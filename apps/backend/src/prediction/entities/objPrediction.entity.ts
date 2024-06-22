@@ -9,7 +9,7 @@ export class ObjPrediction {
     @PrimaryGeneratedColumn()
     id: number
 
-    @OneToMany(() => Event, (event) => event.object,{
+    @ManyToMany(() => Event, (event) => event.object,{
         cascade: true,
         eager: true
     })
