@@ -188,14 +188,19 @@ export const Map = ({
       }));
   }, [buildingsCount, markers]);
 
+  const a = [];
+
+  // const coordinatesToRemove = new Set(a);
+
+  // const filteredObjects = CTP_LIST.filter(
+  //   (obj) => !coordinatesToRemove.has(obj.UF_GEO_COORDINATES)
+  // );
+
+  // console.log(filteredObjects);
+
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
-      <MapComponent
-        width={'100%'}
-        height={'100%'}
-        defaultState={LOCATION}
-        //options={{ suppressMapOpenBlock: true, restrictMapArea: true }}
-      >
+      <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
         {showConnected === 'Район' &&
           districts &&
           districts.map(({ name, coords }, index) => {
@@ -219,7 +224,6 @@ export const Map = ({
         {showConnected === 'ЦТП/ИТП' && (
           <Clusterer
             options={{
-              preset: 'islands#invertedVioletClusterIcons',
               groupByCoordinates: false,
             }}
           >
