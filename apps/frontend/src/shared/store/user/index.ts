@@ -11,6 +11,8 @@ export default class UserStore {
   isLoading = false;
   error = '';
 
+  isNoticeHide = false;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -21,6 +23,10 @@ export default class UserStore {
 
   setError(error: string) {
     this.error = error;
+  }
+
+  setNoticeHide(isNoticeHide: boolean) {
+    this.isNoticeHide = isNoticeHide;
   }
 
   setUser(user: IUser) {
