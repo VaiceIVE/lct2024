@@ -188,14 +188,19 @@ export const Map = ({
       }));
   }, [buildingsCount, markers]);
 
+  const a = [];
+
+  // const coordinatesToRemove = new Set(a);
+
+  // const filteredObjects = CTP_LIST.filter(
+  //   (obj) => !coordinatesToRemove.has(obj.UF_GEO_COORDINATES)
+  // );
+
+  // console.log(filteredObjects);
+
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
-      <MapComponent
-        width={'100%'}
-        height={'100%'}
-        defaultState={LOCATION}
-        //options={{ suppressMapOpenBlock: true, restrictMapArea: true }}
-      >
+      <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
         {showConnected === 'Район' &&
           districts &&
           districts.map(({ name, coords }, index) => {
@@ -219,7 +224,6 @@ export const Map = ({
         {showConnected === 'ЦТП/ИТП' && (
           <Clusterer
             options={{
-              preset: 'islands#invertedVioletClusterIcons',
               groupByCoordinates: false,
             }}
           >
@@ -244,6 +248,26 @@ export const Map = ({
             ))}
           </Clusterer>
         )}
+        {showConnected === 'Дома' &&
+          CTP_LIST.map((item) => (
+            <Placemark
+              onClick={() => console.log(item.UF_GEO_COORDINATES)}
+              geometry={[
+                item.UF_GEO_COORDINATES.split(', ')[0],
+                item.UF_GEO_COORDINATES.split(', ')[1],
+              ]}
+              modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
+              options={{
+                iconLayout: 'default#image',
+                iconContentLayout: center,
+                iconImageHref: center,
+                iconImageSize: [17, 17],
+                iconOffset: [4, 31],
+                iconContentSize: [30, 30],
+                zIndex: 100,
+              }}
+            />
+          ))}
         {showConnected === 'ЦТП/ИТП' &&
           ctps &&
           ctps.map(({ name, coords, address, fillColor, strokeColor }) => {
