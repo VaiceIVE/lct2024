@@ -41,7 +41,7 @@ export const ObjectInfo = ({
           (selectedObj.fullCooldown || selectedObj?.normCooldown) ? (
           <ObjStat selectedObj={selectedObj} />
         ) : null}
-        {item?.characteristics ? (
+        {item?.characteristics && Object.keys(item?.characteristics).length ? (
           <Card type="outline">
             <Stack gap={26}>
               <Title level={4} title="Характеристики" />
