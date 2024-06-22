@@ -125,7 +125,7 @@ export class PredictionService {
                 for(const date of Object.keys(predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster]))
                     {
                         const dateChance = predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster][date]
-                        for(const eventId of Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster]))
+                        for(const eventId of Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date]))
                             {
                                 console.log(eventId)
                                 console.log(eventEnum[eventId])
