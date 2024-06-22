@@ -6,6 +6,8 @@ from typing import List
 import logging
 from dotenv import load_dotenv
 from worker import pandas_handling
+import requests
+import json
 from fastapi.middleware.cors import CORSMiddleware
 load_dotenv()
 app = FastAPI()
@@ -160,7 +162,7 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
     tasks_ids = []
     for task in tasks:
         tasks_ids.append(task.id)
-        task.get()
+        await requests.post(requests.post(backend_url, data=json.dumps(task.get(), indent=2), headers={'Content-Type': 'application/json'}))
     buffers = []
     for file in files:
         await file.seek(0)

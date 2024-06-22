@@ -18,8 +18,6 @@ export class PredictionController {
     return this.predictionService.createPrediction(files)
   }
 
-  
-
   //@UseGuards(AccessTokenGuard)
   @Get('/default/')
   public async getDefaultPrediction()
