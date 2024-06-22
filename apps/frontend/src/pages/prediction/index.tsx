@@ -59,14 +59,15 @@ const PredictionPageContainer = () => {
           })
           .finally(() => setLoading(false));
       } else {
-        console.log('here')
         PredictionServices.getPredictionById(localId, months[index].value)
           .then((r) => {
             setPrediction({
               id: r.data.id,
               buildings: r.data.buildings.map((b) => ({
                 ...b,
-                connectionInfo: isNull(b.coords) ? null : findSquareForHouse(b.coords),
+                connectionInfo: isNull(b.coords)
+                  ? null
+                  : findSquareForHouse(b.coords),
               })),
             });
           })
@@ -79,7 +80,9 @@ const PredictionPageContainer = () => {
             id: response.data.id,
             buildings: response.data.buildings.map((b) => ({
               ...b,
-              connectionInfo: isNull(b.coords) ? null : findSquareForHouse(b.coords),
+              connectionInfo: isNull(b.coords)
+                ? null
+                : findSquareForHouse(b.coords),
             })),
           })
         )
@@ -106,10 +109,6 @@ const PredictionPageContainer = () => {
     setPath(path);
     open();
   };
-
-  useEffect(() => {
-    console.log(prediction)
-  }, [prediction])
 
   useEffect(() => {
     setLoading(true);

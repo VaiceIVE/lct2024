@@ -59,12 +59,14 @@ export const StorageHistory = () => {
                   <Stack gap={18} flex={1}>
                     <Title
                       level={4}
-                      title={`Анализ от ${dayjs(h.dateCreated).format(
-                        'DD.MM.YYYY'
-                      )}`}
+                      title={`Анализ от ${dayjs(
+                        h.dateCreated.replace('"', '').replace(`"`, '')
+                      ).format('DD.MM.YYYY')}`}
                     />
                     <p className="text medium">
-                      {dayjs(h.dateCreated).format('hh:mm:ss')}
+                      {dayjs(
+                        h.dateCreated.replace('"', '').replace(`"`, '')
+                      ).format('hh:mm:ss')}
                     </p>
                     <p className="text placeholder">
                       Условия события: загрузка файлов
