@@ -5,6 +5,7 @@ import {
   ZoomControl,
   Polygon,
   Circle,
+  Clusterer,
 } from '@pbe/react-yandex-maps';
 import * as turf from '@turf/turf';
 import { useMemo } from 'react';
@@ -19,6 +20,7 @@ import tp from 'shared/assets/tp.svg';
 import center from 'shared/assets/center.svg';
 
 import styles from './Map.module.scss';
+import { CTP_LIST } from 'shared/constants/CTP_LIST';
 
 interface MapProps {
   fullWidth?: boolean;
@@ -192,7 +194,7 @@ export const Map = ({
         width={'100%'}
         height={'100%'}
         defaultState={LOCATION}
-        options={{ suppressMapOpenBlock: true, restrictMapArea: true }}
+        //options={{ suppressMapOpenBlock: true, restrictMapArea: true }}
       >
         {showConnected === 'Район' &&
           districts &&
@@ -214,22 +216,34 @@ export const Map = ({
               />
             );
           })}
-        {/* {CTP_LIST.map((item) => (
-          <Placemark
-            geometry={[
-              item.UF_GEO_COORDINATES.split(', ')[0],
-              item.UF_GEO_COORDINATES.split(', ')[1],
-            ]}
-            modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
+        {showConnected === 'ЦТП/ИТП' && (
+          <Clusterer
             options={{
-              iconLayout: 'default#image',
-              iconContentLayout: iconsTypes['tp'],
-              iconImageHref: iconsTypes['tp'],
-              iconImageSize: [10, 10],
-              iconOffset: [1, 21],
+              preset: 'islands#invertedVioletClusterIcons',
+              groupByCoordinates: false,
             }}
-          />
-        ))} */}
+          >
+            {CTP_LIST.map((item) => (
+              <Placemark
+                onClick={() => console.log(item.UF_GEO_COORDINATES)}
+                geometry={[
+                  item.UF_GEO_COORDINATES.split(', ')[0],
+                  item.UF_GEO_COORDINATES.split(', ')[1],
+                ]}
+                modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
+                options={{
+                  iconLayout: 'default#image',
+                  iconContentLayout: center,
+                  iconImageHref: center,
+                  iconImageSize: [17, 17],
+                  iconOffset: [4, 31],
+                  iconContentSize: [30, 30],
+                  zIndex: 100,
+                }}
+              />
+            ))}
+          </Clusterer>
+        )}
         {showConnected === 'ЦТП/ИТП' &&
           ctps &&
           ctps.map(({ name, coords, address, fillColor, strokeColor }) => {
