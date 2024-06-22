@@ -70,8 +70,9 @@ const MapPage = () => {
               (r) => {
                 setPrediction({
                   id: r.data.id,
-                  buildings: r.data.buildings.map((b) => ({
+                  buildings: r.data.buildings.map((b, index) => ({
                     ...b,
+                    index,
                     connectionInfo: isNull(b.coords)
                       ? null
                       : findSquareForHouse(b.coords),
@@ -86,8 +87,9 @@ const MapPage = () => {
           .then((response) =>
             setPrediction({
               id: response.data.id,
-              buildings: response.data.buildings.map((b) => ({
+              buildings: response.data.buildings.map((b, index) => ({
                 ...b,
+                index,
                 connectionInfo: isNull(b.coords)
                   ? null
                   : findSquareForHouse(b.coords),
@@ -177,8 +179,9 @@ const MapPage = () => {
     if (isResponse) {
       setResponse({
         date: '23',
-        obj: responseData.obj.map((o) => ({
+        obj: responseData.obj.map((o, index) => ({
           ...o,
+          index,
           connectionInfo: isNull(o.coords)
             ? null
             : findSquareForHouse(o.coords),
@@ -189,8 +192,9 @@ const MapPage = () => {
         .then((response) => {
           setResponse({
             date: response.data.date,
-            obj: response.data.obj.map((o) => ({
+            obj: response.data.obj.map((o, index) => ({
               ...o,
+              index,
               connectionInfo: isNull(o.coords)
                 ? null
                 : findSquareForHouse(o.coords),

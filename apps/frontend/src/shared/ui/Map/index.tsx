@@ -41,6 +41,9 @@ interface CTP {
   address: string;
   coords: [number, number];
   priority: number;
+  fillColor?: string;
+  strokeColor?: string;
+  index: number;
 }
 
 const getColorShade = (
@@ -158,6 +161,7 @@ export const Map = ({
             coords: marker?.connectionInfo?.coords,
             name: marker?.connectionInfo?.name,
             priority: 0,
+            index: marker?.index || marker.index === 0 ? marker.index : 1,
           });
         }
       });
@@ -174,8 +178,13 @@ export const Map = ({
         }
       });
 
-    return ctpMap.sort((a, b) => b.priority - a.priority);
-  }, [markers]);
+    return ctpMap
+      .sort((a, b) => b.priority - a.priority)
+      .map((c) => ({
+        ...c,
+        ...getColorShade(c.index, buildingsCount || 1),
+      }));
+  }, [buildingsCount, markers]);
 
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
@@ -223,12 +232,7 @@ export const Map = ({
         ))} */}
         {showConnected === 'ЦТП/ИТП' &&
           ctps &&
-          ctps.map(({ name, coords, address }, index) => {
-            const { fillColor, strokeColor } = getColorShade(
-              index,
-              buildingsCount || 1
-            );
-
+          ctps.map(({ name, coords, address, fillColor, strokeColor }) => {
             return (
               <div key={name}>
                 <Circle
