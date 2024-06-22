@@ -20,4 +20,5 @@ export interface IObj {
   district: string | null;
   characteristics: { [key: string]: string | number };
   connectionInfo: ICtp | null;
+  index?: number;
 }

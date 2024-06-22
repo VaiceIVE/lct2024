@@ -5,17 +5,22 @@ import {
   ZoomControl,
   Polygon,
   Circle,
+  Clusterer,
 } from '@pbe/react-yandex-maps';
 import * as turf from '@turf/turf';
 import { useMemo } from 'react';
 import { IBuilding } from 'shared/models/IBuilding';
 import { IObj } from 'shared/models/IResponse';
 import { location as LOCATION } from './helpers';
+
 import mkd from 'shared/assets/mkd.svg';
 import social from 'shared/assets/social.svg';
-//import prom from 'shared/assets/prom.svg';
+import prom from 'shared/assets/prom.svg';
 import tp from 'shared/assets/tp.svg';
+import center from 'shared/assets/center.svg';
+
 import styles from './Map.module.scss';
+import { CTP_LIST } from 'shared/constants/CTP_LIST';
 
 interface MapProps {
   fullWidth?: boolean;
@@ -25,6 +30,7 @@ interface MapProps {
   simpleMap?: boolean;
   showConnected?: string;
   buildingsCount?: number;
+  onCircleClick?: (address: string) => void;
 }
 
 interface District {
@@ -37,6 +43,9 @@ interface CTP {
   address: string;
   coords: [number, number];
   priority: number;
+  fillColor?: string;
+  strokeColor?: string;
+  index: number;
 }
 
 const getColorShade = (
@@ -91,13 +100,14 @@ export const Map = ({
   simpleMap,
   showConnected,
   buildingsCount,
+  onCircleClick,
 }: MapProps) => {
   const iconsTypes: { [key: string]: string } = {
     mkd: mkd,
     medicine: social,
     education: social,
     tp: tp,
-    prom: tp,
+    prom: prom,
   };
 
   const markers = buildings?.length ? buildings : objs;
@@ -153,6 +163,7 @@ export const Map = ({
             coords: marker?.connectionInfo?.coords,
             name: marker?.connectionInfo?.name,
             priority: 0,
+            index: marker?.index || marker.index === 0 ? marker.index : 1,
           });
         }
       });
@@ -169,12 +180,22 @@ export const Map = ({
         }
       });
 
-    return ctpMap.sort((a, b) => b.priority - a.priority);
-  }, [markers]);
+    return ctpMap
+      .sort((a, b) => b.priority - a.priority)
+      .map((c) => ({
+        ...c,
+        ...getColorShade(c.index, buildingsCount || 1),
+      }));
+  }, [buildingsCount, markers]);
 
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
-      <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
+      <MapComponent
+        width={'100%'}
+        height={'100%'}
+        defaultState={LOCATION}
+        //options={{ suppressMapOpenBlock: true, restrictMapArea: true }}
+      >
         {showConnected === 'Район' &&
           districts &&
           districts.map(({ name, coords }, index) => {
@@ -195,25 +216,66 @@ export const Map = ({
               />
             );
           })}
-        {showConnected === 'ЦТП/ИТП' &&
-          ctps &&
-          ctps.map(({ name, coords, address }, index) => {
-            const { fillColor, strokeColor } = getColorShade(
-              index,
-              buildingsCount || 1
-            );
-
-            return (
-              <Circle
-                key={name}
-                onClick={() => console.log(address)}
-                geometry={[coords, 700]}
+        {showConnected === 'ЦТП/ИТП' && (
+          <Clusterer
+            options={{
+              preset: 'islands#invertedVioletClusterIcons',
+              groupByCoordinates: false,
+            }}
+          >
+            {CTP_LIST.map((item) => (
+              <Placemark
+                onClick={() => console.log(item.UF_GEO_COORDINATES)}
+                geometry={[
+                  item.UF_GEO_COORDINATES.split(', ')[0],
+                  item.UF_GEO_COORDINATES.split(', ')[1],
+                ]}
+                modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
                 options={{
-                  fillColor,
-                  strokeColor,
-                  strokeWidth: 2,
+                  iconLayout: 'default#image',
+                  iconContentLayout: center,
+                  iconImageHref: center,
+                  iconImageSize: [17, 17],
+                  iconOffset: [4, 31],
+                  iconContentSize: [30, 30],
+                  zIndex: 100,
                 }}
               />
+            ))}
+          </Clusterer>
+        )}
+        {showConnected === 'ЦТП/ИТП' &&
+          ctps &&
+          ctps.map(({ name, coords, address, fillColor, strokeColor }) => {
+            return (
+              <div key={name}>
+                <Circle
+                  onClick={
+                    onCircleClick ? () => onCircleClick(address) : undefined
+                  }
+                  geometry={[coords, 700]}
+                  options={{
+                    fillColor,
+                    strokeColor,
+                    strokeWidth: 2,
+                  }}
+                />
+                <Placemark
+                  onClick={
+                    onCircleClick ? () => onCircleClick(address) : undefined
+                  }
+                  geometry={coords}
+                  options={{
+                    iconLayout: 'default#image',
+                    iconContentLayout: center,
+                    iconImageHref: center,
+                    iconImageSize: [17, 17],
+                    iconOffset: [4, 31],
+                    iconContentSize: [30, 30],
+                    zIndex: 700,
+                  }}
+                />
+              </div>
             );
           })}
         {simpleMap ? (
@@ -221,7 +283,8 @@ export const Map = ({
             options={{ size: 'small', position: { top: '24px', left: '24px' } }}
           />
         ) : null}
-        {markers &&
+        {showConnected !== 'Дома' &&
+          markers &&
           markers.map((marker) => (
             <Placemark
               onClick={

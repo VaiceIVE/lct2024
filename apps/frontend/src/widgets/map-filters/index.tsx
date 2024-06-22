@@ -1,6 +1,6 @@
 import { Flex, Stack } from '@mantine/core';
 import {
-  IconBuildingFactory,
+  IconBuildingCommunity,
   IconBuildingHospital,
   IconHome,
 } from '@tabler/icons-react';
@@ -12,7 +12,7 @@ import { SegmentControl } from 'shared/ui/SegmentControl';
 const filters = [
   { icon: <IconHome size={20} />, label: 'МКД', color: 'orange', type: 'mkd' },
   {
-    icon: <IconBuildingFactory size={20} />,
+    icon: <IconBuildingCommunity size={20} />,
     label: 'Прочее',
     color: 'gray',
     type: 'prom',
@@ -59,13 +59,6 @@ export const MapFilters = ({
           <div className={classNames(styles.circle, styles[f.color])}></div>
         </Flex>
       ))}
-      {/* <Checkbox
-        checked={isShowConnected}
-        onChange={setShowConnected}
-        className={styles['custom-checkbox']}
-        value="1"
-        label="Показать связанные объекты"
-      /> */}
       <SegmentControl onChange={setShowConnected} value={showConnected} />
     </Stack>
   );

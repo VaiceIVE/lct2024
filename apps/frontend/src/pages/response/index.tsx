@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Flex, Loader, useMantineTheme } from '@mantine/core';
 import { DateValue } from '@mantine/dates';
@@ -42,6 +43,10 @@ const ResponsePage = () => {
   const [response, setResponse] = useState<IResponse | null>(null);
   const [selectedObj, setSelectedObj] = useState<IObj | null>(null);
   const [event, setEvent] = useState('');
+
+  const [tpAddresses, setTpAddresses] = useState<
+    { value: string; label: string }[]
+  >([]);
 
   const [isNoticeShow, setNoticeShow] = useState<boolean>(false);
   const [isPriority, setPriority] = useState<boolean>(true);
@@ -183,6 +188,26 @@ const ResponsePage = () => {
     debounceDate(date);
   }, [debounceDate, date]);
 
+  useEffect(() => {
+    const getUniqueAddresses = (items: IObj[]) => {
+      return Array.from(
+        new Set(
+          items
+            .filter((item) => item.connectionInfo?.address)
+            .map((item) => ({
+              value: item.connectionInfo!.address!,
+              label: item.connectionInfo!.address!,
+            }))
+        )
+      );
+    };
+
+    if (response?.obj.length) {
+      const uniqTp = getUniqueAddresses(response.obj);
+      setTpAddresses(uniqTp);
+    }
+  }, [response]);
+
   return (
     <PageWrapper
       button={
@@ -216,6 +241,7 @@ const ResponsePage = () => {
             setSelectedObj={setSelectedObj}
             setDeletedId={setDeletedId}
             handleDeleteObject={handleDeleteObject}
+            tpAddresses={tpAddresses}
           />
         ) : null}
         {response?.obj?.length && !isLoading ? (
