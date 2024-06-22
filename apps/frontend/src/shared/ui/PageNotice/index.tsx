@@ -1,5 +1,7 @@
 import { CloseIcon, Flex, Stack, useMantineTheme } from '@mantine/core';
 import { IconAlertCircleFilled, IconArrowRight } from '@tabler/icons-react';
+import { Context } from 'main';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { simpleBuildingTypes } from 'shared/constants/buildingTypes';
 import { MAP_ROUTE } from 'shared/constants/const';
@@ -13,6 +15,7 @@ interface PageNoticeProps {
 
 export const PageNotice = ({ obj, setPageNoticeShow }: PageNoticeProps) => {
   const theme = useMantineTheme();
+  const { UStore } = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -21,7 +24,10 @@ export const PageNotice = ({ obj, setPageNoticeShow }: PageNoticeProps) => {
       <Flex align={'center'} justify={'space-between'}>
         <IconAlertCircleFilled size={24} color={theme.colors.myState[1]} />
         <CloseIcon
-          onClick={() => setPageNoticeShow(false)}
+          onClick={() => {
+            setPageNoticeShow(false);
+            UStore.setNoticeHide(true);
+          }}
           cursor={'pointer'}
           size="24px"
           color={theme.colors.myBlack[3]}

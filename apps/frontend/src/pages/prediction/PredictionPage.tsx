@@ -9,6 +9,7 @@ import { EventsMap } from 'widgets/events-map';
 import { PredictionCards } from 'widgets/prediction-cards';
 import { PredictionDatePicker } from 'widgets/prediction-date-picker';
 import { PredictionLeaveModal } from 'widgets/prediction-leave-modal';
+import { PredictionPageNotice } from './components/PredictionPageNotice';
 
 interface PredictionPageProps {
   monthsIndex: number;
@@ -115,6 +116,7 @@ export const PredictionPage = ({
           />
         </>
       )}
+      <PredictionPageNotice />
     </PageWrapper>
   );
 };
