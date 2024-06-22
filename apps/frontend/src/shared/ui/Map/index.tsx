@@ -222,7 +222,7 @@ export const Map = ({
         {showConnected === 'ЦТП/ИТП' && (
           <Clusterer
             options={{
-              groupByCoordinates: true,
+              groupByCoordinates: false,
             }}
           >
             {CTP_LIST.map((item) => (
