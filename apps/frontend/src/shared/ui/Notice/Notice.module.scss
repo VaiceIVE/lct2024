@@ -6,6 +6,10 @@
   &.page {
     bottom: 64px;
     right: 32px;
+
+    top: unset;
+
+    z-index: 100000;
   }
 
   &.orange {
