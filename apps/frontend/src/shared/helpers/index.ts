@@ -43,9 +43,20 @@ function createSquaresFromObjects(): Square[] {
 }
 
 function calculateDistance(point1: Coordinates, point2: Coordinates): number {
-  const latDiff = point1.latitude - point2.latitude;
-  const longDiff = point1.longitude - point2.longitude;
-  return Math.sqrt(latDiff * latDiff + longDiff * longDiff);
+  const toRadians = (degrees: number) => degrees * (Math.PI / 180);
+
+  const R = 6371;
+  const dLat = toRadians(point2.latitude - point1.latitude);
+  const dLon = toRadians(point2.longitude - point1.longitude);
+  const lat1 = toRadians(point1.latitude);
+  const lat2 = toRadians(point2.latitude);
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c;
 }
 
 export function findSquareForHouse(house: number[]): ICtp | null {
@@ -70,10 +81,7 @@ export function findSquareForHouse(house: number[]): ICtp | null {
     ? {
         address: closestSquare.objectData.UF_OBSHHAJA_INFORMAC,
         name: closestSquare.objectData.UF_NAIMENOVANIE_OBEK,
-        coords: [
-          +closestSquare.objectData.UF_GEO_COORDINATES.split(', ')[0],
-          +closestSquare.objectData.UF_GEO_COORDINATES.split(', ')[1],
-        ],
+        coords: [closestSquare.center.latitude, closestSquare.center.longitude],
       }
     : null;
 }

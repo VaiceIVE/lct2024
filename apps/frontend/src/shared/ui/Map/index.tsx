@@ -188,8 +188,6 @@ export const Map = ({
       }));
   }, [buildingsCount, markers]);
 
-  const a = [];
-
   // const coordinatesToRemove = new Set(a);
 
   // const filteredObjects = CTP_LIST.filter(
