@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { debounce } from 'lodash';
+import { debounce, isNull } from 'lodash';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 
@@ -59,14 +59,14 @@ const PredictionPageContainer = () => {
           })
           .finally(() => setLoading(false));
       } else {
+        console.log('here')
         PredictionServices.getPredictionById(localId, months[index].value)
           .then((r) => {
             setPrediction({
               id: r.data.id,
               buildings: r.data.buildings.map((b) => ({
                 ...b,
-                coords: b.coords.map((c) => +c),
-                connectionInfo: findSquareForHouse(b.coords),
+                connectionInfo: isNull(b.coords) ? null : findSquareForHouse(b.coords),
               })),
             });
           })
@@ -79,8 +79,7 @@ const PredictionPageContainer = () => {
             id: response.data.id,
             buildings: response.data.buildings.map((b) => ({
               ...b,
-              coords: b.coords.map((c) => +c),
-              connectionInfo: findSquareForHouse(b.coords),
+              connectionInfo: isNull(b.coords) ? null : findSquareForHouse(b.coords),
             })),
           })
         )
@@ -107,6 +106,10 @@ const PredictionPageContainer = () => {
     setPath(path);
     open();
   };
+
+  useEffect(() => {
+    console.log(prediction)
+  }, [prediction])
 
   useEffect(() => {
     setLoading(true);

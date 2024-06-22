@@ -156,6 +156,7 @@ export const Table = ({ data }: Props) => {
       shadow: 'none',
       withBorder: false,
     },
+    pageCount: 25,
     mantineTableProps: {
       className: styles.table,
       highlightOnHover: false,
@@ -171,9 +172,10 @@ export const Table = ({ data }: Props) => {
       },
     },
     mantinePaginationProps: {
-      h: 42,
       showRowsPerPage: false,
       gap: 8,
+      rowsPerPageOptions: ['10', '25'],
+      withEdges: false,
     },
     mantineBottomToolbarProps: {
       className: styles.toolbar,

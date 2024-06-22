@@ -88,7 +88,7 @@ export class PredictionService {
         {
             names.push(await this.storageService.uploadToS3(file))
         }
-        
+        console.log('prediction')
         let predictionStatus = axios.post(this.configService.get('PREDICTION_BACKEND_URL'), {list_of_tables: names, period: 2024, n_objects: 250})
         const FormData = require('form-data');
         let formdata = new FormData()
@@ -97,9 +97,11 @@ export class PredictionService {
                 fs.writeFileSync(file.originalname, file.buffer);
                 formdata.append('files', file.buffer, file.originalname)
             }
+            console.log('dataLoad')
         let dataLoadStatus = axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
         let predictionAnswer = (await predictionStatus).data
         await dataLoadStatus
+        console.log('sstart handling')
         return await this.handleResponseData(predictionAnswer)
     }
 
@@ -267,6 +269,8 @@ export class PredictionService {
                     {
                         socialType = 'tp'
                     }
+
+                    if(!coords[0] ||  !coords[1]){coords = null}
                     objPredictions.buildings.push({
                         address: address,
                         consumersCount: consumersCount,
@@ -362,9 +366,17 @@ export class PredictionService {
                 return objPredictions
     }
 
-    private async handleGeodataString(geodataStting)
+    private async handleGeodataString(geodataString: string)
     {
-        let coords = geodataStting.replace('[', '').replace(']', '').split(' ')
+        let coords = []
+        if(geodataString.includes(']'))
+            {
+                coords = geodataString.split('[')[1].split(']')[0].replace(',', '').split(' ')
+            }
+            else
+            {
+                coords = geodataString.replace(',', '').split(' ')
+            }
         return [+coords[1], +coords[0]] as [number, number]
     }
 

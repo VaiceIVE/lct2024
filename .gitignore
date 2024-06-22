@@ -41,3 +41,4 @@ Thumbs.db
 
 .nx/cache
 /apps/backend/.env
+/apps/backend/src/defaultTables

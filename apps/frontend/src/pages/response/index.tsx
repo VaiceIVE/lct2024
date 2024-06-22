@@ -9,7 +9,7 @@ import {
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { debounce } from 'lodash';
+import { debounce, isNull } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -61,7 +61,7 @@ const ResponsePage = () => {
           date: response.data.date,
           obj: response.data?.obj.map((o) => ({
             ...o,
-            connectionInfo: findSquareForHouse(o.coords),
+            connectionInfo: isNull(o.coords) ? null : findSquareForHouse(o.coords),
           })),
         });
         const format = 'DD MMMM';

@@ -122,6 +122,7 @@ def prep_building_df_for_model(building_df: pd.DataFrame) -> torch.Tensor:
             df_i = df_i.reset_index()
             d.append(df_i)
     df_r = pd.concat(d, axis=1).drop('index', axis=1)
+    print(df_r.info())
     return torch.from_numpy(df_r.fillna(-1).values)
 
 

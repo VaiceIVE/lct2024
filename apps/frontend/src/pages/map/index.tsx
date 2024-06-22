@@ -3,7 +3,7 @@ import qs from 'query-string';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { IconArrowLeft, IconChevronsRight } from '@tabler/icons-react';
-import { Flex, useMantineTheme } from '@mantine/core';
+import { Flex, Loader, useMantineTheme, Stack } from '@mantine/core';
 import classNames from 'classnames';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -21,6 +21,7 @@ import { IObj, IResponse } from 'shared/models/IResponse';
 
 import styles from './MapPage.module.scss';
 import { findSquareForHouse } from 'shared/helpers';
+import { isNull } from 'lodash';
 
 const MapPage = () => {
   const [opened, { open, close }] = useDisclosure(true);
@@ -39,6 +40,7 @@ const MapPage = () => {
     null
   );
   const [selectedObj, setSelectedObj] = useState<IObj | null>(null);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   const [showConnected, setShowConnected] = useState('Район');
 
@@ -53,6 +55,7 @@ const MapPage = () => {
 
   const getPredictionResult = useCallback(
     (month: string) => {
+      setLoading(true);
       if (isDefault) {
         PredictionServices.getDefaultPrediction().then((response) =>
           PredictionServices.getPredictionById(response.data, month).then(
@@ -61,24 +64,22 @@ const MapPage = () => {
                 id: r.data.id,
                 buildings: r.data.buildings.map((b) => ({
                   ...b,
-                  coords: b.coords.map((c) => +c),
-                  connectionInfo: findSquareForHouse(b.coords),
+                  connectionInfo: isNull(b.coords) ? null : findSquareForHouse(b.coords),
                 })),
               });
             }
           )
-        );
+        ).finally(() => setLoading(false));
       } else {
         PredictionServices.getPredictionById(+id, month).then((response) =>
           setPrediction({
             id: response.data.id,
             buildings: response.data.buildings.map((b) => ({
               ...b,
-              coords: b.coords.map((c) => +c),
-              connectionInfo: findSquareForHouse(b.coords),
+              connectionInfo: isNull(b.coords) ? null : findSquareForHouse(b.coords),
             })),
           })
-        );
+        ).finally(() => setLoading(false));
       }
     },
     [id, isDefault]
@@ -173,16 +174,16 @@ const MapPage = () => {
 
   useEffect(() => {
     if (isResponse) {
+      setLoading(true);
       ResponseServices.getResponse().then((response) => {
         setResponse({
           date: response.data.date,
           obj: response.data.obj.map((o) => ({
             ...o,
-            coords: o.coords.map((c) => +c),
-            connectionInfo: findSquareForHouse(o.coords),
+            connectionInfo: isNull(o.coords) ? null : findSquareForHouse(o.coords),
           })),
         });
-      });
+      }).finally(() => setLoading(false));
 
       if (location?.state?.obj) {
         setSelectedObj(location.state.obj);
@@ -252,6 +253,9 @@ const MapPage = () => {
           <IconChevronsRight size={24} />
         </Flex>
         <Flex h={'100%'}>
+          {isLoading ? <Stack className={styles.loader}>
+            <Loader size={'xl'} color={theme.colors.myBlue[2]}/>
+          </Stack> : null}
           <Map
             fullWidth
             buildingsCount={

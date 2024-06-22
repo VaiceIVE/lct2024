@@ -193,47 +193,7 @@ export class ResponseService {
                     }
                     else
                     {
-                      if(object.obj.admOkr)
-                        {
-                            characteristics['Административный округ'] = object.obj.admOkr
-                        }
-                    if(object.obj.btuwear)
-                        {
-                            characteristics['Износ по БТУ'] = object.obj.btuwear
-                        }
-                    if(object.obj.entranceAmount)
-                        {
-                            characteristics['Количество подъездов'] = object.obj.entranceAmount
-                        }
-                    if(object.obj.flatsAmount)
-                        {
-                            characteristics['Количество квартир'] = object.obj.flatsAmount
-                        }
-                    if(object.obj.floorsAmount)
-                        {
-                            characteristics['Количество этажей'] = object.obj.floorsAmount
-                        }
-                    if(object.obj.wallMaterial)
-                        {
-                            characteristics['Материал стен'] = object.obj.wallMaterial
-                        }
-                    if(object.obj.munOkr)
-                        {
-                            characteristics['Муниципальный округ'] = object.obj.munOkr
-                        }
-                    if(object.obj.objType)
-                        {
-                            characteristics['Тип объекта'] = object.obj.objType
-                        }
-                    if(object.obj.unom)
-                        {
-                            characteristics['УНОМ'] = object.obj.unom
-                        }
-                    if(object.heatPoint)
-                        {
-                            const heatPoint = await this.heatPointRepository.findOne({where: {id: object.heatPoint.id}})
-                            characteristics['Код ответствнного ЦТП/ИТП'] = heatPoint.code
-                        }
+                     
                         let geodataString = await this.getGeodataString(object.heatPoint.addressTP)
                         object.heatPoint.geodata = geodataString
                         this.heatPointRepository.save(object.heatPoint)
@@ -248,6 +208,47 @@ export class ResponseService {
                 }
                 else
                 {
+                  if(object.obj.admOkr)
+                    {
+                        characteristics['Административный округ'] = object.obj.admOkr
+                    }
+                if(object.obj.btuwear)
+                    {
+                        characteristics['Износ по БТУ'] = object.obj.btuwear
+                    }
+                if(object.obj.entranceAmount)
+                    {
+                        characteristics['Количество подъездов'] = object.obj.entranceAmount
+                    }
+                if(object.obj.flatsAmount)
+                    {
+                        characteristics['Количество квартир'] = object.obj.flatsAmount
+                    }
+                if(object.obj.floorsAmount)
+                    {
+                        characteristics['Количество этажей'] = object.obj.floorsAmount
+                    }
+                if(object.obj.wallMaterial)
+                    {
+                        characteristics['Материал стен'] = object.obj.wallMaterial
+                    }
+                if(object.obj.munOkr)
+                    {
+                        characteristics['Муниципальный округ'] = object.obj.munOkr
+                    }
+                if(object.obj.objType)
+                    {
+                        characteristics['Тип объекта'] = object.obj.objType
+                    }
+                if(object.obj.unom)
+                    {
+                        characteristics['УНОМ'] = object.obj.unom
+                    }
+                if(object.heatPoint)
+                    {
+                        const heatPoint = await this.heatPointRepository.findOne({where: {id: object.heatPoint.id}})
+                        characteristics['Код ответствнного ЦТП/ИТП'] = heatPoint.code
+                    }
                     district = object.obj.munOkr
                     address = object.obj.address
                     socialType = object.obj.socialType
