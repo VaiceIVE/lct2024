@@ -88,7 +88,7 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
             df = df.rename(columns={find_column(header,  ['geodata_center']): 'geodata'})
 
         if find_column(header, ['geoData']):
-            df = df.rename(columns={find_column(header,  ['geoData']): 'geoBoundary'})
+            df = df.rename(columns={find_column(header,  ['geoData']): 'geoBoundaries'})
 
         if find_column(header, ['Улица']):
             num = find_column(header, ['Улица'])
@@ -213,7 +213,7 @@ async def process(files: List[bytes]):
         if find_column(header, ['geodata_center']):
             features_dict.update({'geodata': find_column(header, ['geodata_center'])})
         if find_column(header, ['geoData']):
-            features_dict.update({'geoBoundary': find_column(header, ['geoData'])})
+            features_dict.update({'geoBoundaries': find_column(header, ['geoData'])})
         if find_column(header, ['Улица']):
             num = find_column(header, ['Улица'])
             df['address'] = df[num - 1].fillna('').astype(str) + df[num].fillna('').astype(str) + ' ' + df[num + 1].fillna('').astype(str) + ' ' + df[num + 2].fillna('').astype(str) + ' ' + df[num + 3].fillna('').astype(str) + ' ' + df[num + 4].fillna('').astype(str) + ' ' + df[num + 5].fillna('').astype(str) 
