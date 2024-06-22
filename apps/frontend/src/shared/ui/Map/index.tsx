@@ -13,7 +13,8 @@ import { IObj } from 'shared/models/IResponse';
 import { location as LOCATION } from './helpers';
 import mkd from 'shared/assets/mkd.svg';
 import social from 'shared/assets/social.svg';
-import tp from 'shared/assets/tec.svg';
+//import prom from 'shared/assets/prom.svg';
+import tp from 'shared/assets/tp.svg';
 import styles from './Map.module.scss';
 
 interface MapProps {

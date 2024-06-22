@@ -27,6 +27,7 @@ import { EventsMap } from 'widgets/events-map';
 import { ResponseCards } from 'widgets/response-cards';
 import { ResponseDrawer } from 'widgets/response-drawer';
 import { ResponseList } from 'widgets/response-list';
+import { PageNotice } from './components/PageNotice';
 
 dayjs.extend(customParseFormat);
 
@@ -46,6 +47,8 @@ const ResponsePage = () => {
   const [isPriority, setPriority] = useState<boolean>(true);
   const [isLoading, setLoading] = useState<boolean>(false);
 
+  const [isPageNoticeShow, setPageNoticeShow] = useState(false);
+
   const [deletedId, setDeletedId] = useState<number>();
 
   const debounceDate = useCallback(
@@ -61,7 +64,9 @@ const ResponsePage = () => {
           date: response.data.date,
           obj: response.data?.obj.map((o) => ({
             ...o,
-            connectionInfo: isNull(o.coords) ? null : findSquareForHouse(o.coords),
+            connectionInfo: isNull(o.coords)
+              ? null
+              : findSquareForHouse(o.coords),
           })),
         });
         const format = 'DD MMMM';
@@ -71,7 +76,10 @@ const ResponsePage = () => {
           );
         }
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        setPageNoticeShow(true);
+      });
   };
 
   const handleAddObject = () => {
@@ -182,7 +190,8 @@ const ResponsePage = () => {
           label="Симулировать событие"
           type="orange"
           icon={<IconPlus size={18} />}
-          onClick={open}
+          //onClick={open}
+          onClick={() => setPageNoticeShow(true)}
         />
       }
     >
@@ -257,6 +266,20 @@ const ResponsePage = () => {
           />
         </Drawer>
       </FormProvider>
+      {isPageNoticeShow && response?.obj.filter((o) => o.isLast).length ? (
+        <Notice
+          message="text"
+          type="error"
+          w={520}
+          isPageNotice
+          close={() => setPageNoticeShow(false)}
+        >
+          <PageNotice
+            setPageNoticeShow={setPageNoticeShow}
+            obj={response?.obj.filter((o) => o.isLast)[0]}
+          />
+        </Notice>
+      ) : null}
     </PageWrapper>
   );
 };

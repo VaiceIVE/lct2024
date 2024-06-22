@@ -11,9 +11,18 @@ interface NoticeProps {
   type: 'error' | 'done';
   close: () => void;
   isPageNotice?: boolean;
+  w?: number;
+  children?: React.ReactNode;
 }
 
-export const Notice = ({ message, type, close, isPageNotice }: NoticeProps) => {
+export const Notice = ({
+  message,
+  type,
+  close,
+  isPageNotice,
+  w,
+  children,
+}: NoticeProps) => {
   const [isFade, setFade] = useState(false);
 
   const types = {
@@ -49,17 +58,22 @@ export const Notice = ({ message, type, close, isPageNotice }: NoticeProps) => {
     <Card
       className={classNames(styles.notice, styles[types[type].color], {
         [styles.fade]: isFade,
-        [styles.paage]: isPageNotice,
+        [styles.page]: isPageNotice,
       })}
+      w={w}
       bg={types[type].bg}
       p="16px 18px"
     >
-      <Flex justify={'space-between'} align={'center'}>
-        <Flex gap={16}>
-          {types[type].icon} <div className={styles.message}>{message}</div>
+      {children ? (
+        children
+      ) : (
+        <Flex justify={'space-between'} align={'center'}>
+          <Flex gap={16}>
+            {types[type].icon} <div className={styles.message}>{message}</div>
+          </Flex>
+          <CloseIcon onClick={close} cursor={'pointer'} size="24px" />
         </Flex>
-        <CloseIcon onClick={close} cursor={'pointer'} size="24px" />
-      </Flex>
+      )}
     </Card>
   );
 };
