@@ -248,7 +248,7 @@ async def process(files: List[bytes]):
             tasks.append(task)
         for task in tasks:
             tasks_ids.append(task.id)
-            await requests.post(requests.post(backend_url, data=json.dumps(task.get().result, indent=2), headers={'Content-Type': 'application/json'}))
+            await requests.post(requests.post(backend_url, data=json.dumps(task.get(), indent=2), headers={'Content-Type': 'application/json'}))
         logging.warning(counter)
     #8450
     return {"result": tasks_ids}
