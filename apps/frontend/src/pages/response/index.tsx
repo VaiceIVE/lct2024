@@ -11,7 +11,7 @@ import {
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { debounce, isNull } from 'lodash';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { months } from 'shared/constants/months';
@@ -28,14 +28,19 @@ import { EventsMap } from 'widgets/events-map';
 import { ResponseCards } from 'widgets/response-cards';
 import { ResponseDrawer } from 'widgets/response-drawer';
 import { ResponseList } from 'widgets/response-list';
-import { PageNotice } from './components/PageNotice';
+import { PageNotice } from '../../shared/ui/PageNotice';
+import { responseData } from 'shared/constants/mock';
+import { observer } from 'mobx-react-lite';
+import { Context } from 'main';
 
 dayjs.extend(customParseFormat);
 
-const ResponsePage = () => {
+const ResponsePage = observer(() => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const theme = useMantineTheme();
+
+  const { UStore } = useContext(Context);
 
   const eventFields = useForm();
 
@@ -62,29 +67,35 @@ const ResponsePage = () => {
   );
 
   const getResponse = () => {
-    setLoading(true);
-    ResponseServices.getResponse()
-      .then((response) => {
-        setResponse({
-          date: response.data.date,
-          obj: response.data?.obj.map((o) => ({
-            ...o,
-            connectionInfo: isNull(o.coords)
-              ? null
-              : findSquareForHouse(o.coords),
-          })),
-        });
-        const format = 'DD MMMM';
-        if (response.data.date !== dayjs(date).format('DD MMMM').toString()) {
-          setDate(
-            dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
-          );
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-        setPageNoticeShow(true);
-      });
+    setResponse({
+      date: responseData.date,
+      obj: responseData?.obj.map((o) => ({
+        ...o,
+        connectionInfo: isNull(o.coords) ? null : findSquareForHouse(o.coords),
+      })),
+    });
+    // setLoading(true);
+    // ResponseServices.getResponse()
+    //   .then((response) => {
+    //     setResponse({
+    //       date: response.data.date,
+    //       obj: response.data?.obj.map((o) => ({
+    //         ...o,
+    //         connectionInfo: isNull(o.coords)
+    //           ? null
+    //           : findSquareForHouse(o.coords),
+    //       })),
+    //     });
+    //     const format = 'DD MMMM';
+    //     if (response.data.date !== dayjs(date).format('DD MMMM').toString()) {
+    //       setDate(
+    //         dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
+    //       );
+    //     }
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
   };
 
   const handleAddObject = () => {
@@ -206,6 +217,8 @@ const ResponsePage = () => {
       const uniqTp = getUniqueAddresses(response.obj);
       setTpAddresses(uniqTp);
     }
+
+    setPageNoticeShow(true);
   }, [response]);
 
   return (
@@ -215,8 +228,7 @@ const ResponsePage = () => {
           label="Симулировать событие"
           type="orange"
           icon={<IconPlus size={18} />}
-          //onClick={open}
-          onClick={() => setPageNoticeShow(true)}
+          onClick={open}
         />
       }
     >
@@ -292,7 +304,9 @@ const ResponsePage = () => {
           />
         </Drawer>
       </FormProvider>
-      {isPageNoticeShow && response?.obj.filter((o) => o.isLast).length ? (
+      {!UStore.isNoticeHide &&
+      isPageNoticeShow &&
+      response?.obj.filter((o) => o.isLast).length ? (
         <Notice
           message="text"
           type="error"
@@ -308,6 +322,6 @@ const ResponsePage = () => {
       ) : null}
     </PageWrapper>
   );
-};
+});
 
 export default ResponsePage;
