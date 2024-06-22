@@ -113,16 +113,18 @@ export class PredictionService {
 
     private async handleResponseData(predictionAnswer: any, isDefault: boolean = false)
     {
-        const data = predictionAnswer.what_anomaly_propability.unom_ids_clusters     
+        const data = predictionAnswer.what_anomaly_propability.unom_ids__clusters     
         let objPredictions = []
 
-        for (const cluster of Object.keys(predictionAnswer.what_anomaly_propability.clusters_day_predict))
+
+
+        for (const cluster of Object.keys(predictionAnswer.what_anomaly_propability.clusters__day_predict))
             {
                 let events = []
 
-                for(const date of Object.keys(predictionAnswer.what_anomaly_propability.clusters_day_predict[cluster]))
+                for(const date of Object.keys(predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster]))
                     {
-                        const dateChance = predictionAnswer.what_anomaly_propability.clusters_day_predict[cluster][date]
+                        const dateChance = predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster][date]
                         for(const eventName of Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster]))
                             {
                                 const eventChance = predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date][eventName]
