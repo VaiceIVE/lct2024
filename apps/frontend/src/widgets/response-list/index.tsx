@@ -39,7 +39,7 @@ export const ResponseList = ({
   const [isFiltersOpen, setFiltersOpen] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
 
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
 
   const onOpen = (id: number) => {
     setDeletedId(id);

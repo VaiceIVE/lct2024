@@ -30,6 +30,8 @@ interface MapFiltersProps {
   typeFilters: string[];
   showConnected: string;
   setShowConnected: React.Dispatch<React.SetStateAction<string>>;
+  regionFilter: string;
+  setRegionFilter: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MapFilters = ({
@@ -37,29 +39,46 @@ export const MapFilters = ({
   typeFilters,
   setShowConnected,
   showConnected,
+  setRegionFilter,
+  regionFilter,
 }: MapFiltersProps) => {
   return (
-    <Stack className={styles.wrapper} gap={18} align="flex-end">
-      {filters.map((f) => (
-        <Flex
-          key={f.label}
-          onClick={
-            typeFilters.includes(f.type)
-              ? () => setTypeFilters((prev) => prev.filter((p) => p !== f.type))
-              : () => setTypeFilters((prev) => [...prev, f.type])
-          }
-          className={classNames(styles.button, styles[f.color], {
-            [styles.active]: typeFilters.includes(f.type),
-          })}
-          align={'center'}
-          gap={10}
-        >
-          {f.icon}
-          <p className="text">{f.label}</p>
-          <div className={classNames(styles.circle, styles[f.color])}></div>
-        </Flex>
-      ))}
-      <SegmentControl onChange={setShowConnected} value={showConnected} />
-    </Stack>
+    <>
+      <Stack className={styles.wrapper} gap={18} align="flex-end">
+        {filters.map((f) => (
+          <Flex
+            key={f.label}
+            onClick={
+              typeFilters.includes(f.type)
+                ? () =>
+                    setTypeFilters((prev) => prev.filter((p) => p !== f.type))
+                : () => setTypeFilters((prev) => [...prev, f.type])
+            }
+            className={classNames(styles.button, styles[f.color], {
+              [styles.active]: typeFilters.includes(f.type),
+            })}
+            align={'center'}
+            gap={10}
+          >
+            {f.icon}
+            <p className="text">{f.label}</p>
+            <div className={classNames(styles.circle, styles[f.color])}></div>
+          </Flex>
+        ))}
+        <SegmentControl
+          data={['Район', 'ЦТП/ИТП', 'Дома']}
+          onChange={setShowConnected}
+          value={showConnected}
+        />
+      </Stack>
+      <Stack className={styles['bottom-wrapper']}>
+        <SegmentControl
+          data={['ВАО', 'Вся Москва']}
+          onChange={setRegionFilter}
+          value={regionFilter}
+          disabled={showConnected !== 'ЦТП/ИТП'}
+        />
+      </Stack>
+    </>
   );
 };

@@ -37,6 +37,7 @@ const MapPage = () => {
     'Социальные объекты',
     'prom',
   ]);
+  const [regionFilter, setRegionFilter] = useState('ВАО');
   const [isPriority, setPriority] = useState<boolean>(true);
   const [selectedBuilding, setSelectedBuilding] = useState<IBuilding | null>(
     null
@@ -234,6 +235,10 @@ const MapPage = () => {
     }
   }, [response, prediction]);
 
+  useEffect(() => {
+    setRegionFilter('ВАО');
+  }, [showConnected]);
+
   return (
     <div className={styles.wrapper}>
       <FormProvider {...filtersFields}>
@@ -324,6 +329,7 @@ const MapPage = () => {
             }
             onPlacemarkClick={onPlacemarkClick}
             showConnected={showConnected}
+            regionFilter={regionFilter}
           />
         </Flex>
         <MapFilters
@@ -331,6 +337,8 @@ const MapPage = () => {
           showConnected={showConnected}
           setTypeFilters={setTypeFilters}
           typeFilters={typeFilters}
+          setRegionFilter={setRegionFilter}
+          regionFilter={regionFilter}
         />
       </FormProvider>
     </div>
