@@ -131,7 +131,7 @@ export class PredictionService {
 
         for (const unom of Object.keys(data))
             {
-                unomDict[data[unom]].append(unom)
+                unomDict[data[unom]].push(unom)
             }
 
 
