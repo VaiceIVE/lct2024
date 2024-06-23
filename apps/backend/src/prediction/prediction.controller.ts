@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, StreamableFile, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Header, Param, Post, StreamableFile, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PredictionService } from './prediction.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiResponse } from '@nestjs/swagger';
@@ -45,6 +45,8 @@ export class PredictionController {
   }
 
   @Get('/:id/:month/export')
+  @Get('download')
+  @Header('Content-Disposition', 'attachment; filename="Report.xlsx"')
   public async getExportedDoc(@Param('id') id: number, @Param('month') monthNum: string)
   {
     return new StreamableFile(await this.predictionService.export(id, monthNum))
