@@ -236,7 +236,7 @@ export class PredictionService {
         let counter = 0
         for(const objPrediction of prediction.objPredictions)
             {
-                if(counter >=500)
+                if(counter >=250)
                     {
                         break
                     }
