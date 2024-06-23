@@ -89,13 +89,13 @@ export class PredictionService {
         if(!ws["!cols"][5]) ws["!cols"][5] = {wch: 8};
         if(!ws["!cols"][6]) ws["!cols"][6] = {wch: 8};
         if(!ws["!cols"][7]) ws["!cols"][7] = {wch: 8};
-        ws["!cols"][0].wpx = 50
-        ws["!cols"][1].wpx = 50
+        ws["!cols"][0].wpx = 150
+        ws["!cols"][1].wpx = 150
         ws["!cols"][2].wpx = 50
-        ws["!cols"][3].wpx = 20
+        ws["!cols"][3].wpx = 200
         ws["!cols"][4].wpx = 75
-        ws["!cols"][6].wpx = 75
-        ws["!cols"][7].wpx = 20
+        ws["!cols"][6].wpx = 500
+        ws["!cols"][7].wpx = 200
 
 
         let origin = 1
