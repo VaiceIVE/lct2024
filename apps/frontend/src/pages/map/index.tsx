@@ -192,16 +192,14 @@ const MapPage = () => {
           });
         })
         .finally(() => setLoading(false));
-
-      if (location?.state?.obj) {
-        setSelectedObj(location.state.obj);
-      }
     }
   }, [isResponse, location]);
 
   useEffect(() => {
-    console.log('select', selectedObj);
-  }, [selectedObj]);
+    if (response && location?.state?.obj) {
+      setSelectedObj(location.state.obj);
+    }
+  }, [location, response]);
 
   useEffect(() => {
     const getUniqueAddresses = (items: IObj[] | IBuilding[]) => {
