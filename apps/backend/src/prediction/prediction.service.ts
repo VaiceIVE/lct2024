@@ -16,6 +16,7 @@ import { IObjResponse, IPrediction } from './interfaces/IObjResponse.interface';
 import { join } from 'path';
 import { Cluster } from './entities/cluster.entity';
 import * as XLSX from 'xlsx';
+import * as iconvlite from 'iconv-lite'
 @Injectable()
 export class PredictionService {
     constructor(
@@ -42,10 +43,10 @@ export class PredictionService {
     public async getSaved()
     {
         let res = []
-        const predictionData = await this.predictionRepository.find({where: {isSaved: true}, select: {dateCreated: true, id: true}, relations: {objPredictions: true}})
+        const predictionData = await this.predictionRepository.find({where: {isSaved: true}, select: {dateCreated: true, id: true}, loadEagerRelations: false})
         for(const data of predictionData)
             {
-                res.push({id: data.id, dateCreated: data.dateCreated, objectCount: data.objPredictions.length})
+                res.push({id: data.id, dateCreated: data.dateCreated})
             }
         return res
     }
@@ -169,6 +170,7 @@ export class PredictionService {
         let names = []
         for(let file of files)
         {
+            file.filename = iconvlite.decode(iconvlite.encode(file.filename, 'windows-1252'), 'utf-8')
             names.push(await this.storageService.uploadToS3(file))
         }
         console.log('prediction')
