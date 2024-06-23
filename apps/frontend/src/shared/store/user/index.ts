@@ -74,12 +74,12 @@ export default class UserStore {
   async checkAuth() {
     this.setLoading(true);
     try {
-      const response = await axios.get<IUser>(`${API_URL}/auth/refresh`, {
-        withCredentials: true,
-      });
+      // const response = await axios.get<IUser>(`${API_URL}/auth/refresh`, {
+      //   withCredentials: true,
+      // });
 
       this.setAuth(true);
-      this.setUser(response.data);
+      //this.setUser(response.data);
     } catch (e: any) {
       console.info(e);
 

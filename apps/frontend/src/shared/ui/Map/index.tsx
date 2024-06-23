@@ -21,6 +21,7 @@ import center from 'shared/assets/center.svg';
 import styles from './Map.module.scss';
 import { CTPS } from './components/Ctps';
 import { Districts } from './components/Districs';
+import { Buildings } from './components/Buildings';
 
 interface MapProps {
   fullWidth?: boolean;
@@ -209,31 +210,24 @@ export const Map = ({
 
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
-      <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
+      <MapComponent
+        width={'100%'}
+        height={'100%'}
+        defaultState={LOCATION}
+        modules={[
+          'templateLayoutFactory',
+          'option.presetStorage',
+          'option.Manager',
+          'layout.ImageWithContent',
+        ]}
+      >
         {showConnected === 'Район' ? <Districts districts={districts} /> : null}
         {showConnected === 'ЦТП/ИТП' && regionFilter === 'Вся Москва' ? (
           <CTPS uniqCtps={uniqCtps} />
         ) : null}
-        {showConnected === 'Дома' &&
-          CTP_LIST.map((item) => (
-            <Placemark
-              onClick={() => console.log(item.UF_GEO_COORDINATES)}
-              geometry={[
-                item.UF_GEO_COORDINATES.split(', ')[0],
-                item.UF_GEO_COORDINATES.split(', ')[1],
-              ]}
-              modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
-              options={{
-                iconLayout: 'default#image',
-                iconContentLayout: center,
-                iconImageHref: center,
-                iconImageSize: [17, 17],
-                iconOffset: [4, 31],
-                iconContentSize: [30, 30],
-                zIndex: 100,
-              }}
-            />
-          ))}
+        {showConnected === 'Дома' && markers && (
+          <Buildings onPlacemarkClick={onPlacemarkClick} markers={markers} />
+        )}
         {showConnected === 'ЦТП/ИТП' &&
           ctps &&
           ctps.map(({ name, coords, address, fillColor, strokeColor }) => {

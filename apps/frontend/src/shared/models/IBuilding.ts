@@ -11,6 +11,7 @@ export interface IBuilding {
   characteristics: { [key: string]: string | number };
   connectionInfo: ICtp | null;
   index?: number;
+  geoBoundaries: [number, number][] | null;
 }
 
 export interface IEvents {
