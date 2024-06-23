@@ -142,6 +142,7 @@ export class PredictionService {
                 let events = []
                 for(const date of cluster_days)
                     {
+
                         const dateChance = predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster][date]
 
                         const eventIds =  Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date])
@@ -157,10 +158,10 @@ export class PredictionService {
                                 events.push(newEvent)
                             }
                     }
+                console.log('saving events')
                 await this.eventRepository.save(events)
                 for (const unom of unomDict[cluster])
                     {
-                        console.log(unom)
                         let obj = await this.objRepository.findOne({where: {unom: unom}})
                         if(! obj)
                             {
@@ -175,6 +176,7 @@ export class PredictionService {
                                 objPredictions.push(newObjPrediction)
                             }
                     }
+                console.log('saving objPredictions')
                 await this.objPredictionRepository.save(objPredictions)
             }
         const prediction = this.predictionRepository.create({
