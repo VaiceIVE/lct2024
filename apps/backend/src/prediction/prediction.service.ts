@@ -237,6 +237,7 @@ export class PredictionService {
             id: prediction.id,
             buildings: []
         }
+        console.log(prediction.objPredictions.length)
         for(const objPrediction of prediction.objPredictions)
             {
                 let events = []
