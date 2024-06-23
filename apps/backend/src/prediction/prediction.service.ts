@@ -122,6 +122,8 @@ export class PredictionService {
         const data = predictionAnswer.what_anomaly_propability.unom_ids__clusters   
         
         let unomDict = {}
+        console.log(clusters_day_predicts_keys)
+
         for(const cluster of clusters_day_predicts_keys)
             {
                 unomDict[cluster] = []
@@ -134,7 +136,6 @@ export class PredictionService {
 
 
         let objPredictions = []
-        console.log(clusters_day_predicts_keys)
         for (const cluster of clusters_day_predicts_keys)
             {
                 const cluster_days = Object.keys(predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster])
