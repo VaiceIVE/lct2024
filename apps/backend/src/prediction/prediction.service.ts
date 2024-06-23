@@ -106,7 +106,7 @@ export class PredictionService {
                 origin += 1
                 for(const event of object.events)
                     {
-                        const newString = [['', event.eventName, event.chance, event.date]]
+                        const newString = [['', event.eventName, event.chance, event.date.replace('2023', '2024')]]
                         XLSX.utils.sheet_add_aoa(ws, newString, {origin: origin})
                         origin += 1
                     }
