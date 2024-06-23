@@ -236,6 +236,7 @@ export class PredictionService {
         let counter = 0
         for(const objPrediction of prediction.objPredictions)
             {
+                console.log(objPredictions)
                 if(counter >=10)
                     {
                         break
