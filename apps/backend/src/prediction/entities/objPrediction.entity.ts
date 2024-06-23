@@ -2,7 +2,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, 
 import { Obj } from "../../obj/entities/obj.entity";
 import { Event } from "./event.entity";
 import { HeatPoint, Prediction } from "../../database/entities-index";
-import { Clusters } from "./cluster.entity";
+import { Cluster } from "./cluster.entity";
 
 @Entity()
 export class ObjPrediction {
@@ -10,12 +10,12 @@ export class ObjPrediction {
     @PrimaryGeneratedColumn()
     id: number
 
-    @ManyToOne(() => Clusters, (cluster) => cluster.objPrediction,{
+    @ManyToOne(() => Cluster, (cluster) => cluster.objPrediction,{
         cascade: true,
         eager: true
     })
     @JoinTable()
-    cluster: Clusters
+    cluster: Cluster
 
     @ManyToOne(() => Prediction, (pred) => pred.objPredictions, {
         onDelete: "CASCADE"

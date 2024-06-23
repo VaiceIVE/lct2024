@@ -3,7 +3,7 @@ import { Obj } from "../../obj/entities/obj.entity";
 import { Prediction } from "./prediction.entity";
 import { HeatPoint } from "../../database/entities-index";
 import { ObjPrediction } from "./objPrediction.entity";
-import { Clusters } from "./cluster.entity";
+import { Cluster as Cluster } from "./cluster.entity";
 
 @Entity()
 export class Event {
@@ -24,9 +24,9 @@ export class Event {
     @Column()
     date: string
 
-    @ManyToOne(() => Clusters, (cluster) => cluster.events,{
+    @ManyToOne(() => Cluster, (cluster) => cluster.events,{
         cascade: ['insert', 'update']
     })
-    @JoinColumn()
-    cluster: Clusters
+    @JoinTable()
+    cluster: Cluster
 }

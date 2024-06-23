@@ -4,7 +4,7 @@ import { Event } from "./event.entity";
 import { HeatPoint, ObjPrediction, Prediction } from "../../database/entities-index";
 
 @Entity()
-export class Clusters {
+export class Cluster {
 
     @PrimaryGeneratedColumn()
     id: number
@@ -13,7 +13,7 @@ export class Clusters {
         cascade: true,
         eager: true
     })
-    @JoinColumn()
+    @JoinTable()
     events: Event[]
 
     @OneToMany(() => ObjPrediction, (obj) => obj.cluster)

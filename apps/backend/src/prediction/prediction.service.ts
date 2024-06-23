@@ -14,7 +14,7 @@ import { HeatPoint, Obj } from '../database/entities-index';
 import { ObjPrediction } from './entities/objPrediction.entity';
 import { IObjResponse, IPrediction } from './interfaces/IObjResponse.interface';
 import { join } from 'path';
-import { Clusters } from './entities/cluster.entity';
+import { Cluster } from './entities/cluster.entity';
 
 @Injectable()
 export class PredictionService {
@@ -29,8 +29,8 @@ export class PredictionService {
         private objRepository: Repository<Obj>,
         @InjectRepository(HeatPoint)
         private heatPointRepository: Repository<HeatPoint>,
-        @InjectRepository(Clusters)
-        private clusterRepository: Repository<Clusters>,
+        @InjectRepository(Cluster)
+        private clusterRepository: Repository<Cluster>,
         private storageService: StorageService,
         private configService: ConfigService
     ){}
