@@ -174,7 +174,7 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
     return True
 
 
-@app.post("/process_old")
+@app.post("/process_very_old")
 async def process(files: List[bytes]):
     for file in files:
         features_dict = dict()
@@ -257,6 +257,89 @@ async def process(files: List[bytes]):
     #8450
     return {"result": tasks_ids}
 
+
+@app.post("/process_old")
+async def process(files: List[UploadFile]):
+    for file in files:
+        features_dict = dict()
+
+        df = pd.read_excel(await file.read())
+
+        df = df.T.reset_index().T
+        header = df.head(5)
+        
+        if find_column(header, ['unom', 'UNOM']):
+            features_dict.update({'unom': find_column(header, ['unom', 'UNOM'])})
+        if find_column(header,  ['Материал']):
+            features_dict.update({'wallMaterial': find_column(header, ['Материал'])})
+        if find_column(header, ['Назначение']):
+            features_dict.update({'objType': find_column(header, ['Назначение'])})
+        if find_column(header, ['Этажность']):
+            features_dict.update({'floorsAmount': find_column(header, ['Этажность'])})
+        if find_column(header, ['Муниципальный округ']):
+            features_dict.update({'munOkr': find_column(header, ['Муниципальный округ'])})
+        if find_column(header, ['Административный округ']):
+            features_dict.update({'admOkr': find_column(header, ['Административный округ'])})
+        if find_column(header, ['Общая площадь']):
+            features_dict.update({'totalArea': find_column(header, ['Общая площадь'])})
+        if find_column(header, ['Номер ТП', 'ЦТП']):
+            features_dict.update({'code': find_column(header, ['Номер ТП', 'ЦТП'])})
+        if find_column(header, ['Адрес ТП']):
+            features_dict.update({'addressTP': find_column(header, ['Адрес ТП'])})
+        if find_column(header, ['Вид ТП']):
+            features_dict.update({'type': find_column(header, ['Вид ТП'])})
+        if find_column(header, ['Источник теплоснабжения']):
+            features_dict.update({'heatSource': find_column(header, ['Источник теплоснабжения'])})
+        if find_column(header, ['Дата ввода в эксплуатацию']):
+            features_dict.update({'dateStartUsage': find_column(header, ['Дата ввода в эксплуатацию'])})
+        if find_column(header, ['Балансодержатель']):
+            features_dict.update({'authority': find_column(header, ['Балансодержатель'])})
+        if find_column(header, ['Адрес строения', 'Упрощённое написание адреса или описание местоположения', 'Адрес']):
+            features_dict.update({'address': find_column(header, ['Адрес строения', 'Упрощённое написание адреса или описание местоположения', 'Адрес'])})
+        if find_column(header, ['geodata_center']):
+            features_dict.update({'geodata': find_column(header, ['geodata_center'])})
+        if find_column(header, ['geoData']):
+            features_dict.update({'geoBoundaries': find_column(header, ['geoData'])})
+        if find_column(header, ['Улица']):
+            num = find_column(header, ['Улица'])
+            df['address'] = df[num - 1].fillna('').astype(str) + df[num].fillna('').astype(str) + ' ' + df[num + 1].fillna('').astype(str) + ' ' + df[num + 2].fillna('').astype(str) + ' ' + df[num + 3].fillna('').astype(str) + ' ' + df[num + 4].fillna('').astype(str) + ' ' + df[num + 5].fillna('').astype(str) 
+            df = df.T.reset_index().T
+            features_dict.update({'address': find_column(df.head(5), ['address'])})
+
+        #features_dict.update({'addressTP': find_column(header, ['Адрес ТП'])})
+        #features_dict.update({'addressTP': find_column(header, ['Адрес ТП'])})
+        #features_dict.update({'addressTP': find_column(header, ['Адрес ТП'])})
+        #features_dict.update({'addressTP': find_column(header, ['Адрес ТП'])})
+        #features_dict.update({'addressTP': find_column(header, ['Адрес ТП'])})
+        #features_dict.update({'addressTP': find_column(header, ['Адрес ТП'])})
+
+        columns = []
+
+        for column_name in features_dict.keys():
+            column = df[[features_dict[column_name]]]
+            column = column.iloc[1:,].reindex()
+            column = column.rename(columns={features_dict[column_name]: column_name})
+            columns.append(column.astype(str))
+
+        new_df = pd.concat(columns, axis=1)
+
+        batch_size = 50
+        tasks = []
+        tasks_ids = []
+        logging.warning(len(df.index))
+        counter = 0
+
+        for i in range(0, len(df.index), batch_size):
+            df_encoded = new_df.iloc[i:i + batch_size + 1,:].to_dict()
+            counter += 1
+            task = pandas_handling.delay(df_encoded)
+            tasks.append(task)
+        for task in tasks:
+            tasks_ids.append(task.id)
+            requests.post(backend_url, data=json.dumps(task.get(), indent=2), headers={'Content-Type': 'application/json'})
+        logging.warning(counter)
+    #8450
+    return {"result": tasks_ids}
 
 def find_column(df, names):
     try:
