@@ -167,13 +167,14 @@ export class PredictionService {
                     }
                 console.log('saving events')
                 const eventIds = (await this.eventRepository.insert(events)).identifiers
-                console.log('searching unoms')
+                console.log('creating cluster')
 
                 const newCluster = this.clusterRepository.create({
-                    events: eventIds
+                    events: events
                 })
 
                 const clusterId = (await this.clusterRepository.insert(newCluster)).identifiers[0]
+                console.log('searching unoms')
 
                 const objs = await this.objRepository.find({where: {unom: In(unomDict[cluster])}})
 
