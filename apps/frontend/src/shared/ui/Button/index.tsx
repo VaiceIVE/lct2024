@@ -14,6 +14,7 @@ export interface ButtonProps {
   type?: 'light' | 'outline' | 'white' | 'orange';
   fullWidth?: boolean;
   isLoading?: boolean;
+  isActive?: boolean;
 }
 
 export const Button = ({
@@ -27,6 +28,7 @@ export const Button = ({
   type,
   fullWidth,
   isLoading,
+  isActive,
 }: ButtonProps) => {
   return (
     <MantineButton
@@ -34,7 +36,11 @@ export const Button = ({
       disabled={disabled}
       className={classNames(
         styles.button,
-        { [styles.full]: fullWidth, [styles.disabled]: disabled },
+        {
+          [styles.full]: fullWidth,
+          [styles.disabled]: disabled,
+          [styles.active]: isActive,
+        },
         className && className,
         type && styles[type]
       )}

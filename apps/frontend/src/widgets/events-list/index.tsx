@@ -135,6 +135,9 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
                 fullWidth
                 type="light"
                 label="Фильтры"
+                isActive={Boolean(
+                  Object.values(watch()).filter((e) => e).length
+                )}
                 onClick={() => setOpen((prev) => !prev)}
                 icon={
                   isOpen ? (
