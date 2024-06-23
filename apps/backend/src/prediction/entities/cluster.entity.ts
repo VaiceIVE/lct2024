@@ -4,7 +4,7 @@ import { Event } from "./event.entity";
 import { HeatPoint, ObjPrediction, Prediction } from "../../database/entities-index";
 
 @Entity()
-export class Cluster {
+export class Clusters {
 
     @PrimaryGeneratedColumn()
     id: number
