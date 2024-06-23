@@ -80,6 +80,7 @@ export class PredictionService {
         const ws = XLSX.utils.sheet_new()  
         const headers = [['Адрес Объекта', 'Событие', 'Вероятность события','Дата события', 'Количество потребителей', 'Мунициапльный округ', 'Тип объекта в системе', 'Приоритет реагирования']]
         XLSX.utils.sheet_add_aoa(ws, headers)
+        if(!ws["!cols"]) ws["!cols"] = []
         ws["!cols"][0].wpx = 50
         ws["!cols"][1].wpx = 50
         ws["!cols"][2].wpx = 50
