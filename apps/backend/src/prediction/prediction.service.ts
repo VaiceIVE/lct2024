@@ -145,7 +145,6 @@ export class PredictionService {
                 console.log('cluster_days')
                 console.log(cluster_days.length)
                 
-                let eventIds = []
 
                 for(const date of cluster_days)
                     {
@@ -162,13 +161,11 @@ export class PredictionService {
                                     eventName: eventEnum[eventId],
                                     chance: dateChance * eventChance
                                 })
-                                eventIds.push(newEvent.id)
                                 events.push(newEvent)
                             }
                     }
                 console.log('saving events')
-                const ids = await this.eventRepository.insert(events)
-                console.log(ids)
+                const eventIds = (await this.eventRepository.insert(events)).identifiers
                 console.log('searching unoms')
 
                 const objs = await this.objRepository.find({where: {unom: In(unomDict[cluster])}})
@@ -187,12 +184,11 @@ export class PredictionService {
                             })
                             console.log('pushin')
                             objPredictions.push(newObjPrediction)
-                            objPredIds.push(newObjPrediction.id)
                     }
 
 
                 console.log('saving objPredictions')
-                await this.objPredictionRepository.insert(objPredictions)
+                objPredIds = (await this.objPredictionRepository.insert(objPredictions)).identifiers
                 
 
             }
