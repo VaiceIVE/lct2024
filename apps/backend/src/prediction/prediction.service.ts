@@ -341,7 +341,6 @@ export class PredictionService {
                         socialType = 'tp'
                     }
 
-                    if(!coords[0] ||  !coords[1]){coords = null}
                     objPredictions.buildings.push({
                         address: address,
                         consumersCount: consumersCount,
