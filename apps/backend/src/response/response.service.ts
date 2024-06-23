@@ -379,7 +379,7 @@ export class ResponseService {
       let result = []
       for(let pair of array)
           {
-              const coordPair = pair.replace('[', '').split(', ')
+              const coordPair = pair.replace(']', '').replace('[', '').split(', ')
               result.push([+coordPair[0], +coordPair[1]])
           }
       return result as [[number, number]]

@@ -81,6 +81,14 @@ export class PredictionService {
         const headers = [['Адрес Объекта', 'Событие', 'Вероятность события','Дата события', 'Количество потребителей', 'Мунициапльный округ', 'Тип объекта в системе', 'Приоритет реагирования']]
         XLSX.utils.sheet_add_aoa(ws, headers)
         if(!ws["!cols"]) ws["!cols"] = []
+        if(!ws["!cols"][0]) ws["!cols"][0] = {wch: 8};
+        if(!ws["!cols"][1]) ws["!cols"][1] = {wch: 8};
+        if(!ws["!cols"][2]) ws["!cols"][2] = {wch: 8};
+        if(!ws["!cols"][3]) ws["!cols"][3] = {wch: 8};
+        if(!ws["!cols"][4]) ws["!cols"][4] = {wch: 8};
+        if(!ws["!cols"][5]) ws["!cols"][5] = {wch: 8};
+        if(!ws["!cols"][6]) ws["!cols"][6] = {wch: 8};
+        if(!ws["!cols"][7]) ws["!cols"][7] = {wch: 8};
         ws["!cols"][0].wpx = 50
         ws["!cols"][1].wpx = 50
         ws["!cols"][2].wpx = 50
