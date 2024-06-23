@@ -7,7 +7,7 @@ import * as fs from 'fs';
 import { Buffer } from 'buffer';
 import { default as answer } from '../static/answer.json';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { Prediction } from './entities/prediction.entity';
 import { HeatPoint, Obj } from '../database/entities-index';
@@ -162,21 +162,16 @@ export class PredictionService {
                 console.log('saving events')
                 await this.eventRepository.insert(events)
                 console.log('searching unoms')
-                for (const unom of unomDict[cluster])
+
+                const objs = await this.objRepository.find({where: {unom: In(unomDict[cluster])}})
+
+                for (const obj of objs)
                     {
-                        let obj = await this.objRepository.findOne({where: {unom: unom}})
-                        if(! obj)
-                            {
-                                continue
-                            }
-                        if(data[unom] == cluster)
-                            {
-                                const newObjPrediction = this.objPredictionRepository.create({
-                                    events: events,
-                                    object: obj
-                                })
-                                objPredictions.push(newObjPrediction)
-                            }
+                            const newObjPrediction = this.objPredictionRepository.create({
+                                events: events,
+                                object: obj
+                            })
+                            objPredictions.push(newObjPrediction)
                     }
                 console.log('saving objPredictions')
                 await this.objPredictionRepository.insert(objPredictions)
