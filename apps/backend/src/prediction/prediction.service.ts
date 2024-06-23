@@ -244,6 +244,10 @@ export class PredictionService {
                 console.log(objPredictions)
 
                 let events = []
+                if(!objPrediction.cluster)
+                    {
+                        continue
+                    }
                 for(const event of objPrediction.cluster.events)
                     {
                         if(event.date.split('-')[1] == monthNum)
