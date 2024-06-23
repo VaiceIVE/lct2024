@@ -47,7 +47,8 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
       )
       .filter((b) => !watch('district') || b.district === watch('district'))
       .filter(
-        (b) => !watch('networkType') || b.networkType === watch('networkType')
+        (b) =>
+          watch('tpAddress') || b.connectionInfo?.address === watch('tpAddress')
       )
       .filter(
         (b) =>
@@ -77,7 +78,6 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
 
     if (data?.length) {
       const uniqTp = getUniqueAddresses(data);
-      console.log('uniqTp', uniqTp);
       setTpAddresses(uniqTp);
     }
   }, [data]);

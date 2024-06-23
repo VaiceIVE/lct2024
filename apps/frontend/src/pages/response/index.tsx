@@ -197,12 +197,12 @@ const ResponsePage = observer(() => {
         new Set(
           items
             .filter((item) => item.connectionInfo?.address)
-            .map((item) => ({
-              value: item.connectionInfo!.address!,
-              label: item.connectionInfo!.address!,
-            }))
+            .map((i) => i.connectionInfo?.address)
         )
-      );
+      ).map((i) => ({
+        value: i!,
+        label: i!,
+      }));
     };
 
     if (response?.obj.length) {
