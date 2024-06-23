@@ -48,7 +48,8 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
       .filter((b) => !watch('district') || b.district === watch('district'))
       .filter(
         (b) =>
-          watch('tpAddress') || b.connectionInfo?.address === watch('tpAddress')
+          !watch('tpAddress') ||
+          b.connectionInfo?.address === watch('tpAddress')
       )
       .filter(
         (b) =>
@@ -136,9 +137,6 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
                 fullWidth
                 type="light"
                 label="Фильтры"
-                isActive={Boolean(
-                  Object.values(watch()).filter((e) => e).length
-                )}
                 onClick={() => setOpen((prev) => !prev)}
                 icon={
                   isOpen ? (
