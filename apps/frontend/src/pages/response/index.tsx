@@ -31,6 +31,7 @@ import { ResponseList } from 'widgets/response-list';
 import { PageNotice } from '../../shared/ui/PageNotice';
 import { observer } from 'mobx-react-lite';
 import { Context } from 'main';
+import { responseData } from 'shared/constants/mock';
 
 dayjs.extend(customParseFormat);
 
@@ -66,28 +67,29 @@ const ResponsePage = observer(() => {
   );
 
   const getResponse = () => {
-    setLoading(true);
-    ResponseServices.getResponse()
-      .then((response) => {
-        setResponse({
-          date: response.data.date,
-          obj: response.data?.obj.map((o) => ({
-            ...o,
-            connectionInfo: isNull(o.coords)
-              ? null
-              : findSquareForHouse(o.coords),
-          })),
-        });
-        const format = 'DD MMMM';
-        if (response.data.date !== dayjs(date).format('DD MMMM').toString()) {
-          setDate(
-            dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
-          );
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    setResponse(responseData);
+    // setLoading(true);
+    // ResponseServices.getResponse()
+    //   .then((response) => {
+    //     setResponse({
+    //       date: response.data.date,
+    //       obj: response.data?.obj.map((o) => ({
+    //         ...o,
+    //         connectionInfo: isNull(o.coords)
+    //           ? null
+    //           : findSquareForHouse(o.coords),
+    //       })),
+    //     });
+    //     const format = 'DD MMMM';
+    //     if (response.data.date !== dayjs(date).format('DD MMMM').toString()) {
+    //       setDate(
+    //         dayjs(response.data.date.toLocaleLowerCase(), format, 'ru').toDate()
+    //       );
+    //     }
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
   };
 
   const handleAddObject = () => {

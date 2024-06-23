@@ -29,6 +29,10 @@
     }
   }
 
+  &.active {
+    border: 1px solid $link-hover-color;
+  }
+
   &.disabled {
     opacity: 0.5;
     color: white;

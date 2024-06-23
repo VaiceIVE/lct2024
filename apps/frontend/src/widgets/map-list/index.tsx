@@ -44,7 +44,7 @@ export const MapList = ({
 }: MapListProps) => {
   const [isOpen, setOpen] = useState(false);
 
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
 
   return (
     <Stack gap={40}>
@@ -67,6 +67,7 @@ export const MapList = ({
             type="light"
             onClick={() => setOpen((prev) => !prev)}
             w={57}
+            isActive={Boolean(Object.values(watch()).filter((e) => e).length)}
             icon={
               isOpen ? (
                 <IconFilterMinus size={18} />
