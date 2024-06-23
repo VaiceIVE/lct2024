@@ -115,8 +115,9 @@ export class PredictionService {
 
     public async getPrediction(id: number, monthNum: string)
     {
-        const prediction = await this.predictionRepository.findOne({where: {id: id}, relations: {objPredictions: {cluster: true, heatPoint: true, object: true}}})
-        console.log('found prediction')
+        const prediction = await this.predictionRepository.findOne({where: {id: id}})
+        const objPredictions = await this.objPredictionRepository.find({where:{prediction: {id: id}}, relations: {cluster: true, object: true}})
+        prediction.objPredictions = objPredictions
         return await this.handlePredictionOutput(prediction, monthNum)
     }
 
