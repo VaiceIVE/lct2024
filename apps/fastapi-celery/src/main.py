@@ -268,6 +268,7 @@ async def process(files: List[UploadFile]):
         df = df.T.reset_index().T
         header = df.head(5)
         
+        logging.warning('start check')
         if find_column(header, ['unom', 'UNOM']):
             features_dict.update({'unom': find_column(header, ['unom', 'UNOM'])})
         if find_column(header,  ['Материал']):
@@ -329,6 +330,7 @@ async def process(files: List[UploadFile]):
         logging.warning(len(df.index))
         counter = 0
 
+        logging.warning('sending tasks')
         for i in range(0, len(df.index), batch_size):
             df_encoded = new_df.iloc[i:i + batch_size + 1,:].to_dict()
             counter += 1
@@ -336,7 +338,6 @@ async def process(files: List[UploadFile]):
             tasks.append(task)
         for task in tasks:
             tasks_ids.append(task.id)
-            requests.post(backend_url, data=json.dumps(task.get(), indent=2), headers={'Content-Type': 'application/json'})
         logging.warning(counter)
     #8450
     return {"result": tasks_ids}
