@@ -19,9 +19,4 @@ export class Cluster {
     @OneToMany(() => ObjPrediction, (obj) => obj.cluster)
     @JoinTable()
     object: ObjPrediction
-
-    @ManyToOne(() => HeatPoint, (hp) => hp.objPredictions)
-    @JoinTable()
-    heatPoint: HeatPoint
-
 }
