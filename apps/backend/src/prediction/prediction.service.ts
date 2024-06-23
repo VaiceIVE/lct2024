@@ -124,7 +124,7 @@ export class PredictionService {
         for (let objPrediction of objPredictions)
             {
                 console.log(objPrediction.object)
-                if(counter > 10)
+                if(counter > 500)
                     {
                         break
                     }
