@@ -289,7 +289,7 @@ export const responseData: IResponse = {
         [37.668331407, 55.766248494],
         [37.668299521, 55.766243148],
       ],
-      coolingRate: 0,
+      coolingRate: 3,
     },
   ],
 };

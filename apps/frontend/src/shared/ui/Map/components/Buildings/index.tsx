@@ -11,13 +11,13 @@ import social1 from 'shared/assets/priorityIcons/social1.svg';
 import social2 from 'shared/assets/priorityIcons/social2.svg';
 import social3 from 'shared/assets/priorityIcons/social3.svg';
 
-import prom1 from 'shared/assets/priorityIcons/mkd1.svg';
-import prom2 from 'shared/assets/priorityIcons/mkd2.svg';
-import prom3 from 'shared/assets/priorityIcons/mkd3.svg';
+import prom1 from 'shared/assets/priorityIcons/prom1.svg';
+import prom2 from 'shared/assets/priorityIcons/prom2.svg';
+import prom3 from 'shared/assets/priorityIcons/prom3.svg';
 
-import tp1 from 'shared/assets/priorityIcons/mkd1.svg';
-import tp2 from 'shared/assets/priorityIcons/mkd2.svg';
-import tp3 from 'shared/assets/priorityIcons/mkd3.svg';
+import tp1 from 'shared/assets/priorityIcons/tp1.svg';
+import tp2 from 'shared/assets/priorityIcons/tp2.svg';
+import tp3 from 'shared/assets/priorityIcons/tp3.svg';
 
 interface BuildingsProps {
   markers: IBuilding[] | IObj[];
