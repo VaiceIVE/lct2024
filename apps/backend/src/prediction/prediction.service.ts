@@ -165,6 +165,9 @@ export class PredictionService {
 
                 const objs = await this.objRepository.find({where: {unom: In(unomDict[cluster])}})
 
+                console.log('found objects')
+                console.log(objs.length)
+
                 for (const obj of objs)
                     {
                             const newObjPrediction = this.objPredictionRepository.create({
