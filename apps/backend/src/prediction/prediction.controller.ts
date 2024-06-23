@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, StreamableFile, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PredictionService } from './prediction.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiResponse } from '@nestjs/swagger';
@@ -43,6 +43,13 @@ export class PredictionController {
   {
     return this.predictionService.getSaved()
   }
+
+  @Get('/:id/:month/export')
+  public async getExportedDoc(@Param('id') id: number, @Param('month') monthNum: string)
+  {
+    return new StreamableFile(await this.predictionService.export(id, monthNum))
+  }
+
   //@UseGuards(AccessTokenGuard)
   @Get('/:id/save/')
   public async savePrediction(@Param('id') id: number)

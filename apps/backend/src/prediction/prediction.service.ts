@@ -15,7 +15,7 @@ import { ObjPrediction } from './entities/objPrediction.entity';
 import { IObjResponse, IPrediction } from './interfaces/IObjResponse.interface';
 import { join } from 'path';
 import { Cluster } from './entities/cluster.entity';
-
+import * as XLSX from 'xlsx';
 @Injectable()
 export class PredictionService {
     constructor(
@@ -48,6 +48,41 @@ export class PredictionService {
                 res.push({id: data.id, dateCreated: data.dateCreated, objectCount: data.objPredictions.length})
             }
         return res
+    }
+
+    public async export(id: number, monthNum: string)
+    {
+        const prediction = await this.predictionRepository.create({})
+        const objPredictions = await this.objPredictionRepository.find({where:{prediction: {id: id}}, relations: {object: true}, loadEagerRelations: false})
+        let counter = 0
+        let new_obj_predictions = []
+        for (let objPrediction of objPredictions)
+            {
+                console.log(objPrediction.object)
+                if(counter > 520)
+                    {
+                        break
+                    }
+                counter += 1
+                let cluster = await this.clusterRepository.findOne({where: {objPrediction: {id: objPrediction.id}}, loadEagerRelations: false})
+                let events = await this.eventRepository.find({where: {cluster: {id: cluster.id}, month: monthNum}})
+                cluster.events = events
+                objPrediction.cluster = cluster
+                new_obj_predictions.push(objPrediction)
+            }
+        prediction.objPredictions = new_obj_predictions
+        return await this.handleExport(prediction, monthNum)
+    }
+
+    private async handleExport(prediction: Prediction, monthNum: string)
+    {
+        const json = await this.handlePredictionOutput(prediction, monthNum)
+
+        const ws = XLSX.utils.json_to_sheet(json.buildings)  
+        var wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, ws, "Data");  
+        const buf = XLSX.write(wb, { type:"buffer", bookType:"xlsx" });
+        return buf
     }
 
     public async loadData(files: Express.Multer.File[])
@@ -135,7 +170,7 @@ export class PredictionService {
         for (let objPrediction of objPredictions)
             {
                 console.log(objPrediction.object)
-                if(counter > 500)
+                if(counter > 520)
                     {
                         break
                     }
@@ -444,6 +479,7 @@ export class PredictionService {
                                 //             }
                                 //     }
                         }
+
                     const zNorm = beta * Math.log((25 - outTemp)/(18 - outTemp))
                     const zAbs = beta * Math.log((25 - outTemp)/(0 - outTemp))
                     obj.coolingRate =  (25 - outTemp) / zAbs
@@ -468,8 +504,6 @@ export class PredictionService {
 
     private handleBoundariesString(boundary: string)
     {        
-        const str = "{coordinates=[[[37.33520677, 55.616313792], [37.334866797, 55.61609229], [37.3347208, 55.616164937], [37.334840829, 55.616494016], [37.33520677, 55.616313792]]], type=Polygon}"
-        const str2 = '[37.33520677, 55.616313792], [37.334866797, 55.61609229], [37.3347208, 55.616164937], [37.334840829, 55.616494016], [37.33520677, 55.616313792]'
         const array = boundary.split(']], type')[0].split('=[[')[1].split('],')
         let result = []
         for(let pair of array)

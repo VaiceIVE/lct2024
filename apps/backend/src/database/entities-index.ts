@@ -1,5 +1,6 @@
 export * from '../obj/entities/heatpoint.entity'
 export * from '../obj/entities/obj.entity'
+export * from '../prediction/entities/cluster.entity'
 export * from '../prediction/entities/event.entity'
 export * from '../prediction/entities/objPrediction.entity'
 export * from '../prediction/entities/prediction.entity'
