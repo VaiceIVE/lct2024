@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PredictionService } from './prediction.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiResponse } from '@nestjs/swagger';
@@ -16,6 +16,12 @@ export class PredictionController {
   public async createPrediction(@UploadedFiles() files: Express.Multer.File[])
   {
     return this.predictionService.createPrediction(files)
+  }
+
+  @Post('htest')
+  public async handleResponseTest(@Body()data: Record<string, any> )
+  {
+    return this.predictionService.handleResponseData(data.response)
   }
 
   //@UseGuards(AccessTokenGuard)

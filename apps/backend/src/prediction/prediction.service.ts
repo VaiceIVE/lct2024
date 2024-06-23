@@ -97,7 +97,7 @@ export class PredictionService {
                 fs.writeFileSync(file.originalname, file.buffer);
                 formdata.append('files', file.buffer, file.originalname)
             }
-            console.log('dataLoad')
+        console.log('dataLoad')
         let dataLoadStatus = axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
         console.log('send data load request')
         let predictionAnswer = (await predictionStatus).data
@@ -116,12 +116,12 @@ export class PredictionService {
         return await this.handlePredictionOutput(prediction, monthNum)
     }
 
-    private async handleResponseData(predictionAnswer: any, isDefault: boolean = false)
+    public async handleResponseData(predictionAnswer: any, isDefault: boolean = false)
     {
         const clusters_day_predicts_keys = Object.keys(predictionAnswer.what_anomaly_propability.clusters__day_predict)
         const data = predictionAnswer.what_anomaly_propability.unom_ids__clusters     
         let objPredictions = []
-
+        console.log(clusters_day_predicts_keys)
         for (const cluster of clusters_day_predicts_keys)
             {
                 const cluster_days = Object.keys(predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster])
@@ -144,9 +144,10 @@ export class PredictionService {
                                 events.push(newEvent)
                             }
                     }
-                    await this.eventRepository.save(events)
+                await this.eventRepository.save(events)
                 for (const unom of Object.keys(data))
                     {
+                        console.log(unom)
                         let obj = await this.objRepository.findOne({where: {unom: unom}})
                         if(! obj)
                             {
