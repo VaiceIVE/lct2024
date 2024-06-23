@@ -10,7 +10,7 @@ export class ObjPrediction {
     @PrimaryGeneratedColumn()
     id: number
 
-    @OneToOne(() => Event, (event) => event.object,{
+    @OneToOne(() => Cluster, (event) => event.object,{
         cascade: true,
         eager: true
     })
