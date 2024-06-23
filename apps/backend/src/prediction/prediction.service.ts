@@ -80,14 +80,17 @@ export class PredictionService {
         const ws = XLSX.utils.sheet_new()  
         const headers = [['Адрес Объекта', 'Событие', 'Вероятность события','Дата события', 'Количество потребителей', 'Мунициапльный округ', 'Тип объекта в системе', 'Приоритет реагирования']]
         XLSX.utils.sheet_add_aoa(ws, headers)
+        let origin = 1
         for(const object of json.buildings)
             {
                 const newString = [[object.address, '', '', '', object.consumersCount, object.district, TypeDict[object.socialType], object.priority]]
-                XLSX.utils.sheet_add_aoa(ws, newString)
+                XLSX.utils.sheet_add_aoa(ws, newString, {origin: origin})
+                origin += 1
                 for(const event of object.events)
                     {
                         const newString = [['', event.eventName, event.chance, event.date]]
                         XLSX.utils.sheet_add_aoa(ws, newString)
+                        origin += 1
                     }
             }
 
