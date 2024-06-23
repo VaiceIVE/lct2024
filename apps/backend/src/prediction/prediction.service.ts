@@ -161,6 +161,7 @@ export class PredictionService {
                     }
                 console.log('saving events')
                 await this.eventRepository.save(events)
+                console.log('searching unoms')
                 for (const unom of unomDict[cluster])
                     {
                         let obj = await this.objRepository.findOne({where: {unom: unom}})
