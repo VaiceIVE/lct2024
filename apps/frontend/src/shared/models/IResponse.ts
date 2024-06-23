@@ -21,6 +21,6 @@ export interface IObj {
   characteristics: { [key: string]: string | number };
   connectionInfo: ICtp | null;
   index?: number;
-  geoBoundaries: [number, number][] | null;
+  geoBoundary: [number, number][] | null;
   coolingRate: number;
 }

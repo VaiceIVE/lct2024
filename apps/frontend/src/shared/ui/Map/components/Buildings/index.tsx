@@ -90,7 +90,7 @@ export const Buildings = ({ markers, onPlacemarkClick }: BuildingsProps) => {
     return getValueForRange(coolingRate, ranges);
   };
   return markers.map((marker) =>
-    marker.geoBoundaries ? (
+    marker.geoBoundary ? (
       <Polygon
         onClick={
           onPlacemarkClick
@@ -100,7 +100,7 @@ export const Buildings = ({ markers, onPlacemarkClick }: BuildingsProps) => {
             : undefined
         }
         key={marker.address}
-        geometry={[marker.geoBoundaries.map((g) => [g[1], g[0]])]}
+        geometry={[marker.geoBoundary.map((g) => [g[1], g[0]])]}
         options={{
           fillColor: getPolygonColor(marker.coolingRate),
           strokeColor: getPolygonColor(marker.coolingRate),

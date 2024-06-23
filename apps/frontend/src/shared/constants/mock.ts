@@ -30,7 +30,7 @@ export const data: IBuilding[] = [
       'Признак аварийности здания': 'Признак',
     },
     connectionInfo: null,
-    geoBoundaries: null,
+    geoBoundary: null,
   },
   {
     address: 'Новокосинская улица, 32, Москва, 111673',
@@ -60,7 +60,7 @@ export const data: IBuilding[] = [
       'Признак аварийности здания': 'Признак',
     },
     connectionInfo: null,
-    geoBoundaries: null,
+    geoBoundary: null,
   },
   {
     address: 'Новокосинская улица, 32, Москва, 123',
@@ -90,7 +90,7 @@ export const data: IBuilding[] = [
       'Признак аварийности здания': 'Признак',
     },
     connectionInfo: null,
-    geoBoundaries: null,
+    geoBoundary: null,
   },
   {
     address: 'Новокосинская улица, 32, Москва, 1223',
@@ -120,7 +120,7 @@ export const data: IBuilding[] = [
       'Признак аварийности здания': 'Признак',
     },
     connectionInfo: null,
-    geoBoundaries: null,
+    geoBoundary: null,
   },
   {
     address: 'Новокоси2нская улица, 32, Москва, 1223',
@@ -150,7 +150,7 @@ export const data: IBuilding[] = [
       'Признак аварийности здания': 'Признак',
     },
     connectionInfo: null,
-    geoBoundaries: null,
+    geoBoundary: null,
   },
 ];
 
@@ -181,7 +181,7 @@ export const responseData: IResponse = {
         'Признак аварийности здания': 'Признак',
       },
       connectionInfo: null,
-      geoBoundaries: [
+      geoBoundary: [
         [37.806190767, 55.816829558],
         [37.806385426, 55.81683491],
         [37.806389818, 55.816784602],
@@ -238,7 +238,7 @@ export const responseData: IResponse = {
         'Признак аварийности здания': 'Признак',
       },
       connectionInfo: null,
-      geoBoundaries: null,
+      geoBoundary: null,
       coolingRate: 5,
     },
     {
@@ -265,7 +265,7 @@ export const responseData: IResponse = {
         'Признак аварийности здания': 'Признак',
       },
       connectionInfo: null,
-      geoBoundaries: [
+      geoBoundary: [
         [37.668299521, 55.766243148],
         [37.668315336, 55.766216182],
         [37.668246771, 55.766202355],
