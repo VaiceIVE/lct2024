@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Obj } from "../../obj/entities/obj.entity";
 import { Event } from "./event.entity";
 import { HeatPoint, ObjPrediction, Prediction } from "../../database/entities-index";
@@ -13,7 +13,7 @@ export class Cluster {
         cascade: true,
         eager: true
     })
-    @JoinTable()
+    @JoinColumn()
     events: Event[]
 
     @OneToMany(() => ObjPrediction, (obj) => obj.cluster)
