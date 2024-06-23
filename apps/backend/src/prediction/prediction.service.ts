@@ -563,7 +563,8 @@ export class PredictionService {
                             const pairs = subarray.split('],')
                             for(const pair of pairs)
                                 {
-                                    subres.push(pair.replace(']', '').replace('[', '').split(', '))
+                                    const coordPair = pair.replace(']', '').replace('[', '').split(', ')
+                                    subres.push([+coordPair[0], +coordPair[1]])
                                 }
                             result.push(subres)
                         }
