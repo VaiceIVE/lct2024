@@ -171,7 +171,7 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
         buffers.append(await file.read())
     background_tasks.add_task(process, buffers)
     logging.warning('done setting up bg tasks')
-    return tasks_ids
+    return True
 
 
 @app.post("/process_old")

@@ -25,7 +25,6 @@ export class ResponseService {
     private objResponseRepository: Repository<ObjResponse>
   ){}
 
-
   async create(createResponseDto: CreateResponseDto) {
     
     const user = await this.userRepository.findOne({where: {id: createResponseDto.userId}})
@@ -172,39 +171,40 @@ export class ResponseService {
                 let address = ''
                 let consumersCount = 1
                 let coords = []
+                let geoBoundaries: [[number, number]] = null
                 let socialType = ''
                 let district = null
                 let characteristics :{[key: string] : string | number} = {}
                 if(object.heatPoint)
                 {
-                    address = object.heatPoint.addressTP
-                    consumersCount = 1 + await this.objRepository.count({where: {heatPoint: object.heatPoint}})
-                    socialType = 'tp'
-                    if(object.heatPoint.geodata)
-                    {
-                        object.heatPoint.geodata = object.heatPoint.geodata as string
-                        coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
-                        const coordsReturn = [coords[1], coords[0]]
-                        coords = coordsReturn
-                        for(let coord of coords)
-                            {
-                            coord = Number(coord)
-                            }
-                    }
-                    else
-                    {
-                     
-                        let geodataString = await this.getGeodataString(object.heatPoint.addressTP)
-                        object.heatPoint.geodata = geodataString
-                        this.heatPointRepository.save(object.heatPoint)
-                        coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
-                        const coordsReturn = [coords[1], coords[0]]
-                        coords = coordsReturn
-                        for(let coord of coords)
-                            {
-                            coord = Number(coord)
-                            }
-                    }
+                  address = object.heatPoint.addressTP
+                  consumersCount = 1 + await this.objRepository.count({where: {heatPoint: object.heatPoint}})
+                  socialType = 'tp'
+                  if(object.heatPoint.geodata)
+                  {
+                    object.heatPoint.geodata = object.heatPoint.geodata as string
+                    coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
+                    const coordsReturn = [coords[1], coords[0]]
+                    coords = coordsReturn
+                    for(let coord of coords)
+                      {
+                      coord = Number(coord)
+                      }
+                  }
+                  else
+                  {
+                    
+                      let geodataString = await this.getGeodataString(object.heatPoint.addressTP)
+                      object.heatPoint.geodata = geodataString
+                      this.heatPointRepository.save(object.heatPoint)
+                      coords = object.heatPoint.geodata.replace('[', '').replace(']', '').split(' ')
+                      const coordsReturn = [coords[1], coords[0]]
+                      coords = coordsReturn
+                      for(let coord of coords)
+                          {
+                          coord = Number(coord)
+                          }
+                  }
                 }
                 else
                 {
@@ -244,17 +244,37 @@ export class ResponseService {
                     {
                         characteristics['УНОМ'] = object.obj.unom
                     }
-                if(object.heatPoint)
+                if(object.obj.heatPoint)
                     {
                         const heatPoint = await this.heatPointRepository.findOne({where: {id: object.heatPoint.id}})
                         characteristics['Код ответствнного ЦТП/ИТП'] = heatPoint.code
                     }
-                    district = object.obj.munOkr
-                    address = object.obj.address
-                    socialType = object.obj.socialType
-                    if(object.obj.geodata)
-                    {
-                        object.obj.geodata = object.obj.geodata as string
+                if(object.obj.geoBoundaries)
+                  {
+                      geoBoundaries = this.handleBoundariesString(object.obj.geoBoundaries)
+                  }
+                    
+                district = object.obj.munOkr
+                address = object.obj.address
+                socialType = object.obj.socialType
+                if(object.obj.geodata)
+                {
+                  object.obj.geodata = object.obj.geodata as string
+                  coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
+                  const coordsReturn = [coords[1], coords[0]]
+                  coords = coordsReturn
+                  for(let coord of coords)
+                  {
+                    coord = Number(coord)
+                  }
+                }
+                else
+                {
+                    let geodataString = await this.getGeodataString(object.obj.address)
+                    if (geodataString)
+                      {
+                        object.obj.geodata = geodataString
+                        this.objRepository.save(object.obj)
                         coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
                         const coordsReturn = [coords[1], coords[0]]
                         coords = coordsReturn
@@ -262,24 +282,9 @@ export class ResponseService {
                         {
                             coord = Number(coord)
                         }
-                    }
-                    else
-                    {
-                        let geodataString = await this.getGeodataString(object.obj.address)
-                        if (geodataString)
-                          {
-                            object.obj.geodata = geodataString
-                            this.objRepository.save(object.obj)
-                            coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
-                            const coordsReturn = [coords[1], coords[0]]
-                            coords = coordsReturn
-                            for(let coord of coords)
-                            {
-                                coord = Number(coord)
-                            }
-                          }
-                        
-                    }
+                      }
+                    
+                }
                 }
                     let newIObj: IObj = {
                         id: id,
@@ -375,7 +380,17 @@ export class ResponseService {
   }
 
 
-
+  private handleBoundariesString(boundary: string)
+  {        
+      const array = boundary.split(']], type')[0].split('=[[')[1].split('],')
+      let result = []
+      for(let pair of array)
+          {
+              const coordPair = pair.replace('[', '').split(', ')
+              result.push([+coordPair[0], +coordPair[1]])
+          }
+      return result as [[number, number]]
+  }
 
   async getGeodataString(address: string)
   {

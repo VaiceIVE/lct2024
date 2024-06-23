@@ -102,9 +102,10 @@ export class PredictionService {
         console.log('send data load request')
         let predictionAnswer = (await predictionStatus).data
         console.log('prediction recieved')
-        await dataLoadStatus
-        console.log('start handling')
-        return await this.handleResponseData(predictionAnswer)
+        Promise.all([dataLoadStatus, predictionStatus]).then(async (values) => {
+            console.log('start handling')
+            return await this.handleResponseData(predictionAnswer)
+          });        
     }
 
     public async getPrediction(id: number, monthNum: string)
@@ -389,20 +390,15 @@ export class PredictionService {
     }
 
     private handleBoundariesString(boundary: string)
-    {
-        const str = '{coordinates=[[[37.668299521, 55.766243148], [37.668315336, 55.766216182], [37.668246771, 55.766202355], [37.668261022, 55.766182126], [37.668187668, 55.76616606], [37.668172624, 55.766187186], [37.668129571, 55.766178264], [37.668146162, 55.766146356], [37.668053683, 55.76612852], [37.668028316, 55.766157295], [37.667826607, 55.766116256], [37.667772749, 55.766188183], [37.667750422, 55.766182824], [37.667709247, 55.766240363], [37.667943647, 55.766288545], [37.667927035, 55.766315512], [37.668032275, 55.766336925], [37.668049686, 55.766310405], [37.668264952, 55.766354569], [37.668302916, 55.766291646], [37.668331407, 55.766248494], [37.668299521, 55.766243148]]], type=Polygon}'
-        
+    {        
         const array = boundary.split(']], type')[0].split('=[[')[1].split('],')
-    
         let result = []
         for(let pair of array)
             {
                 const coordPair = pair.replace('[', '').split(', ')
                 result.push([+coordPair[0], +coordPair[1]])
             }
-
         return result as [[number, number]]
-
     }
 
 
