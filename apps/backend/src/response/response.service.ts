@@ -282,6 +282,7 @@ export class ResponseService {
                         address: address,
                         consumersCount: consumersCount,
                         coords: coords,
+                        geoBoundary: geoBoundaries,
                         event: object.event,
                         district: district,
                         priority: 1,

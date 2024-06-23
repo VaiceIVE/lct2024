@@ -5,6 +5,7 @@ export interface IObj {
     isLast: boolean;
     consumersCount: number | null;
     event: string;
+    geoBoundary: [[number, number]];
     coords: number[];
     priority: number;
     district: string;
