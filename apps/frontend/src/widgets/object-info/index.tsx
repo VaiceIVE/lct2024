@@ -121,7 +121,7 @@ export const ObjectInfo = ({
                       {e.eventName}
                     </p>
                     <Flex align={'center'} gap={8}>
-                      <Chance value={+e.chance.toFixed(0)} />
+                      <Chance value={e.chance} />
                       <p className="text medium placeholder">|</p>
                       <p className="text medium placeholder">
                         {dayjs(e.date).format('DD.MM')}
