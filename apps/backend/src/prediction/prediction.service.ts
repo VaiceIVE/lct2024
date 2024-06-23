@@ -78,10 +78,17 @@ export class PredictionService {
     {
         const json = await this.handlePredictionOutput(prediction, monthNum)
         const ws = XLSX.utils.sheet_new()  
-
+        const headers = [['Адрес Объекта', 'Событие', 'Вероятность события','Дата события', 'Количество потребителей', 'Мунициапльный округ', 'Тип объекта в системе', 'Приоритет реагирования']]
+        XLSX.utils.sheet_add_aoa(ws, headers)
         for(const object of json.buildings)
             {
-                
+                const newString = [[object.address, '', '', '', object.consumersCount, object.district, TypeDict[object.socialType], object.priority]]
+                XLSX.utils.sheet_add_aoa(ws, newString)
+                for(const event of object.events)
+                    {
+                        const newString = [['', event.eventName, event.chance, event.date]]
+                        XLSX.utils.sheet_add_aoa(ws, newString)
+                    }
             }
 
         var wb = XLSX.utils.book_new()
@@ -586,6 +593,13 @@ const wallDict = {'монолитные (ж-б)': 0.940816878,
 'легкобетонные блоки': 0.940816878,
 'Монолитные': 0.747126437,
 'деревянные': 0.5}
+
+const TypeDict = {
+    'mkd': 'Многоквартирный дом',
+    'education': 'Объект образования',
+    'medicine': 'Объект здравоохранения',
+    'prom': 'Промышленный объект/прочее'
+}
 
 interface BufferedFile {
     fieldname: string;
