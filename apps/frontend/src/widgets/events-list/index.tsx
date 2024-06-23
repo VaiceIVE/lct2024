@@ -47,7 +47,8 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
       )
       .filter((b) => !watch('district') || b.district === watch('district'))
       .filter(
-        (b) => !watch('networkType') || b.networkType === watch('networkType')
+        (b) =>
+          watch('tpAddress') || b.connectionInfo?.address === watch('tpAddress')
       )
       .filter(
         (b) =>
@@ -67,17 +68,16 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
         new Set(
           items
             .filter((item) => item.connectionInfo?.address)
-            .map((item) => ({
-              value: item.connectionInfo!.address!,
-              label: item.connectionInfo!.address!,
-            }))
+            .map((i) => i.connectionInfo?.address)
         )
-      );
+      ).map((i) => ({
+        value: i!,
+        label: i!,
+      }));
     };
 
     if (data?.length) {
       const uniqTp = getUniqueAddresses(data);
-      console.log('uniqTp', uniqTp);
       setTpAddresses(uniqTp);
     }
   }, [data]);
