@@ -9,7 +9,7 @@ export class Cluster {
     @PrimaryGeneratedColumn()
     id: number
 
-    @ManyToMany(() => Event, (event) => event.object,{
+    @ManyToMany(() => Event, (event) => event.cluster,{
         cascade: true,
         eager: true
     })
