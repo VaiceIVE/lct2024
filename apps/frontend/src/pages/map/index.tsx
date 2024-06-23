@@ -195,6 +195,7 @@ const MapPage = () => {
 
       if (location?.state?.obj) {
         setSelectedObj(location.state.obj);
+        console.log('location', location?.state?.obj);
       }
     }
   }, [isResponse, location]);
