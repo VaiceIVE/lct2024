@@ -105,7 +105,9 @@ export class PredictionService {
         // Promise.all([dataLoadStatus, predictionStatus]).then(async () => {
         //     console.log('start handling')
         //     return await this.handleResponseData(predictionAnswer)
-        //   });        
+        //   });  
+        console.log('start handling')
+        return await this.handleResponseData(predictionAnswer)      
     }
 
     public async getPrediction(id: number, monthNum: string)
