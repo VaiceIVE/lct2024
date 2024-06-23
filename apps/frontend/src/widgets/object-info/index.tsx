@@ -25,7 +25,7 @@ export const ObjectInfo = ({
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
 
-    return +dateB - +dateA;
+    return +dateA - +dateB;
   };
 
   return (
@@ -113,8 +113,8 @@ export const ObjectInfo = ({
           />
           <Grid gutter={12}>
             {selectedBuilding.events
-              .sort((a, b) => (a.eventName > b.eventName ? 1 : -1))
               .sort(compare)
+              .sort((a, b) => (a.eventName > b.eventName ? 1 : -1))
               .map((e, index) => (
                 <Grid.Col key={index} span={6}>
                   <Card h={'100%'} p="20px" radius={'8px'} type="dark">
