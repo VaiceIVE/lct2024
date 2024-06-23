@@ -65,7 +65,7 @@ export class PredictionService {
     public async createDefaultPrediction()
     {
         console.log('default')
-        if(await this.predictionRepository.findOneBy({isDefault: true}))
+        if(await this.predictionRepository.findOne({where: {isDefault: true}, loadEagerRelations: false}))
             {
                 console.log('found')
                 return (await this.predictionRepository.findOne({where: {isDefault: true}, select: {id: true}})).id
