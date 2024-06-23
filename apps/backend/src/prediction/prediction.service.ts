@@ -237,12 +237,10 @@ export class PredictionService {
             id: prediction.id,
             buildings: []
         }
-
+        return 1
         console.log(prediction.objPredictions)
         for(const objPrediction of prediction.objPredictions)
             {
-                console.log(objPredictions)
-
                 let events = []
                 if(!objPrediction.cluster)
                     {
