@@ -119,7 +119,20 @@ export class PredictionService {
     public async handleResponseData(predictionAnswer: any, isDefault: boolean = false)
     {
         const clusters_day_predicts_keys = Object.keys(predictionAnswer.what_anomaly_propability.clusters__day_predict)
-        const data = predictionAnswer.what_anomaly_propability.unom_ids__clusters     
+        const data = predictionAnswer.what_anomaly_propability.unom_ids__clusters   
+        
+        let unomDict = {}
+        for(const cluster of clusters_day_predicts_keys)
+            {
+                unomDict[cluster] = []
+            }
+
+        for (const unom of Object.keys(data))
+            {
+                unomDict[data[unom]].append(unom)
+            }
+
+
         let objPredictions = []
         console.log(clusters_day_predicts_keys)
         for (const cluster of clusters_day_predicts_keys)
@@ -145,7 +158,7 @@ export class PredictionService {
                             }
                     }
                 await this.eventRepository.save(events)
-                for (const unom of Object.keys(data))
+                for (const unom of unomDict[cluster])
                     {
                         console.log(unom)
                         let obj = await this.objRepository.findOne({where: {unom: unom}})
