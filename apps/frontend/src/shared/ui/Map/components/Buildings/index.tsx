@@ -24,12 +24,6 @@ interface BuildingsProps {
   onPlacemarkClick?: (building: IBuilding | null, obg: IObj | null) => void;
 }
 
-type Range = {
-  min: number;
-  max: number;
-  value: any;
-};
-
 const mkd = {
   1: mkd1,
   2: mkd2,
@@ -54,6 +48,12 @@ const tp = {
   3: tp3,
 };
 
+const polygonColors: { [key: number]: string } = {
+  1: 'rgba(235, 87, 87, 1)',
+  2: 'rgba(235, 167, 87, 1)',
+  3: 'rgba(225, 209, 66, 1)',
+};
+
 export const Buildings = ({ markers, onPlacemarkClick }: BuildingsProps) => {
   const iconsTypes: { [key: string]: { [key: number]: string } } = {
     mkd,
@@ -63,33 +63,36 @@ export const Buildings = ({ markers, onPlacemarkClick }: BuildingsProps) => {
     tp,
   };
 
-  const getValueForRange = (coolingRate: number, ranges: Range[]): any => {
-    for (const range of ranges) {
-      if (coolingRate >= range.min && coolingRate <= range.max) {
-        return range.value;
-      }
+  const getMarkers = () => {
+    if (markers.length) {
+      const minCoolingRate = Math.min(
+        ...markers.map((item) => item.coolingRate)
+      );
+      const maxCoolingRate = Math.max(
+        ...markers.map((item) => item.coolingRate)
+      );
+
+      const range = maxCoolingRate - minCoolingRate;
+      const threshold1 = minCoolingRate + range / 3;
+      const threshold2 = minCoolingRate + (2 * range) / 3;
+
+      return markers.map((item) => {
+        let colorType;
+        if (item.coolingRate <= threshold1) {
+          colorType = 1;
+        } else if (item.coolingRate <= threshold2) {
+          colorType = 2;
+        } else {
+          colorType = 3;
+        }
+        return { ...item, colorType };
+      });
     }
-    throw new Error('Cooling rate is out of range');
+
+    return [];
   };
 
-  const getIconColor = (coolingRate: number): number => {
-    const ranges: Range[] = [
-      { min: 0, max: 1, value: 3 },
-      { min: 1.01, max: 3, value: 2 },
-      { min: 3.01, max: 5, value: 1 },
-    ];
-    return getValueForRange(coolingRate, ranges);
-  };
-
-  const getPolygonColor = (coolingRate: number): string => {
-    const ranges: Range[] = [
-      { min: 0, max: 1, value: 'rgba(235, 87, 87, 1)' },
-      { min: 1.01, max: 3, value: 'rgba(235, 167, 87, 1)' },
-      { min: 3.01, max: 5, value: 'rgba(225, 209, 66, 1)' },
-    ];
-    return getValueForRange(coolingRate, ranges);
-  };
-  return markers.map((marker) =>
+  return getMarkers().map((marker) =>
     marker.geoBoundary ? (
       <Polygon
         onClick={
@@ -102,8 +105,8 @@ export const Buildings = ({ markers, onPlacemarkClick }: BuildingsProps) => {
         key={marker.address}
         geometry={[marker.geoBoundary.map((g) => [g[1], g[0]])]}
         options={{
-          fillColor: getPolygonColor(marker.coolingRate),
-          strokeColor: getPolygonColor(marker.coolingRate),
+          fillColor: polygonColors[marker.colorType],
+          strokeColor: polygonColors[marker.colorType],
           opacity: 0.5,
           strokeWidth: 2,
         }}
@@ -125,14 +128,9 @@ export const Buildings = ({ markers, onPlacemarkClick }: BuildingsProps) => {
           }
           geometry={marker.coords}
           modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
-          properties={{
-            src: iconsTypes[marker.socialType],
-            color: getIconColor(1),
-          }}
           options={{
             iconLayout: 'default#image',
-            iconImageHref:
-              iconsTypes[marker.socialType][getIconColor(marker.coolingRate)],
+            iconImageHref: iconsTypes[marker.socialType][marker.colorType],
             iconColor: '#FFFFFF',
             iconImageSize: [30, 30],
             iconPieChartCoreFillStyle: 'red',
