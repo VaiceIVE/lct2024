@@ -1,6 +1,6 @@
 import { Divider, Flex, Grid, Stack } from '@mantine/core';
 import { buildingTypes } from 'shared/constants/buildingTypes';
-import { IBuilding } from 'shared/models/IBuilding';
+import { IBuilding, IEvents } from 'shared/models/IBuilding';
 import { IObj } from 'shared/models/IResponse';
 import { Card } from 'shared/ui/Card';
 import { Chance } from 'shared/ui/Chance';
@@ -20,6 +20,13 @@ export const ObjectInfo = ({
   selectedObj,
 }: ObjectCardProps) => {
   const item = selectedBuilding ? selectedBuilding : selectedObj;
+
+  const compare = (a: IEvents, b: IEvents) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    return +dateB - +dateA;
+  };
 
   return (
     <Stack gap={44}>
@@ -107,6 +114,7 @@ export const ObjectInfo = ({
           <Grid gutter={12}>
             {selectedBuilding.events
               .sort((a, b) => (a.eventName > b.eventName ? 1 : -1))
+              .sort(compare)
               .map((e, index) => (
                 <Grid.Col key={index} span={6}>
                   <Card h={'100%'} p="20px" radius={'8px'} type="dark">
