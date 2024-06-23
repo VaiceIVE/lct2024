@@ -24,6 +24,13 @@ export class PredictionController {
     return this.predictionService.handleResponseData(data.response)
   }
 
+  @UseInterceptors(FilesInterceptor('files'))
+  @Post('load')
+  public async loadData(@UploadedFiles() files: Express.Multer.File[])
+  {
+    return await this.predictionService.loadData(files)
+  }
+
   //@UseGuards(AccessTokenGuard)
   @Get('/default/')
   public async getDefaultPrediction()

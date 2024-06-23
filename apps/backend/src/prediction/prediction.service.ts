@@ -50,6 +50,18 @@ export class PredictionService {
         return res
     }
 
+    public async loadData(files: Express.Multer.File[])
+    {
+        const FormData = require('form-data');
+        let formdata = new FormData()
+        for (const file of files)
+            {
+                fs.writeFileSync(file.originalname, file.buffer);
+                formdata.append('files', file.buffer, file.originalname)
+            }
+        return await axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
+    }
+
     public async createDefaultPrediction()
     {
         console.log('default')
@@ -116,9 +128,7 @@ export class PredictionService {
     public async getPrediction(id: number, monthNum: string)
     {
         const prediction = await this.predictionRepository.create({})
-        console.log('found prediction')
         const objPredictions = await this.objPredictionRepository.find({where:{prediction: {id: id}}, relations: {object: true}, loadEagerRelations: false})
-        console.log('iteratingObjPreds')
         let counter = 0
         let new_obj_predictions = []
         for (let objPrediction of objPredictions)
@@ -240,7 +250,6 @@ export class PredictionService {
             id: prediction.id,
             buildings: []
         }
-        console.log(prediction.objPredictions.length)
         for(const objPrediction of prediction.objPredictions)
             {
                 let events = []
@@ -248,7 +257,6 @@ export class PredictionService {
                     {
                         continue
                     }
-                    console.log('not undef')
                 for(const event of objPrediction.cluster.events)
                     {
                         if(event.date.split('-')[1] == monthNum)
