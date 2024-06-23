@@ -117,7 +117,7 @@ export class PredictionService {
         console.log('send data load request')
         let predictionAnswer = (await predictionStatus).data
         console.log('prediction recieved')
-        await dataLoadStatus
+        //await dataLoadStatus
         // Promise.all([dataLoadStatus, predictionStatus]).then(async () => {
         //     console.log('start handling')
         //     return await this.handleResponseData(predictionAnswer)
