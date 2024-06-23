@@ -27,7 +27,6 @@ export class Event {
 
 
     @ManyToOne(() => Cluster, (event) => event.events,{
-        eager: true
     })
     @JoinTable()
     cluster: Cluster
