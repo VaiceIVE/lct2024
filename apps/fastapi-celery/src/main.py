@@ -160,15 +160,17 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
         tasks.append(task)
 
     tasks_ids = []
+    logging.warning('sending tasks')
     for task in tasks:
         tasks_ids.append(task.id)
         requests.post(backend_url, data=json.dumps(task.get(), indent=2), headers={'Content-Type': 'application/json'})
     buffers = []
+    logging.warning('sending buffers')
     for file in files:
         await file.seek(0)
         buffers.append(await file.read())
     background_tasks.add_task(process, buffers)
-
+    logging.warning('done setting up bg tasks')
     return tasks_ids
 
 
