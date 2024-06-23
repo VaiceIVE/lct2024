@@ -5,7 +5,7 @@ import numpy as np
 from typing import List
 import logging
 from dotenv import load_dotenv
-from worker import pandas_handling
+from worker import pandas_handling, pandas_handling_old
 import requests
 import json
 from fastapi.middleware.cors import CORSMiddleware
@@ -332,7 +332,7 @@ async def process(files: List[UploadFile]):
         for i in range(0, len(df.index), batch_size):
             df_encoded = new_df.iloc[i:i + batch_size + 1,:].to_dict()
             counter += 1
-            task = pandas_handling.delay(df_encoded)
+            task = pandas_handling_old.delay(df_encoded)
             tasks.append(task)
         for task in tasks:
             tasks_ids.append(task.id)
