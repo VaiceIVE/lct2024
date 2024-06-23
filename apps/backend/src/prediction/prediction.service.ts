@@ -207,7 +207,7 @@ export class PredictionService {
         })
         console.log(prediction)
         console.log(objPredictions.length)
-        let result = await this.predictionRepository.insert(prediction)
+        let result = await this.predictionRepository.save(prediction)
         console.log("Saved")
         
         return prediction.id
