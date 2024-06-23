@@ -1383,15 +1383,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Офис',
   },
   {
-    UF_GEO_COORDINATES: '55.6981473, 37.9148684',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160506/5-АП/560',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Некрасовка, Люберецкие поля аэрации, кв.10',
-    UF_NAZNACHENIE_OBEKT: 'Образование',
-    UF_NAIMENOVANIE_OBEK: 'ДОУ',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Образование',
-  },
-  {
     UF_GEO_COORDINATES: '55.7265668, 37.7531364',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160712/11-АП/562',
     UF_OBSHHAJA_INFORMAC: 'Москва, Рязанский просп., владение 6А',
@@ -1505,15 +1496,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'АДМИНИСТРАТИВНОЕ ЗДАНИЕ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Соцобъект',
-  },
-  {
-    UF_GEO_COORDINATES: '55.6981377, 37.9148536',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160224/1-АП/581',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Некрасовка, Люберецкие поля аэрации, кв.7',
-    UF_NAZNACHENIE_OBEKT: 'Образование',
-    UF_NAIMENOVANIE_OBEK: 'ШКОЛА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Образование',
   },
   {
     UF_GEO_COORDINATES: '55.7308395, 37.6450491',
@@ -2400,16 +2382,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Транспорт',
   },
   {
-    UF_GEO_COORDINATES: '55.6891564, 37.9268565',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-13-161224/0-АП/662',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, Некрасовка, 2-я Вольская ул., дом/владение 16, корпус 2',
-    UF_NAZNACHENIE_OBEKT: 'Объекты спортивного назначения',
-    UF_NAIMENOVANIE_OBEK: 'СПОРТИВНО-ОЗДОРОВИТЕЛЬНЫЙ ОБЪЕКТ',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Спорт',
-  },
-  {
     UF_GEO_COORDINATES: '55.9422552, 37.5370414',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-150213/5-АП/666',
     UF_OBSHHAJA_INFORMAC:
@@ -2874,16 +2846,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Жилье',
   },
   {
-    UF_GEO_COORDINATES: '55.6701555, 37.7699618',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160328/8-АП/818',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Цимлянская ул., дом/владение 3',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK:
-      'ЖИЛАЯ ЗАСТРОЙКА (ЖИЛОЙ ДОМ СО ВСТРОЕННЫМИ ПОМЕЩ. БКФН, ПОДЗЕМНЫЙ ПАРКИНГ ГОСТИНИЦА, ДОО )',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
-  },
-  {
     UF_GEO_COORDINATES: '55.8626633, 37.4747654',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-161214/6-АП/824',
     UF_OBSHHAJA_INFORMAC: 'Москва, Беломорская ул., дом/владение 26',
@@ -3033,17 +2995,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'ЗДАНИЕ ОПЕРАТИВНОГО УПРАВЛЕНИЯ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.6981647, 37.9148373',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160309/2-АП/833',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, Некрасовка, Люберецкие поля, вл.13А, д.1,2,3,4,4а,4б,4в,4г,5,6а,6б,6в,7,8,9,10,11,13,14,15,16,17,18,КП1,КП2',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK:
-      'КОМПЛЕКСНАЯ ЗАСТРОЙКА (ЖИЛЫЕ ДОМА, ПУСКОВОЙ КОМПЛЕКС)',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.8828391, 37.6483571',
@@ -4480,17 +4431,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Жилье',
   },
   {
-    UF_GEO_COORDINATES: '55.6981429, 37.9148395',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160309/2-АП/1031',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, Некрасовка, Люберецкие поля, вл.13А, д.1,2,3,4,4а,4б,4в,4г,5,6а,6б,6в,7,8,9,10,11,13,14,15,16,17,18,КП1,КП2',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK:
-      'КОМПЛЕКСНАЯ ЗАСТРОЙКА (ЖИЛЫЕ ДОМА, ПУСКОВОЙ КОМПЛЕКС)',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
-  },
-  {
     UF_GEO_COORDINATES: '55.6343496, 37.6034402',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-131206/2-АП/441',
     UF_OBSHHAJA_INFORMAC: 'Москва, Чертаново-1, мкр.5, корпус 1А',
@@ -5231,16 +5171,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Офис',
   },
   {
-    UF_GEO_COORDINATES: '55.6981637, 37.9148457',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160224/0-АП/505',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, Некрасовка, Люберецкие поля аэрации, кв.7 (ДОУ)',
-    UF_NAZNACHENIE_OBEKT: 'ДОУ',
-    UF_NAIMENOVANIE_OBEK: 'ДОУ',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Офис',
-  },
-  {
     UF_GEO_COORDINATES: '55.8400659, 37.4911343',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-181029/12-АП/1135',
     UF_OBSHHAJA_INFORMAC: 'Москва, Головинское шоссе, дом/владение 5',
@@ -5257,16 +5187,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'ЖИЛОЙ ДОМ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.6701495, 37.7699319',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160328/8-АП/1125',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Цимлянская ул., дом/владение 3',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK:
-      'ЖИЛАЯ ЗАСТРОЙКА (ЖИЛОЙ ДОМ СО ВСТРОЕННЫМИ ПОМЕЩ. БКФН, ПОДЗЕМНЫЙ ПАРКИНГ ГОСТИНИЦА, ДОО )',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.6773658, 37.4474346',
@@ -5989,16 +5909,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Транспорт',
   },
   {
-    UF_GEO_COORDINATES: '55.6981481, 37.9148406',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-170511/7-АП/1307',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, район Некрасовка, Люберецкие поля аэрации, кв. 14, корп.2',
-    UF_NAZNACHENIE_OBEKT: 'Жилые дома',
-    UF_NAIMENOVANIE_OBEK: 'ЖИЛОЙ ДОМ',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Жилье',
-  },
-  {
     UF_GEO_COORDINATES: '55.7815683, 37.5775432',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-141218/0-АП/1262',
     UF_OBSHHAJA_INFORMAC: 'Москва, Ленинградский просп., дом 16,',
@@ -6015,17 +5925,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'МНОГОКВАРТИРНЫЕ ЖИЛЫЕ ДОМА ПЕРЕМЕННОЙ ЭТАЖНОСТИ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.6981545, 37.9148466',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160309/2-АП/1313',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, Некрасовка, Люберецкие поля, вл.13А, д.1,2,3,4,4а,4б,4в,4г,5,6а,6б,6в,7,8,9,10,11,13,14,15,16,17,18,КП1,КП2',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK:
-      'КОМПЛЕКСНАЯ ЗАСТРОЙКА (ЖИЛЫЕ ДОМА, ПУСКОВОЙ КОМПЛЕКС)',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.7179622, 37.4300578',
@@ -6238,17 +6137,6 @@ export const CTP_LIST = [
       'МНОГОФУНКЦИОНАЛЬНЫЙ УЧЕБНО-СПОРТИВНЫЙ РЕКРЕАЦИОННЫЙ ЦЕНТР',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Спорт',
-  },
-  {
-    UF_GEO_COORDINATES: '55.6981583, 37.9148359',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160309/2-АП/1364',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, Некрасовка, Люберецкие поля, вл.13А, д.1,2,3,4,4а,4б,4в,4г,5,6а,6б,6в,7,8,9,10,11,13,14,15,16,17,18,КП1,КП2',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK:
-      'КОМПЛЕКСНАЯ ЗАСТРОЙКА (ЖИЛЫЕ ДОМА, ПУСКОВОЙ КОМПЛЕКС)',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.6676549, 37.4651667',
@@ -8402,16 +8290,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Жилье',
   },
   {
-    UF_GEO_COORDINATES: '55.7041316, 37.9261379',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160309/2-АП/1814',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, Некрасовка, Люберецкие поля, вл.13А, д.1,2,3,4,4а,4б,4в,4г,5,6а,6б,6в,7,8,9,10,11,13,14,15,16,17,18,КП1,КП2',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
-  },
-  {
     UF_GEO_COORDINATES: '55.7541694, 37.8234536',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-150430/6-АП/1746',
     UF_OBSHHAJA_INFORMAC: 'Москва, Федеративный просп., д. 1-А, кв. 30-31',
@@ -8502,16 +8380,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'ЛЕЧЕБНО-ОЗДАРОВИТЕЛЬНЫЙ ОБЪЕКТ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Медицина',
-  },
-  {
-    UF_GEO_COORDINATES: '55.7041588, 37.9261615',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160309/2-АП/1813',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, Некрасовка, Люберецкие поля, вл.13А, д.1,2,3,4,4а,4б,4в,4г,5,6а,6б,6в,7,8,9,10,11,13,14,15,16,17,18,КП1,КП2',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.8223519, 37.7562694',
@@ -8808,15 +8676,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Медицина',
   },
   {
-    UF_GEO_COORDINATES: '55.6695633, 37.7385332',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-190205/4-АП/1967',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Люблинская ул., вл.72',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
-  },
-  {
     UF_GEO_COORDINATES: '55.7225437, 37.6054511',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-170627/6-АП/2055',
     UF_OBSHHAJA_INFORMAC: 'Москва, Донская ул., дом/владение 14, корпус 1',
@@ -9002,15 +8861,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'АДМИНИСТРАТИВНОЕ ЗДАНИЕ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Офис',
-  },
-  {
-    UF_GEO_COORDINATES: '55.6695632, 37.7385443',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-190205/4-АП/1963',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Люблинская ул., вл.72',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.6342529, 37.3321675',
@@ -9931,15 +9781,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Жилье',
   },
   {
-    UF_GEO_COORDINATES: '55.6695485, 37.7385521',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-190205/4-АП/1955',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Люблинская ул., вл.72',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
-  },
-  {
     UF_GEO_COORDINATES: '55.7076465, 37.7552687',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-180717/2-АП/1785',
     UF_OBSHHAJA_INFORMAC:
@@ -10060,15 +9901,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'ЖИЛОЙ ДОМ,НЕЖИЛЫЕ ПОМЕЩЕНЯ,ПОДЗЕМНАЯ СТОЯНКА',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.6695699, 37.7385488',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-190205/4-АП/1965',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Люблинская ул., вл.72',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.7433699, 37.6407393',
@@ -10478,15 +10310,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'ОФИСНО-ГОСТИН.КОМПЛЕКС С ПОДЗЕМНОЙ АВТОСТОЯНК',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Администрация',
-  },
-  {
-    UF_GEO_COORDINATES: '55.6695571, 37.7385579',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-190205/4-АП/2075',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Люблинская ул., вл.72',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.8679533, 37.4857323',
@@ -11268,15 +11091,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'ГОРОДСКОЙ КВАРТАЛ "РИВЕР ПАРК" ФАЗА 2"',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.6695452, 37.7385632',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-190205/4-АП/2216',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Люблинская ул., вл.72',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'Комплексная застройка',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.6695471, 37.7385603',
@@ -12619,15 +12433,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Жилье',
   },
   {
-    UF_GEO_COORDINATES: '55.6695637, 37.7385515',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-190205/4-АП/2388',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Люблинская ул., вл.72',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
-  },
-  {
     UF_GEO_COORDINATES: '55.6398533, 37.5456555',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-190114/9-АП/2407',
     UF_OBSHHAJA_INFORMAC: 'Москва, Севастопольский просп., вл.60',
@@ -13335,15 +13140,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Спорт',
   },
   {
-    UF_GEO_COORDINATES: '55.6695515, 37.7385628',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-190205/4-АП/2752',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Люблинская ул., вл.72',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
-  },
-  {
     UF_GEO_COORDINATES: '55.9915624, 37.2193562',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-200213/5-АП/2549',
     UF_OBSHHAJA_INFORMAC: 'Москва, Зеленоград, Савёлкинский пр., корп. 328',
@@ -13370,16 +13166,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'СПОРТИВНЫЙ КОМПЛЕКС С БАССЕЙНОМ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Спорт',
-  },
-  {
-    UF_GEO_COORDINATES: '55.7116563, 37.9437669',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-191022/8-АП/2680',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Некрасовка, кварт. 17, з/у 19 ( корп 11А)',
-    UF_NAZNACHENIE_OBEKT: 'Жилые дома',
-    UF_NAIMENOVANIE_OBEK:
-      'ЖИЛИЩНОЕ СТРОИТЕЛЬСТВО В РАЙОНЕ НЕКРАСОВКА (КВ.17,КОРП.11А)',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Жилье',
   },
   {
     UF_GEO_COORDINATES: '55.8141588, 37.5278665',
@@ -13472,15 +13258,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'ПЕШЕХОДНАЯ ЗОНА',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Транспорт',
-  },
-  {
-    UF_GEO_COORDINATES: '55.7041477, 37.9261651',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-191009/0-АП/2682',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Люберецкие поля аэрации, кв.15А',
-    UF_NAZNACHENIE_OBEKT: 'Жилые дома',
-    UF_NAIMENOVANIE_OBEK: '300-КВАРТИРНЫЙ ЖИЛОЙ ДОМ, Г. МОСКВА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Жилье',
   },
   {
     UF_GEO_COORDINATES: '55.8734397, 37.5592625',
@@ -13659,15 +13436,6 @@ export const CTP_LIST = [
     UF_NAZNACHENIE_OBEKT: 'Жилые дома',
     UF_NAIMENOVANIE_OBEK:
       'МНОГОЭТАЖНЫЙ ЖИЛОЙ КОМПЛЕКС С ПОДЗЕМНОЙ АВТОСТОЯНКОЙ',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.7107683, 37.9310668',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-201110/9-АП/2705',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Некрасовка, кварт. 15, корп.4',
-    UF_NAZNACHENIE_OBEKT: 'Жилые дома',
-    UF_NAIMENOVANIE_OBEK: 'ЖИЛОЙ ДОМ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
   },
@@ -14260,15 +14028,6 @@ export const CTP_LIST = [
     UF_OBSHHAJA_INFORMAC: 'Москва, Дыбенко, дом/владение 7/1',
     UF_NAZNACHENIE_OBEKT: 'Жилые дома',
     UF_NAIMENOVANIE_OBEK: 'МНОГОФУНКЦИОНАЛЬНЫЙ ЖИЛОЙ КОМПЛЕКС',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.7107597, 37.9310485',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-201110/6-АП/2707',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Некрасовка, кварт. 15, корп.1.1, 1.2',
-    UF_NAZNACHENIE_OBEKT: 'Жилые дома',
-    UF_NAIMENOVANIE_OBEK: 'ЖИЛОЙ ДОМ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
   },
@@ -14998,15 +14757,6 @@ export const CTP_LIST = [
     UF_TYPE: 'Жилье',
   },
   {
-    UF_GEO_COORDINATES: '55.7116573, 37.9437578',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-200302/1-АП/2677',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Некрасовка, кварт. 17, з/у 22',
-    UF_NAZNACHENIE_OBEKT: 'ДОУ',
-    UF_NAIMENOVANIE_OBEK: 'ДОУ НА 300 МЕСТ С БАССЕЙНОМ',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Жилье',
-  },
-  {
     UF_GEO_COORDINATES: '55.7926674, 37.5178615',
     UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-200903/9-АП/2793',
     UF_OBSHHAJA_INFORMAC: 'Москва, 3-я Песчаная ул., 2',
@@ -15228,15 +14978,6 @@ export const CTP_LIST = [
     UF_NAZNACHENIE_OBEKT: 'Жилые дома',
     UF_NAIMENOVANIE_OBEK:
       'ЖИЛОЙ ДОМ С ИНЖЕНЕРНЫМИ СЕТЯМИ И БЛАГОУСТРОЙСТВОМ ТЕРРИТОРИИ',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.7116316, 37.9437622',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-191022/7-АП/2683',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Некрасовка, кварт. 17,  корп.11б',
-    UF_NAZNACHENIE_OBEKT: 'Жилые дома',
-    UF_NAIMENOVANIE_OBEK: 'ЖИЛИЩНОЕ СТРОИТЕЛЬСТВО',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
   },
@@ -15538,16 +15279,6 @@ export const CTP_LIST = [
       'ЖИЛОЙ КОМПЛЕКС ПОСОЛЬСТВА РЕСПУБЛИКИ БЕЛАРУСЬ В РОССИЙСКОЙ ФЕДЕРАЦИИ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.7041347, 37.9261636',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-160309/2-АП/2876',
-    UF_OBSHHAJA_INFORMAC:
-      'Москва, Некрасовка, Люберецкие поля, вл.13А, д.1,2,3,4,4а,4б,4в,4г,5,6а,6б,6в,7,8,9,10,11,13,14,15,16,17,18,КП1,КП2',
-    UF_NAZNACHENIE_OBEKT: 'Комплексная застройка',
-    UF_NAIMENOVANIE_OBEK: 'КОМПЛЕКСНАЯ ЗАСТРОЙКА',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
   },
   {
     UF_GEO_COORDINATES: '55.6230513, 37.7184445',
@@ -15939,16 +15670,6 @@ export const CTP_LIST = [
     UF_NAIMENOVANIE_OBEK: 'ДОУ НА 350 МЕСТ',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Жилье',
-  },
-  {
-    UF_GEO_COORDINATES: '55.7116317, 37.9437647',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-191001/5-АП/2679',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Некрасовка, кварт. 17, з/у 5',
-    UF_NAZNACHENIE_OBEKT: 'Образование',
-    UF_NAIMENOVANIE_OBEK:
-      'УЧЕБНЫЙ КОРПУС НА 350 МЕСТ, РАЙОН НЕКРАСОВКА, КВ. 17',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Образование',
   },
   {
     UF_GEO_COORDINATES: '55.7560664, 37.4092545',
@@ -17416,16 +17137,6 @@ export const CTP_LIST = [
     UF_OBSHHAJA_INFORMAC: 'Москва, Большой Козловский пер., 5, стр.1',
     UF_NAZNACHENIE_OBEKT: 'Нежилые помещения',
     UF_NAIMENOVANIE_OBEK: 'НЕЖИЛЫЕ ПОМЕЩЕНИЯ',
-    UF_STATUS: 'Акт',
-    UF_TYPE: 'Комплекс',
-  },
-  {
-    UF_GEO_COORDINATES: '55.7116554, 37.9437489',
-    UF_REG_NOMER_AKTA: 'Акт № Т-УП1-01-200806/4-АП/3186',
-    UF_OBSHHAJA_INFORMAC: 'Москва, Некрасовка, кварт. 17, з/у 21',
-    UF_NAZNACHENIE_OBEKT: 'ДОУ',
-    UF_NAIMENOVANIE_OBEK:
-      'ДОУ НА 275 МЕСТ С БАССЕЙНОМ, РАЙОН НЕКРАСОВКА, КВ. 17',
     UF_STATUS: 'Акт',
     UF_TYPE: 'Комплекс',
   },
