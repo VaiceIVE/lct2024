@@ -237,7 +237,15 @@ const MapPage = () => {
 
   useEffect(() => {
     setRegionFilter('ВАО');
-  }, [showConnected]);
+    setSelectedBuilding(null);
+    setSelectedObj(null);
+    filtersFields.reset({
+      address: '',
+      district: '',
+      socialType: '',
+      tpAddress: '',
+    });
+  }, [filtersFields, showConnected]);
 
   return (
     <div className={styles.wrapper}>
