@@ -7,8 +7,9 @@ import {
 } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import $api from 'shared/api';
 import { IBuilding } from 'shared/models/IBuilding';
-import FileServices from 'shared/services/FilesServices';
+import FileDownload from 'js-file-download';
 
 import { Button } from 'shared/ui/Button';
 import { Filters } from 'shared/ui/Filters';
@@ -58,9 +59,13 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
       );
   };
 
-  const handleDownloadTable = () => {
+  const handleDownloadTable = async () => {
     setLoading(true);
-    FileServices.downloadTable(`${id}`, month).then(() => setLoading(false));
+    const response = await $api.get(`/prediction/${id}/${month}/export`, {
+      responseType: 'blob',
+    });
+    FileDownload(response.data, 'Report.xlsx');
+    setLoading(false);
   };
 
   useEffect(() => {

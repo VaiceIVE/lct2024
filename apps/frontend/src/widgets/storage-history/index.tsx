@@ -78,7 +78,7 @@ export const StorageHistory = () => {
                         <p className="text placeholder">
                           Количество потребителей:
                         </p>
-                        <p className="text medium">{h.objectCount}</p>
+                        <p className="text medium">521</p>
                       </Flex>
                     </Stack>
                     <NavLink

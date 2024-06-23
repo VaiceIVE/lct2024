@@ -121,7 +121,7 @@ const PredictionPageContainer = () => {
         setMonthsIndex={setMonthsIndex}
         months={months}
         monthsIndex={monthsIndex}
-        id={id}
+        id={id || `${defaultId}`}
         isDefault={isDefault}
         open={onOpen}
         returnPage={returnPage}
