@@ -259,29 +259,20 @@ export class ResponseService {
                 socialType = object.obj.socialType
                 if(object.obj.geodata)
                 {
-                  object.obj.geodata = object.obj.geodata as string
-                  coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
-                  const coordsReturn = [coords[1], coords[0]]
-                  coords = coordsReturn
-                  for(let coord of coords)
-                  {
-                    coord = Number(coord)
-                  }
+                  coords = await this.handleGeodataString(object.obj.geodata)
                 }
                 else
                 {
                     let geodataString = await this.getGeodataString(object.obj.address)
                     if (geodataString)
                       {
+                        coords = await this.handleGeodataString(geodataString)
                         object.obj.geodata = geodataString
-                        this.objRepository.save(object.obj)
-                        coords = object.obj.geodata.replace('[', '').replace(']', '').split(' ')
-                        const coordsReturn = [coords[1], coords[0]]
-                        coords = coordsReturn
+                        await this.objRepository.save( object.obj)
                         for(let coord of coords)
-                        {
+                            {
                             coord = Number(coord)
-                        }
+                            }
                       }
                     
                 }
@@ -391,6 +382,20 @@ export class ResponseService {
               result.push([+coordPair[0], +coordPair[1]])
           }
       return result as [[number, number]]
+  }
+
+  private async handleGeodataString(geodataString: string)
+  {
+      let coords = []
+      if(geodataString.includes(']'))
+          {
+              coords = geodataString.split('[')[1].split(']')[0].replace(',', '').split(' ')
+          }
+          else
+          {
+              coords = geodataString.replace(',', '').split(' ')
+          }
+      return [+coords[1], +coords[0]] as [number, number]
   }
 
   async getGeodataString(address: string)
