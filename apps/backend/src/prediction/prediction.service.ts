@@ -160,7 +160,7 @@ export class PredictionService {
                             }
                     }
                 console.log('saving events')
-                await this.eventRepository.save(events)
+                await this.eventRepository.insert(events)
                 console.log('searching unoms')
                 for (const unom of unomDict[cluster])
                     {
@@ -179,7 +179,7 @@ export class PredictionService {
                             }
                     }
                 console.log('saving objPredictions')
-                await this.objPredictionRepository.save(objPredictions)
+                await this.objPredictionRepository.insert(objPredictions)
             }
         const prediction = this.predictionRepository.create({
             objPredictions: objPredictions,
@@ -187,7 +187,7 @@ export class PredictionService {
         })
         console.log(prediction)
         console.log(objPredictions.length)
-        let result = await this.predictionRepository.save(prediction)
+        let result = await this.predictionRepository.insert(prediction)
         console.log("Saved")
         
         return prediction.id
