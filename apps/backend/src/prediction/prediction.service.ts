@@ -116,7 +116,6 @@ export class PredictionService {
     public async getPrediction(id: number, monthNum: string)
     {
         const prediction = await this.predictionRepository.findOne({where: {id: id}, relations: {objPredictions: {cluster: {events: true}, heatPoint: true, object: true}}})
-        console.log('found objects')
         return await this.handlePredictionOutput(prediction, monthNum)
     }
 
@@ -214,10 +213,13 @@ export class PredictionService {
             buildings: []
         }
 
+        console.log(prediction.objPredictions)
 
         for(const objPrediction of prediction.objPredictions)
             {
                 let events = []
+                console.log('cluster events')
+                console.log(objPrediction.cluster.events)
                 for(const event of objPrediction.cluster.events)
                     {
                         if(event.date.split('-')[1] == monthNum)
@@ -238,6 +240,7 @@ export class PredictionService {
                 let networkType = null
                 let characteristics :{[key: string] : string | number} = {}
                 let socialType = ''
+                console.log(objPrediction.object)
                 if(objPrediction.object)
                     {
                         address = objPrediction.object.address
