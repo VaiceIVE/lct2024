@@ -169,7 +169,9 @@ export class PredictionService {
                 const eventIds = (await this.eventRepository.insert(events)).identifiers
                 console.log('searching unoms')
 
-                const newCluster = this.clusterRepository.create({events: eventIds})
+                const newCluster = this.clusterRepository.create({
+                    events: eventIds
+                })
 
                 const clusterId = (await this.clusterRepository.insert(newCluster)).identifiers[0]
 

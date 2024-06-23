@@ -9,7 +9,7 @@ export class Cluster {
     @PrimaryGeneratedColumn()
     id: number
 
-    @ManyToMany(() => Event, (event) => event.cluster,{
+    @OneToMany(() => Event, (event) => event.cluster,{
         cascade: true,
         eager: true
     })
@@ -18,5 +18,5 @@ export class Cluster {
 
     @OneToMany(() => ObjPrediction, (obj) => obj.cluster)
     @JoinTable()
-    object: ObjPrediction
+    objPrediction: ObjPrediction
 }

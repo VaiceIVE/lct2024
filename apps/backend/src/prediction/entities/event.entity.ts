@@ -24,7 +24,7 @@ export class Event {
     @Column()
     date: string
 
-    @ManyToOne(() => Cluster, (event) => event.events,{
+    @ManyToOne(() => Cluster, (cluster) => cluster.events,{
         cascade: ['insert', 'update']
     })
     @JoinTable()
