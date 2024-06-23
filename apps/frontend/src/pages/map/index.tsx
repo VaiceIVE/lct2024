@@ -195,10 +195,13 @@ const MapPage = () => {
 
       if (location?.state?.obj) {
         setSelectedObj(location.state.obj);
-        console.log('location', location?.state?.obj);
       }
     }
   }, [isResponse, location]);
+
+  useEffect(() => {
+    console.log('select', selectedObj);
+  }, [selectedObj]);
 
   useEffect(() => {
     const getUniqueAddresses = (items: IObj[] | IBuilding[]) => {
