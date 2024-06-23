@@ -5,15 +5,23 @@ import styles from './SegmentControl.module.scss';
 interface SegmentControlProps {
   onChange: (value: string) => void;
   value: string;
+  data: string[];
+  disabled?: boolean;
 }
 
-export const SegmentControl = ({ onChange, value }: SegmentControlProps) => {
+export const SegmentControl = ({
+  onChange,
+  value,
+  data,
+  disabled,
+}: SegmentControlProps) => {
   return (
     <MantineSegmentControl
       value={value}
       onChange={onChange}
       className={styles.segment}
-      data={['Район', 'ЦТП/ИТП', 'Дома']}
+      data={data}
+      disabled={disabled}
     />
   );
 };

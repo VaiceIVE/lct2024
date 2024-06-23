@@ -31,6 +31,7 @@ interface MapProps {
   showConnected?: string;
   buildingsCount?: number;
   onCircleClick?: (address: string) => void;
+  regionFilter?: string;
 }
 
 export interface orginalList {
@@ -93,6 +94,7 @@ export const Map = ({
   showConnected,
   buildingsCount,
   onCircleClick,
+  regionFilter,
 }: MapProps) => {
   const [uniqCtps, setUniqCtps] = useState<orginalList[]>([]);
 
@@ -209,7 +211,9 @@ export const Map = ({
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
       <MapComponent width={'100%'} height={'100%'} defaultState={LOCATION}>
         {showConnected === 'Район' ? <Districts districts={districts} /> : null}
-        {showConnected === 'ЦТП/ИТП' ? <CTPS uniqCtps={uniqCtps} /> : null}
+        {showConnected === 'ЦТП/ИТП' && regionFilter === 'Вся Москва' ? (
+          <CTPS uniqCtps={uniqCtps} />
+        ) : null}
         {showConnected === 'Дома' &&
           CTP_LIST.map((item) => (
             <Placemark
