@@ -77,13 +77,13 @@ export class PredictionService {
     private async handleExport(prediction: Prediction, monthNum: string)
     {
         const json = await this.handlePredictionOutput(prediction, monthNum)
+        const ws = XLSX.utils.sheet_new()  
 
         for(const object of json.buildings)
             {
                 
             }
 
-        const ws = XLSX.utils.json_to_sheet(json.buildings)  
         var wb = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, ws, "Data");  
         const buf = XLSX.write(wb, { type:"buffer", bookType:"xlsx" });

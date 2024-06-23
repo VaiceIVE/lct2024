@@ -56,7 +56,7 @@ export class ObjService {
       }
       else
       {
-        const addresses = await this.objRepository.find({where: {socialType: type, address: Not(IsNull())}, select: {address: true}, take: 1000})
+        const addresses = await this.objRepository.find({where: {socialType: type, address: Not(IsNull())}, select: {address: true}, take: 4000, order: {flatsAmount: "DESC"}})
         let ans = []
         let response = []
         for(const obj of addresses)
