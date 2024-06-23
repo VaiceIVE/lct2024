@@ -78,6 +78,11 @@ export class PredictionService {
     {
         const json = await this.handlePredictionOutput(prediction, monthNum)
 
+        for(const object of json.buildings)
+            {
+                
+            }
+
         const ws = XLSX.utils.json_to_sheet(json.buildings)  
         var wb = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, ws, "Data");  
