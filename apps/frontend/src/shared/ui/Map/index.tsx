@@ -114,13 +114,15 @@ export const Map = ({
 
     markers &&
       markers.forEach((marker) => {
-        if (!marker.coords) {
+        if (marker.coords) {
           if (marker.district && !districtMap[marker.district]) {
             districtMap[marker.district] = [];
           }
           marker.district && districtMap[marker.district].push(marker.coords);
         }
       });
+
+    console.log('districtMap', districtMap);
 
     const createEnvelopeWithPadding = (
       coords: [number, number][]
