@@ -116,10 +116,14 @@ export class PredictionService {
     public async getPrediction(id: number, monthNum: string)
     {
         const prediction = await this.predictionRepository.findOne({where: {id: id}})
-        const objPredictions = await this.objPredictionRepository.find({where:{prediction: {id: id}}, relations: {object: true}, relationLoadStrategy: 'join'})
+        console.log('found prediction')
+        const objPredictions = await this.objPredictionRepository.find({where:{prediction: {id: id}}, relations: {object: true}})
+        console.log('iteratingObjPreds')
         for (let objPrediction of objPredictions)
             {
-                const cluster = await this.clusterRepository.findOne({where: {objPrediction: {id: objPrediction.id}}})
+                let cluster = await this.clusterRepository.findOne({where: {objPrediction: {id: objPrediction.id}}})
+                let events = await this.eventRepository.find({where: {cluster: {id: cluster.id}, month: monthNum}})
+                cluster.events = events
                 objPrediction.cluster = cluster
             }
         prediction.objPredictions = objPredictions
@@ -167,6 +171,7 @@ export class PredictionService {
                                 const eventChance = predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date][eventId]
                                 const newEvent = this.eventRepository.create({
                                     date: date,
+                                    month: date.split('-')[1],
                                     eventName: eventEnum[eventId],
                                     chance: dateChance * eventChance,
                                     cluster: clusterId
