@@ -396,7 +396,8 @@ export class PredictionService {
                         {
                             let currentobj = await this.objRepository.findOne({where: {address: obj.address}})
                             
-                            if(currentobj.wallMaterial != null)
+                                
+                            if(currentobj != null && currentobj.wallMaterial != null)
                                 {
                                     if(Object.keys(wallDict).includes((currentobj.wallMaterial)))
                                         {
