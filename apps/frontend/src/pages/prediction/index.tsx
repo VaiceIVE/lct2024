@@ -115,10 +115,6 @@ const PredictionPageContainer = () => {
     debounceMonthsIndex(monthsIndex, defaultId);
   }, [debounceMonthsIndex, monthsIndex, defaultId]);
 
-  useEffect(() => {
-    console.log('prediction', prediction);
-  }, [prediction]);
-
   return (
     <FormProvider {...filterFields}>
       <PredictionPage

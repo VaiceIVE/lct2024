@@ -1,6 +1,6 @@
 import { Divider, Flex, Grid, Stack } from '@mantine/core';
 import { buildingTypes } from 'shared/constants/buildingTypes';
-import { IBuilding } from 'shared/models/IBuilding';
+import { IBuilding, IEvents } from 'shared/models/IBuilding';
 import { IObj } from 'shared/models/IResponse';
 import { Card } from 'shared/ui/Card';
 import { Chance } from 'shared/ui/Chance';
@@ -9,6 +9,10 @@ import { Title } from 'shared/ui/Title';
 import { BuildingStat } from './components/BuildingStat';
 import { ObjStat } from './components/ObjStat';
 import dayjs from 'dayjs';
+import { DateInput } from 'shared/ui/DateInput';
+import { IconCalendarEvent } from '@tabler/icons-react';
+import { useState } from 'react';
+import { DateValue } from '@mantine/dates';
 
 interface ObjectCardProps {
   selectedBuilding: IBuilding | null;
@@ -20,6 +24,15 @@ export const ObjectInfo = ({
   selectedObj,
 }: ObjectCardProps) => {
   const item = selectedBuilding ? selectedBuilding : selectedObj;
+
+  const [date, setDate] = useState<DateValue>(null);
+
+  const compare = (a: IEvents, b: IEvents) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    return +dateB - +dateA;
+  };
 
   return (
     <Stack gap={44}>
@@ -104,33 +117,55 @@ export const ObjectInfo = ({
             level={4}
             title={`Выявленные события на объекте (${selectedBuilding.events.length})`}
           />
+          <DateInput
+            onChange={setDate}
+            value={date}
+            icon={
+              <IconCalendarEvent
+                size={18}
+                style={{
+                  marginRight: '24px',
+                }}
+              />
+            }
+            placeholder="Выберите датy"
+            allowClear
+          />
           <Grid gutter={12}>
-            {selectedBuilding.events.map((e, index) => (
-              <Grid.Col key={index} span={6}>
-                <Card h={'100%'} p="20px" radius={'8px'} type="dark">
-                  <Stack gap={8}>
-                    <p
-                      style={{
-                        textWrap: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        cursor: 'default',
-                      }}
-                      className="text medium"
-                    >
-                      {e.eventName}
-                    </p>
-                    <Flex align={'center'} gap={8}>
-                      <Chance value={e.chance} />
-                      <p className="text medium placeholder">|</p>
-                      <p className="text medium placeholder">
-                        {dayjs(e.date).format('DD.MM')}
+            {selectedBuilding.events
+              .sort(compare)
+              .sort((a, b) => (a.eventName > b.eventName ? 1 : -1))
+              .filter(
+                (e) =>
+                  !date ||
+                  dayjs(e.date).format('DD.MM') === dayjs(date).format('DD.MM')
+              )
+              .map((e, index) => (
+                <Grid.Col key={index} span={6}>
+                  <Card h={'100%'} p="20px" radius={'8px'} type="dark">
+                    <Stack gap={8}>
+                      <p
+                        style={{
+                          textWrap: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          cursor: 'default',
+                        }}
+                        className="text medium"
+                      >
+                        {e.eventName}
                       </p>
-                    </Flex>
-                  </Stack>
-                </Card>
-              </Grid.Col>
-            ))}
+                      <Flex align={'center'} gap={8}>
+                        <Chance value={e.chance} />
+                        <p className="text medium placeholder">|</p>
+                        <p className="text medium placeholder">
+                          {dayjs(e.date).format('DD.MM')}
+                        </p>
+                      </Flex>
+                    </Stack>
+                  </Card>
+                </Grid.Col>
+              ))}
           </Grid>
         </Stack>
       ) : null}

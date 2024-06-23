@@ -93,7 +93,7 @@ export const TemperatureDrawer = ({
                 prev.map((p) => (p.id === c.id ? { ...p, date: e } : p))
               )
             }
-            value={tempConditions.find((p) => p.id === c.id)?.date}
+            value={tempConditions.find((p) => p.id === c.id)?.date || null}
             placeholder="Выберите датy"
             allowClear
           />
