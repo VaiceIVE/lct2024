@@ -468,11 +468,13 @@ export class PredictionService {
 
     private handleBoundariesString(boundary: string)
     {        
+        const str = "{coordinates=[[[37.33520677, 55.616313792], [37.334866797, 55.61609229], [37.3347208, 55.616164937], [37.334840829, 55.616494016], [37.33520677, 55.616313792]]], type=Polygon}"
+        const str2 = '[37.33520677, 55.616313792], [37.334866797, 55.61609229], [37.3347208, 55.616164937], [37.334840829, 55.616494016], [37.33520677, 55.616313792]'
         const array = boundary.split(']], type')[0].split('=[[')[1].split('],')
         let result = []
         for(let pair of array)
             {
-                const coordPair = pair.replace('[', '').split(', ')
+                const coordPair = pair.replace(']', '').replace('[', '').split(', ')
                 result.push([+coordPair[0], +coordPair[1]])
             }
         return result as [[number, number]]
@@ -482,7 +484,7 @@ export class PredictionService {
     private async getGeodataString(address: string)
     {
 
-            return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=535a0aa8-991d-4b0e-b4a3-116d011e89b4&format=json&geocode=Москва, ${address}`).catch((e) => {
+            return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=eaca56be-180c-4b19-a427-ffc3e8723cad&format=json&geocode=Москва, ${address}`).catch((e) => {
                     return null
                 }).then((res) => {
                     if(res)
