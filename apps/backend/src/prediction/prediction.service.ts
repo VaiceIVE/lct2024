@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { StorageService } from '../storage/storage.service';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
@@ -123,6 +123,7 @@ export class PredictionService {
         let new_obj_predictions = []
         for (let objPrediction of objPredictions)
             {
+                console.log(objPrediction.object)
                 if(counter > 10)
                     {
                         break
@@ -243,10 +244,11 @@ export class PredictionService {
         for(const objPrediction of prediction.objPredictions)
             {
                 let events = []
-                if(!objPrediction.cluster)
+                if(objPrediction.cluster == null)
                     {
                         continue
                     }
+                    console.log('not undef')
                 for(const event of objPrediction.cluster.events)
                     {
                         if(event.date.split('-')[1] == monthNum)
