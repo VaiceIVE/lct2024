@@ -68,7 +68,7 @@ export class PredictionService {
         if(await this.predictionRepository.findOne({where: {isDefault: true}, loadEagerRelations: false}))
             {
                 console.log('found')
-                return (await this.predictionRepository.findOne({where: {isDefault: true}, select: {id: true}})).id
+                return (await this.predictionRepository.findOne({where: {isDefault: true}, select: {id: true}, loadEagerRelations: false})).id
             }
         const defaultNames = [
             "7. Схема подключений МОЭК.xlsx",
