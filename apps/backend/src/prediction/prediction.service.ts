@@ -233,9 +233,14 @@ export class PredictionService {
         }
 
         console.log(prediction.objPredictions)
-
+        let counter = 0
         for(const objPrediction of prediction.objPredictions)
             {
+                if(counter >=500)
+                    {
+                        break
+                    }
+                counter += 1
                 let events = []
                 console.log('cluster events')
                 console.log(objPrediction.cluster.events)
@@ -259,6 +264,7 @@ export class PredictionService {
                 let networkType = null
                 let characteristics :{[key: string] : string | number} = {}
                 let socialType = ''
+
                 console.log(objPrediction.object)
                 if(objPrediction.object)
                     {
