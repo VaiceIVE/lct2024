@@ -130,7 +130,6 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
     df_code = dfs_with_code[0]
     for jdf in dfs_with_code[1:]:
         df_code = pd.merge(df_code, jdf, on=['code'])
-    
     columns = []
     for name in valid_names:
         if name in df_code.columns.to_list() and name != 'unom':
@@ -259,7 +258,7 @@ async def process(files: List[bytes]):
 
 
 @app.post("/process_old")
-async def process(files: List[UploadFile]):
+async def process_old(files: List[UploadFile]):
     for file in files:
         features_dict = dict()
 
