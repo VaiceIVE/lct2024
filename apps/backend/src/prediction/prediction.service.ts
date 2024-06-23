@@ -90,11 +90,10 @@ export class PredictionService {
         if(!ws["!cols"][6]) ws["!cols"][6] = {wch: 8};
         if(!ws["!cols"][7]) ws["!cols"][7] = {wch: 8};
         ws["!cols"][0].wpx = 150
-        ws["!cols"][1].wpx = 150
-        ws["!cols"][2].wpx = 50
+        ws["!cols"][1].wpx = 400
+        ws["!cols"][2].wpx = 75
         ws["!cols"][3].wpx = 200
         ws["!cols"][4].wpx = 125
-        ws["!cols"][5].wpx = 250
         ws["!cols"][6].wpx = 250
         ws["!cols"][7].wpx = 200
 
