@@ -136,6 +136,7 @@ export class PredictionService {
 
 
         let objPredictions = []
+        let objPredIds = []
         for (const cluster of clusters_day_predicts_keys)
             {
                 const cluster_days = Object.keys(predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster])
@@ -166,6 +167,7 @@ export class PredictionService {
                             }
                     }
                 console.log('saving events')
+                console.log(eventIds)
                 await this.eventRepository.insert(events)
                 console.log('searching unoms')
 
@@ -175,7 +177,7 @@ export class PredictionService {
                 console.log(objs.length)
 
 
-                
+                console.log(eventIds)
 
                 for (const obj of objs)
                     {
@@ -185,14 +187,18 @@ export class PredictionService {
                             })
                             console.log('pushin')
                             objPredictions.push(newObjPrediction)
+                            objPredIds.push(newObjPrediction.id)
                     }
 
 
                 console.log('saving objPredictions')
                 await this.objPredictionRepository.insert(objPredictions)
+                
+
             }
+        console.log(objPredIds)
         const prediction = this.predictionRepository.create({
-            objPredictions: objPredictions,
+            objPredictions: objPredIds,
             isDefault: isDefault
         })
         console.log(prediction)
