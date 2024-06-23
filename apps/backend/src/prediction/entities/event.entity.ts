@@ -23,7 +23,7 @@ export class Event {
     @Column()
     date: string
 
-    @ManyToMany(() => ObjPrediction, (obj) => obj.events, {
+    @OneToMany(() => ObjPrediction, (obj) => obj.cluster, {
         onDelete: "CASCADE",
     })
     @JoinTable()

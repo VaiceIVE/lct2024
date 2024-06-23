@@ -14,6 +14,7 @@ import { HeatPoint, Obj } from '../database/entities-index';
 import { ObjPrediction } from './entities/objPrediction.entity';
 import { IObjResponse, IPrediction } from './interfaces/IObjResponse.interface';
 import { join } from 'path';
+import { Cluster } from './entities/cluster.entity';
 
 @Injectable()
 export class PredictionService {
@@ -28,6 +29,8 @@ export class PredictionService {
         private objRepository: Repository<Obj>,
         @InjectRepository(HeatPoint)
         private heatPointRepository: Repository<HeatPoint>,
+        @InjectRepository(Cluster)
+        private clusterRepository: Repository<Cluster>,
         private storageService: StorageService,
         private configService: ConfigService
     ){}
@@ -112,7 +115,7 @@ export class PredictionService {
 
     public async getPrediction(id: number, monthNum: string)
     {
-        const prediction = await this.predictionRepository.findOne({where: {id: id}, relations: {objPredictions: {events: true, heatPoint: true, object: true}}})
+        const prediction = await this.predictionRepository.findOne({where: {id: id}, relations: {objPredictions: {cluster: {events: true}, heatPoint: true, object: true}}})
         return await this.handlePredictionOutput(prediction, monthNum)
     }
 
@@ -168,6 +171,10 @@ export class PredictionService {
                 const eventIds = (await this.eventRepository.insert(events)).identifiers
                 console.log('searching unoms')
 
+                const newCluster = this.clusterRepository.create({events: eventIds})
+
+                const clusterId = (await this.clusterRepository.insert(newCluster)).identifiers[0]
+
                 const objs = await this.objRepository.find({where: {unom: In(unomDict[cluster])}})
 
                 console.log('found objects')
@@ -179,7 +186,7 @@ export class PredictionService {
                 for (const obj of objs)
                     {
                             const newObjPrediction = this.objPredictionRepository.create({
-                                events: eventIds,
+                                cluster: clusterId,
                                 object: {id: obj.id}
                             })
                             console.log('pushin')
@@ -214,7 +221,7 @@ export class PredictionService {
         for(const objPrediction of prediction.objPredictions)
             {
                 let events = []
-                for(const event of objPrediction.events)
+                for(const event of objPrediction.cluster.events)
                     {
                         if(event.date.split('-')[1] == monthNum)
                             {
