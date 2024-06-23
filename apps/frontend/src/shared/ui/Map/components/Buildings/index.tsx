@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Placemark, Polygon } from '@pbe/react-yandex-maps';
+import { Placemark, Polygon, Clusterer } from '@pbe/react-yandex-maps';
 import { IBuilding } from 'shared/models/IBuilding';
 import { IObj } from 'shared/models/IResponse';
 
@@ -109,31 +109,37 @@ export const Buildings = ({ markers, onPlacemarkClick }: BuildingsProps) => {
         }}
       />
     ) : (
-      <Placemark
-        onClick={
-          onPlacemarkClick
-            ? 'events' in marker
-              ? () => onPlacemarkClick(marker, null)
-              : () => onPlacemarkClick(null, marker)
-            : undefined
-        }
-        key={marker.address}
-        geometry={marker.coords}
-        modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
-        properties={{
-          src: iconsTypes[marker.socialType],
-          color: getIconColor(1),
-        }}
+      <Clusterer
         options={{
-          iconLayout: 'default#image',
-          iconImageHref:
-            iconsTypes[marker.socialType][getIconColor(marker.coolingRate)],
-          iconColor: '#FFFFFF',
-          iconImageSize: [30, 30],
-          iconPieChartCoreFillStyle: 'red',
-          iconOffset: [1, 21],
+          groupByCoordinates: true,
         }}
-      />
+        key={marker.address}
+      >
+        <Placemark
+          onClick={
+            onPlacemarkClick
+              ? 'events' in marker
+                ? () => onPlacemarkClick(marker, null)
+                : () => onPlacemarkClick(null, marker)
+              : undefined
+          }
+          geometry={marker.coords}
+          modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
+          properties={{
+            src: iconsTypes[marker.socialType],
+            color: getIconColor(1),
+          }}
+          options={{
+            iconLayout: 'default#image',
+            iconImageHref:
+              iconsTypes[marker.socialType][getIconColor(marker.coolingRate)],
+            iconColor: '#FFFFFF',
+            iconImageSize: [30, 30],
+            iconPieChartCoreFillStyle: 'red',
+            iconOffset: [1, 21],
+          }}
+        />
+      </Clusterer>
     )
   );
 };

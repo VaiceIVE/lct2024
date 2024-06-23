@@ -3,6 +3,7 @@ import {
   Map as MapComponent,
   Placemark,
   ZoomControl,
+  Clusterer,
   Circle,
 } from '@pbe/react-yandex-maps';
 import * as turf from '@turf/turf';
@@ -237,21 +238,27 @@ export const Map = ({
                     strokeWidth: 2,
                   }}
                 />
-                <Placemark
-                  onClick={
-                    onCircleClick ? () => onCircleClick(address) : undefined
-                  }
-                  geometry={coords}
+                <Clusterer
                   options={{
-                    iconLayout: 'default#image',
-                    iconContentLayout: center,
-                    iconImageHref: center,
-                    iconImageSize: [17, 17],
-                    iconOffset: [4, 31],
-                    iconContentSize: [30, 30],
-                    zIndex: 700,
+                    groupByCoordinates: true,
                   }}
-                />
+                >
+                  <Placemark
+                    onClick={
+                      onCircleClick ? () => onCircleClick(address) : undefined
+                    }
+                    geometry={coords}
+                    options={{
+                      iconLayout: 'default#image',
+                      iconContentLayout: center,
+                      iconImageHref: center,
+                      iconImageSize: [17, 17],
+                      iconOffset: [4, 31],
+                      iconContentSize: [30, 30],
+                      zIndex: 700,
+                    }}
+                  />
+                </Clusterer>
               </div>
             );
           })}
@@ -263,25 +270,31 @@ export const Map = ({
         {showConnected !== 'Дома' &&
           markers &&
           markers.map((marker) => (
-            <Placemark
-              onClick={
-                !simpleMap && onPlacemarkClick
-                  ? 'events' in marker
-                    ? () => onPlacemarkClick(marker, null)
-                    : () => onPlacemarkClick(null, marker)
-                  : undefined
-              }
+            <Clusterer
               key={marker.address}
-              geometry={marker.coords}
-              modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
               options={{
-                iconLayout: 'default#image',
-                iconContentLayout: iconsTypes[marker.socialType],
-                iconImageHref: iconsTypes[marker.socialType],
-                iconImageSize: [30, 30],
-                iconOffset: [1, 21],
+                groupByCoordinates: true,
               }}
-            />
+            >
+              <Placemark
+                onClick={
+                  !simpleMap && onPlacemarkClick
+                    ? 'events' in marker
+                      ? () => onPlacemarkClick(marker, null)
+                      : () => onPlacemarkClick(null, marker)
+                    : undefined
+                }
+                geometry={marker.coords}
+                modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
+                options={{
+                  iconLayout: 'default#image',
+                  iconContentLayout: iconsTypes[marker.socialType],
+                  iconImageHref: iconsTypes[marker.socialType],
+                  iconImageSize: [30, 30],
+                  iconOffset: [1, 21],
+                }}
+              />
+            </Clusterer>
           ))}
       </MapComponent>
     </div>

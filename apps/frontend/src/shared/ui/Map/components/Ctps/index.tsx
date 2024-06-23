@@ -18,7 +18,6 @@ export const CTPS = ({ uniqCtps }: CTPSProps) => {
         {uniqCtps.map((item) => (
           <Circle
             key={item.UF_GEO_COORDINATES}
-            onClick={() => console.log(item.UF_GEO_COORDINATES)}
             geometry={[
               [
                 item.UF_GEO_COORDINATES.split(', ')[0],
@@ -44,7 +43,6 @@ export const CTPS = ({ uniqCtps }: CTPSProps) => {
         {uniqCtps.map((item) => (
           <Placemark
             key={item.UF_GEO_COORDINATES}
-            onClick={() => console.log(item.UF_GEO_COORDINATES)}
             geometry={[
               item.UF_GEO_COORDINATES.split(', ')[0],
               item.UF_GEO_COORDINATES.split(', ')[1],
