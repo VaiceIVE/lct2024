@@ -83,7 +83,7 @@ export default class UserStore {
     } catch (e: any) {
       console.info(e);
 
-      //this.setAuth(false);
+      this.setAuth(false);
       this.setUser({} as IUser);
     } finally {
       this.setLoading(false);
