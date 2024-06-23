@@ -94,6 +94,7 @@ export class PredictionService {
         ws["!cols"][2].wpx = 50
         ws["!cols"][3].wpx = 200
         ws["!cols"][4].wpx = 250
+        ws["!cols"][5].wpx = 100
         ws["!cols"][6].wpx = 250
         ws["!cols"][7].wpx = 200
 
