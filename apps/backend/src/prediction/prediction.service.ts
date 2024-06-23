@@ -342,7 +342,7 @@ export class PredictionService {
                 let address = ''
                 let consumersCount = 1
                 let coords: [number, number] = null
-                let geoBoundaries: [[number, number]] = null
+                let geoBoundaries: any[] = null
                 let coolingRate = 1
                 let district = ''
                 let networkType = null
@@ -539,14 +539,38 @@ export class PredictionService {
 
     private handleBoundariesString(boundary: string)
     {        
-        const array = boundary.split(']], type')[0].split('=[[')[1].split('],')
-        let result = []
-        for(let pair of array)
+        if(boundary.split('type=')[1].replace('}', '') == 'Polygon')
             {
-                const coordPair = pair.replace(']', '').replace('[', '').split(', ')
-                result.push([+coordPair[0], +coordPair[1]])
+                const array = boundary.split(']], type')[0].split('=[[')[1].split('],')
+                let result = []
+                for(let pair of array)
+                    {
+                        const coordPair = pair.replace(']', '').replace('[', '').split(', ')
+                        result.push([+coordPair[0], +coordPair[1]])
+                    }
+                return result as [[number, number]]
             }
-        return result as [[number, number]]
+        else
+        {
+
+            if(boundary.split('type=')[1].replace('}', '') == 'MultiPolygon')
+                {
+                    const array = boundary.split(']], type')[0].split('=[[')[1].split(']],')
+                    let result = []
+                    for(const subarray of array)
+                        {
+                            let subres = []
+                            const pairs = subarray.split('],')
+                            for(const pair of pairs)
+                                {
+                                    subres.push(pair.replace(']', '').replace('[', '').split(', '))
+                                }
+                            result.push(subres)
+                        }
+                        return result
+                }
+        }
+        
     }
 
 

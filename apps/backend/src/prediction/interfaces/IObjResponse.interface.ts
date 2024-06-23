@@ -1,6 +1,6 @@
 export interface IObjResponse {
     coords: [number, number];
-    geoBoundary: [[number, number]];
+    geoBoundary: any[];
     events: IEvents[];
     socialType: string;
     address: string;
