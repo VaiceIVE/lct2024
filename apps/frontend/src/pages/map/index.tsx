@@ -23,7 +23,6 @@ import { IObj, IResponse } from 'shared/models/IResponse';
 import styles from './MapPage.module.scss';
 import { findSquareForHouse } from 'shared/helpers';
 import { isNull } from 'lodash';
-import { responseData } from 'shared/constants/mock';
 
 const MapPage = () => {
   const [opened, { open, close }] = useDisclosure(true);
@@ -178,16 +177,6 @@ const MapPage = () => {
 
   useEffect(() => {
     if (isResponse) {
-      setResponse({
-        date: '23',
-        obj: responseData.obj.map((o, index) => ({
-          ...o,
-          index,
-          connectionInfo: isNull(o.coords)
-            ? null
-            : findSquareForHouse(o.coords),
-        })),
-      });
       setLoading(true);
       ResponseServices.getResponse()
         .then((response) => {
@@ -237,7 +226,15 @@ const MapPage = () => {
 
   useEffect(() => {
     setRegionFilter('ВАО');
-  }, [showConnected]);
+    setSelectedBuilding(null);
+    setSelectedObj(null);
+    filtersFields.reset({
+      address: '',
+      district: '',
+      socialType: '',
+      tpAddress: '',
+    });
+  }, [filtersFields, showConnected]);
 
   return (
     <div className={styles.wrapper}>
