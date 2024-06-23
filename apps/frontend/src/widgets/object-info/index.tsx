@@ -9,6 +9,10 @@ import { Title } from 'shared/ui/Title';
 import { BuildingStat } from './components/BuildingStat';
 import { ObjStat } from './components/ObjStat';
 import dayjs from 'dayjs';
+import { DateInput } from 'shared/ui/DateInput';
+import { IconCalendarEvent } from '@tabler/icons-react';
+import { useState } from 'react';
+import { DateValue } from '@mantine/dates';
 
 interface ObjectCardProps {
   selectedBuilding: IBuilding | null;
@@ -21,11 +25,13 @@ export const ObjectInfo = ({
 }: ObjectCardProps) => {
   const item = selectedBuilding ? selectedBuilding : selectedObj;
 
+  const [date, setDate] = useState<DateValue>(null);
+
   const compare = (a: IEvents, b: IEvents) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
 
-    return +dateA - +dateB;
+    return +dateB - +dateA;
   };
 
   return (
@@ -111,10 +117,29 @@ export const ObjectInfo = ({
             level={4}
             title={`Выявленные события на объекте (${selectedBuilding.events.length})`}
           />
+          <DateInput
+            onChange={setDate}
+            value={date}
+            icon={
+              <IconCalendarEvent
+                size={18}
+                style={{
+                  marginRight: '24px',
+                }}
+              />
+            }
+            placeholder="Выберите датy"
+            allowClear
+          />
           <Grid gutter={12}>
             {selectedBuilding.events
               .sort(compare)
               .sort((a, b) => (a.eventName > b.eventName ? 1 : -1))
+              .filter(
+                (e) =>
+                  !date ||
+                  dayjs(e.date).format('DD.MM') === dayjs(date).format('DD.MM')
+              )
               .map((e, index) => (
                 <Grid.Col key={index} span={6}>
                   <Card h={'100%'} p="20px" radius={'8px'} type="dark">
