@@ -119,8 +119,14 @@ export class PredictionService {
         console.log('found prediction')
         const objPredictions = await this.objPredictionRepository.find({where:{prediction: {id: id}}, relations: {object: true}, loadEagerRelations: false})
         console.log('iteratingObjPreds')
+        let counter = 0
         for (let objPrediction of objPredictions)
             {
+                if(counter > 10)
+                    {
+                        break
+                    }
+                counter += 1
                 let cluster = await this.clusterRepository.findOne({where: {objPrediction: {id: objPrediction.id}}, loadEagerRelations: false})
                 let events = await this.eventRepository.find({where: {cluster: {id: cluster.id}, month: monthNum}})
                 cluster.events = events
@@ -233,15 +239,10 @@ export class PredictionService {
         }
 
         console.log(prediction.objPredictions)
-        let counter = 0
         for(const objPrediction of prediction.objPredictions)
             {
                 console.log(objPredictions)
-                if(counter >=10)
-                    {
-                        break
-                    }
-                counter += 1
+
                 let events = []
                 for(const event of objPrediction.cluster.events)
                     {
