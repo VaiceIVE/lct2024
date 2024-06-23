@@ -59,7 +59,7 @@ export class PredictionService {
                 fs.writeFileSync(file.originalname, file.buffer);
                 formdata.append('files', file.buffer, file.originalname)
             }
-        return await axios.post(this.configService.get('DATA_LOAD_URL'), formdata)
+        return await axios.post(this.configService.get('DATA_LOAD_MORE_URL'), formdata)
     }
 
     public async createDefaultPrediction()
