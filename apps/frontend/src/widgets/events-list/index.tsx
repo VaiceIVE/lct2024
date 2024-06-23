@@ -67,12 +67,12 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
         new Set(
           items
             .filter((item) => item.connectionInfo?.address)
-            .map((item) => ({
-              value: item.connectionInfo!.address!,
-              label: item.connectionInfo!.address!,
-            }))
+            .map((i) => i.connectionInfo?.address)
         )
-      );
+      ).map((i) => ({
+        value: i!,
+        label: i!,
+      }));
     };
 
     if (data?.length) {
