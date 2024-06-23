@@ -116,6 +116,7 @@ export class PredictionService {
     public async getPrediction(id: number, monthNum: string)
     {
         const prediction = await this.predictionRepository.findOne({where: {id: id}, relations: {objPredictions: {cluster: {events: true}, heatPoint: true, object: true}}})
+        console.log('found prediction')
         return await this.handlePredictionOutput(prediction, monthNum)
     }
 
@@ -171,17 +172,17 @@ export class PredictionService {
                 const eventIds = (await this.eventRepository.insert(events)).identifiers
                 console.log('creating cluster')
 
-                console.log(eventIds)
+                //console.log(eventIds)
 
 
-                console.log(newCluster)
+                //console.log(newCluster)
 
                 console.log('searching unoms')
 
                 const objs = await this.objRepository.find({where: {unom: In(unomDict[cluster])}})
 
-                console.log(eventIds)
-                
+                //console.log(eventIds)
+
                 console.log(objs)
 
                 for (const obj of objs)
