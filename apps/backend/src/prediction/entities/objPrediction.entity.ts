@@ -30,5 +30,4 @@ export class ObjPrediction {
     @ManyToOne(() => HeatPoint, (hp) => hp.objPredictions)
     @JoinTable()
     heatPoint: HeatPoint
-
 }

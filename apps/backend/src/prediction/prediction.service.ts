@@ -116,6 +116,7 @@ export class PredictionService {
     public async getPrediction(id: number, monthNum: string)
     {
         const prediction = await this.predictionRepository.findOne({where: {id: id}, relations: {objPredictions: {cluster: {events: true}, heatPoint: true, object: true}}})
+        console.log('found objects')
         return await this.handlePredictionOutput(prediction, monthNum)
     }
 
@@ -218,6 +219,8 @@ export class PredictionService {
             id: prediction.id,
             buildings: []
         }
+
+
         for(const objPrediction of prediction.objPredictions)
             {
                 let events = []
