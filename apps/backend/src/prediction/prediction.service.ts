@@ -323,11 +323,12 @@ export class PredictionService {
                                         coords = await this.handleGeodataString(coordString)
                                         objPrediction.object.geodata = coordString
                                         await this.objRepository.save(objPrediction.object)
+                                        for(let coord of coords)
+                                            {
+                                            coord = Number(coord)
+                                            }
                                     }
-                                    for(let coord of coords)
-                                        {
-                                        coord = Number(coord)
-                                        }
+                                    
                             }
                         if(objPrediction.object.geoBoundaries)
                             {
