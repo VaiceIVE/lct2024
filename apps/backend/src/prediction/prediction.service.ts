@@ -180,7 +180,7 @@ export class PredictionService {
                 for (const obj of objs)
                     {
                             const newObjPrediction = this.objPredictionRepository.create({
-                                events: events,
+                                events: eventIds,
                                 object: {id: obj.id}
                             })
                             console.log('pushin')
