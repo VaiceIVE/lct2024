@@ -122,8 +122,6 @@ export const Map = ({
         }
       });
 
-    console.log('districtMap', districtMap);
-
     const createEnvelopeWithPadding = (
       coords: [number, number][]
     ): [number, number][] => {
@@ -187,14 +185,6 @@ export const Map = ({
         ...getColorShade(c.index, buildingsCount || 1),
       }));
   }, [buildingsCount, markers]);
-
-  // const coordinatesToRemove = new Set(a);
-
-  // const filteredObjects = CTP_LIST.filter(
-  //   (obj) => !coordinatesToRemove.has(obj.UF_GEO_COORDINATES)
-  // );
-
-  // console.log(filteredObjects);
 
   const getUniqCtps = useCallback(() => {
     setUniqCtps(
