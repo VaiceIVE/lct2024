@@ -77,6 +77,7 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
 
     if (data?.length) {
       const uniqTp = getUniqueAddresses(data);
+      console.log('uniqTp', uniqTp);
       setTpAddresses(uniqTp);
     }
   }, [data]);
