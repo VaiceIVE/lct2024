@@ -181,6 +181,8 @@ export class PredictionService {
                 const objs = await this.objRepository.find({where: {unom: In(unomDict[cluster])}})
 
                 console.log(eventIds)
+                
+                console.log(objs)
 
                 for (const obj of objs)
                     {
