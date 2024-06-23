@@ -143,7 +143,8 @@ export class PredictionService {
                 let events = []
                 for(const date of cluster_days)
                     {
-
+                        console.log('cluster_days')
+                        console.log(cluster_days.length)
                         const dateChance = predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster][date]
 
                         const eventIds =  Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date])
@@ -174,8 +175,11 @@ export class PredictionService {
                                 events: events,
                                 object: obj
                             })
+                            console.log('pushin')
                             objPredictions.push(newObjPrediction)
                     }
+
+
                 console.log('saving objPredictions')
                 await this.objPredictionRepository.insert(objPredictions)
             }
