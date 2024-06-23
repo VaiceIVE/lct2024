@@ -143,14 +143,17 @@ export class PredictionService {
                 let events = []
                 console.log('cluster_days')
                 console.log(cluster_days.length)
+                
+                let eventIds = []
+
                 for(const date of cluster_days)
                     {
                         
                         const dateChance = predictionAnswer.what_anomaly_propability.clusters__day_predict[cluster][date]
 
-                        const eventIds =  Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date])
+                        const eventIndices =  Object.keys(predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date])
 
-                        for(const eventId of eventIds)
+                        for(const eventId of eventIndices)
                             {
                                 const eventChance = predictionAnswer.what_anomaly_propability.clusters__predict_in_day[cluster][date][eventId]
                                 const newEvent = this.eventRepository.create({
@@ -158,6 +161,7 @@ export class PredictionService {
                                     eventName: eventEnum[eventId],
                                     chance: dateChance * eventChance
                                 })
+                                eventIds.push(newEvent.id)
                                 events.push(newEvent)
                             }
                     }
@@ -169,6 +173,9 @@ export class PredictionService {
 
                 console.log('found objects')
                 console.log(objs.length)
+
+
+                
 
                 for (const obj of objs)
                     {

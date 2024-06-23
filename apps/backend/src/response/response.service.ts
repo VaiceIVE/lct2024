@@ -373,6 +373,7 @@ export class ResponseService {
             const zAbs = beta * Math.log((25 - outTemp)/(0 - outTemp))
             obj.normCooldown = zNorm
             obj.fullCooldown = zAbs
+            obj.coolingRate =  (25 - outTemp) / zAbs
             obj.priority -= (zNorm + zAbs) / 2
         }
     responseDict.obj = objs
