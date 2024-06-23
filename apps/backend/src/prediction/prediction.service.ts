@@ -236,14 +236,12 @@ export class PredictionService {
         let counter = 0
         for(const objPrediction of prediction.objPredictions)
             {
-                if(counter >=250)
+                if(counter >=10)
                     {
                         break
                     }
                 counter += 1
                 let events = []
-                console.log('cluster events')
-                console.log(objPrediction.cluster.events)
                 for(const event of objPrediction.cluster.events)
                     {
                         if(event.date.split('-')[1] == monthNum)
@@ -264,8 +262,6 @@ export class PredictionService {
                 let networkType = null
                 let characteristics :{[key: string] : string | number} = {}
                 let socialType = ''
-
-                console.log(objPrediction.object)
                 if(objPrediction.object)
                     {
                         address = objPrediction.object.address
