@@ -105,32 +105,34 @@ export const ObjectInfo = ({
             title={`Выявленные события на объекте (${selectedBuilding.events.length})`}
           />
           <Grid gutter={12}>
-            {selectedBuilding.events.map((e, index) => (
-              <Grid.Col key={index} span={6}>
-                <Card h={'100%'} p="20px" radius={'8px'} type="dark">
-                  <Stack gap={8}>
-                    <p
-                      style={{
-                        textWrap: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        cursor: 'default',
-                      }}
-                      className="text medium"
-                    >
-                      {e.eventName}
-                    </p>
-                    <Flex align={'center'} gap={8}>
-                      <Chance value={e.chance} />
-                      <p className="text medium placeholder">|</p>
-                      <p className="text medium placeholder">
-                        {dayjs(e.date).format('DD.MM')}
+            {selectedBuilding.events
+              .sort((a, b) => (a.eventName > b.eventName ? 1 : -1))
+              .map((e, index) => (
+                <Grid.Col key={index} span={6}>
+                  <Card h={'100%'} p="20px" radius={'8px'} type="dark">
+                    <Stack gap={8}>
+                      <p
+                        style={{
+                          textWrap: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          cursor: 'default',
+                        }}
+                        className="text medium"
+                      >
+                        {e.eventName}
                       </p>
-                    </Flex>
-                  </Stack>
-                </Card>
-              </Grid.Col>
-            ))}
+                      <Flex align={'center'} gap={8}>
+                        <Chance value={e.chance} />
+                        <p className="text medium placeholder">|</p>
+                        <p className="text medium placeholder">
+                          {dayjs(e.date).format('DD.MM')}
+                        </p>
+                      </Flex>
+                    </Stack>
+                  </Card>
+                </Grid.Col>
+              ))}
           </Grid>
         </Stack>
       ) : null}
