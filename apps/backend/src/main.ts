@@ -13,16 +13,16 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
   app.enableCors({
     credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     origin:[
       "http://localhost:4200",
       "http://localhost:4200/",
       "http://127.0.0.1:4200",
       "http://127.0.0.1:4200/",
       "https://teplai.adera-team.ru",
-      "https://teplai.adera-team.ru"
+      "https://teplai.adera-team.ru",
+      "teplai.adera-team.ru",
+      "teplai.adera-team.ru/"
     ],
-    preflightContinue: false
   })
 
   const config = new DocumentBuilder()
