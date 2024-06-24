@@ -3,6 +3,7 @@ services:
   celery1:
     container_name: celery-worker-1
     build: .
+    restart: unless-stopped
     volumes: 
       - ./:/app/
     working_dir: /app/src
@@ -20,6 +21,7 @@ services:
   celery2:
     container_name: celery-worker-2
     build: .
+    restart: unless-stopped
     volumes: 
       - ./:/app/
     working_dir: /app/src

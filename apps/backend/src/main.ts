@@ -18,6 +18,7 @@ async function bootstrap() {
       "http://localhost:4200/",
       "http://127.0.0.1:4200",
       "http://127.0.0.1:4200/",
+      "https://teplai.adera-team.ru",
       "https://teplai.adera-team.ru"
     ]
   })
