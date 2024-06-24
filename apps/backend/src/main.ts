@@ -21,7 +21,8 @@ async function bootstrap() {
       "http://127.0.0.1:4200/",
       "https://teplai.adera-team.ru",
       "https://teplai.adera-team.ru"
-    ]
+    ],
+    preflightContinue: false
   })
 
   const config = new DocumentBuilder()
