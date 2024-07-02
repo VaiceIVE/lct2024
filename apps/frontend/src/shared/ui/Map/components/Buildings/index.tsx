@@ -64,32 +64,32 @@ export const Buildings = ({ markers, onPlacemarkClick }: BuildingsProps) => {
   };
 
   const getMarkers = () => {
-    if (markers.length) {
-      const minCoolingRate = Math.min(
-        ...markers.map((item) => item.coolingRate)
-      );
-      const maxCoolingRate = Math.max(
-        ...markers.map((item) => item.coolingRate)
-      );
-
-      const range = maxCoolingRate - minCoolingRate;
-      const threshold1 = minCoolingRate + range / 3;
-      const threshold2 = minCoolingRate + (2 * range) / 3;
-
-      return markers.map((item) => {
-        let colorType;
-        if (item.coolingRate <= threshold1) {
-          colorType = 1;
-        } else if (item.coolingRate <= threshold2) {
-          colorType = 2;
-        } else {
-          colorType = 3;
-        }
-        return { ...item, colorType };
-      });
+    if (!markers.length) {
+      return [];
     }
 
-    return [];
+    const sortedMarkers = [...markers].sort(
+      (a, b) => a.coolingRate - b.coolingRate
+    );
+
+    const n = sortedMarkers.length;
+    const threshold1Index = Math.floor(n / 3);
+    const threshold2Index = Math.floor((2 * n) / 3);
+
+    const threshold1 = sortedMarkers[threshold1Index].coolingRate;
+    const threshold2 = sortedMarkers[threshold2Index].coolingRate;
+
+    return markers.map((item) => {
+      let colorType;
+      if (item.coolingRate <= threshold1) {
+        colorType = 1;
+      } else if (item.coolingRate <= threshold2) {
+        colorType = 2;
+      } else {
+        colorType = 3;
+      }
+      return { ...item, colorType };
+    });
   };
 
   return getMarkers().map((marker) =>

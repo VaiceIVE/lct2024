@@ -144,7 +144,7 @@ export const MapList = ({
         <p className="text">
           Найдено {buildings?.length ? buildings?.length : objs?.length}
         </p>
-        {buildings ? (
+        {buildings?.length ? (
           <Stack gap={8}>
             {buildings.map((b) => (
               <BuildingItem
@@ -155,7 +155,7 @@ export const MapList = ({
             ))}
           </Stack>
         ) : null}
-        {objs ? (
+        {objs?.length ? (
           <Stack gap={8}>
             {objs.map((o) => (
               <ObjItem key={o.address} o={o} setSelectedObj={setSelectedObj} />

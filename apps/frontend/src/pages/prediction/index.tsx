@@ -61,11 +61,12 @@ const PredictionPageContainer = () => {
       } else {
         PredictionServices.getPredictionById(localId, months[index].value)
           .then((r) => {
+            console.log('here', r)
             setPrediction({
               id: r.data.id,
               buildings: r.data.buildings.map((b) => ({
                 ...b,
-                connectionInfo: isNull(b.coords)
+                connectionInfo: b.connectionInfo ? b.connectionInfo : isNull(b.coords)
                   ? null
                   : findSquareForHouse(b.coords),
               })),
@@ -80,7 +81,7 @@ const PredictionPageContainer = () => {
             id: response.data.id,
             buildings: response.data.buildings.map((b) => ({
               ...b,
-              connectionInfo: isNull(b.coords)
+              connectionInfo: b.connectionInfo ? b.connectionInfo : isNull(b.coords)
                 ? null
                 : findSquareForHouse(b.coords),
             })),

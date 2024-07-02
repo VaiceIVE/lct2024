@@ -73,7 +73,7 @@ const ResponsePage = observer(() => {
           date: response.data.date,
           obj: response.data?.obj.map((o) => ({
             ...o,
-            connectionInfo: isNull(o.coords)
+            connectionInfo: o.connectionInfo ? o.connectionInfo : isNull(o.coords)
               ? null
               : findSquareForHouse(o.coords),
           })),

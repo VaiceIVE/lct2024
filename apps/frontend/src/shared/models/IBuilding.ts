@@ -22,6 +22,7 @@ export interface IEvents {
 
 export interface ICtp {
   address: string;
-  name: string;
+  name: string | null;
   coords: [number, number];
+  type: string;
 }

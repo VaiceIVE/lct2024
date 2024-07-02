@@ -73,7 +73,9 @@ const MapPage = () => {
                   buildings: r.data.buildings.map((b, index) => ({
                     ...b,
                     index,
-                    connectionInfo: isNull(b.coords)
+                    connectionInfo: b.connectionInfo
+                      ? b.connectionInfo
+                      : isNull(b.coords)
                       ? null
                       : findSquareForHouse(b.coords),
                   })),
@@ -84,18 +86,20 @@ const MapPage = () => {
           .finally(() => setLoading(false));
       } else {
         PredictionServices.getPredictionById(+id, month)
-          .then((response) =>
+          .then((response) => {
             setPrediction({
               id: response.data.id,
               buildings: response.data.buildings.map((b, index) => ({
                 ...b,
                 index,
-                connectionInfo: isNull(b.coords)
+                connectionInfo: b.connectionInfo
+                  ? b.connectionInfo
+                  : isNull(b.coords)
                   ? null
                   : findSquareForHouse(b.coords),
               })),
-            })
-          )
+            });
+          })
           .finally(() => setLoading(false));
       }
     },
@@ -126,8 +130,8 @@ const MapPage = () => {
         return false;
       })
       .filter((item) =>
-        item.address
-          .toLowerCase()
+        item?.address
+          ?.toLowerCase()
           .includes(filtersFields.watch('address')?.toLowerCase() || '')
       )
       .filter(
@@ -180,12 +184,15 @@ const MapPage = () => {
       setLoading(true);
       ResponseServices.getResponse()
         .then((response) => {
+          console.log(response.data);
           setResponse({
             date: response.data.date,
             obj: response.data.obj.map((o, index) => ({
               ...o,
               index,
-              connectionInfo: isNull(o.coords)
+              connectionInfo: o.connectionInfo
+                ? o.connectionInfo
+                : isNull(o.coords)
                 ? null
                 : findSquareForHouse(o.coords),
             })),

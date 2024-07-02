@@ -11,21 +11,33 @@ import { ObjStat } from './components/ObjStat';
 import dayjs from 'dayjs';
 import { DateInput } from 'shared/ui/DateInput';
 import { IconCalendarEvent } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateValue } from '@mantine/dates';
+import qs from 'query-string';
+import PredictionServices from 'shared/services/PredictionServices';
+import { useLocation } from 'react-router-dom';
 
 interface ObjectCardProps {
   selectedBuilding: IBuilding | null;
   selectedObj: IObj | null;
+  defaultId?: string | (string | null)[] | null;
+  defaultMonth?: string;
 }
 
 export const ObjectInfo = ({
   selectedBuilding,
   selectedObj,
+  defaultId,
+  defaultMonth,
 }: ObjectCardProps) => {
   const item = selectedBuilding ? selectedBuilding : selectedObj;
 
   const [date, setDate] = useState<DateValue>(null);
+  const [events, setEvents] = useState<IEvents[]>([]);
+
+  const location = useLocation();
+
+  const { id, month } = qs.parse(location.search);
 
   const compare = (a: IEvents, b: IEvents) => {
     const dateA = new Date(a.date);
@@ -33,6 +45,16 @@ export const ObjectInfo = ({
 
     return +dateB - +dateA;
   };
+
+  useEffect(() => {
+    if (selectedBuilding && selectedBuilding?.socialType !== 'tp') {
+      PredictionServices.getEvents(
+        id || defaultId,
+        month || defaultMonth,
+        selectedBuilding.characteristics['УНОМ']
+      ).then((response) => setEvents(response.data));
+    }
+  }, [defaultId, defaultMonth, id, month, selectedBuilding]);
 
   return (
     <Stack gap={44}>
@@ -91,7 +113,12 @@ export const ObjectInfo = ({
         {item?.socialType !== 'tp' && item?.connectionInfo ? (
           <Card>
             <Stack gap={26}>
-              <Title level={4} title="Ответственный за объект ЦТП" />
+              <Title
+                level={4}
+                title={`Ответственный за объект ${
+                  item.connectionInfo?.type || 'ЦТП'
+                }`}
+              />
               <Flex
                 style={{ overflow: 'hidden' }}
                 gap={12}
@@ -104,18 +131,18 @@ export const ObjectInfo = ({
                   }}
                   className="text medium"
                 >
-                  {item.connectionInfo.address}
+                  {item.connectionInfo?.address}
                 </p>
               </Flex>
             </Stack>
           </Card>
         ) : null}
       </Stack>
-      {selectedBuilding ? (
+      {selectedBuilding && events?.length ? (
         <Stack gap={16}>
           <Title
             level={4}
-            title={`Выявленные события на объекте (${selectedBuilding.events.length})`}
+            title={`Выявленные события на объекте (${events.length})`}
           />
           <DateInput
             onChange={setDate}
@@ -132,7 +159,7 @@ export const ObjectInfo = ({
             allowClear
           />
           <Grid gutter={12}>
-            {selectedBuilding.events
+            {events
               .sort(compare)
               .sort((a, b) => (a.eventName > b.eventName ? 1 : -1))
               .filter(

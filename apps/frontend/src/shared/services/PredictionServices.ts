@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import $api from 'shared/api';
+import { IEvents } from 'shared/models/IBuilding';
 import { IPrediction } from 'shared/models/IPrediction';
 import { ITemperatureConditions } from 'shared/models/ITemperatureConditions';
 
@@ -33,5 +34,13 @@ export default class PredictionServices {
 
   static async savePrediction(id: number) {
     return $api.get(`/prediction/${id}/save`);
+  }
+
+  static async getEvents(
+    id: string,
+    month: string,
+    unom: string
+  ): Promise<AxiosResponse<IEvents[]>> {
+    return $api.get(`prediction/${id}/${month}/${unom}/events`);
   }
 }

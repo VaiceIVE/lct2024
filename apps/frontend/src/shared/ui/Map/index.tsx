@@ -5,6 +5,7 @@ import {
   ZoomControl,
   Clusterer,
   Circle,
+  ObjectManager,
 } from '@pbe/react-yandex-maps';
 import * as turf from '@turf/turf';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -52,12 +53,13 @@ export interface District {
 }
 
 interface CTP {
-  name: string;
+  name: string | null;
   address: string;
   coords: [number, number];
   priority: number;
   fillColor?: string;
   strokeColor?: string;
+  type?: string;
   index: number;
 }
 
@@ -84,7 +86,15 @@ const getColorShade = (
 };
 
 const coordsToString = (coords: number[]) => {
-  return coords.join(', ');
+  return coords?.join(', ');
+};
+
+const iconsTypes: { [key: string]: string } = {
+  mkd: mkd,
+  medicine: social,
+  education: social,
+  tp: tp,
+  prom: prom,
 };
 
 export const Map = ({
@@ -99,14 +109,9 @@ export const Map = ({
   regionFilter,
 }: MapProps) => {
   const [uniqCtps, setUniqCtps] = useState<orginalList[]>([]);
+  const [features, setFeatures] = useState([]);
 
-  const iconsTypes: { [key: string]: string } = {
-    mkd: mkd,
-    medicine: social,
-    education: social,
-    tp: tp,
-    prom: prom,
-  };
+  const [oRef, setORef] = useState();
 
   const markers = buildings?.length ? buildings : objs;
 
@@ -155,12 +160,15 @@ export const Map = ({
       markers.forEach((marker) => {
         if (
           marker?.connectionInfo &&
-          !ctpMap.map((c) => c.name).includes(marker?.connectionInfo.name)
+          !ctpMap
+            .map((c) => c?.address)
+            .includes(marker?.connectionInfo?.address)
         ) {
           ctpMap.push({
             address: marker?.connectionInfo?.address,
             coords: marker?.connectionInfo?.coords,
             name: marker?.connectionInfo?.name,
+            type: marker?.connectionInfo?.type,
             priority: 0,
             index: marker?.index || marker.index === 0 ? marker.index : 1,
           });
@@ -171,7 +179,7 @@ export const Map = ({
       markers.forEach((marker) => {
         if (marker?.connectionInfo) {
           const ctp = ctpMap.find(
-            (c) => c.name === marker.connectionInfo?.name
+            (c) => c.address === marker.connectionInfo?.address
           );
           if (ctp && marker.priority) {
             ctp.priority += marker.priority;
@@ -202,6 +210,52 @@ export const Map = ({
     getUniqCtps();
   }, [ctps, getUniqCtps]);
 
+  useEffect(() => {
+    if (markers) {
+      const array = markers.map((m) => ({
+        type: 'Feature',
+        id: m.address,
+        geometry: { type: 'Point', coordinates: m.coords },
+        properties: {
+          balloonContent: 'Содержимое балуна',
+          clusterCaption: 'Еще одна метка',
+          hintContent: 'Текст подсказки',
+        },
+        options: {
+          iconLayout: 'default#image',
+          iconContentLayout: iconsTypes[m.socialType],
+          iconImageHref: iconsTypes[m.socialType],
+          iconImageSize: [30, 30],
+          iconOffset: [1, 21],
+        },
+      }));
+
+      setFeatures(array);
+    }
+  }, [markers]);
+
+  useEffect(() => {
+    if (oRef?.objects && markers?.length) {
+      oRef?.objects.events?.add('click', (e) => {
+        const objectId = e.get('objectId');
+
+        if (!simpleMap && onPlacemarkClick) {
+          if ('events' in markers?.find((m) => m.address === objectId)) {
+            onPlacemarkClick(
+              markers?.find((m) => m.address === objectId),
+              null
+            );
+          } else {
+            onPlacemarkClick(
+              null,
+              markers?.find((m) => m.address === objectId)
+            );
+          }
+        }
+      });
+    }
+  }, [markers, oRef, onPlacemarkClick, simpleMap]);
+
   return (
     <div className={classNames(styles.wrapper, { [styles.full]: fullWidth })}>
       <MapComponent
@@ -224,78 +278,59 @@ export const Map = ({
         )}
         {showConnected === 'ЦТП/ИТП' &&
           ctps &&
-          ctps.map(({ name, coords, address, fillColor, strokeColor }) => {
-            return (
-              <div key={name}>
-                <Circle
-                  onClick={
-                    onCircleClick ? () => onCircleClick(address) : undefined
-                  }
-                  geometry={[coords, 700]}
-                  options={{
-                    fillColor,
-                    strokeColor,
-                    strokeWidth: 2,
-                  }}
-                />
-                <Clusterer
-                  options={{
-                    groupByCoordinates: true,
-                  }}
-                >
-                  <Placemark
-                    onClick={
-                      onCircleClick ? () => onCircleClick(address) : undefined
-                    }
-                    geometry={coords}
+          ctps.map(
+            ({ coords, address, fillColor, strokeColor, type }, index) => {
+              return (
+                <div key={`${index}-${address}`}>
+                  {type === 'ЦТП' ? (
+                    <Circle
+                      onClick={
+                        onCircleClick ? () => onCircleClick(address) : undefined
+                      }
+                      geometry={[coords, 200]}
+                      options={{
+                        fillColor,
+                        strokeColor,
+                        strokeWidth: 2,
+                      }}
+                    />
+                  ) : null}
+                  <Clusterer
                     options={{
-                      iconLayout: 'default#image',
-                      iconContentLayout: center,
-                      iconImageHref: center,
-                      iconImageSize: [17, 17],
-                      iconOffset: [4, 31],
-                      iconContentSize: [30, 30],
-                      zIndex: 700,
+                      groupByCoordinates: true,
                     }}
-                  />
-                </Clusterer>
-              </div>
-            );
-          })}
+                  >
+                    <Placemark
+                      onClick={
+                        onCircleClick ? () => onCircleClick(address) : undefined
+                      }
+                      geometry={coords}
+                      options={{
+                        iconLayout: 'default#image',
+                        iconContentLayout: center,
+                        iconImageHref: center,
+                        iconImageSize: [17, 17],
+                        iconOffset: [4, 31],
+                        iconContentSize: [30, 30],
+                        zIndex: 700,
+                      }}
+                    />
+                  </Clusterer>
+                </div>
+              );
+            }
+          )}
         {simpleMap ? (
           <ZoomControl
             options={{ size: 'small', position: { top: '24px', left: '24px' } }}
           />
         ) : null}
-        {showConnected !== 'Дома' &&
-          markers &&
-          markers.map((marker) => (
-            <Clusterer
-              key={marker.address}
-              options={{
-                groupByCoordinates: true,
-              }}
-            >
-              <Placemark
-                onClick={
-                  !simpleMap && onPlacemarkClick
-                    ? 'events' in marker
-                      ? () => onPlacemarkClick(marker, null)
-                      : () => onPlacemarkClick(null, marker)
-                    : undefined
-                }
-                geometry={marker.coords}
-                modules={['geoObject.addon.hint', 'geoObject.addon.balloon']}
-                options={{
-                  iconLayout: 'default#image',
-                  iconContentLayout: iconsTypes[marker.socialType],
-                  iconImageHref: iconsTypes[marker.socialType],
-                  iconImageSize: [30, 30],
-                  iconOffset: [1, 21],
-                }}
-              />
-            </Clusterer>
-          ))}
+        {showConnected !== 'Дома' && (
+          <ObjectManager
+            features={{ type: 'FeatureCollection', features: features }}
+            instanceRef={(ref) => setORef(ref)}
+          />
+        )}
       </MapComponent>
     </div>
   );

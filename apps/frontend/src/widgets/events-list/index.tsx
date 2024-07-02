@@ -42,8 +42,8 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
         isPriority === '1' ? b.priority - a.priority : a.priority - b.priority
       )
       .filter((item) =>
-        item.address
-          .toLowerCase()
+        item?.address
+          ?.toLowerCase()
           .includes(watch('address')?.toLowerCase() || '')
       )
       .filter((b) => !watch('district') || b.district === watch('district'))
@@ -159,7 +159,7 @@ export const EventsList = ({ id, month, data }: EventsListProps) => {
           <p className="text medium placeholder">
             Найдено результатов: {getDataByFilters().length}
           </p>
-          <Table data={getDataByFilters()} />
+          <Table id={id} data={getDataByFilters()} defaultMonth={month} />
         </Stack>
       </Stack>
     </WidgetWrapper>

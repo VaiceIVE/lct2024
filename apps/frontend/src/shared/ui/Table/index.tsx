@@ -22,9 +22,11 @@ import dayjs from 'dayjs';
 
 interface Props {
   data: IBuilding[];
+  id: string | (string | null)[] | null;
+  defaultMonth: string;
 }
 
-export const Table = ({ data }: Props) => {
+export const Table = ({ data, id, defaultMonth }: Props) => {
   const theme = useMantineTheme();
 
   const [opened, { open, close }] = useDisclosure(false);
@@ -197,7 +199,12 @@ export const Table = ({ data }: Props) => {
     <div className={styles.wrapper}>
       <Drawer isBlur title="Карточка объекта" opened={opened} close={close}>
         {selectedBuilding ? (
-          <ObjectInfo selectedObj={null} selectedBuilding={selectedBuilding} />
+          <ObjectInfo
+            defaultId={id}
+            defaultMonth={defaultMonth}
+            selectedObj={null}
+            selectedBuilding={selectedBuilding}
+          />
         ) : null}
       </Drawer>
       <MantineReactTable table={table} />
