@@ -1,4 +1,5 @@
 export interface IObjResponse {
+    connectionInfo: ICtp | null;
     coords: [number, number];
     geoBoundary: any[];
     events: IEvents[];
@@ -16,6 +17,12 @@ interface IEvents{
     eventName: string;
     chance: number;
     date: string;
+}
+
+export interface ICtp{
+  address: string;
+  type: string;
+  coords: [number, number];
 }
 
 export interface IPrediction {

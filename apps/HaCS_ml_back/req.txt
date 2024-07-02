@@ -11,8 +11,8 @@ openpyxl
 python-dotenv
 pandas
 uvicorn
-gunicorn
 fastapi
 boto3
 minio
 numpy==1.26.4
+gunicorn

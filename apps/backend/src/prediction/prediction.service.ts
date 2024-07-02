@@ -12,11 +12,12 @@ import { Event } from './entities/event.entity';
 import { Prediction } from './entities/prediction.entity';
 import { HeatPoint, Obj } from '../database/entities-index';
 import { ObjPrediction } from './entities/objPrediction.entity';
-import { IObjResponse, IPrediction } from './interfaces/IObjResponse.interface';
+import { ICtp, IObjResponse, IPrediction } from './interfaces/IObjResponse.interface';
 import { join } from 'path';
 import { Cluster } from './entities/cluster.entity';
 import * as XLSX from 'xlsx';
 import * as iconvlite from 'iconv-lite'
+import { PredCache } from './entities/predcache.entity';
 @Injectable()
 export class PredictionService {
     constructor(
@@ -32,12 +33,29 @@ export class PredictionService {
         private heatPointRepository: Repository<HeatPoint>,
         @InjectRepository(Cluster)
         private clusterRepository: Repository<Cluster>,
+        @InjectRepository(PredCache)
+        private predCacheRepository: Repository<PredCache>,
         private storageService: StorageService,
         private configService: ConfigService
     ){}
     public async savePrediction(id: number)
     {
         return await this.predictionRepository.update({id: id}, {isSaved: true})
+    }
+
+    public async getEvents(id: number, unom: string, monthNum: string)
+    {
+        const prediction = await this.predictionRepository.create({})
+
+        const objPrediction = await this.objPredictionRepository.findOne({where:{prediction: {id: id}, object: {unom: unom}}, relations: {object: {heatPoint: true}}, loadEagerRelations: false})
+
+        let cluster = await this.clusterRepository.findOne({where: {objPrediction: {id: objPrediction.id}}, loadEagerRelations: false})
+        let events = await this.eventRepository.find({where: {cluster: {id: cluster.id}}})
+        cluster.events = events
+        objPrediction.cluster = cluster
+
+        prediction.objPredictions = [objPrediction]
+        return (await this.handlePredictionOutput(prediction, monthNum)).buildings[0].events
     }
 
     public async getSaved()
@@ -187,7 +205,7 @@ export class PredictionService {
         console.log('send data load request')
         let predictionAnswer = (await predictionStatus).data
         console.log('prediction recieved')
-        //await dataLoadStatus
+        await dataLoadStatus
         // Promise.all([dataLoadStatus, predictionStatus]).then(async () => {
         //     console.log('start handling')
         //     return await this.handleResponseData(predictionAnswer)
@@ -198,26 +216,32 @@ export class PredictionService {
 
     public async getPrediction(id: number, monthNum: string)
     {
+        const cachedPred = await this.predCacheRepository.findOne({where: {prediction: {id: id}, month: monthNum}})
+        if(cachedPred)
+            {
+                console.log('cached')
+                return cachedPred.data
+            }
         const prediction = await this.predictionRepository.create({})
-        const objPredictions = await this.objPredictionRepository.find({where:{prediction: {id: id}}, relations: {object: true}, loadEagerRelations: false})
+        const objPredictions = await this.objPredictionRepository.find({where:{prediction: {id: id}}, relations: {object: {heatPoint: true}}, loadEagerRelations: false})
         let counter = 0
         let new_obj_predictions = []
         for (let objPrediction of objPredictions)
             {
-                console.log(objPrediction.object)
-                if(counter > 520)
-                    {
-                        break
-                    }
+                //console.log(objPrediction.object)
+                // if(counter > 520)
+                //     {
+                //         break
+                //     }
                 counter += 1
                 let cluster = await this.clusterRepository.findOne({where: {objPrediction: {id: objPrediction.id}}, loadEagerRelations: false})
-                let events = await this.eventRepository.find({where: {cluster: {id: cluster.id}, month: monthNum}})
+                let events = await this.eventRepository.find({where: {cluster: {id: cluster.id}, month: monthNum}, take: 1})
                 cluster.events = events
                 objPrediction.cluster = cluster
                 new_obj_predictions.push(objPrediction)
             }
         prediction.objPredictions = new_obj_predictions
-        return await this.handlePredictionOutput(prediction, monthNum)
+        return await this.handlePredictionOutput(prediction, monthNum, id)
     }
 
     public async handleResponseData(predictionAnswer: any, isDefault: boolean = false)
@@ -315,8 +339,9 @@ export class PredictionService {
         return prediction.id
 
     }
-    private async handlePredictionOutput(prediction: Prediction, monthNum: string)
+    private async handlePredictionOutput(prediction: Prediction, monthNum: string, originalid: number = null)
     {
+        
         let objPredictions: IPrediction = {
             id: prediction.id,
             buildings: []
@@ -348,6 +373,7 @@ export class PredictionService {
                 let networkType = null
                 let characteristics :{[key: string] : string | number} = {}
                 let socialType = ''
+                let connectionInfo : ICtp = null
                 if(objPrediction.object)
                     {
                         address = objPrediction.object.address
@@ -390,9 +416,36 @@ export class PredictionService {
                             {
                                 characteristics['УНОМ'] = objPrediction.object.unom
                             }
+
                         if(objPrediction.object.heatPoint)
                             {
                                 const heatPoint = await this.heatPointRepository.findOne({where: {id: objPrediction.object.heatPoint.id}})
+                                let hpGeodata = null
+                                if(heatPoint.geodata)
+                                    {
+                                        hpGeodata = await this.handleGeodataString(heatPoint.geodata)
+                                    }
+                                    else
+                                    {
+                                        let coordString = await this.getGeodataString(heatPoint.addressTP)
+                                        if(coordString != null)
+                                            {
+                                                coords = await this.handleGeodataString(coordString)
+                                                objPrediction.object.heatPoint.geodata = coords.toString()
+                                                await this.heatPointRepository.save(objPrediction.object.heatPoint)
+                                                hpGeodata = heatPoint.geodata
+                                            }
+                                    }
+                                
+                                connectionInfo = {
+                                    address: heatPoint.addressTP,
+                                    type: heatPoint.type,
+                                    coords: hpGeodata
+                                }
+                                if(!objPrediction.object.heatPoint.addressTP)
+                                    {
+                                        connectionInfo = null
+                                    }
                                 characteristics['Код ответствнного ЦТП/ИТП'] = heatPoint.code
                             }
                         if(objPrediction.object.geodata)
@@ -423,9 +476,35 @@ export class PredictionService {
                     else
                     {
                         socialType = 'tp'
+                        if(objPrediction.heatPoint)
+                            {
+                                const heatPoint = await this.heatPointRepository.findOne({where: {id: objPrediction.heatPoint.id}})
+                                let hpGeodata = null
+                                if(heatPoint.geodata)
+                                    {
+                                        hpGeodata = await this.handleGeodataString(heatPoint.geodata)
+                                    }
+                                    else
+                                    {
+                                        let coordString = await this.getGeodataString(heatPoint.addressTP)
+                                        if(coordString != null)
+                                            {
+                                                coords = await this.handleGeodataString(coordString)
+                                                objPrediction.object.heatPoint.geodata = coords.toString()
+                                                await this.heatPointRepository.save(objPrediction.heatPoint)
+                                                hpGeodata = heatPoint.geodata
+                                            }
+                                    }
+                                connectionInfo = {
+                                    address: heatPoint.addressTP,
+                                    type: heatPoint.type,
+                                    coords: hpGeodata
+                                }
+                            }
                     }
 
                     objPredictions.buildings.push({
+                        connectionInfo: connectionInfo,
                         address: address,
                         consumersCount: consumersCount,
                         coolingRate: coolingRate,
@@ -480,6 +559,7 @@ export class PredictionService {
 
                                             if(currentobj.floorsAmount != null)
                                                 {
+                                                    beta -= currentobj.flatsAmount * 0.1
                                                     obj.priority += wallDict[currentobj.wallMaterial] * currentobj.floorsAmount * 0.1
                                                 }
                                                 else
@@ -520,6 +600,15 @@ export class PredictionService {
                     obj.coolingRate =  (25 - outTemp) / zAbs
                     obj.priority -= (zNorm + zAbs) / 2
                 }
+
+                if(originalid)
+                    {
+                        const newCache = this.predCacheRepository.create({prediction: {id: originalid}, month: monthNum, data: objPredictions})
+
+                    await this.predCacheRepository.insert(newCache)
+                    }
+                
+
                 return objPredictions
     }
 
@@ -529,12 +618,13 @@ export class PredictionService {
         if(geodataString.includes(']'))
             {
                 coords = geodataString.split('[')[1].split(']')[0].replace(',', '').split(' ')
+                return [+coords[1], +coords[0]] as [number, number]
             }
             else
             {
-                coords = geodataString.replace(',', '').split(' ')
+                coords = geodataString.replace(',', ' ').split(' ')
+                return [+coords[0], +coords[1]] as [number, number]
             }
-        return [+coords[1], +coords[0]] as [number, number]
     }
 
     private handleBoundariesString(boundary: string)
@@ -563,7 +653,7 @@ export class PredictionService {
                             const pairs = subarray.split('],')
                             for(const pair of pairs)
                                 {
-                                    const coordPair = pair.replace(']', '').replace(']', '').replace('[', '').replace('[', '').split(', ')
+                                    const coordPair = pair.replace(']', '').replace(']', '').replace('[', '').replace(']', '').replace('[', '').replace('[', '').split(',')
                                     subres.push([+coordPair[0], +coordPair[1]])
                                 }
                             result.push(subres)
@@ -578,7 +668,8 @@ export class PredictionService {
     private async getGeodataString(address: string)
     {
 
-            return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=eaca56be-180c-4b19-a427-ffc3e8723cad&format=json&geocode=Москва, ${address}`).catch((e) => {
+            return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=6de4c4c6-bba5-4989-a16c-e7e1461905bb&format=json&geocode=Москва, ${address}`).catch((e) => {
+                    console.log(e)
                     return null
                 }).then((res) => {
                     if(res)
@@ -606,12 +697,12 @@ const eventEnum = {
 
 
 const dateTempsDict = {
-    '10': -5,
-    '11': -10,
-    '12': -20,
+    '10': -10,
+    '11': -15,
+    '12': -25,
     '01': -30,
-    '02': -20,
-    '03': -10,
+    '02': -25,
+    '03': -15,
     '04': 10,
     '05': 15
 }

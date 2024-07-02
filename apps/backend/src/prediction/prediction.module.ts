@@ -10,6 +10,7 @@ import { ObjPrediction } from './entities/objPrediction.entity';
 import { HeatPoint, Obj } from '../database/entities-index';
 import { CacheModule, CacheInterceptor } from '@nestjs/cache-manager';
 import { Cluster } from './entities/cluster.entity';
+import { PredCache } from './entities/predcache.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { Cluster } from './entities/cluster.entity';
     }),
     ConfigModule,
     StorageModule,
-    TypeOrmModule.forFeature([Prediction, ObjPrediction, Event, Obj, HeatPoint, Cluster])
+    TypeOrmModule.forFeature([Prediction, ObjPrediction, Event, Obj, HeatPoint, Cluster, PredCache])
   ],
   controllers: [PredictionController],
   providers: [PredictionService],

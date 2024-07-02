@@ -8,7 +8,52 @@ from dotenv import load_dotenv
 load_dotenv()
 import json
 import requests
+from pullenti_wrapper.langs import (
+    set_langs,
+    RU
+)
+set_langs([RU])
+from pullenti_wrapper.processor import (
+    Processor,
+    GEO,
+    ADDRESS
+)
+from pullenti_wrapper.referent import Referent
+processor = Processor([GEO, ADDRESS])
 
+addr = []
+
+def display_shortcuts(referent, level=0):
+    tmp = {}
+    a = ""
+    b = ""
+    for key in referent.__shortcuts__:
+        value = getattr(referent, key)
+        if value in (None, 0, -1):
+            continue
+        if isinstance(value, Referent):
+            display_shortcuts(value, level + 1)
+        else:
+            if key == 'type':
+                a = value 
+            if key == 'name':
+                b = value
+                # print('ok', value)
+            if key == 'house':
+                a = "дом"
+                b = value
+                tmp[a] = b
+            if key == 'flat':
+                a = "квартира"
+                b = value
+                # print('ok', value)
+                tmp[a] = b
+            if key == 'corpus':
+                a = "корпус"
+                b = value
+                tmp[a] = b
+    tmp[a] = b
+    addr.append(tmp)
 
 celery = Celery(__name__)
 celery.conf.broker_url = os.environ.get("BROKER_URL")
@@ -26,6 +71,7 @@ def pandas_handling(self, dict_df):
     names = df.columns.to_list()
     for _, row in df.iterrows():
         resultdict = dict()
+        addr = []
         for number, value in enumerate(row):
             if names[number] == 'unom' and not str(value).replace(',', '').replace('.', '').isdigit():
                 break    
@@ -37,33 +83,44 @@ def pandas_handling(self, dict_df):
                 value = str(value).replace(',', '.')
             if names[number] == 'unom' and '.' in str(value):
                 value = value.split('.')[0]
-            if names[number] == 'address':
-                value = value.replace('корпус', 'корп.')\
-                .replace('дом', 'д.')\
-                .replace('строение', 'стр.')\
-                .replace('улица', 'ул.')\
-                .replace('Улица', 'Ул.')\
-                .replace('проспект', 'просп.')\
-                .replace('Проспект', 'Просп.')\
-                .replace('площадь', 'пл.')\
-                .replace('Площадь', 'Пл.')\
-                .replace('проезд', 'пр.')\
-                .replace('Проезд', 'Пр.')
+            # if names[number] == 'address':
+                # pulresult = processor(value)
+                # if pulresult.matches:
+                #     referent = pulresult.matches[0].referent
+                #     display_shortcuts(referent)
+                #     if addr:
+                #         logging.warning('ADDR FOUND')
+                #         addressdict = addr[0]
+                #         value = ''
+                #         for key in addressdict:
+                #             value += key + addressdict[key]
+
+                # value = value.replace('корпус', 'корп.')\
+                # .replace('дом', 'д.')\
+                # .replace('строение', 'стр.')\
+                # .replace('улица', 'ул.')\
+                # .replace('Улица', 'Ул.')\
+                # .replace('проспект', 'просп.')\
+                # .replace('Проспект', 'Просп.')\
+                # .replace('площадь', 'пл.')\
+                # .replace('Площадь', 'Пл.')\
+                # .replace('проезд', 'пр.')\
+                # .replace('Проезд', 'Пр.')
             name = names[number]
             resultdict.update({name: value})
         result['data'].append(resultdict)
-    return result
-    # trycounter = 0
-    # try:
-    #     trycounter += 1
-    #     logging.warning(requests.post(backend_url, data=json.dumps(result, indent=2), headers={'Content-Type': 'application/json'}).text)
-    # except Exception as e:
-    #     if trycounter >= 10:
-    #         return True
-    #     logging.warning(e)
-    #     logging.warning(result)
-    #     self.retry()
-    # return True
+    #return result
+    trycounter = 0
+    try:
+        trycounter += 1
+        logging.warning(requests.post(backend_url, data=json.dumps(result, indent=2), headers={'Content-Type': 'application/json'}).text)
+    except Exception as e:
+        if trycounter >= 10:
+            return True
+        logging.warning(e)
+        logging.warning(result)
+        self.retry()
+    return True
 
 
 @celery.task(name="pandas_handling_old", bind=True)

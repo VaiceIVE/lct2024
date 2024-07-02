@@ -62,6 +62,8 @@ def save_only_usfull_events(source: pd.DataFrame) -> pd.DataFrame:
 
 def get_buildings_dataset(dfs: list[pd.DataFrame]) -> pd.DataFrame | None:
     list_of_cleaned_dataframe: list[pd.DataFrame] = []
+    vdfs: pd.DataFrame = list(filter(lambda a: 'ЦТП' in a.columns, dfs))[0]
+    unom_ids_with_data = pd.Index(vdfs['UNOM'].unique())
     for df_i in tqdm(dfs, desc='get_buildings_dataset'):
         cols_i = df_i.columns.intersection(ColumnsInfo.usfull_columns_in_buildings_data)
         list_of_cleaned_dataframe.append(df_i.loc[:, cols_i])
@@ -72,7 +74,8 @@ def get_buildings_dataset(dfs: list[pd.DataFrame]) -> pd.DataFrame | None:
             if 'UNOM' in i.columns:
                 i['UNOM'] = i['UNOM'].astype(int)
                 merged_dataframe = pd.merge(merged_dataframe, i, how='left', on='UNOM')
-        return merged_dataframe.drop_duplicates()
+        asd = merged_dataframe.drop_duplicates()
+        return asd.loc[asd['UNOM'].isin(unom_ids_with_data)]
 
 
 def scale_dataframe(df: pd.DataFrame) -> pd.DataFrame:
@@ -122,7 +125,6 @@ def prep_building_df_for_model(building_df: pd.DataFrame) -> torch.Tensor:
             df_i = df_i.reset_index()
             d.append(df_i)
     df_r = pd.concat(d, axis=1).drop('index', axis=1)
-    print(df_r.info())
     return torch.from_numpy(df_r.fillna(-1).values)
 
 
@@ -132,3 +134,6 @@ def get_dataframe_for_heat_station():
 
 def get_anomalies_on_heat_station():
     pass
+
+
+# def extract_deterioration(building_df: pd.DataFrame) -> :

@@ -12,6 +12,7 @@ from logic import dataframe_processors
 def load_table_from_s3_pipelines(table_name: str) -> pd.DataFrame:
     file_stream = get_file_from_s3(table_name)
     dataframe = dataframe_processors.process_xlsx_file_from_bytesio_to_dataframe(file_stream)
+    x = dataframe.columns
     dataframe_columns_preseted = dataframe_processors.presetup_columns_for_dataframe(dataframe)
     dataframe_normed_columns = dataframe_processors.columns_to_norm_form(dataframe_columns_preseted)
     return dataframe_normed_columns
@@ -19,7 +20,10 @@ def load_table_from_s3_pipelines(table_name: str) -> pd.DataFrame:
 
 def process_dataframe_to_buildings_tensor(list_of_dataframes: list[pd.DataFrame]) -> tuple[torch.Tensor, list[int]]:
     buildings_dataset = dataframe_processors.get_buildings_dataset(list_of_dataframes)
-    buildings_dataset.dropna(thresh=len(buildings_dataset.columns)/2, axis=0, inplace=True)
+    print(buildings_dataset.shape)
+    treshhold = len(buildings_dataset.columns)/2
+    # treshhold = 0
+    buildings_dataset.dropna(thresh=treshhold, axis=0, inplace=True)
     buildings_dataset = dataframe_processors.process_buildings_dataframe(buildings_dataset)
     print(buildings_dataset.shape)
     unom_ids, idxes = np.unique(buildings_dataset['UNOM'], return_index=True)

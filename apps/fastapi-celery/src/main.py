@@ -162,7 +162,8 @@ async def process_new(files: List[UploadFile] = File(...), background_tasks: Bac
     logging.warning('sending tasks')
     for task in tasks:
         tasks_ids.append(task.id)
-        requests.post(backend_url, data=json.dumps(task.get(), indent=2), headers={'Content-Type': 'application/json'})
+        task.get(timeout=30)
+        #requests.post(backend_url, data=json.dumps(task.get(timeout=30), indent=2), headers={'Content-Type': 'application/json'})
     buffers = []
     logging.warning('sending buffers')
     for file in files:
@@ -209,17 +210,17 @@ async def process(files: List[bytes]):
             features_dict.update({'dateStartUsage': find_column(header, ['Дата ввода в эксплуатацию'])})
         if find_column(header, ['Балансодержатель']):
             features_dict.update({'authority': find_column(header, ['Балансодержатель'])})
-        if find_column(header, ['Адрес строения', 'Упрощённое написание адреса или описание местоположения', 'Адрес']):
-            features_dict.update({'address': find_column(header, ['Адрес строения', 'Упрощённое написание адреса или описание местоположения', 'Адрес'])})
+        if find_column(header, ['Адрес строения', 'Упрощённое написание адреса или описание местоположения']):
+            features_dict.update({'address': find_column(header, ['Адрес строения', 'Упрощённое написание адреса или описание местоположения'])})
         if find_column(header, ['geodata_center']):
             features_dict.update({'geodata': find_column(header, ['geodata_center'])})
         if find_column(header, ['geoData']):
             features_dict.update({'geoBoundaries': find_column(header, ['geoData'])})
-        if find_column(header, ['Улица']):
-            num = find_column(header, ['Улица'])
-            df['address'] = df[num - 1].fillna('').astype(str) + df[num].fillna('').astype(str) + ' ' + df[num + 1].fillna('').astype(str) + ' ' + df[num + 2].fillna('').astype(str) + ' ' + df[num + 3].fillna('').astype(str) + ' ' + df[num + 4].fillna('').astype(str) + ' ' + df[num + 5].fillna('').astype(str) 
-            df = df.T.reset_index().T
-            features_dict.update({'address': find_column(df.head(5), ['address'])})
+        # if find_column(header, ['Улица']):
+        #     num = find_column(header, ['Улица'])
+        #     df['address'] = df[num - 1].fillna('').astype(str) + df[num].fillna('').astype(str) + ' ' + df[num + 1].fillna('').astype(str) + ' ' + df[num + 2].fillna('').astype(str) + ' ' + df[num + 3].fillna('').astype(str) + ' ' + df[num + 4].fillna('').astype(str) + ' ' + df[num + 5].fillna('').astype(str) 
+        #     df = df.T.reset_index().T
+        #     features_dict.update({'address': find_column(df.head(5), ['address'])})
 
         #features_dict.update({'addressTP': find_column(header, ['Адрес ТП'])})
         #features_dict.update({'addressTP': find_column(header, ['Адрес ТП'])})

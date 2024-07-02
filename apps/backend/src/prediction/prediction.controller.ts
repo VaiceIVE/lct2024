@@ -44,8 +44,13 @@ export class PredictionController {
     return this.predictionService.getSaved()
   }
 
+  @Get('/:id/:month/:unom/events')
+  public async getEvents(@Param('id') id: number, @Param('unom') unom: string, @Param('month') monthNum: string)
+  {
+    return await this.predictionService.getEvents(id, unom, monthNum)
+  }
+
   @Get('/:id/:month/export')
-  @Get('download')
   @Header('Content-Disposition', 'attachment; filename="Report.xlsx"')
   public async getExportedDoc(@Param('id') id: number, @Param('month') monthNum: string)
   {
